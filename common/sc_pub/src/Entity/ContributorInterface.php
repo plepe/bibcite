@@ -11,9 +11,7 @@ use Drupal\user\EntityOwnerInterface;
  *
  * @ingroup sc_pub
  */
-interface ContributorInterface extends ContentEntityInterface, EntityChangedInterface, EntityOwnerInterface {
-
-  // Add get/set methods for your configuration properties here.
+interface ContributorInterface extends ContentEntityInterface, EntityChangedInterface {
 
   /**
    * Gets the Contributor name.
@@ -52,26 +50,5 @@ interface ContributorInterface extends ContentEntityInterface, EntityChangedInte
    *   The called Contributor entity.
    */
   public function setCreatedTime($timestamp);
-
-  /**
-   * Returns the Contributor published status indicator.
-   *
-   * Unpublished Contributor are only visible to restricted users.
-   *
-   * @return bool
-   *   TRUE if the Contributor is published.
-   */
-  public function isPublished();
-
-  /**
-   * Sets the published status of a Contributor.
-   *
-   * @param bool $published
-   *   TRUE to set this Contributor to published, FALSE to set it to unpublished.
-   *
-   * @return \Drupal\sc_pub\Entity\ContributorInterface
-   *   The called Contributor entity.
-   */
-  public function setPublished($published);
 
 }

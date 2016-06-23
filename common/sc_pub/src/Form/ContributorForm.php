@@ -19,7 +19,7 @@ class ContributorForm extends ContentEntityForm {
     /* @var $entity \Drupal\sc_pub\Entity\Contributor */
     $form = parent::buildForm($form, $form_state);
     $entity = $this->entity;
-
+    
     return $form;
   }
 
