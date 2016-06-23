@@ -1,0 +1,22 @@
+{#
+/**
+ * @file bibliography.html.twig
+ * Default theme implementation to present Bibliography data.
+ *
+ * This template is used when viewing Bibliography pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_bibliography()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('bibliography') }}>
+  {% if content %}
+    {{- content -}}
+  {% endif %}
+</div>

@@ -1,0 +1,42 @@
+# Contributor routing definition
+sc_pub_contributor.settings_tab:
+  route_name: sc_pub_contributor.settings
+  title: 'Settings'
+  base_route: sc_pub_contributor.settings
+entity.sc_pub_contributor.canonical:
+  route_name: entity.sc_pub_contributor.canonical
+  base_route: entity.sc_pub_contributor.canonical
+  title: 'View'
+
+entity.sc_pub_contributor.edit_form:
+  route_name: entity.sc_pub_contributor.edit_form
+  base_route: entity.sc_pub_contributor.canonical
+  title: Edit
+
+entity.sc_pub_contributor.delete_form:
+  route_name:  entity.sc_pub_contributor.delete_form
+  base_route:  entity.sc_pub_contributor.canonical
+  title: Delete
+  weight: 10
+
+# Bibliography routing definition
+bibliography.settings_tab:
+  route_name: bibliography.settings
+  title: 'Settings'
+  base_route: bibliography.settings
+entity.bibliography.canonical:
+  route_name: entity.bibliography.canonical
+  base_route: entity.bibliography.canonical
+  title: 'View'
+
+entity.bibliography.edit_form:
+  route_name: entity.bibliography.edit_form
+  base_route: entity.bibliography.canonical
+  title: Edit
+
+entity.bibliography.delete_form:
+  route_name:  entity.bibliography.delete_form
+  base_route:  entity.bibliography.canonical
+  title: Delete
+  weight: 10
+

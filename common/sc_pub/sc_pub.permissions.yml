@@ -1,0 +1,38 @@
+add contributor entities:
+  title: 'Create new Contributor entities'
+
+administer contributor entities:
+  title: 'Administer Contributor entities'
+  description: 'Allow to access the administration form to configure Contributor entities.'
+  restrict access: true
+
+delete contributor entities:
+  title: 'Delete Contributor entities'
+
+edit contributor entities:
+  title: 'Edit Contributor entities'
+
+view published contributor entities:
+  title: 'View published Contributor entities'
+
+view unpublished contributor entities:
+  title: 'View unpublished Contributor entities'
+add bibliography entities:
+  title: 'Create new Bibliography entities'
+
+administer bibliography entities:
+  title: 'Administer Bibliography entities'
+  description: 'Allow to access the administration form to configure Bibliography entities.'
+  restrict access: true
+
+delete bibliography entities:
+  title: 'Delete Bibliography entities'
+
+edit bibliography entities:
+  title: 'Edit Bibliography entities'
+
+view published bibliography entities:
+  title: 'View published Bibliography entities'
+
+view unpublished bibliography entities:
+  title: 'View unpublished Bibliography entities'

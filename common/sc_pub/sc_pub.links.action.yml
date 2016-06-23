@@ -1,0 +1,10 @@
+entity.sc_pub_contributor.add_form:
+  route_name: entity.sc_pub_contributor.add_form
+  title: 'Add Contributor'
+  appears_on:
+    - entity.sc_pub_contributor.collection
+entity.bibliography.add_form:
+  route_name: entity.bibliography.add_form
+  title: 'Add Bibliography'
+  appears_on:
+    - entity.bibliography.collection

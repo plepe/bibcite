@@ -1,0 +1,26 @@
+# Contributor menu items definition
+entity.sc_pub_contributor.collection:
+  title: 'Contributor list'
+  route_name: entity.sc_pub_contributor.collection
+  description: 'List Contributor entities'
+  parent: system.admin_structure
+  weight: 100
+
+sc_pub_contributor.admin.structure.settings:
+  title: Contributor settings
+  description: 'Configure Contributor entities'
+  route_name: sc_pub_contributor.settings
+  parent: system.admin_structure
+# Bibliography menu items definition
+entity.bibliography.collection:
+  title: 'Bibliography list'
+  route_name: entity.bibliography.collection
+  description: 'List Bibliography entities'
+  parent: system.admin_structure
+  weight: 100
+
+bibliography.admin.structure.settings:
+  title: Bibliography settings
+  description: 'Configure Bibliography entities'
+  route_name: bibliography.settings
+  parent: system.admin_structure
