@@ -11,9 +11,7 @@ use Drupal\user\EntityOwnerInterface;
  *
  * @ingroup sc_pub
  */
-interface BibliographyInterface extends ContentEntityInterface, EntityChangedInterface, EntityOwnerInterface {
-
-  // Add get/set methods for your configuration properties here.
+interface BibliographyInterface extends ContentEntityInterface, EntityChangedInterface {
 
   /**
    * Gets the Bibliography name.
@@ -52,26 +50,5 @@ interface BibliographyInterface extends ContentEntityInterface, EntityChangedInt
    *   The called Bibliography entity.
    */
   public function setCreatedTime($timestamp);
-
-  /**
-   * Returns the Bibliography published status indicator.
-   *
-   * Unpublished Bibliography are only visible to restricted users.
-   *
-   * @return bool
-   *   TRUE if the Bibliography is published.
-   */
-  public function isPublished();
-
-  /**
-   * Sets the published status of a Bibliography.
-   *
-   * @param bool $published
-   *   TRUE to set this Bibliography to published, FALSE to set it to unpublished.
-   *
-   * @return \Drupal\sc_pub\Entity\BibliographyInterface
-   *   The called Bibliography entity.
-   */
-  public function setPublished($published);
 
 }

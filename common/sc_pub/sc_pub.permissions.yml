@@ -36,3 +36,22 @@ view published bibliography entities:
 
 view unpublished bibliography entities:
   title: 'View unpublished Bibliography entities'
+add keyword entities:
+  title: 'Create new Keyword entities'
+
+administer keyword entities:
+  title: 'Administer Keyword entities'
+  description: 'Allow to access the administration form to configure Keyword entities.'
+  restrict access: true
+
+delete keyword entities:
+  title: 'Delete Keyword entities'
+
+edit keyword entities:
+  title: 'Edit Keyword entities'
+
+view published keyword entities:
+  title: 'View published Keyword entities'
+
+view unpublished keyword entities:
+  title: 'View unpublished Keyword entities'

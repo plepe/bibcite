@@ -7,12 +7,12 @@ use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
 use Symfony\Component\Routing\Route;
 
 /**
- * Provides routes for Contributor entities.
+ * Provides routes for Keyword entities.
  *
  * @see Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
-class ContributorHtmlRouteProvider extends AdminHtmlRouteProvider {
+class KeywordHtmlRouteProvider extends AdminHtmlRouteProvider {
 
   /**
    * {@inheritdoc}
@@ -47,7 +47,7 @@ class ContributorHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_entity_list' => $entity_type_id,
           '_title' => "{$entity_type->getLabel()} list",
         ])
-        ->setRequirement('_permission', 'view contributor entities')
+        ->setRequirement('_permission', 'view keyword entities')
         ->setOption('_admin_route', TRUE);
 
       return $route;

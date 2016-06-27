@@ -22,6 +22,14 @@ class ContributorWidget extends EntityReferenceAutocompleteWidget {
   /**
    * {@inheritdoc}
    */
+  public function form(FieldItemListInterface $items, array &$form, FormStateInterface $form_state, $get_delta = NULL) {
+    // @todo Render form as draggable table.
+    return parent::form($items, $form, $form_state, $get_delta);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $element += parent::formElement($items, $delta, $element, $form, $form_state);
 
@@ -30,6 +38,7 @@ class ContributorWidget extends EntityReferenceAutocompleteWidget {
       '#title' => $this->t('Category'),
       '#default_value' => isset($items[$delta]->category) ? $items[$delta]->category : NULL,
       '#maxlength' => $this->getFieldSetting('max_length'),
+      '#weight' => $delta,
       '#options' => [
         'primary' => 'Primary',
         'secondary' => 'Secondary',
@@ -44,6 +53,7 @@ class ContributorWidget extends EntityReferenceAutocompleteWidget {
       '#title' => $this->t('Role'),
       '#default_value' => isset($items[$delta]->role) ? $items[$delta]->role : NULL,
       '#maxlength' => $this->getFieldSetting('max_length'),
+      '#weight' => $delta,
       '#options' => [
         '1' => 'Author',
         '2' => 'Secondary Author',
@@ -65,6 +75,9 @@ class ContributorWidget extends EntityReferenceAutocompleteWidget {
         '22' => 'Advisor',
       ],
     ];
+
+    $element['#type'] = 'container';
+    $element['#attributes']['class'][] = 'container-inline';
 
     return $element;
   }

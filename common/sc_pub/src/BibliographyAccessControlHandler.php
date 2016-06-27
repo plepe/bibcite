@@ -21,9 +21,6 @@ class BibliographyAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\sc_pub\Entity\BibliographyInterface $entity */
     switch ($operation) {
       case 'view':
-        if (!$entity->isPublished()) {
-          return AccessResult::allowedIfHasPermission($account, 'view unpublished bibliography entities');
-        }
         return AccessResult::allowedIfHasPermission($account, 'view published bibliography entities');
 
       case 'update':

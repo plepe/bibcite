@@ -8,3 +8,8 @@ entity.bibliography.add_form:
   title: 'Add Bibliography'
   appears_on:
     - entity.bibliography.collection
+entity.sc_pub_keyword.add_form:
+  route_name: entity.sc_pub_keyword.add_form
+  title: 'Add Keyword'
+  appears_on:
+    - entity.sc_pub_keyword.collection

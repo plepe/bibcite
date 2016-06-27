@@ -22,15 +22,80 @@ interface ContributorInterface extends ContentEntityInterface, EntityChangedInte
   public function getName();
 
   /**
-   * Sets the Contributor name.
+   * Get the Contributor first name.
    *
-   * @param string $name
-   *   The Contributor name.
+   * @return string
+   *   First name of Contributor.
+   */
+  public function getFirstName();
+
+  /**
+   * Get the Contributor last name.
+   *
+   * @return string
+   *   Last name of Contributor.
+   */
+  public function getLastName();
+
+  /**
+   * Get the Contributor suffix.
+   *
+   * @return string
+   *   Suffix of Contributor.
+   */
+  public function getSuffix();
+
+  /**
+   * Get the Contributor postfix.
+   *
+   * @return string
+   *   Postfix of Contributor.
+   */
+  public function getPostfix();
+
+  /**
+   * Sets the Contributor first name.
+   *
+   * @param string $first_name
+   *   The Contributor first name.
    *
    * @return \Drupal\sc_pub\Entity\ContributorInterface
    *   The called Contributor entity.
    */
-  public function setName($name);
+  public function setFirstName($first_name);
+
+  /**
+   * Sets the Contributor last name.
+   *
+   * @param string $last_name
+   *   The Contributor last name.
+   *
+   * @return \Drupal\sc_pub\Entity\ContributorInterface
+   *   The called Contributor entity.
+   */
+  public function setLastName($last_name);
+
+  /**
+   * Sets the Contributor suffix.
+   *
+   * @param string $suffix
+   *   The Contributor suffix.
+   *
+   * @return \Drupal\sc_pub\Entity\ContributorInterface
+   *   The called Contributor entity.
+   */
+  public function setSuffix($suffix);
+
+  /**
+   * Sets the Contributor postfix.
+   *
+   * @param string $postfix
+   *   The Contributor postfix.
+   *
+   * @return \Drupal\sc_pub\Entity\ContributorInterface
+   *   The called Contributor entity.
+   */
+  public function setPostfix($postfix);
 
   /**
    * Gets the Contributor creation timestamp.

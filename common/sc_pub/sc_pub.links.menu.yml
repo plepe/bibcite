@@ -6,11 +6,6 @@ entity.sc_pub_contributor.collection:
   parent: system.admin_structure
   weight: 100
 
-sc_pub_contributor.admin.structure.settings:
-  title: Contributor settings
-  description: 'Configure Contributor entities'
-  route_name: sc_pub_contributor.settings
-  parent: system.admin_structure
 # Bibliography menu items definition
 entity.bibliography.collection:
   title: 'Bibliography list'
@@ -18,9 +13,10 @@ entity.bibliography.collection:
   description: 'List Bibliography entities'
   parent: system.admin_structure
   weight: 100
-
-bibliography.admin.structure.settings:
-  title: Bibliography settings
-  description: 'Configure Bibliography entities'
-  route_name: bibliography.settings
+# Keyword menu items definition
+entity.sc_pub_keyword.collection:
+  title: 'Keyword list'
+  route_name: entity.sc_pub_keyword.collection
+  description: 'List Keyword entities'
   parent: system.admin_structure
+  weight: 100
