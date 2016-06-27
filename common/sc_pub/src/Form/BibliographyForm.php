@@ -20,6 +20,14 @@ class BibliographyForm extends ContentEntityForm {
     $form = parent::buildForm($form, $form_state);
     $entity = $this->entity;
 
+//    $form['issue'] = [
+//      '#type' => 'textfield',
+//      '#title' => $this->t('Issue'),
+//      '#default_value' => $entity->issue->value,
+//    ];
+//
+//    dsm($form);
+
     return $form;
   }
 
@@ -27,6 +35,7 @@ class BibliographyForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
+    dsm($form_state->getValues());
     $entity = $this->entity;
     $status = parent::save($form, $form_state);
 
