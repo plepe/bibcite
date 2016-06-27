@@ -2,13 +2,11 @@
 
 namespace Drupal\sc_pub\Entity;
 
-use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
-use Drupal\user\UserInterface;
 
 /**
  * Defines the Bibliography entity.
@@ -119,7 +117,6 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
         'settings' => array(
           'match_operator' => 'CONTAINS',
           'size' => '60',
-          //'autocomplete_type' => 'tags',
           'placeholder' => '',
         ),
       ));
