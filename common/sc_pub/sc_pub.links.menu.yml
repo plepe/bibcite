@@ -1,22 +1,11 @@
-# Contributor menu items definition
-entity.sc_pub_contributor.collection:
-  title: 'Contributor list'
-  route_name: entity.sc_pub_contributor.collection
-  description: 'List Contributor entities'
-  parent: system.admin_structure
+sc_pub.admin_config_sc_pub:
+  title: 'Scholar Publication'
+  parent: system.admin_config
+  route_name: sc_pub.admin_config_sc_pub
   weight: 100
 
-# Bibliography menu items definition
-entity.bibliography.collection:
-  title: 'Bibliography list'
-  route_name: entity.bibliography.collection
-  description: 'List Bibliography entities'
-  parent: system.admin_structure
-  weight: 100
-# Keyword menu items definition
-entity.sc_pub_keyword.collection:
-  title: 'Keyword list'
-  route_name: entity.sc_pub_keyword.collection
-  description: 'List Keyword entities'
-  parent: system.admin_structure
-  weight: 100
+sc_pub.settings:
+  title: 'Settings'
+  description: 'Common configuration'
+  parent: sc_pub.admin_config_sc_pub
+  route_name: sc_pub.settings

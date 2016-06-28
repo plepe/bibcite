@@ -1,5 +1,5 @@
 name: Scholar Publication
 type: module
-description: Storage for your bibliography data.
-package: Scholar Publication
+description: Basic API for working with bibliography data
 core: 8.x
+package: Scholar Publication

@@ -1,0 +1,16 @@
+{
+  "name": "drupal/sc_pub",
+  "type": "drupal-module",
+  "description": "Basic API for working with bibliography data",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/sc_pub",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/sc_pub",
+    "source": "http://cgit.drupalcode.org/sc_pub"
+  },
+  "require": {
+    "academicpuma/citeproc-php": "~1.0"
+  }
+}

@@ -1,0 +1,4 @@
+services:
+  plugin.manager.sc_pub_processor.processor:
+    class: Drupal\sc_pub\Plugin\ScPubProcessorManager
+    parent: default_plugin_manager
