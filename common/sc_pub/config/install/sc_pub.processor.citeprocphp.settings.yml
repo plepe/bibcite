@@ -1,0 +1,5 @@
+available_styles:
+  - apa
+  - american-medical-association
+
+default_style: apa

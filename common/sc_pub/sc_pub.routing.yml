@@ -15,3 +15,11 @@ sc_pub.settings:
     _title: 'Scholar Publication Settings'
   requirements:
     _permission: 'administer sc_pub'
+
+sc_pub.settings.citeproc_php:
+  path: '/admin/config/sc-pub/settings/citeproc-php'
+  defaults:
+    _form: '\Drupal\sc_pub\Form\CiteprocPhpSettings'
+    _title: 'Citeproc PHP'
+  requirements:
+      _permission: 'administer sc_pub'

@@ -2,9 +2,12 @@
 
 namespace Drupal\sc_pub\Plugin\ScPubProcessor;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\sc_pub\CiteprocPhpInterface;
 use Drupal\sc_pub\Plugin\ScPubProcessorBase;
 use Drupal\sc_pub\Plugin\ScPubProcessorInterface;
-use AcademicPuma\CiteProc\CiteProc;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines a style provider based on citeproc-php library.
@@ -14,7 +17,44 @@ use AcademicPuma\CiteProc\CiteProc;
  *   label = @Translation("Citeproc PHP"),
  * )
  */
-class CiteprocPhp extends ScPubProcessorBase implements ScPubProcessorInterface {
+class CiteprocPhp extends ScPubProcessorBase implements ScPubProcessorInterface, ContainerFactoryPluginInterface {
+
+  /**
+   * CiteprocPhp service.
+   *
+   * @var \Drupal\sc_pub\CiteprocPhpInterface
+   */
+  protected $citeproc;
+
+  /**
+   * Config factory service.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('sc_pub.citeproc_php'),
+      $container->get('config.factory')
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, CiteprocPhpInterface $citeproc, ConfigFactoryInterface $config_factory) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+
+    $this->citeproc = $citeproc;
+    $this->configFactory = $config_factory;
+  }
 
   /**
    * {@inheritdoc}
@@ -27,52 +67,28 @@ class CiteprocPhp extends ScPubProcessorBase implements ScPubProcessorInterface 
    * {@inheritdoc}
    */
   public function render(array $values, $style) {
-    $csl = CiteProc::loadStyleSheet($style);
-
     // @todo Use Drupal language.
-    $lang = 'en-US';
-
-    $cite_proc = new CiteProc($csl, $lang);
-
-    $data = json_decode(json_encode($values));
-
-    // @todo Make render configurable.
-    return $cite_proc->render($data);
+    return $this->citeproc->render($values, $style);
   }
 
   /**
    * {@inheritdoc}
    */
   public function getAvailableStyles() {
-    $cid = 'sc_pub_styles:' . $this->getPluginId();
+    $all_styles = $this->citeproc->getStyles();
 
-    $styles = [];
+    $available_styles = $this->configFactory->get('sc_pub.processor.citeprocphp.settings')->get('available_styles');
+    // Flip array to use in intersect function.
+    $available_styles = array_flip($available_styles);
 
-    if ($cache = \Drupal::cache()->get($cid)) {
-      $styles = $cache->data;
-    }
-    else {
-      $path = DRUPAL_ROOT . '/vendor/academicpuma/styles';
-      $files = scandir($path);
-
-      foreach ($files as $filename) {
-        if ($stylename = strstr($filename, '.csl', TRUE)) {
-          $xml = simplexml_load_file($path . '/' . $filename);
-          $styles[$stylename] = (string) $xml->info->title;
-        }
-      }
-
-      \Drupal::cache()->set($cid, $styles);
-    }
-
-    return $styles;
+    return array_intersect_key($all_styles, $available_styles);
   }
 
   /**
    * {@inheritdoc}
    */
   public function getDefaultStyleId() {
-    return 'apa';
+    return $this->configFactory->get('sc_pub.processor.citeprocphp.settings')->get('default_style');
   }
 
 }
