@@ -73,10 +73,20 @@ class SettingsForm extends ConfigFormBase {
 
     /** @var \Drupal\sc_pub\Plugin\ScPubProcessorInterface $processor */
     $processor = $this->processorManager->createInstance($config->get('processor'));
-    $form['description'] = [
-      '#type' => 'item',
-      '#markup' => $processor->getDescription(),
-    ];
+    $description = $processor->getDescription();
+
+    if (is_array($description)) {
+      $form['description'] = [
+        '#type' => 'container',
+        'content' => $description,
+      ];
+    }
+    else {
+      $form['description'] = [
+        '#type' => 'item',
+        '#markup' => $description,
+      ];
+    }
 
     return parent::buildForm($form, $form_state);
   }
