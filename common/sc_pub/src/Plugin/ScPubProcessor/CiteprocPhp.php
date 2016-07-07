@@ -77,7 +77,7 @@ class CiteprocPhp extends ScPubProcessorBase implements ScPubProcessorInterface,
   public function getAvailableStyles() {
     $all_styles = $this->citeproc->getStyles();
 
-    $available_styles = $this->configFactory->get('sc_pub.processor.citeprocphp.settings')->get('available_styles');
+    $available_styles = $this->configFactory->get('sc_pub.processor.citeprocphp.settings')->get('enabled_styles');
     // Flip array to use in intersect function.
     $available_styles = array_flip($available_styles);
 
