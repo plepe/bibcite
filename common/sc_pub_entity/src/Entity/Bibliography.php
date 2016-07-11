@@ -8,6 +8,7 @@ use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItem;
+use Drupal\sc_pub\CslKeyConverter;
 
 /**
  * Defines the Bibliography entity.
@@ -55,21 +56,6 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
   /**
    * {@inheritdoc}
    */
-  public function getName() {
-    return $this->get('name')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setName($name) {
-    $this->set('name', $name);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getCreatedTime() {
     return $this->get('created')->value;
   }
@@ -104,7 +90,7 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
         'weight' => 1,
       ));
 
-    $fields['author'] = BaseFieldDefinition::create('sc_pub_contributor')
+    $fields[CslKeyConverter::normalizeKey('author')] = BaseFieldDefinition::create('sc_pub_contributor')
       ->setLabel(t('Author'))
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
       ->setDisplayOptions('form', [
@@ -112,7 +98,7 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
         'weight' => 2,
       ]);
 
-    $fields['keywords'] = BaseFieldDefinition::create('entity_reference')
+    $fields[CslKeyConverter::normalizeKey('keywords')] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Keywords'))
       ->setSetting('target_type', 'sc_pub_keyword')
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
@@ -142,7 +128,7 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
     ];
 
     foreach ($date_fields as $key => $label) {
-      $fields['sc_pub_' . strtolower(str_replace('-', '_', $key))] = BaseFieldDefinition::create('datetime')
+      $fields[CslKeyConverter::normalizeKey($key)] = BaseFieldDefinition::create('datetime')
         ->setLabel($label)
         ->setDefaultValue(NULL)
         ->setSetting('datetime_type', DateTimeItem::DATETIME_TYPE_DATE)
@@ -166,7 +152,7 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
     ];
 
     foreach ($number_fields as $key => $label) {
-      $fields['sc_pub_' . strtolower(str_replace('-', '_', $key))] = BaseFieldDefinition::create('integer')
+      $fields[CslKeyConverter::normalizeKey($key)] = BaseFieldDefinition::create('integer')
         ->setName($key)
         ->setLabel($label)
         ->setDefaultValue(NULL)
@@ -236,7 +222,7 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
     ];
 
     foreach ($string_fields as $key => $label) {
-      $fields['sc_pub_' . strtolower(str_replace('-', '_', $key))] = BaseFieldDefinition::create('string')
+      $fields[CslKeyConverter::normalizeKey($key)] = BaseFieldDefinition::create('string')
         ->setLabel($label)
         ->setSettings(array(
           'text_processing' => 0,

@@ -14,25 +14,6 @@ use Drupal\user\EntityOwnerInterface;
 interface BibliographyInterface extends ContentEntityInterface, EntityChangedInterface {
 
   /**
-   * Gets the Bibliography name.
-   *
-   * @return string
-   *   Name of the Bibliography.
-   */
-  public function getName();
-
-  /**
-   * Sets the Bibliography name.
-   *
-   * @param string $name
-   *   The Bibliography name.
-   *
-   * @return \Drupal\sc_pub_entity\Entity\BibliographyInterface
-   *   The called Bibliography entity.
-   */
-  public function setName($name);
-
-  /**
    * Gets the Bibliography creation timestamp.
    *
    * @return int

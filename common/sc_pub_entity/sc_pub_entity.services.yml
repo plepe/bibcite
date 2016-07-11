@@ -1,0 +1,26 @@
+services:
+  serializer.normalizer.bibliography:
+    class: Drupal\sc_pub_entity\Normalizer\BibliographyNormalizer
+    tags:
+      - { name: normalizer, priority: 30 }
+    arguments: ['@entity.manager']
+  serializer.normalizer.contributor_field:
+    class: Drupal\sc_pub_entity\Normalizer\ContributorFieldNormalizer
+    tags:
+      - { name: normalizer, priority: 30 }
+    arguments: ['@entity.manager']
+  serializer.normalizer.contributor_entity:
+    class: Drupal\sc_pub_entity\Normalizer\ContributorEntityNormalizer
+    tags:
+      - { name: normalizer, priority: 30 }
+    arguments: ['@entity.manager']
+  serializer.normalizer.csl_entity_reference_item:
+    class: Drupal\sc_pub_entity\Normalizer\CslEntityReferenceItemNormalizer
+    tags:
+      - { name: normalizer, priority: 30 }
+    arguments: ['@entity.manager']
+  serializer.normalizer.csl_list:
+    class: Drupal\sc_pub_entity\Normalizer\CslListNormalizer
+    tags:
+      - { name: normalizer, priority: 30 }
+    arguments: ['@entity.manager']

@@ -19,7 +19,7 @@ use Drupal\Core\TypedData\DataDefinition;
  *   list_class = "\Drupal\Core\Field\EntityReferenceFieldItemList",
  * )
  */
-class Contributor extends EntityReferenceItem {
+class Contributor extends EntityReferenceItem implements ContributorFieldInterface{
 
   /**
    * {@inheritdoc}
