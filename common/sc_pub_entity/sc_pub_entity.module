@@ -30,9 +30,22 @@ function sc_pub_entity_preprocess_bibliography(array &$variables) {
   // Fetch Bibliography Entity Object.
   $bibliography = $variables['elements']['#bibliography'];
 
+  $variables['table'] = [
+    '#type' => 'table',
+  ];
+
   // Helpful $content variable for templates.
   foreach (Element::children($variables['elements']) as $key) {
-    $variables['content'][$key] = $variables['elements'][$key];
+    if (count(Element::children($variables['elements'][$key])) > 0) {
+      $title = $variables['elements'][$key]['#title'];
+      unset($variables['elements'][$key]['#title']);
+      $variables['table'][] = [
+        'title' => [
+          '#markup' => $title,
+        ],
+        'element' => $variables['elements'][$key],
+      ];
+    }
   }
 }
 

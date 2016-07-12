@@ -97,6 +97,10 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
       ->setDisplayOptions('form', [
         'type' => 'sc_pub_contributor_widget',
         'weight' => 2,
+      ])
+      ->setDisplayOptions('view', [
+        'type' => 'sc_pub_contributor_label',
+        'weight' => 2,
       ]);
 
     $fields[CslKeyConverter::normalizeKey('keywords')] = BaseFieldDefinition::create('entity_reference')
@@ -111,7 +115,11 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
           'size' => '60',
           'placeholder' => '',
         ),
-      ));
+      ))
+      ->setDisplayOptions('view', [
+        'type' => 'entity_reference_label',
+        'weight' => 3,
+      ]);
 
     /*
      * CSL fields.
@@ -137,6 +145,10 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
           'type' => 'date',
           'datetime_type' => DateTimeItem::DATETIME_TYPE_DATE,
           'weight' => $weight,
+        ])
+        ->setDisplayOptions('view', [
+          'type' => 'datetime_default',
+          'weight' => $weight,
         ]);
       $weight++;
     }
@@ -159,6 +171,10 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
         ->setDefaultValue(NULL)
         ->setDisplayOptions('form', [
           'type' => 'number',
+          'weight' => $weight,
+        ])
+        ->setDisplayOptions('view', [
+          'type' => 'number_integer',
           'weight' => $weight,
         ]);
       $weight++;
