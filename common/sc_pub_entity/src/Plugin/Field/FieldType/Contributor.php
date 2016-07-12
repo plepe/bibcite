@@ -16,10 +16,11 @@ use Drupal\Core\TypedData\DataDefinition;
  *   label = @Translation("Contributor"),
  *   description = @Translation("Entity reference with label"),
  *   default_widget = "sc_pub_contributor_widget",
+ *   default_formatter = "sc_pub_contributor_label",
  *   list_class = "\Drupal\Core\Field\EntityReferenceFieldItemList",
  * )
  */
-class Contributor extends EntityReferenceItem implements ContributorFieldInterface{
+class Contributor extends EntityReferenceItem implements ContributorFieldInterface {
 
   /**
    * {@inheritdoc}
