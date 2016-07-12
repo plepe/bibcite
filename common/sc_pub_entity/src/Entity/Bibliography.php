@@ -21,6 +21,7 @@ use Drupal\sc_pub\CslKeyConverter;
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\sc_pub_entity\BibliographyListBuilder",
+ *     "views_data" = "Drupal\views\EntityViewsData",
  *
  *     "form" = {
  *       "default" = "Drupal\sc_pub_entity\Form\BibliographyForm",
@@ -228,6 +229,11 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
           'text_processing' => 0,
         ))
         ->setDefaultValue('')
+        ->setDisplayOptions('view', [
+          'label' => 'above',
+          'type' => 'string',
+          'weight' => $weight,
+        ])
         ->setDisplayOptions('form', [
           'type' => 'string_textfield',
           'weight' => $weight,

@@ -18,6 +18,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\sc_pub_entity\KeywordListBuilder",
+ *     "views_data" = "Drupal\views\EntityViewsData",
  *
  *     "form" = {
  *       "default" = "Drupal\sc_pub_entity\Form\KeywordForm",
@@ -106,7 +107,12 @@ class Keyword extends ContentEntityBase implements KeywordInterface {
       ->setDisplayOptions('form', array(
         'type' => 'string_textfield',
         'weight' => -4,
-      ));
+      ))
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -4,
+      ]);
 
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created'))

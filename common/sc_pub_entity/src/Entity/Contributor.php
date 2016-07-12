@@ -19,6 +19,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\sc_pub_entity\ContributorListBuilder",
+ *     "views_data" = "Drupal\views\EntityViewsData",
  *
  *     "form" = {
  *       "default" = "Drupal\sc_pub_entity\Form\ContributorForm",
@@ -153,7 +154,12 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
       ->setDescription(t('Can be automatically created from another fields.'))
-      ->setDefaultValue('');
+      ->setDefaultValue('')
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => 1,
+      ]);
 
     $fields['suffix'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Suffix'))
@@ -161,7 +167,12 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
       ->setDisplayOptions('form', array(
         'type' => 'string_textfield',
         'weight' => 1,
-      ));
+      ))
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'string',
+        'weight' => 2,
+      ]);
 
     $fields['first_name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('First name'))
@@ -169,7 +180,12 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
       ->setDisplayOptions('form', array(
         'type' => 'string_textfield',
         'weight' => 2,
-      ));
+      ))
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'string',
+        'weight' => 3,
+      ]);
 
     $fields['last_name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Last name'))
@@ -178,7 +194,12 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
       ->setDisplayOptions('form', array(
         'type' => 'string_textfield',
         'weight' => 3,
-      ));
+      ))
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'string',
+        'weight' => 4,
+      ]);
 
     $fields['postfix'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Postfix'))
@@ -186,7 +207,12 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
       ->setDisplayOptions('form', array(
         'type' => 'string_textfield',
         'weight' => 4,
-      ));
+      ))
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'string',
+        'weight' => 5,
+      ]);
 
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created'))
