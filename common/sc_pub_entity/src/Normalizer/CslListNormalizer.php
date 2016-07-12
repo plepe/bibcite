@@ -2,15 +2,7 @@
 
 namespace Drupal\sc_pub_entity\Normalizer;
 
-/**
- * Converts list objects to arrays.
- *
- * Ordinarily, this would be handled automatically by Serializer, but since
- * there is a TypedDataNormalizer and the Field class extends TypedData, any
- * Field will be handled by that Normalizer instead of being traversed. This
- * class ensures that TypedData classes that also implement ListInterface are
- * traversed instead of simply returning getValue().
- */
+
 class CslListNormalizer extends CslNormalizerBase {
 
   /**
@@ -24,8 +16,16 @@ class CslListNormalizer extends CslNormalizerBase {
    * {@inheritdoc}
    */
   public function normalize($object, $format = NULL, array $context = array()) {
-    if (count($object) === 1) {
-      $attributes = $this->serializer->normalize($object[0], $format);
+    // @todo Move multiple items description to top level module and class
+    $multiple_items = [
+      'author' => TRUE,
+      'keywords' => TRUE,
+    ];
+
+    $name = $object->getDataDefinition()->getName();
+
+    if (count($object) === 1 && empty($multiple_items[$name])) {
+      $attributes = $this->serializer->normalize($object->first(), $format);
     }
     else {
       $attributes = array();

@@ -23,6 +23,7 @@ class ContributorEntityNormalizer extends CslNormalizerBase {
       'given' => $object->getFirstName(),
       'suffix' => $object->getSuffix(),
       'literal' => $object->getName(),
+      // @todo Implement another fields.
     ];
 
     return $attributes;
