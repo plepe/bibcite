@@ -1,4 +1,6 @@
 services:
+  bibcite.csl_data_provider:
+    class: Drupal\bibcite\CslDataProvider
   bibcite.citeproc_php:
     class: Drupal\bibcite\CiteprocPhp
   plugin.manager.bibcite_processor.processor:

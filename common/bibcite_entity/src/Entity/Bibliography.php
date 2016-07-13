@@ -75,9 +75,36 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
 
+    /** @var \Drupal\bibcite\CslDataProviderInterface $csl_data_provider */
+    // Get info about CSL fields from CSL data provider service.
+    $csl_data_provider = \Drupal::service('bibcite.csl_data_provider');
+    $csl_fields = $csl_data_provider->getFields();
+
+    // Except this three.
+    unset($csl_fields['author']);
+    unset($csl_fields['title']);
+    unset($csl_fields['keywords']);
+
     /*
      * Main attributes.
      */
+
+    $fields['type'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Type'))
+      ->setDescription(t('The type of publication for the Bibliography'))
+      ->setSettings(array(
+        'text_processing' => 0,
+      ))
+      ->setDefaultValue('')
+      ->setDisplayOptions('form', array(
+        'type' => 'string_textfield',
+        'weight' => 1,
+      ))
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => 1,
+      ]);
 
     $fields['title'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Title'))
@@ -88,7 +115,7 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
       ->setDefaultValue('')
       ->setDisplayOptions('form', array(
         'type' => 'string_textfield',
-        'weight' => 1,
+        'weight' => 2,
       ));
 
     $fields[CslKeyConverter::normalizeKey('author')] = BaseFieldDefinition::create('bibcite_contributor')
@@ -96,11 +123,11 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
       ->setDisplayOptions('form', [
         'type' => 'bibcite_contributor_widget',
-        'weight' => 2,
+        'weight' => 3,
       ])
       ->setDisplayOptions('view', [
         'type' => 'bibcite_contributor_label',
-        'weight' => 2,
+        'weight' => 3,
       ]);
 
     $fields[CslKeyConverter::normalizeKey('keywords')] = BaseFieldDefinition::create('entity_reference')
@@ -109,7 +136,7 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
       ->setDisplayOptions('form', array(
         'type' => 'entity_reference_autocomplete_tags',
-        'weight' => 3,
+        'weight' => 4,
         'settings' => array(
           'match_operator' => 'CONTAINS',
           'size' => '60',
@@ -118,7 +145,7 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
       ))
       ->setDisplayOptions('view', [
         'type' => 'entity_reference_label',
-        'weight' => 3,
+        'weight' => 4,
       ]);
 
     /*
@@ -127,133 +154,55 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
 
     $weight = 5;
 
-    $date_fields = [
-      'accessed' => 'Accessed',
-      'container' => 'Container',
-      'event-date' => 'Event Date',
-      'issued' => 'Issued',
-      'original-date' => 'Original Date',
-      'submitted' => 'Submitted',
-    ];
+    foreach ($csl_fields as $csl_key => $csl_field_info) {
+      $schema_field = $csl_field_info['schema_field'];
+      $schema_type = $csl_field_info['type'];
+      $label = t($csl_field_info['label']);
 
-    foreach ($date_fields as $key => $label) {
-      $fields[CslKeyConverter::normalizeKey($key)] = BaseFieldDefinition::create('datetime')
-        ->setLabel($label)
-        ->setDefaultValue(NULL)
-        ->setSetting('datetime_type', DateTimeItem::DATETIME_TYPE_DATE)
-        ->setDisplayOptions('form', [
-          'type' => 'date',
-          'datetime_type' => DateTimeItem::DATETIME_TYPE_DATE,
-          'weight' => $weight,
-        ])
-        ->setDisplayOptions('view', [
-          'type' => 'datetime_default',
-          'weight' => $weight,
-        ]);
-      $weight++;
-    }
+      $definition = BaseFieldDefinition::create($schema_type)
+        ->setLabel($label);
 
-    $number_fields = [
-      'chapter-number' => 'Chapter Number',
-      'collection-number' => 'Collection Number',
-      'edition' => 'Edition',
-      'issue' => 'Issue',
-      'number' => 'Number',
-      'number-of-pages' => 'Number of Pages',
-      'number-of-volumes' => 'Number of Volumes',
-      'volume' => 'Volume',
-    ];
+      switch ($schema_type) {
+        case 'datetime':
+          $definition->setDefaultValue(NULL)
+            ->setDisplayOptions('form', [
+              'type' => 'date',
+              'datetime_type' => DateTimeItem::DATETIME_TYPE_DATE,
+              'weight' => $weight,
+            ])
+            ->setDisplayOptions('view', [
+              'type' => 'datetime_default',
+              'weight' => $weight,
+            ]);
+          break;
 
-    foreach ($number_fields as $key => $label) {
-      $fields[CslKeyConverter::normalizeKey($key)] = BaseFieldDefinition::create('integer')
-        ->setName($key)
-        ->setLabel($label)
-        ->setDefaultValue(NULL)
-        ->setDisplayOptions('form', [
-          'type' => 'number',
-          'weight' => $weight,
-        ])
-        ->setDisplayOptions('view', [
-          'type' => 'number_integer',
-          'weight' => $weight,
-        ]);
-      $weight++;
-    }
+        case 'string':
+          $definition->setDefaultValue('')
+            ->setDisplayOptions('view', [
+              'label' => 'above',
+              'type' => 'string',
+              'weight' => $weight,
+            ])
+            ->setDisplayOptions('form', [
+              'type' => 'string_textfield',
+              'weight' => $weight,
+            ]);
+          break;
 
-    $string_fields = [
-      'collection-editor' => 'Collection Editor',
-      'composer' => 'Composer',
-      'container-author' => 'Container Author',
-      'director' => 'Director',
-      'editor' => 'Editor',
-      'editorial-director' => 'Editorial Director',
-      'illustrator' => 'Illustrator',
-      'interviewer' => 'Interviewer',
-      'original-author' => 'Original Author',
-      'recipient' => 'Recipient',
-      'reviewed-author' => 'Reviewed Author',
-      'translator' => 'Translator',
-      'abstract' => 'Abstract',
-      'annote' => 'Annote',
-      'archive' => 'Archive',
-      'archive_location' => 'Archive Location',
-      'archive-place' => 'Archive Place',
-      'authority' => 'Authority',
-      'call-number' => 'Call Number',
-      'citation-label' => 'Citation Label',
-      'citation-number' => 'Citation Number',
-      'collection-title' => 'Collection Title',
-      'container-title' => 'Container Title',
-      'container-title-short' => 'Container Title Short',
-      'dimensions' => 'Dimensions',
-      'DOI' => 'DOI',
-      'event' => 'Event',
-      'event-place' => 'Event Place',
-      'first-reference-note-number' => 'First Reference Note Number',
-      'genre' => 'Genre',
-      'ISBN' => 'ISBN',
-      'ISSN' => 'ISSN',
-      'jurisdiction' => 'Jurisdiction',
-      'locator' => 'Locator',
-      'medium' => 'Medium',
-      'note' => 'Note',
-      'original-publisher' => 'Original Publisher',
-      'original-publisher-place' => 'Original Publisher Place',
-      'original-title' => 'Original Title',
-      'page' => 'Page',
-      'page-first' => 'Page First',
-      'PMID' => 'PMID',
-      'PMCID' => 'PMCID',
-      'publisher' => 'Publisher',
-      'publisher-place' => 'Publisher Place',
-      'references' => 'References',
-      'reviewed-title' => 'Reviewed Title',
-      'scale' => 'Scale',
-      'section' => 'Section',
-      'source' => 'Source',
-      'status' => 'Status',
-      'title-short' => 'Title Short',
-      'URL' => 'URL',
-      'version' => 'Version',
-      'year-suffix' => 'Year Suffix',
-    ];
+        case 'integer':
+          $definition->setDefaultValue(NULL)
+            ->setDisplayOptions('form', [
+              'type' => 'number',
+              'weight' => $weight,
+            ])
+            ->setDisplayOptions('view', [
+              'type' => 'number_integer',
+              'weight' => $weight,
+            ]);
+          break;
+      }
 
-    foreach ($string_fields as $key => $label) {
-      $fields[CslKeyConverter::normalizeKey($key)] = BaseFieldDefinition::create('string')
-        ->setLabel($label)
-        ->setSettings(array(
-          'text_processing' => 0,
-        ))
-        ->setDefaultValue('')
-        ->setDisplayOptions('view', [
-          'label' => 'above',
-          'type' => 'string',
-          'weight' => $weight,
-        ])
-        ->setDisplayOptions('form', [
-          'type' => 'string_textfield',
-          'weight' => $weight,
-        ]);
+      $fields[$schema_field] = $definition;
       $weight++;
     }
 

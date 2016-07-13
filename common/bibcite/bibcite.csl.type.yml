@@ -1,0 +1,517 @@
+# Fields mappings based on Zotero project.
+
+book:
+  label: Book
+  fields:
+    title: Title
+    abstract: Abstract
+    collection-title: Series
+    collection-number: 'Series Number'
+    volume: Volume
+    number-of-volumes: '# of Volumes'
+    edition: Edition
+    event-place: Place
+    publisher: Publisher
+    issued: Date
+    number-of-pages: '# of Pages'
+    language: Language
+    ISBN: ISBN
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    archive: Archive
+    archive_location: 'Loc. in Archive'
+    source: 'Library Catalog'
+    call-number: 'Call Number'
+    note: Extra
+    author: Author
+    editor: Editor
+    collection-editor: 'Series Editor'
+    translator: Translator
+chapter:
+  label: Chapter
+  fields:
+    title: Title
+    abstract: Abstract
+    collection-title: Series
+    collection-number: 'Series Number'
+    volume: Volume
+    number-of-volumes: '# of Volumes'
+    edition: Edition
+    event-place: Place
+    publisher: Publisher
+    issued: Date
+    page: Pages
+    language: Language
+    ISBN: ISBN
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    archive: Archive
+    archive_location: 'Loc. in Archive'
+    source: 'Library Catalog'
+    call-number: 'Call Number'
+    note: Extra
+    author: Author
+    container-author: 'Book Author'
+    editor: Editor
+    collection-editor: 'Series Editor'
+    translator: Translator
+article-journal:
+  label: 'Article Journal'
+  fields:
+    title: Title
+    abstract: Abstract
+    container-title: Publication
+    volume: Volume
+    issue: Issue
+    page: Pages
+    issued: Date
+    collection-title: 'Series Title'
+    journalAbbreviation: 'Journal Abbr'
+    language: Language
+    DOI: DOI
+    ISSN: ISSN
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    archive: Archive
+    archive_location: 'Loc. in Archive'
+    source: 'Library Catalog'
+    call-number: 'Call Number'
+    note: Extra
+    author: Author
+    editor: Editor
+    reviewed-author: 'Reviewed Author'
+    translator: Translator
+article-magazine:
+  label: 'Article Magazine'
+  fields:
+    title: Title
+    abstract: Abstract
+    container-title: Publication
+    volume: Volume
+    issue: Issue
+    issued: Date
+    page: Pages
+    language: Language
+    ISSN: ISSN
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    archive: Archive
+    archive_location: 'Loc. in Archive'
+    source: 'Library Catalog'
+    call-number: 'Call Number'
+    note: Extra
+    author: Author
+    reviewed-author: 'Reviewed Author'
+    translator: Translator
+article-newspaper:
+  label: 'Article Newspaper'
+  fields:
+    title: Title
+    abstract: Abstract
+    container-title: Publication
+    event-place: Place
+    edition: Edition
+    issued: Date
+    section: Section
+    page: Pages
+    language: Language
+    shortTitle: 'Short Title'
+    ISSN: ISSN
+    URL: URL
+    accessed: Accessed
+    archive: Archive
+    archive_location: 'Loc. in Archive'
+    source: 'Library Catalog'
+    call-number: 'Call Number'
+    note: Extra
+    author: Author
+    reviewed-author: 'Reviewed Author'
+    translator: Translator
+thesis:
+  label: Thesis
+  fields:
+    title: Title
+    abstract: Abstract
+    event-place: Place
+    issued: Date
+    number-of-pages: '# of Pages'
+    language: Language
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    archive: Archive
+    archive_location: 'Loc. in Archive'
+    source: 'Library Catalog'
+    call-number: 'Call Number'
+    note: Extra
+    author: Author
+personal_communication:
+  label: 'Personal Communication'
+  fields:
+    title: Title
+    abstract: Abstract
+    issued: Date
+    language: Language
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    archive: Archive
+    archive_location: 'Loc. in Archive'
+    source: 'Library Catalog'
+    call-number: 'Call Number'
+    note: Extra
+    author: Author
+    recipient: Recipient
+manuscript:
+  label: Manuscript
+  fields:
+    title: Title
+    abstract: Abstract
+    event-place: Place
+    issued: Date
+    number-of-pages: '# of Pages'
+    language: Language
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    archive: Archive
+    archive_location: 'Loc. in Archive'
+    source: 'Library Catalog'
+    call-number: 'Call Number'
+    note: Extra
+    author: Author
+    translator: Translator
+interview:
+  label: Interview
+  fields:
+    title: Title
+    abstract: Abstract
+    issued: Date
+    language: Language
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    archive: Archive
+    archive_location: 'Loc. in Archive'
+    source: 'Library Catalog'
+    call-number: 'Call Number'
+    note: Extra
+    interviewer: Interviewer
+    translator: Translator
+motion_picture:
+  label: 'Motion Picture'
+  fields:
+    title: Title
+    abstract: Abstract
+    publisher: Distributor
+    issued: Date
+    dimensions: 'Running Time'
+    language: Language
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    archive: Archive
+    archive_location: 'Loc. in Archive'
+    source: 'Library Catalog'
+    call-number: 'Call Number'
+    note: Extra
+    director: Director
+graphic:
+  label: Graphic
+  fields:
+    title: Title
+    abstract: Abstract
+    dimensions: 'Artwork Size'
+    issued: Date
+    language: Language
+    shortTitle: 'Short Title'
+    archive: Archive
+    archive_location: 'Loc. in Archive'
+    source: 'Library Catalog'
+    call-number: 'Call Number'
+    URL: URL
+    accessed: Accessed
+    note: Extra
+webpage:
+  label: Webpage
+  fields:
+    title: Title
+    abstract: Abstract
+    issued: Date
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    language: Language
+    note: Extra
+    author: Author
+    translator: Translator
+report:
+  label: Report
+  fields:
+    title: Title
+    abstract: Abstract
+    collection-title: 'Series Title'
+    event-place: Place
+    issued: Date
+    page: Pages
+    language: Language
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    archive: Archive
+    archive_location: 'Loc. in Archive'
+    source: 'Library Catalog'
+    call-number: 'Call Number'
+    note: Extra
+    author: Author
+    collection-editor: 'Series Editor'
+    translator: Translator
+bill:
+  label: Bill
+  fields:
+    title: Title
+    abstract: Abstract
+    container-title: Code
+    section: Section
+    authority: 'Legislative Body'
+    chapter-number: Session
+    references: History
+    issued: Date
+    language: Language
+    URL: URL
+    accessed: Accessed
+    shortTitle: 'Short Title'
+    note: Extra
+legal_case:
+  label: 'Legal Case'
+  fields:
+    abstract: Abstract
+    container-title: Reporter
+    authority: Court
+    references: History
+    language: Language
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    note: Extra
+    author: Author
+patent:
+  label: Patent
+  fields:
+    title: Title
+    abstract: Abstract
+    event-place: Place
+    authority: 'Issuing Authority'
+    submitted: 'Filing Date'
+    page: Pages
+    call-number: 'Application Number'
+    issue: 'Priority Numbers'
+    references: References
+    status: 'Legal Status'
+    language: Language
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    note: Extra
+legislation:
+  label: Legislation
+  fields:
+    abstract: Abstract
+    container-title: Code
+    volume: 'Code Number'
+    page: Pages
+    section: Section
+    chapter-number: Session
+    references: History
+    language: Language
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    note: Extra
+    author: Author
+map:
+  label: Map
+  fields:
+    title: Title
+    abstract: Abstract
+    scale: Scale
+    collection-title: 'Series Title'
+    edition: Edition
+    event-place: Place
+    publisher: Publisher
+    issued: Date
+    language: Language
+    ISBN: ISBN
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    archive: Archive
+    archive_location: 'Loc. in Archive'
+    source: 'Library Catalog'
+    call-number: 'Call Number'
+    note: Extra
+    collection-editor: 'Series Editor'
+post-weblog:
+  label: 'Post Weblog'
+  fields:
+    title: Title
+    abstract: Abstract
+    issued: Date
+    URL: URL
+    accessed: Accessed
+    language: Language
+    shortTitle: 'Short Title'
+    note: Extra
+    author: Author
+post:
+  label: Post
+  fields:
+    title: Title
+    abstract: Abstract
+    issued: Date
+    language: Language
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    note: Extra
+    author: Author
+song:
+  label: Song
+  fields:
+    title: Title
+    abstract: Abstract
+    collection-title: 'Series Title'
+    volume: Volume
+    number-of-volumes: '# of Volumes'
+    event-place: Place
+    issued: Date
+    dimensions: 'Running Time'
+    language: Language
+    ISBN: ISBN
+    shortTitle: 'Short Title'
+    archive: Archive
+    archive_location: 'Loc. in Archive'
+    source: 'Library Catalog'
+    call-number: 'Call Number'
+    URL: URL
+    accessed: Accessed
+    note: Extra
+    composer: Composer
+speech:
+  label: Speech
+  fields:
+    title: Title
+    abstract: Abstract
+    issued: Date
+    event-place: Place
+    event: 'Meeting Name'
+    URL: URL
+    accessed: Accessed
+    language: Language
+    shortTitle: 'Short Title'
+    note: Extra
+broadcast:
+  label: Broadcast
+  fields:
+    title: Title
+    abstract: Abstract
+    event-place: Place
+    issued: Date
+    dimensions: 'Running Time'
+    language: Language
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    archive: Archive
+    archive_location: 'Loc. in Archive'
+    source: 'Library Catalog'
+    call-number: 'Call Number'
+    note: Extra
+    director: Director
+paper-conference:
+  label: 'Paper Conference'
+  fields:
+    title: Title
+    abstract: Abstract
+    issued: Date
+    event: 'Conference Name'
+    event-place: Place
+    publisher: Publisher
+    volume: Volume
+    page: Pages
+    collection-title: Series
+    language: Language
+    DOI: DOI
+    ISBN: ISBN
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    archive: Archive
+    archive_location: 'Loc. in Archive'
+    source: 'Library Catalog'
+    call-number: 'Call Number'
+    note: Extra
+    author: Author
+    editor: Editor
+    collection-editor: 'Series Editor'
+    translator: Translator
+entry-encyclopedia:
+  label: 'Entry Encyclopedia'
+  fields:
+    title: Title
+    abstract: Abstract
+    collection-title: Series
+    collection-number: 'Series Number'
+    volume: Volume
+    number-of-volumes: '# of Volumes'
+    edition: Edition
+    event-place: Place
+    publisher: Publisher
+    issued: Date
+    page: Pages
+    ISBN: ISBN
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    language: Language
+    archive: Archive
+    archive_location: 'Loc. in Archive'
+    source: 'Library Catalog'
+    call-number: 'Call Number'
+    note: Extra
+    author: Author
+    editor: Editor
+    collection-editor: 'Series Editor'
+    translator: Translator
+entry-dictionary:
+  label: 'Entry Dictionary'
+  fields:
+    title: Title
+    abstract: Abstract
+    collection-title: Series
+    collection-number: 'Series Number'
+    volume: Volume
+    number-of-volumes: '# of Volumes'
+    edition: Edition
+    event-place: Place
+    publisher: Publisher
+    issued: Date
+    page: Pages
+    language: Language
+    ISBN: ISBN
+    shortTitle: 'Short Title'
+    URL: URL
+    accessed: Accessed
+    archive: Archive
+    archive_location: 'Loc. in Archive'
+    source: 'Library Catalog'
+    call-number: 'Call Number'
+    note: Extra
+    author: Author
+    editor: Editor
+    collection-editor: 'Series Editor'
+    translator: Translator
