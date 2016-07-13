@@ -60,7 +60,7 @@ class CiteprocPhp implements CiteprocPhpInterface {
    * {@inheritdoc}
    */
   public function getLocales() {
-    $cid = 'bibcite:styles_citeprocphp';
+    $cid = 'bibcite:locales_citeprocphp';
     $locales = [];
 
     if ($cache = \Drupal::cache()->get($cid)) {
