@@ -1,18 +1,18 @@
 <?php
 
-namespace Drupal\sc_pub\Annotation;
+namespace Drupal\bibcite\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
 
 /**
  * Defines a Processor item annotation object.
  *
- * @see \Drupal\sc_pub\Plugin\ScPubProcessorManager
+ * @see \Drupal\bibcite\Plugin\BibCiteProcessorManager
  * @see plugin_api
  *
  * @Annotation
  */
-class ScPubProcessor extends Plugin {
+class BibCiteProcessor extends Plugin {
 
 
   /**

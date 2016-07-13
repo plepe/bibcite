@@ -17,6 +17,7 @@ view published contributor entities:
 
 view unpublished contributor entities:
   title: 'View unpublished Contributor entities'
+
 add bibliography entities:
   title: 'Create new Bibliography entities'
 
@@ -36,6 +37,7 @@ view published bibliography entities:
 
 view unpublished bibliography entities:
   title: 'View unpublished Bibliography entities'
+
 add keyword entities:
   title: 'Create new Keyword entities'
 

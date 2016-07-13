@@ -7,17 +7,17 @@ entity.bibliography.collection:
   weight: 100
 
 # Contributor menu items definition
-entity.sc_pub_contributor.collection:
+entity.bibcite_contributor.collection:
   title: 'Contributor list'
-  route_name: entity.sc_pub_contributor.collection
+  route_name: entity.bibcite_contributor.collection
   description: 'List Contributor entities'
   parent: system.admin_structure
   weight: 100
 
 # Keyword menu items definition
-entity.sc_pub_keyword.collection:
+entity.bibcite_keyword.collection:
   title: 'Keyword list'
-  route_name: entity.sc_pub_keyword.collection
+  route_name: entity.bibcite_keyword.collection
   description: 'List Keyword entities'
   parent: system.admin_structure
   weight: 100

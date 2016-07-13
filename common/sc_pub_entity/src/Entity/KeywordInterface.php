@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub_entity\Entity;
+namespace Drupal\bibcite_entity\Entity;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityChangedInterface;
@@ -9,7 +9,7 @@ use Drupal\user\EntityOwnerInterface;
 /**
  * Provides an interface for defining Keyword entities.
  *
- * @ingroup sc_pub_entity
+ * @ingroup bibcite_entity
  */
 interface KeywordInterface extends ContentEntityInterface, EntityChangedInterface {
 
@@ -27,7 +27,7 @@ interface KeywordInterface extends ContentEntityInterface, EntityChangedInterfac
    * @param string $name
    *   The Keyword name.
    *
-   * @return \Drupal\sc_pub_entity\Entity\KeywordInterface
+   * @return \Drupal\bibcite_entity\Entity\KeywordInterface
    *   The called Keyword entity.
    */
   public function setName($name);
@@ -46,7 +46,7 @@ interface KeywordInterface extends ContentEntityInterface, EntityChangedInterfac
    * @param int $timestamp
    *   The Keyword creation timestamp.
    *
-   * @return \Drupal\sc_pub_entity\Entity\KeywordInterface
+   * @return \Drupal\bibcite_entity\Entity\KeywordInterface
    *   The called Keyword entity.
    */
   public function setCreatedTime($timestamp);

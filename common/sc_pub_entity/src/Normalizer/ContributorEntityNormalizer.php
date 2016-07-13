@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub_entity\Normalizer;
+namespace Drupal\bibcite_entity\Normalizer;
 
 /**
  * Normalizes/denormalizes contributor entity to CSL format.
@@ -12,7 +12,7 @@ class ContributorEntityNormalizer extends CslNormalizerBase {
    *
    * @var array
    */
-  protected $supportedInterfaceOrClass = ['Drupal\sc_pub_entity\Entity\ContributorInterface'];
+  protected $supportedInterfaceOrClass = ['Drupal\bibcite_entity\Entity\ContributorInterface'];
 
   /**
    * {@inheritdoc}

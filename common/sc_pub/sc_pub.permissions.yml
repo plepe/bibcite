@@ -1,4 +1,0 @@
-administer sc_pub:
-  title: 'Administer Scholar Publication'
-  description: 'Full access to all sc_pub functionality.'
-  restrict access: true

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub\Plugin;
+namespace Drupal\bibcite\Plugin;
 
 use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\Core\Cache\CacheBackendInterface;
@@ -9,11 +9,11 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 /**
  * Provides the Processor plugin manager.
  */
-class ScPubProcessorManager extends DefaultPluginManager {
+class BibCiteProcessorManager extends DefaultPluginManager {
 
 
   /**
-   * Constructor for ScPubProcessorManager objects.
+   * Constructor for BibCiteProcessorManager objects.
    *
    * @param \Traversable $namespaces
    *   An object that implements \Traversable which contains the root paths
@@ -24,10 +24,10 @@ class ScPubProcessorManager extends DefaultPluginManager {
    *   The module handler to invoke the alter hook with.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/ScPubProcessor', $namespaces, $module_handler, 'Drupal\sc_pub\Plugin\ScPubProcessorInterface', 'Drupal\sc_pub\Annotation\ScPubProcessor');
+    parent::__construct('Plugin/BibCiteProcessor', $namespaces, $module_handler, 'Drupal\bibcite\Plugin\BibCiteProcessorInterface', 'Drupal\bibcite\Annotation\BibCiteProcessor');
 
-    $this->alterInfo('sc_pub_sc_pub_processor_info');
-    $this->setCacheBackend($cache_backend, 'sc_pub_sc_pub_processor_plugins');
+    $this->alterInfo('bibcite_bibcite_processor_info');
+    $this->setCacheBackend($cache_backend, 'bibcite_bibcite_processor_plugins');
   }
 
 }

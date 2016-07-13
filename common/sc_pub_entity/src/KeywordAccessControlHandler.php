@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub_entity;
+namespace Drupal\bibcite_entity;
 
 use Drupal\Core\Entity\EntityAccessControlHandler;
 use Drupal\Core\Entity\EntityInterface;
@@ -10,7 +10,7 @@ use Drupal\Core\Access\AccessResult;
 /**
  * Access controller for the Keyword entity.
  *
- * @see \Drupal\sc_pub_entity\Entity\Keyword.
+ * @see \Drupal\bibcite_entity\Entity\Keyword.
  */
 class KeywordAccessControlHandler extends EntityAccessControlHandler {
 
@@ -18,7 +18,7 @@ class KeywordAccessControlHandler extends EntityAccessControlHandler {
    * {@inheritdoc}
    */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
-    /** @var \Drupal\sc_pub_entity\Entity\KeywordInterface $entity */
+    /** @var \Drupal\bibcite_entity\Entity\KeywordInterface $entity */
     switch ($operation) {
       case 'view':
         return AccessResult::allowedIfHasPermission($account, 'view published keyword entities');

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub_entity\Normalizer;
+namespace Drupal\bibcite_entity\Normalizer;
 
 /**
  * Normalizes/denormalizes contributor field to CSL format.

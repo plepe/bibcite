@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub_entity\Entity;
+namespace Drupal\bibcite_entity\Entity;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityChangedInterface;
@@ -9,7 +9,7 @@ use Drupal\user\EntityOwnerInterface;
 /**
  * Provides an interface for defining Contributor entities.
  *
- * @ingroup sc_pub_entity
+ * @ingroup bibcite_entity
  */
 interface ContributorInterface extends ContentEntityInterface, EntityChangedInterface {
 
@@ -59,7 +59,7 @@ interface ContributorInterface extends ContentEntityInterface, EntityChangedInte
    * @param string $first_name
    *   The Contributor first name.
    *
-   * @return \Drupal\sc_pub_entity\Entity\ContributorInterface
+   * @return \Drupal\bibcite_entity\Entity\ContributorInterface
    *   The called Contributor entity.
    */
   public function setFirstName($first_name);
@@ -70,7 +70,7 @@ interface ContributorInterface extends ContentEntityInterface, EntityChangedInte
    * @param string $last_name
    *   The Contributor last name.
    *
-   * @return \Drupal\sc_pub_entity\Entity\ContributorInterface
+   * @return \Drupal\bibcite_entity\Entity\ContributorInterface
    *   The called Contributor entity.
    */
   public function setLastName($last_name);
@@ -81,7 +81,7 @@ interface ContributorInterface extends ContentEntityInterface, EntityChangedInte
    * @param string $suffix
    *   The Contributor suffix.
    *
-   * @return \Drupal\sc_pub_entity\Entity\ContributorInterface
+   * @return \Drupal\bibcite_entity\Entity\ContributorInterface
    *   The called Contributor entity.
    */
   public function setSuffix($suffix);
@@ -92,7 +92,7 @@ interface ContributorInterface extends ContentEntityInterface, EntityChangedInte
    * @param string $postfix
    *   The Contributor postfix.
    *
-   * @return \Drupal\sc_pub_entity\Entity\ContributorInterface
+   * @return \Drupal\bibcite_entity\Entity\ContributorInterface
    *   The called Contributor entity.
    */
   public function setPostfix($postfix);
@@ -111,7 +111,7 @@ interface ContributorInterface extends ContentEntityInterface, EntityChangedInte
    * @param int $timestamp
    *   The Contributor creation timestamp.
    *
-   * @return \Drupal\sc_pub_entity\Entity\ContributorInterface
+   * @return \Drupal\bibcite_entity\Entity\ContributorInterface
    *   The called Contributor entity.
    */
   public function setCreatedTime($timestamp);

@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\sc_pub_entity\Normalizer;
+namespace Drupal\bibcite_entity\Normalizer;
 
-use Drupal\sc_pub\CslKeyConverter;
+use Drupal\bibcite\CslKeyConverter;
 use Drupal\serialization\Normalizer\EntityNormalizer;
 
 /**
@@ -15,7 +15,7 @@ class BibliographyNormalizer extends CslNormalizerBase {
    *
    * @var array
    */
-  protected $supportedInterfaceOrClass = ['Drupal\sc_pub_entity\Entity\BibliographyInterface'];
+  protected $supportedInterfaceOrClass = ['Drupal\bibcite_entity\Entity\BibliographyInterface'];
 
   /**
    * {@inheritdoc}

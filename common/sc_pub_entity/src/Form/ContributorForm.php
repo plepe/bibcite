@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub_entity\Form;
+namespace Drupal\bibcite_entity\Form;
 
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Form controller for Contributor edit forms.
  *
- * @ingroup sc_pub_entity
+ * @ingroup bibcite_entity
  */
 class ContributorForm extends ContentEntityForm {
 
@@ -16,7 +16,7 @@ class ContributorForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    /* @var $entity \Drupal\sc_pub_entity\Entity\Contributor */
+    /* @var $entity \Drupal\bibcite_entity\Entity\Contributor */
     $entity = $this->entity;
 
     $form['name'] = [
@@ -50,7 +50,7 @@ class ContributorForm extends ContentEntityForm {
           '%label' => $entity->label(),
         ]));
     }
-    $form_state->setRedirect('entity.sc_pub_contributor.canonical', ['sc_pub_contributor' => $entity->id()]);
+    $form_state->setRedirect('entity.bibcite_contributor.canonical', ['bibcite_contributor' => $entity->id()]);
   }
 
 }

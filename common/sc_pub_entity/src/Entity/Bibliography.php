@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub_entity\Entity;
+namespace Drupal\bibcite_entity\Entity;
 
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
@@ -8,28 +8,28 @@ use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItem;
-use Drupal\sc_pub\CslKeyConverter;
+use Drupal\bibcite\CslKeyConverter;
 
 /**
  * Defines the Bibliography entity.
  *
- * @ingroup sc_pub_entity
+ * @ingroup bibcite_entity
  *
  * @ContentEntityType(
  *   id = "bibliography",
  *   label = @Translation("Bibliography"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\sc_pub_entity\BibliographyListBuilder",
+ *     "list_builder" = "Drupal\bibcite_entity\BibliographyListBuilder",
  *     "views_data" = "Drupal\views\EntityViewsData",
  *
  *     "form" = {
- *       "default" = "Drupal\sc_pub_entity\Form\BibliographyForm",
- *       "delete" = "Drupal\sc_pub_entity\Form\BibliographyDeleteForm",
+ *       "default" = "Drupal\bibcite_entity\Form\BibliographyForm",
+ *       "delete" = "Drupal\bibcite_entity\Form\BibliographyDeleteForm",
  *     },
- *     "access" = "Drupal\sc_pub_entity\BibliographyAccessControlHandler",
+ *     "access" = "Drupal\bibcite_entity\BibliographyAccessControlHandler",
  *     "route_provider" = {
- *       "html" = "Drupal\sc_pub_entity\BibliographyHtmlRouteProvider",
+ *       "html" = "Drupal\bibcite_entity\BibliographyHtmlRouteProvider",
  *     },
  *   },
  *   base_table = "bibliography",
@@ -91,21 +91,21 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
         'weight' => 1,
       ));
 
-    $fields[CslKeyConverter::normalizeKey('author')] = BaseFieldDefinition::create('sc_pub_contributor')
+    $fields[CslKeyConverter::normalizeKey('author')] = BaseFieldDefinition::create('bibcite_contributor')
       ->setLabel(t('Author'))
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
       ->setDisplayOptions('form', [
-        'type' => 'sc_pub_contributor_widget',
+        'type' => 'bibcite_contributor_widget',
         'weight' => 2,
       ])
       ->setDisplayOptions('view', [
-        'type' => 'sc_pub_contributor_label',
+        'type' => 'bibcite_contributor_label',
         'weight' => 2,
       ]);
 
     $fields[CslKeyConverter::normalizeKey('keywords')] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Keywords'))
-      ->setSetting('target_type', 'sc_pub_keyword')
+      ->setSetting('target_type', 'bibcite_keyword')
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
       ->setDisplayOptions('form', array(
         'type' => 'entity_reference_autocomplete_tags',

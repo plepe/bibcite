@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub_entity\Form;
+namespace Drupal\bibcite_entity\Form;
 
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Form controller for Keyword edit forms.
  *
- * @ingroup sc_pub_entity
+ * @ingroup bibcite_entity
  */
 class KeywordForm extends ContentEntityForm {
 
@@ -16,7 +16,7 @@ class KeywordForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    /* @var $entity \Drupal\sc_pub_entity\Entity\Keyword */
+    /* @var $entity \Drupal\bibcite_entity\Entity\Keyword */
     $form = parent::buildForm($form, $form_state);
     $entity = $this->entity;
 
@@ -42,7 +42,7 @@ class KeywordForm extends ContentEntityForm {
           '%label' => $entity->label(),
         ]));
     }
-    $form_state->setRedirect('entity.sc_pub_keyword.canonical', ['sc_pub_keyword' => $entity->id()]);
+    $form_state->setRedirect('entity.bibcite_keyword.canonical', ['bibcite_keyword' => $entity->id()]);
   }
 
 }

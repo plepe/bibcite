@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub_entity;
+namespace Drupal\bibcite_entity;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
@@ -10,7 +10,7 @@ use Drupal\Core\Url;
 /**
  * Defines a class to build a listing of Contributor entities.
  *
- * @ingroup sc_pub_entity
+ * @ingroup bibcite_entity
  */
 class ContributorListBuilder extends EntityListBuilder {
 
@@ -29,13 +29,13 @@ class ContributorListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\sc_pub_entity\Entity\Contributor */
+    /* @var $entity \Drupal\bibcite_entity\Entity\Contributor */
     $row['id'] = $entity->id();
     $row['name'] = $this->l(
       $entity->label(),
       new Url(
-        'entity.sc_pub_contributor.edit_form', array(
-          'sc_pub_contributor' => $entity->id(),
+        'entity.bibcite_contributor.edit_form', array(
+          'bibcite_contributor' => $entity->id(),
         )
       )
     );

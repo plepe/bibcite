@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\sc_pub\Plugin;
+namespace Drupal\bibcite\Plugin;
 
 use Drupal\Component\Plugin\PluginInspectionInterface;
 
 /**
  * Defines an interface for Processor plugins.
  */
-interface ScPubProcessorInterface extends PluginInspectionInterface {
+interface BibCiteProcessorInterface extends PluginInspectionInterface {
 
   /**
    * Render citation string from CSL values array.

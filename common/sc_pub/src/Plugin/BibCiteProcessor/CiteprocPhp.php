@@ -1,28 +1,28 @@
 <?php
 
-namespace Drupal\sc_pub\Plugin\ScPubProcessor;
+namespace Drupal\bibcite\Plugin\BibCiteProcessor;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\sc_pub\CiteprocPhpInterface;
-use Drupal\sc_pub\Plugin\ScPubProcessorBase;
-use Drupal\sc_pub\Plugin\ScPubProcessorInterface;
+use Drupal\bibcite\CiteprocPhpInterface;
+use Drupal\bibcite\Plugin\BibCiteProcessorBase;
+use Drupal\bibcite\Plugin\BibCiteProcessorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines a style provider based on citeproc-php library.
  *
- * @ScPubProcessor(
+ * @BibCiteProcessor(
  *   id = "citeproc-php",
  *   label = @Translation("Citeproc PHP"),
  * )
  */
-class CiteprocPhp extends ScPubProcessorBase implements ScPubProcessorInterface, ContainerFactoryPluginInterface {
+class CiteprocPhp extends BibCiteProcessorBase implements BibCiteProcessorInterface, ContainerFactoryPluginInterface {
 
   /**
    * CiteprocPhp service.
    *
-   * @var \Drupal\sc_pub\CiteprocPhpInterface
+   * @var \Drupal\bibcite\CiteprocPhpInterface
    */
   protected $citeproc;
 
@@ -41,7 +41,7 @@ class CiteprocPhp extends ScPubProcessorBase implements ScPubProcessorInterface,
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('sc_pub.citeproc_php'),
+      $container->get('bibcite.citeproc_php'),
       $container->get('config.factory')
     );
   }
@@ -77,7 +77,7 @@ class CiteprocPhp extends ScPubProcessorBase implements ScPubProcessorInterface,
   public function getAvailableStyles() {
     $all_styles = $this->citeproc->getStyles();
 
-    $available_styles = $this->configFactory->get('sc_pub.processor.citeprocphp.settings')->get('enabled_styles');
+    $available_styles = $this->configFactory->get('bibcite.processor.citeprocphp.settings')->get('enabled_styles');
     // Flip array to use in intersect function.
     $available_styles = array_flip($available_styles);
 
@@ -88,7 +88,7 @@ class CiteprocPhp extends ScPubProcessorBase implements ScPubProcessorInterface,
    * {@inheritdoc}
    */
   public function getDefaultStyleId() {
-    return $this->configFactory->get('sc_pub.processor.citeprocphp.settings')->get('default_style');
+    return $this->configFactory->get('bibcite.processor.citeprocphp.settings')->get('default_style');
   }
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub_entity;
+namespace Drupal\bibcite_entity;
 
 use Drupal\Core\Entity\EntityAccessControlHandler;
 use Drupal\Core\Entity\EntityInterface;
@@ -10,7 +10,7 @@ use Drupal\Core\Access\AccessResult;
 /**
  * Access controller for the Bibliography entity.
  *
- * @see \Drupal\sc_pub_entity\Entity\Bibliography.
+ * @see \Drupal\bibcite_entity\Entity\Bibliography.
  */
 class BibliographyAccessControlHandler extends EntityAccessControlHandler {
 
@@ -18,7 +18,7 @@ class BibliographyAccessControlHandler extends EntityAccessControlHandler {
    * {@inheritdoc}
    */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
-    /** @var \Drupal\sc_pub_entity\Entity\BibliographyInterface $entity */
+    /** @var \Drupal\bibcite_entity\Entity\BibliographyInterface $entity */
     switch ($operation) {
       case 'view':
         return AccessResult::allowedIfHasPermission($account, 'view published bibliography entities');

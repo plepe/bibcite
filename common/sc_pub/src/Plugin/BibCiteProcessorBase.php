@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub\Plugin;
+namespace Drupal\bibcite\Plugin;
 
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -8,7 +8,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 /**
  * Base class for Processor plugins.
  */
-abstract class ScPubProcessorBase extends PluginBase implements ScPubProcessorInterface {
+abstract class BibCiteProcessorBase extends PluginBase implements BibCiteProcessorInterface {
 
   use StringTranslationTrait;
 

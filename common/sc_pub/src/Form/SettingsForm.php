@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub\Form;
+namespace Drupal\bibcite\Form;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SettingsForm extends ConfigFormBase {
 
   /**
-   * ScPubProcessor plugins manager.
+   * BibCiteProcessor plugins manager.
    *
    * @var \Drupal\Component\Plugin\PluginManagerInterface
    */
@@ -34,7 +34,7 @@ class SettingsForm extends ConfigFormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('config.factory'),
-      $container->get('plugin.manager.sc_pub_processor.processor')
+      $container->get('plugin.manager.bibcite_processor.processor')
     );
   }
 
@@ -42,7 +42,7 @@ class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'sc_pub_settings';
+    return 'bibcite_settings';
   }
 
   /**
@@ -50,7 +50,7 @@ class SettingsForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return [
-      'sc_pub.settings',
+      'bibcite.settings',
     ];
   }
 
@@ -58,7 +58,7 @@ class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('sc_pub.settings');
+    $config = $this->config('bibcite.settings');
 
     $available_processors = array_map(function($definition) {
       return $definition['label'];
@@ -71,7 +71,7 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('processor'),
     );
 
-    /** @var \Drupal\sc_pub\Plugin\ScPubProcessorInterface $processor */
+    /** @var \Drupal\bibcite\Plugin\BibCiteProcessorInterface $processor */
     $processor = $this->processorManager->createInstance($config->get('processor'));
     $description = $processor->getDescription();
 
@@ -95,7 +95,7 @@ class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $config = $this->config('sc_pub.settings');
+    $config = $this->config('bibcite.settings');
     $config->set('processor', $form_state->getValue('processor'))
       ->save();
 

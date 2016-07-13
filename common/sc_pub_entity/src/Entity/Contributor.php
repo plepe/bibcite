@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub_entity\Entity;
+namespace Drupal\bibcite_entity\Entity;
 
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
@@ -11,28 +11,28 @@ use Drupal\Core\Entity\EntityTypeInterface;
 /**
  * Defines the Contributor entity.
  *
- * @ingroup sc_pub_entity
+ * @ingroup bibcite_entity
  *
  * @ContentEntityType(
- *   id = "sc_pub_contributor",
+ *   id = "bibcite_contributor",
  *   label = @Translation("Contributor"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\sc_pub_entity\ContributorListBuilder",
+ *     "list_builder" = "Drupal\bibcite_entity\ContributorListBuilder",
  *     "views_data" = "Drupal\views\EntityViewsData",
  *
  *     "form" = {
- *       "default" = "Drupal\sc_pub_entity\Form\ContributorForm",
- *       "add" = "Drupal\sc_pub_entity\Form\ContributorForm",
- *       "edit" = "Drupal\sc_pub_entity\Form\ContributorForm",
- *       "delete" = "Drupal\sc_pub_entity\Form\ContributorDeleteForm",
+ *       "default" = "Drupal\bibcite_entity\Form\ContributorForm",
+ *       "add" = "Drupal\bibcite_entity\Form\ContributorForm",
+ *       "edit" = "Drupal\bibcite_entity\Form\ContributorForm",
+ *       "delete" = "Drupal\bibcite_entity\Form\ContributorDeleteForm",
  *     },
- *     "access" = "Drupal\sc_pub_entity\ContributorAccessControlHandler",
+ *     "access" = "Drupal\bibcite_entity\ContributorAccessControlHandler",
  *     "route_provider" = {
- *       "html" = "Drupal\sc_pub_entity\ContributorHtmlRouteProvider",
+ *       "html" = "Drupal\bibcite_entity\ContributorHtmlRouteProvider",
  *     },
  *   },
- *   base_table = "sc_pub_contributor",
+ *   base_table = "bibcite_contributor",
  *   admin_permission = "administer contributor entities",
  *   fieldable = FALSE,
  *   entity_keys = {
@@ -42,11 +42,11 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "langcode" = "langcode",
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/sc_pub_contributor/{sc_pub_contributor}",
- *     "add-form" = "/admin/structure/sc_pub_contributor/add",
- *     "edit-form" = "/admin/structure/sc_pub_contributor/{sc_pub_contributor}/edit",
- *     "delete-form" = "/admin/structure/sc_pub_contributor/{sc_pub_contributor}/delete",
- *     "collection" = "/admin/structure/sc_pub_contributor",
+ *     "canonical" = "/admin/structure/bibcite_contributor/{bibcite_contributor}",
+ *     "add-form" = "/admin/structure/bibcite_contributor/add",
+ *     "edit-form" = "/admin/structure/bibcite_contributor/{bibcite_contributor}/edit",
+ *     "delete-form" = "/admin/structure/bibcite_contributor/{bibcite_contributor}/delete",
+ *     "collection" = "/admin/structure/bibcite_contributor",
  *   },
  * )
  */

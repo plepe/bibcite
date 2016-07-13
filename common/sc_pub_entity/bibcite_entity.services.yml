@@ -1,33 +1,33 @@
 services:
   serializer.normalizer.bibliography:
-    class: Drupal\sc_pub_entity\Normalizer\BibliographyNormalizer
+    class: Drupal\bibcite_entity\Normalizer\BibliographyNormalizer
     tags:
       - { name: normalizer, priority: 30 }
     arguments: ['@entity.manager']
   serializer.normalizer.contributor_field:
-    class: Drupal\sc_pub_entity\Normalizer\ContributorFieldNormalizer
+    class: Drupal\bibcite_entity\Normalizer\ContributorFieldNormalizer
     tags:
       - { name: normalizer, priority: 30 }
     arguments: ['@entity.manager']
   serializer.normalizer.contributor_entity:
-    class: Drupal\sc_pub_entity\Normalizer\ContributorEntityNormalizer
+    class: Drupal\bibcite_entity\Normalizer\ContributorEntityNormalizer
     tags:
       - { name: normalizer, priority: 30 }
     arguments: ['@entity.manager']
   serializer.normalizer.csl_entity_reference_item:
-    class: Drupal\sc_pub_entity\Normalizer\CslEntityReferenceItemNormalizer
+    class: Drupal\bibcite_entity\Normalizer\CslEntityReferenceItemNormalizer
     tags:
       - { name: normalizer, priority: 30 }
     arguments: ['@entity.manager']
   serializer.normalizer.csl_list:
-    class: Drupal\sc_pub_entity\Normalizer\CslListNormalizer
+    class: Drupal\bibcite_entity\Normalizer\CslListNormalizer
     tags:
       - { name: normalizer, priority: 30 }
   serializer.normalizer.csl_field_item_value:
-    class: Drupal\sc_pub_entity\Normalizer\CslFieldItemValueNormalizer
+    class: Drupal\bibcite_entity\Normalizer\CslFieldItemValueNormalizer
     tags:
       - { name: normalizer, priority: 30 }
   serializer.normalizer.csl_datetime_item:
-    class: Drupal\sc_pub_entity\Normalizer\CslDateTimeItemNormalizer
+    class: Drupal\bibcite_entity\Normalizer\CslDateTimeItemNormalizer
     tags:
       - { name: normalizer, priority: 30 }

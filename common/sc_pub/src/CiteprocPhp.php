@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub;
+namespace Drupal\bibcite;
 
 use AcademicPuma\CiteProc\CiteProc;
 
@@ -33,7 +33,7 @@ class CiteprocPhp implements CiteprocPhpInterface {
    * {@inheritdoc}
    */
   public function getStyles() {
-    $cid = 'sc_pub:styles_citeprocphp';
+    $cid = 'bibcite:styles_citeprocphp';
     $styles = [];
 
     if ($cache = \Drupal::cache()->get($cid)) {
@@ -60,7 +60,7 @@ class CiteprocPhp implements CiteprocPhpInterface {
    * {@inheritdoc}
    */
   public function getLocales() {
-    $cid = 'sc_pub:styles_citeprocphp';
+    $cid = 'bibcite:styles_citeprocphp';
     $locales = [];
 
     if ($cache = \Drupal::cache()->get($cid)) {

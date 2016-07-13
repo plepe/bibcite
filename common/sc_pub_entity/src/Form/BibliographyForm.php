@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub_entity\Form;
+namespace Drupal\bibcite_entity\Form;
 
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Form controller for Bibliography edit forms.
  *
- * @ingroup sc_pub_entity
+ * @ingroup bibcite_entity
  */
 class BibliographyForm extends ContentEntityForm {
 
@@ -16,7 +16,7 @@ class BibliographyForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    /* @var $entity \Drupal\sc_pub_entity\Entity\Bibliography */
+    /* @var $entity \Drupal\bibcite_entity\Entity\Bibliography */
     $form = parent::buildForm($form, $form_state);
     $entity = $this->entity;
 

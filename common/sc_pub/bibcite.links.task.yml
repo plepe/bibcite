@@ -1,0 +1,14 @@
+bibcite.settings:
+  route_name: bibcite.settings
+  title: 'Processing'
+  base_route: bibcite.settings
+
+bibcite.settings.processor:
+  route_name: bibcite.settings
+  title: 'Processor'
+  parent_id: bibcite.settings
+
+bibcite.settings.citeproc_php:
+  route_name: bibcite.settings.citeproc_php
+  title: 'Citeproc PHP'
+  parent_id: bibcite.settings

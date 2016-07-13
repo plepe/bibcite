@@ -1,5 +1,5 @@
-name: Scholar Publication
+name: Bibliography & Citation
 type: module
 description: Basic API for working with bibliography data
 core: 8.x
-package: Scholar Publication
+package: Bibliography & Citation

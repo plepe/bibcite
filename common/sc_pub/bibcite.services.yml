@@ -1,0 +1,6 @@
+services:
+  bibcite.citeproc_php:
+    class: Drupal\bibcite\CiteprocPhp
+  plugin.manager.bibcite_processor.processor:
+    class: Drupal\bibcite\Plugin\BibCiteProcessorManager
+    parent: default_plugin_manager

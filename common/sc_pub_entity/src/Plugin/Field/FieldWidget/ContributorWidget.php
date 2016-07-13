@@ -1,19 +1,19 @@
 <?php
 
-namespace Drupal\sc_pub_entity\Plugin\Field\FieldWidget;
+namespace Drupal\bibcite_entity\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\EntityReferenceAutocompleteWidget;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Plugin implementation of the 'sc_pub_contributor_widget' widget.
+ * Plugin implementation of the 'bibcite_contributor_widget' widget.
  *
  * @FieldWidget(
- *   id = "sc_pub_contributor_widget",
+ *   id = "bibcite_contributor_widget",
  *   label = @Translation("Contributor widget"),
  *   field_types = {
- *     "sc_pub_contributor"
+ *     "bibcite_contributor"
  *   }
  * )
  */

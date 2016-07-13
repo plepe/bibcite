@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub_entity;
+namespace Drupal\bibcite_entity;
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;

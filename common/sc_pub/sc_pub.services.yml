@@ -1,6 +1,0 @@
-services:
-  sc_pub.citeproc_php:
-    class: Drupal\sc_pub\CiteprocPhp
-  plugin.manager.sc_pub_processor.processor:
-    class: Drupal\sc_pub\Plugin\ScPubProcessorManager
-    parent: default_plugin_manager

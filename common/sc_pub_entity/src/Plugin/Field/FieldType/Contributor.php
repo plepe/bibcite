@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub_entity\Plugin\Field\FieldType;
+namespace Drupal\bibcite_entity\Plugin\Field\FieldType;
 
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
@@ -9,14 +9,14 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
 
 /**
- * Plugin implementation of the 'sc_pub_contributor' field type.
+ * Plugin implementation of the 'bibcite_contributor' field type.
  *
  * @FieldType(
- *   id = "sc_pub_contributor",
+ *   id = "bibcite_contributor",
  *   label = @Translation("Contributor"),
  *   description = @Translation("Entity reference with label"),
- *   default_widget = "sc_pub_contributor_widget",
- *   default_formatter = "sc_pub_contributor_label",
+ *   default_widget = "bibcite_contributor_widget",
+ *   default_formatter = "bibcite_contributor_label",
  *   list_class = "\Drupal\Core\Field\EntityReferenceFieldItemList",
  * )
  */
@@ -27,7 +27,7 @@ class Contributor extends EntityReferenceItem implements ContributorFieldInterfa
    */
   public static function defaultStorageSettings() {
     return array(
-      'target_type' => 'sc_pub_contributor',
+      'target_type' => 'bibcite_contributor',
     ) + parent::defaultStorageSettings();
   }
 
@@ -36,7 +36,7 @@ class Contributor extends EntityReferenceItem implements ContributorFieldInterfa
    */
   public static function defaultFieldSettings() {
     return array(
-      'handler' => 'default:sc_pub_contributor',
+      'handler' => 'default:bibcite_contributor',
       'handler_settings' => array(),
     ) + parent::defaultFieldSettings();
   }

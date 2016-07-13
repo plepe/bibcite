@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub;
+namespace Drupal\bibcite;
 
 /**
  * Define public interface for the citeproc-php library.

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\sc_pub_entity;
+namespace Drupal\bibcite_entity;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
@@ -10,7 +10,7 @@ use Drupal\Core\Url;
 /**
  * Defines a class to build a listing of Bibliography entities.
  *
- * @ingroup sc_pub_entity
+ * @ingroup bibcite_entity
  */
 class BibliographyListBuilder extends EntityListBuilder {
 
@@ -29,7 +29,7 @@ class BibliographyListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\sc_pub_entity\Entity\Bibliography */
+    /* @var $entity \Drupal\bibcite_entity\Entity\Bibliography */
     $row['id'] = $entity->id();
     $row['name'] = $this->l(
       $entity->label(),
