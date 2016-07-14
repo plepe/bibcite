@@ -11,13 +11,6 @@ use Drupal\serialization\Normalizer\NormalizerBase;
 abstract class CslNormalizerBase extends NormalizerBase {
 
   /**
-   * The format that this Normalizer supports.
-   *
-   * @var array
-   */
-  protected $format = ['csl'];
-
-  /**
    * Checks if the provided format is supported by this normalizer.
    *
    * @param string $format
@@ -28,11 +21,15 @@ abstract class CslNormalizerBase extends NormalizerBase {
    *   specified this will return FALSE.
    */
   protected function checkFormat($format = NULL) {
-    if (!isset($format) || !isset($this->format)) {
+    if (!isset($format)) {
       return FALSE;
     }
 
-    return in_array($format, (array) $this->format);
+    // @todo Find a better way to use CSL normalization for export/import formats.
+    $formats = \Drupal::moduleHandler()->invokeAll('bibcite_entity_normalization_format');
+    $formats = array_merge($formats, ['csl']);
+
+    return in_array($format, $formats);
   }
 
 }
