@@ -55,36 +55,15 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
   use EntityChangedTrait;
 
   /**
-   * Styler service.
-   *
-   * @var \Drupal\bibcite\StylerInterface
-   */
-  protected $styler;
-
-  /**
-   * Serializer service.
-   *
-   * @var \Symfony\Component\Serializer\SerializerInterface
-   */
-  protected $serializer;
-
-  /**
-   * {@inheritdoc}
-   */
-  public function __construct(array $values, $entity_type, $bundle, array $translations) {
-    parent::__construct($values, $entity_type, $bundle, $translations);
-
-    // @todo Make a better dependency injection.
-    $this->styler = \Drupal::service('bibcite.styler');
-    $this->serializer = \Drupal::service('serializer');
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function cite($style = NULL) {
-    $data = $this->serializer->normalize($this, 'csl');
-    return $this->styler->render($data, $style);
+    // @todo Make a better dependency injection.
+    $styler = \Drupal::service('bibcite.styler');
+    $serializer = \Drupal::service('serializer');
+
+    $data = $serializer->normalize($this, 'csl');
+    return $styler->render($data, $style);
   }
 
   /**
