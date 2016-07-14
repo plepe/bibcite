@@ -1,0 +1,9 @@
+services:
+  bibcite_bibtex.encoder.bibtex:
+    class: Drupal\bibcite\Encoder\BibtexEncoder
+    tags:
+       - { name: encoder, format: bibtex }
+  bibcite_bibtex.bibtex_subscriber:
+    class: Drupal\bibcite\EventSubscriber\BibtexSubscriber
+    tags:
+      - { name: event_subscriber }
