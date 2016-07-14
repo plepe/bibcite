@@ -32,4 +32,16 @@ interface BibliographyInterface extends ContentEntityInterface, EntityChangedInt
    */
   public function setCreatedTime($timestamp);
 
+  /**
+   * Render bibliography entity as citation.
+   *
+   * @param string|null $style
+   *   Identifier of citation style.
+   *   Default style will be used if this value is NULL.
+   *
+   * @return mixed
+   *   Rendered citation.
+   */
+  public function cite($style = NULL);
+
 }
