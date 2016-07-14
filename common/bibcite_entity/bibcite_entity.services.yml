@@ -1,16 +1,16 @@
 services:
   serializer.normalizer.bibliography:
-    class: Drupal\bibcite_entity\Normalizer\BibliographyNormalizer
+    class: Drupal\bibcite_entity\Normalizer\CslBibliographyNormalizer
     tags:
       - { name: normalizer, priority: 30 }
     arguments: ['@entity.manager']
   serializer.normalizer.contributor_field:
-    class: Drupal\bibcite_entity\Normalizer\ContributorFieldNormalizer
+    class: Drupal\bibcite_entity\Normalizer\CslContributorFieldNormalizer
     tags:
       - { name: normalizer, priority: 30 }
     arguments: ['@entity.manager']
   serializer.normalizer.contributor_entity:
-    class: Drupal\bibcite_entity\Normalizer\ContributorEntityNormalizer
+    class: Drupal\bibcite_entity\Normalizer\CslContributorEntityNormalizer
     tags:
       - { name: normalizer, priority: 30 }
     arguments: ['@entity.manager']

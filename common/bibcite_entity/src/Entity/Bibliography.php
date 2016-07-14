@@ -92,14 +92,14 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
     $fields['type'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Type'))
       ->setDescription(t('The type of publication for the Bibliography'))
-      ->setSettings(array(
+      ->setSettings([
         'text_processing' => 0,
-      ))
+      ])
       ->setDefaultValue('')
-      ->setDisplayOptions('form', array(
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => 1,
-      ))
+      ])
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
@@ -109,16 +109,16 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
     $fields['title'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Title'))
       ->setDescription(t('The title of the Bibliography.'))
-      ->setSettings(array(
+      ->setSettings([
         'text_processing' => 0,
-      ))
+      ])
       ->setDefaultValue('')
-      ->setDisplayOptions('form', array(
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => 2,
-      ));
+      ]);
 
-    $fields[CslKeyConverter::normalizeKey('author')] = BaseFieldDefinition::create('bibcite_contributor')
+    $fields['author'] = BaseFieldDefinition::create('bibcite_contributor')
       ->setLabel(t('Author'))
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
       ->setDisplayOptions('form', [
@@ -130,19 +130,20 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
         'weight' => 3,
       ]);
 
-    $fields[CslKeyConverter::normalizeKey('keywords')] = BaseFieldDefinition::create('entity_reference')
+    $fields['keywords'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Keywords'))
       ->setSetting('target_type', 'bibcite_keyword')
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
-      ->setDisplayOptions('form', array(
+      ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete_tags',
         'weight' => 4,
-        'settings' => array(
+        'settings' => [
           'match_operator' => 'CONTAINS',
           'size' => '60',
           'placeholder' => '',
-        ),
-      ))
+        ],
+      ]
+      )
       ->setDisplayOptions('view', [
         'type' => 'entity_reference_label',
         'weight' => 4,

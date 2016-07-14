@@ -5,7 +5,7 @@ namespace Drupal\bibcite_entity\Normalizer;
 /**
  * Normalizes/denormalizes contributor entity to CSL format.
  */
-class ContributorEntityNormalizer extends CslNormalizerBase {
+class CslContributorEntityNormalizer extends CslNormalizerBase {
 
   /**
    * The interface or class that this Normalizer supports.
