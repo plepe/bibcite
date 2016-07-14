@@ -88,6 +88,13 @@ class SettingsForm extends ConfigFormBase {
       ];
     }
 
+    $form['default_style'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Default style'),
+      '#options' => $processor->getAvailableStyles(),
+      '#default_value' => $config->get('default_style'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -96,7 +103,9 @@ class SettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->config('bibcite.settings');
-    $config->set('processor', $form_state->getValue('processor'))
+    $config
+      ->set('processor', $form_state->getValue('processor'))
+      ->set('default_style', $form_state->getValue('default_style'))
       ->save();
 
     parent::submitForm($form, $form_state);

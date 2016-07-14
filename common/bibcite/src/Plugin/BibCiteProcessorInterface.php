@@ -12,15 +12,17 @@ interface BibCiteProcessorInterface extends PluginInspectionInterface {
   /**
    * Render citation string from CSL values array.
    *
-   * @param array $values
+   * @param array $data
    *   CSL values array.
    * @param string $style
    *   Citation style identifier.
+   * @param string $lang
+   *   Citation language.
    *
-   * @return string
+   * @return string Rendered citation.
    *   Rendered citation.
    */
-  public function render(array $values, $style);
+  public function render(array $data, $style, $lang = 'en_US');
 
   /**
    * Get plugin description markup.
@@ -45,13 +47,5 @@ interface BibCiteProcessorInterface extends PluginInspectionInterface {
    *   Bibliography styles list.
    */
   public function getAvailableStyles();
-
-  /**
-   * Get identifier of default style.
-   *
-   * @return string
-   *   Default style identifier.
-   */
-  public function getDefaultStyleId();
 
 }

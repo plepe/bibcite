@@ -62,17 +62,17 @@ class CiteprocPhp extends BibCiteProcessorBase implements BibCiteProcessorInterf
   /**
    * {@inheritdoc}
    */
-  public function render(array $values, $style, $lang = 'en-US') {
+  public function render(array $data, $style, $lang = 'en-US') {
     // @todo Use Drupal language.
     $csl = CiteProc::loadStyleSheet($style);
 
     $cite_proc = new CiteProc($csl, $lang);
 
-    if (!$values instanceof \stdClass) {
-      $values = json_decode(json_encode($values));
+    if (!$data instanceof \stdClass) {
+      $data = json_decode(json_encode($data));
     }
 
-    return $cite_proc->render($values);
+    return $cite_proc->render($data);
   }
 
   /**
@@ -86,13 +86,6 @@ class CiteprocPhp extends BibCiteProcessorBase implements BibCiteProcessorInterf
     $available_styles = array_flip($available_styles);
 
     return array_intersect_key($all_styles, $available_styles);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getDefaultStyleId() {
-    return $this->configFactory->get('bibcite.processor.citeprocphp.settings')->get('default_style');
   }
 
   /**

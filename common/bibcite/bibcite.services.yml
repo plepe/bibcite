@@ -4,3 +4,6 @@ services:
   plugin.manager.bibcite_processor.processor:
     class: Drupal\bibcite\Plugin\BibCiteProcessorManager
     parent: default_plugin_manager
+  bibcte.styler:
+    class: Drupal\bibcite\Styler
+    arguments: ['@plugin.manager.bibcite_processor.processor', '@config.factory']

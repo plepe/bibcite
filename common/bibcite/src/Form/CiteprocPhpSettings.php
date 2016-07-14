@@ -74,12 +74,6 @@ class CiteprocPhpSettings extends ConfigFormBase {
       '#title' => $this->t('Available styles'),
       '#options' => array_diff($all_styles, $enabled_styles),
     ];
-    $form['default_style'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Default style'),
-      '#options' => $enabled_styles,
-      '#default_value' => $config->get('default_style'),
-    ];
 
     return parent::buildForm($form, $form_state);
   }
@@ -144,17 +138,6 @@ class CiteprocPhpSettings extends ConfigFormBase {
     $available_styles = array_diff($available_styles, $removed_styles);
 
     $config->set('enabled_styles', $available_styles)
-      ->save();
-
-    parent::submitForm($form, $form_state);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-    $config = $this->config('bibcite.processor.citeprocphp.settings');
-    $config->set('default_style', $form_state->getValue('default_style'))
       ->save();
 
     parent::submitForm($form, $form_state);
