@@ -2,43 +2,16 @@
 
 namespace Drupal\bibcite\Form;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
+
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\bibcite\CiteprocPhpInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\bibcite\Plugin\BibCiteProcessor\CiteprocPhp;
 
 /**
  * Settings form for CiteprocPhp processor.
  */
 class CiteprocPhpSettings extends ConfigFormBase {
 
-  /**
-   * Citeproc PHP service.
-   * 
-   * @var \Drupal\bibcite\CiteprocPhpInterface
-   */
-  protected $citeproc;
-  
-  /**
-   * @inheritdoc
-   */
-  public function __construct(ConfigFactoryInterface $config_factory, CiteprocPhpInterface $citeproc) {
-    parent::__construct($config_factory);
-    
-    $this->citeproc = $citeproc;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('config.factory'),
-      $container->get('bibcite.citeproc_php')
-    );
-  }
-  
   /**
    * {@inheritdoc}
    */
@@ -60,8 +33,8 @@ class CiteprocPhpSettings extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('bibcite.processor.citeprocphp.settings');
-    
-    $all_styles = $this->citeproc->getStyles();
+
+    $all_styles = CiteprocPhp::getStyles();
 
     $enabled_styles = $config->get('enabled_styles');
     // Flip array to use in intersect function.
