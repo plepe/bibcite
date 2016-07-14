@@ -353,7 +353,7 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
         'label' => t('Medium'),
       ],
       'bibcite_note' => [
-        'type' => t('string'),
+        'type' => 'string',
         'label' => t('Note'),
       ],
       'bibcite_original_publisher' => [
