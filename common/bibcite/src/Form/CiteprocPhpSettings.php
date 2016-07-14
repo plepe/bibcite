@@ -111,8 +111,8 @@ class CiteprocPhpSettings extends ConfigFormBase {
    *   The current state of the form.
    */
   public function validateDeleteAction(array &$form, FormStateInterface $form_state) {
-    $config = $this->config('bibcite.processor.citeprocphp.settings');
-    $default_style = $config->get('default_style');
+    $main_config = $this->config('bibcite.settings');
+    $default_style = $main_config->get('default_style');
     $value = $form_state->getValue('enabled_styles');
 
     if (isset($value[$default_style])) {
