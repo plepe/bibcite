@@ -50,13 +50,9 @@ class Styler implements StylerInterface {
    */
   public function render(array $data, $style = NULL, $lang = 'en_US') {
     $style = $style ?: $this->getDefaultStyleId();
+    $processor = $this->getProcessor();
 
-    if (!$this->processor) {
-      $config = $this->configFactory->get('bibcite.settings');
-      $this->setProcessorById($config->get('processor'));
-    }
-
-    return $this->processor->render($data, $style, $lang);
+    return $processor->render($data, $style, $lang);
   }
 
   /**
@@ -79,6 +75,11 @@ class Styler implements StylerInterface {
    * {@inheritdoc}
    */
   public function getProcessor() {
+    if (!$this->processor) {
+      $config = $this->configFactory->get('bibcite.settings');
+      $this->setProcessorById($config->get('processor'));
+    }
+
     return $this->processor;
   }
 
