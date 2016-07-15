@@ -5,19 +5,3 @@ entity.bibliography.collection:
   description: 'List Bibliography entities'
   parent: system.admin_content
   weight: 100
-
-# Contributor menu items definition
-entity.bibcite_contributor.collection:
-  title: 'Contributor list'
-  route_name: entity.bibcite_contributor.collection
-  description: 'List Contributor entities'
-  parent: system.admin_structure
-  weight: 100
-
-# Keyword menu items definition
-entity.bibcite_keyword.collection:
-  title: 'Keyword list'
-  route_name: entity.bibcite_keyword.collection
-  description: 'List Keyword entities'
-  parent: system.admin_structure
-  weight: 100

@@ -41,11 +41,11 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "langcode" = "langcode",
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/bibcite_keyword/{bibcite_keyword}",
- *     "add-form" = "/admin/structure/bibcite_keyword/add",
- *     "edit-form" = "/admin/structure/bibcite_keyword/{bibcite_keyword}/edit",
- *     "delete-form" = "/admin/structure/bibcite_keyword/{bibcite_keyword}/delete",
- *     "collection" = "/admin/structure/bibcite_keyword",
+ *     "canonical" = "/admin/content/bibliography/keyword/{bibcite_keyword}",
+ *     "add-form" = "/admin/content/bibliography/keyword/add",
+ *     "edit-form" = "/admin/content/bibliography/keyword/{bibcite_keyword}/edit",
+ *     "delete-form" = "/admin/content/bibliography/keyword/{bibcite_keyword}/delete",
+ *     "collection" = "/admin/content/bibliography/keyword",
  *   },
  * )
  */
