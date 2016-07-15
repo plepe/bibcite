@@ -1,0 +1,19 @@
+{#
+/**
+* @file
+* Default theme implementation for display rendered citation.
+*
+* Available variables:
+* - citation: Rendered citation HTML.
+* - links: Additional links related to citation.
+* - data: Array of raw CSL data.
+* - style: Citation style identifier.
+* - default_links: Flag for the adding default links.
+*/
+#}
+<div class="bibcite__citation">
+    <div class="bibcite__content">{{ citation|raw }}</div>
+    {% if links %}
+    <div class="bibcite__links">{{ links }}</div>
+    {% endif %}
+</div>

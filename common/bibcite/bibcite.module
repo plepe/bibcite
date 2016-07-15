@@ -1,0 +1,142 @@
+<?php
+/**
+ * @file
+ * Main module hooks.
+ */
+
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_theme().
+ */
+function bibcite_theme($existing, $type, $theme, $path) {
+  return [
+    'bibcite_citation' => [
+      'variables' => [
+        'citation' => '',
+        'links' => [],
+        'data' => [],
+        'style' => NULL,
+        'default_links' => TRUE,
+      ],
+    ],
+    'bibcite_link_google_scholar' => [
+      'template' => 'bibcite-link',
+      'variables' => [
+        'data' => [],
+      ],
+    ],
+    'bibcite_link_doi' => [
+      'template' => 'bibcite-link',
+      'variables' => [
+        'data' => [],
+      ],
+    ],
+    'bibcite_link_pubmed' => [
+      'template' => 'bibcite-link',
+      'variables' => [
+        'data' => [],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function bibcite_preprocess_bibcite_citation(&$variables) {
+  $citation = &$variables['citation'];
+  $links = &$variables['links'];
+  $default_links = $variables['default_links'];
+  $data = $variables['data'];
+  $style = $variables['style'];
+
+  if (!$citation) {
+    $styler = \Drupal::service('bibcite.styler');
+    $citation = $styler->render($data, $style);
+  }
+
+  if ($default_links && $data) {
+    if (!empty($data['title'])) {
+      $links[] = [
+        '#theme' => 'bibcite_link_google_scholar',
+        '#data' => $data,
+      ];
+    }
+
+    if (!empty($data['DOI'])) {
+      $links[] = [
+        '#theme' => 'bibcite_link_doi',
+        '#data' => $data,
+      ];
+    }
+
+    if (!empty($data['PMID'])) {
+      $links[] = [
+        '#theme' => 'bibcite_link_pubmed',
+        '#data' => $data,
+      ];
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function bibcite_preprocess_bibcite_link_google_scholar(&$variables) {
+  $data = $variables['data'];
+  $title = isset($data['title']) ? $data['title'] : '';
+  $url = Url::fromUri('https://scholar.google.com/', [
+    'query' => [
+      'btnG' => 'Search+Scholar',
+      'as_q' => str_replace([' ', '(', ')'], ['+'], $title),
+      'as_occt' => 'any',
+      'as_epq' => '',
+      'as_oq' => '',
+      'as_eq' => '',
+      'as_publication' => '',
+      'as_ylo' => '',
+      'as_yhi' => '',
+      'as_sdtAAP' => 1,
+      'as_sdtp' => 1,
+    ],
+  ]);
+
+  $variables['link'] = [
+    '#type' => 'link',
+    '#url' => $url,
+    '#title' => t('Google Scholar'),
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function bibcite_preprocess_bibcite_link_doi(&$variables) {
+  $data = $variables['data'];
+  $doi = isset($data['DOI']) ? $data['DOI'] : '';
+
+  $url = Url::fromUri('http://dx.doi.org/' . $doi);
+
+  $variables['link'] = [
+    '#type' => 'link',
+    '#url' => $url,
+    '#title' => t('DOI'),
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function bibcite_preprocess_bibcite_link_pubmed(&$variables) {
+  $data = $variables['data'];
+  $pmid = isset($data['PMID']) ? $data['PMID'] : '';
+
+  $url = Url::fromUri('http://www.ncbi.nlm.nih.gov/pubmed/' . $pmid . '?dopt=Abstract');
+
+  $variables['link'] = [
+    '#type' => 'link',
+    '#url' => $url,
+    '#title' => t('PubMed'),
+  ];
+}
