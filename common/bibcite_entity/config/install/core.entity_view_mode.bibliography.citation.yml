@@ -1,0 +1,8 @@
+id: bibliography.citation
+label: Citation
+status: true
+cache: true
+targetEntityType: bibliography
+dependencies:
+  module:
+    - bibcite_entity
