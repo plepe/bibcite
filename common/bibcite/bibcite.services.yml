@@ -1,9 +1,7 @@
 services:
-  bibcite.csl_data_provider:
-    class: Drupal\bibcite\CslDataProvider
-  plugin.manager.bibcite_processor.processor:
+  plugin.manager.bibcite_processor:
     class: Drupal\bibcite\Plugin\BibCiteProcessorManager
     parent: default_plugin_manager
   bibcite.styler:
     class: Drupal\bibcite\Styler
-    arguments: ['@plugin.manager.bibcite_processor.processor', '@config.factory']
+    arguments: ['@plugin.manager.bibcite_processor', '@config.factory']
