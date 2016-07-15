@@ -27,9 +27,6 @@ function bibcite_entity_theme($existing, $type, $theme, $path) {
  * Implements hook_preprocess_HOOK().
  */
 function bibcite_entity_preprocess_bibliography(array &$variables) {
-  // Fetch Bibliography Entity Object.
-  $bibliography = $variables['elements']['#bibliography'];
-
   $variables['table'] = [
     '#type' => 'table',
   ];
@@ -53,9 +50,6 @@ function bibcite_entity_preprocess_bibliography(array &$variables) {
  * Implements hook_preprocess_HOOK().
  */
 function bibcite_entity_preprocess_bibcite_contributor(array &$variables) {
-  // Fetch Contributor Entity Object.
-  $bibcite_contributor = $variables['elements']['#bibcite_contributor'];
-
   // Helpful $content variable for templates.
   foreach (Element::children($variables['elements']) as $key) {
     $variables['content'][$key] = $variables['elements'][$key];
@@ -66,9 +60,6 @@ function bibcite_entity_preprocess_bibcite_contributor(array &$variables) {
  * Implements hook_preprocess_HOOK().
  */
 function bibcite_entity_preprocess_bibcite_keyword(array &$variables) {
-  // Fetch Keyword Entity Object.
-  $bibcite_keyword = $variables['elements']['#bibcite_keyword'];
-
   // Helpful $content variable for templates.
   foreach (Element::children($variables['elements']) as $key) {
     $variables['content'][$key] = $variables['elements'][$key];
