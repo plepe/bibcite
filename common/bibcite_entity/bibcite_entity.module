@@ -27,21 +27,32 @@ function bibcite_entity_theme($existing, $type, $theme, $path) {
  * Implements hook_preprocess_HOOK().
  */
 function bibcite_entity_preprocess_bibliography(array &$variables) {
-  $variables['table'] = [
-    '#type' => 'table',
-  ];
+  /** @var \Drupal\bibcite_entity\Entity\BibliographyInterface $bibliography */
+  $bibliography = $variables['elements']['#bibliography'];
+  $view_mode = $variables['elements']['#view_mode'];
 
-  // Helpful $content variable for templates.
-  foreach (Element::children($variables['elements']) as $key) {
-    if (Element::children($variables['elements'][$key])) {
-      $title = $variables['elements'][$key]['#title'];
-      unset($variables['elements'][$key]['#title']);
-      $variables['table'][] = [
-        'title' => [
-          '#markup' => $title,
-        ],
-        'element' => $variables['elements'][$key],
-      ];
+  if ($view_mode == 'citation') {
+    $variables['content'] = [
+      '#markup' => $bibliography->cite(),
+    ];
+  }
+  else {
+    $variables['content'] = [
+      '#type' => 'table',
+    ];
+
+
+    foreach (Element::children($variables['elements']) as $key) {
+      if (Element::children($variables['elements'][$key])) {
+        $title = $variables['elements'][$key]['#title'];
+        unset($variables['elements'][$key]['#title']);
+        $variables['content'][] = [
+          'title' => [
+            '#markup' => $title,
+          ],
+          'element' => $variables['elements'][$key],
+        ];
+      }
     }
   }
 }
@@ -50,7 +61,6 @@ function bibcite_entity_preprocess_bibliography(array &$variables) {
  * Implements hook_preprocess_HOOK().
  */
 function bibcite_entity_preprocess_bibcite_contributor(array &$variables) {
-  // Helpful $content variable for templates.
   foreach (Element::children($variables['elements']) as $key) {
     $variables['content'][$key] = $variables['elements'][$key];
   }
@@ -60,7 +70,6 @@ function bibcite_entity_preprocess_bibcite_contributor(array &$variables) {
  * Implements hook_preprocess_HOOK().
  */
 function bibcite_entity_preprocess_bibcite_keyword(array &$variables) {
-  // Helpful $content variable for templates.
   foreach (Element::children($variables['elements']) as $key) {
     $variables['content'][$key] = $variables['elements'][$key];
   }
