@@ -155,337 +155,140 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
      * CSL fields.
      */
 
-    $csl_fields = [
-      'bibcite_accessed' => [
-        'type' => 'datetime',
-        'label' => t('Accessed'),
-      ],
-      'bibcite_container' => [
-        'type' => 'datetime',
-        'label' => t('Container'),
-      ],
-      'bibcite_event_date' => [
-        'type' => 'datetime',
-        'label' => t('Event Date'),
-      ],
-      'bibcite_issued' => [
-        'type' => 'datetime',
-        'label' => t('Issued'),
-      ],
-      'bibcite_original_date' => [
-        'type' => 'datetime',
-        'label' => t('Original Date'),
-      ],
-      'bibcite_submitted' => [
-        'type' => 'datetime',
-        'label' => t('Submitted'),
-      ],
-      'bibcite_chapter_number' => [
-        'type' => 'integer',
-        'label' => t('Chapter Number'),
-      ],
-      'bibcite_collection_number' => [
-        'type' => 'integer',
-        'label' => t('Collection Number'),
-      ],
-      'bibcite_edition' => [
-        'type' => 'integer',
-        'label' => t('Edition'),
-      ],
-      'bibcite_issue' => [
-        'type' => 'integer',
-        'label' => t('Issue'),
-      ],
-      'bibcite_number' => [
-        'type' => 'integer',
-        'label' => t('Number'),
-      ],
-      'bibcite_number_of_pages' => [
-        'type' => 'integer',
-        'label' => t('Number of Pages'),
-      ],
-      'bibcite_number_of_volumes' => [
-        'type' => 'integer',
-        'label' => t('Number of Volumes'),
-      ],
-      'bibcite_volume' => [
-        'type' => 'integer',
-        'label' => t('Volume'),
-      ],
-      'bibcite_collection_editor' => [
-        'type' => 'string',
-        'label' => t('Collection Editor'),
-      ],
-      'bibcite_composer' => [
-        'type' => 'string',
-        'label' => t('Composer'),
-      ],
-      'bibcite_container_author' => [
-        'type' => 'string',
-        'label' => t('Container Author'),
-      ],
-      'bibcite_director' => [
-        'type' => 'string',
-        'label' => t('Director'),
-      ],
-      'bibcite_editor' => [
-        'type' => 'string',
-        'label' => t('Editor'),
-      ],
-      'bibcite_editorial_director' => [
-        'type' => 'string',
-        'label' => t('Editorial Director'),
-      ],
-      'bibcite_illustrator' => [
-        'type' => 'string',
-        'label' => t('Illustrator'),
-      ],
-      'bibcite_interviewer' => [
-        'type' => 'string',
-        'label' => t('Interviewer'),
-      ],
-      'bibcite_original_author' => [
-        'type' => 'string',
-        'label' => t('Original Author'),
-      ],
-      'bibcite_recipient' => [
-        'type' => 'string',
-        'label' => t('Recipient'),
-      ],
-      'bibcite_reviewed_author' => [
-        'type' => 'string',
-        'label' => t('Reviewed Author'),
-      ],
-      'bibcite_translator' => [
-        'type' => 'string',
-        'label' => t('Translator'),
-      ],
-      'bibcite_abstract' => [
-        'type' => 'string',
-        'label' => t('Abstract'),
-      ],
-      'bibcite_annote' => [
-        'type' => 'string',
-        'label' => t('Annote'),
-      ],
-      'bibcite_archive' => [
-        'type' => 'string',
-        'label' => t('Archive'),
-      ],
-      'bibcite_archive_location' => [
-        'type' => 'string',
-        'label' => t('Archive Location'),
-      ],
-      'bibcite_archive_place' => [
-        'type' => 'string',
-        'label' => t('Archive Place'),
-      ],
-      'bibcite_authority' => [
-        'type' => 'string',
-        'label' => t('Authority'),
-      ],
-      'bibcite_call_number' => [
-        'type' => 'string',
-        'label' => t('Call Number'),
-      ],
-      'bibcite_citation_label' => [
-        'type' => 'string',
-        'label' => t('Citation Label'),
-      ],
-      'bibcite_citation_number' => [
-        'type' => 'string',
-        'label' => t('Citation Number'),
-      ],
-      'bibcite_collection_title' => [
-        'type' => 'string',
-        'label' => t('Collection Title'),
-      ],
-      'bibcite_container_title' => [
-        'type' => 'string',
-        'label' => t('Container Title'),
-      ],
-      'bibcite_container_title_short' => [
-        'type' => 'string',
-        'label' => t('Container Title Short'),
-      ],
-      'bibcite_dimensions' => [
-        'type' => 'string',
-        'label' => t('Dimensions'),
-      ],
-      'bibcite_doi' => [
-        'type' => 'string',
-        'label' => t('DOI'),
-      ],
-      'bibcite_event' => [
-        'type' => 'string',
-        'label' => t('Event'),
-      ],
-      'bibcite_event_place' => [
-        'type' => 'string',
-        'label' => t('Event Place'),
-      ],
-      'bibcite_first_reference_note_number' => [
-        'type' => 'string',
-        'label' => t('First Reference Note Number'),
-      ],
-      'bibcite_genre' => [
-        'type' => 'string',
-        'label' => t('Genre'),
-      ],
-      'bibcite_isbn' => [
-        'type' => 'string',
-        'label' => t('ISBN'),
-      ],
-      'bibcite_issn' => [
-        'type' => 'string',
-        'label' => t('ISSN'),
-      ],
-      'bibcite_jurisdiction' => [
-        'type' => 'string',
-        'label' => t('Jurisdiction'),
-      ],
-      'bibcite_locator' => [
-        'type' => 'string',
-        'label' => t('Locator'),
-      ],
-      'bibcite_medium' => [
-        'type' => 'string',
-        'label' => t('Medium'),
-      ],
-      'bibcite_note' => [
-        'type' => 'string',
-        'label' => t('Note'),
-      ],
-      'bibcite_original_publisher' => [
-        'type' => 'string',
-        'label' => t('Original Publisher'),
-      ],
-      'bibcite_original_publisher_place' => [
-        'type' => 'string',
-        'label' => t('Original Publisher Place'),
-      ],
-      'bibcite_original_title' => [
-        'type' => 'string',
-        'label' => t('Original Title'),
-      ],
-      'bibcite_page' => [
-        'type' => 'string',
-        'label' => t('Page'),
-      ],
-      'bibcite_page_first' => [
-        'type' => 'string',
-        'label' => t('Page First'),
-      ],
-      'bibcite_pmid' => [
-        'type' => 'string',
-        'label' => t('PMID'),
-      ],
-      'bibcite_pmcid' => [
-        'type' => 'string',
-        'label' => t('PMCID'),
-      ],
-      'bibcite_publisher' => [
-        'type' => 'string',
-        'label' => t('Publisher'),
-      ],
-      'bibcite_publisher_place' => [
-        'type' => 'string',
-        'label' => t('Publisher Place'),
-      ],
-      'bibcite_references' => [
-        'type' => 'string',
-        'label' => t('References'),
-      ],
-      'bibcite_reviewed_title' => [
-        'type' => 'string',
-        'label' => t('Reviewed Title'),
-      ],
-      'bibcite_scale' => [
-        'type' => 'string',
-        'label' => t('Scale'),
-      ],
-      'bibcite_section' => [
-        'type' => 'string',
-        'label' => t('Section'),
-      ],
-      'bibcite_source' => [
-        'type' => 'string',
-        'label' => t('Source'),
-      ],
-      'bibcite_status' => [
-        'type' => 'string',
-        'label' => t('Status'),
-      ],
-      'bibcite_title_short' => [
-        'type' => 'string',
-        'label' => t('Title Short'),
-      ],
-      'bibcite_url' => [
-        'type' => 'string',
-        'label' => t('URL'),
-      ],
-      'bibcite_version' => [
-        'type' => 'string',
-        'label' => t('Version'),
-      ],
-      'bibcite_year_suffix' => [
-        'type' => 'string',
-        'label' => t('Year Suffix'),
-      ],
-    ];
-
     $weight = 5;
 
-    foreach ($csl_fields as $field_name => $field_info) {
-      $schema_type = $field_info['type'];
-      $label = $field_info['label'];
-
-      $definition = BaseFieldDefinition::create($schema_type)
-        ->setLabel($label);
-
-      switch ($schema_type) {
-        case 'datetime':
-          $definition->setDefaultValue(NULL)
-            ->setDisplayOptions('form', [
-              'type' => 'date',
-              'datetime_type' => DateTimeItem::DATETIME_TYPE_DATE,
-              'weight' => $weight,
-            ])
-            ->setDisplayOptions('view', [
-              'type' => 'datetime_default',
-              'weight' => $weight,
-            ]);
-          break;
-
-        case 'string':
-          $definition->setDefaultValue('')
-            ->setDisplayOptions('view', [
-              'label' => 'above',
-              'type' => 'string',
-              'weight' => $weight,
-            ])
-            ->setDisplayOptions('form', [
-              'type' => 'string_textfield',
-              'weight' => $weight,
-            ]);
-          break;
-
-        case 'integer':
-          $definition->setDefaultValue(NULL)
-            ->setDisplayOptions('form', [
-              'type' => 'number',
-              'weight' => $weight,
-            ])
-            ->setDisplayOptions('view', [
-              'type' => 'number_integer',
-              'weight' => $weight,
-            ]);
-          break;
-      }
-
-      $fields[$field_name] = $definition;
+    $default_string = function($label) use (&$weight) {
       $weight++;
-    }
+      return BaseFieldDefinition::create('string')
+        ->setLabel($label)
+        ->setDefaultValue('')
+        ->setDisplayOptions('view', [
+          'label' => 'above',
+          'type' => 'string',
+          'weight' => $weight,
+        ])
+        ->setDisplayOptions('form', [
+          'type' => 'string_textfield',
+          'weight' => $weight,
+        ]);
+    };
+
+    $default_datetime = function($label) use (&$weight) {
+      $weight++;
+      return BaseFieldDefinition::create('datetime')
+        ->setLabel($label)
+        ->setDefaultValue(NULL)
+        ->setSettings([
+          'datetime_type' => DateTimeItem::DATETIME_TYPE_DATE,
+        ])
+        ->setDisplayOptions('form', [
+          'type' => 'date',
+          'weight' => $weight,
+        ])
+        ->setDisplayOptions('view', [
+          'type' => 'datetime_default',
+          'settings' => [
+            'format_type' => 'html_date',
+          ],
+          'weight' => $weight,
+        ]);
+    };
+
+    $default_integer = function ($label) use (&$weight) {
+      $weight++;
+      return BaseFieldDefinition::create('integer')
+        ->setLabel($label)
+        ->setDefaultValue(NULL)
+        ->setDisplayOptions('form', [
+          'type' => 'number',
+          'weight' => $weight,
+        ])
+        ->setDisplayOptions('view', [
+          'type' => 'number_integer',
+          'weight' => $weight,
+        ]);
+    };
+
+    /*
+     * Date fields.
+     */
+    $fields['bibcite_accessed'] = $default_datetime(t('Accessed'));
+    $fields['bibcite_container'] = $default_datetime(t('Container'));
+    $fields['bibcite_event_date'] = $default_datetime(t('Event Date'));
+    $fields['bibcite_issued'] = $default_datetime(t('Issued'));
+    $fields['bibcite_original_date'] = $default_datetime(t('Original Date'));
+    $fields['bibcite_submitted'] = $default_datetime(t('Submitted'));
+
+    /*
+     * Number fields.
+     */
+    $fields['bibcite_chapter_number'] = $default_integer(t('Chapter Number'));
+    $fields['bibcite_collection_number'] = $default_integer(t('Collection Number'));
+    $fields['bibcite_edition'] = $default_integer(t('Edition'));
+    $fields['bibcite_issue'] = $default_integer(t('Issue'));
+    $fields['bibcite_number'] = $default_integer(t('Number'));
+    $fields['bibcite_number_of_pages'] = $default_integer(t('Number of Pages'));
+    $fields['bibcite_number_of_volumes'] = $default_integer(t('Number of Volumes'));
+    $fields['bibcite_volume'] = $default_integer(t('Volume'));
+
+    /*
+     * String fields.
+     */
+    $fields['bibcite_collection_editor'] = $default_string(t('Collection Editor'));
+    $fields['bibcite_composer'] = $default_string(t('Composer'));
+    $fields['bibcite_container_author'] = $default_string(t('Container Author'));
+    $fields['bibcite_director'] = $default_string(t('Director'));
+    $fields['bibcite_editor'] = $default_string(t('Editor'));
+    $fields['bibcite_editorial_director'] = $default_string(t('Editorial Director'));
+    $fields['bibcite_illustrator'] = $default_string(t('Illustrator'));
+    $fields['bibcite_interviewer'] = $default_string(t('Interviewer'));
+    $fields['bibcite_original_author'] = $default_string(t('Original Author'));
+    $fields['bibcite_recipient'] = $default_string(t('Recipient'));
+    $fields['bibcite_reviewed_author'] = $default_string(t('Reviewed Author'));
+    $fields['bibcite_translator'] = $default_string(t('Translator'));
+    $fields['bibcite_abstract'] = $default_string(t('Abstract'));
+    $fields['bibcite_annote'] = $default_string(t('Annote'));
+    $fields['bibcite_archive'] = $default_string(t('Archive'));
+    $fields['bibcite_archive_location'] = $default_string(t('Archive Location'));
+    $fields['bibcite_archive_place'] = $default_string(t('Archive Place'));
+    $fields['bibcite_authority'] = $default_string(t('Authority'));
+    $fields['bibcite_call_number'] = $default_string(t('Call Number'));
+    $fields['bibcite_citation_label'] = $default_string(t('Citation Label'));
+    $fields['bibcite_citation_number'] = $default_string(t('Citation Number'));
+    $fields['bibcite_collection_title'] = $default_string(t('Collection Title'));
+    $fields['bibcite_container_title'] = $default_string(t('Container Title'));
+    $fields['bibcite_container_title_short'] = $default_string(t('Container Title Short'));
+    $fields['bibcite_dimensions'] = $default_string(t('Dimensions'));
+    $fields['bibcite_doi'] = $default_string(t('DOI'));
+    $fields['bibcite_event'] = $default_string(t('Event'));
+    $fields['bibcite_event_place'] = $default_string(t('Event Place'));
+    $fields['bibcite_first_reference_note_number'] = $default_string(t('First Reference Note Number'));
+    $fields['bibcite_genre'] = $default_string(t('Genre'));
+    $fields['bibcite_isbn'] = $default_string(t('ISBN'));
+    $fields['bibcite_issn'] = $default_string(t('ISSN'));
+    $fields['bibcite_jurisdiction'] = $default_string(t('Jurisdiction'));
+    $fields['bibcite_locator'] = $default_string(t('Locator'));
+    $fields['bibcite_medium'] = $default_string(t('Medium'));
+    $fields['bibcite_note'] = $default_string(t('Note'));
+    $fields['bibcite_original_publisher'] = $default_string(t('Original Publisher'));
+    $fields['bibcite_original_publisher_place'] = $default_string(t('Original Publisher Place'));
+    $fields['bibcite_original_title'] = $default_string(t('Original Title'));
+    $fields['bibcite_page'] = $default_string(t('Page'));
+    $fields['bibcite_page_first'] = $default_string(t('Page First'));
+    $fields['bibcite_pmid'] = $default_string(t('PMID'));
+    $fields['bibcite_pmcid'] = $default_string(t('PMCID'));
+    $fields['bibcite_publisher'] = $default_string(t('Publisher'));
+    $fields['bibcite_publisher_place'] = $default_string(t('Publisher Place'));
+    $fields['bibcite_references'] = $default_string(t('References'));
+    $fields['bibcite_reviewed_title'] = $default_string(t('Reviewed Title'));
+    $fields['bibcite_scale'] = $default_string(t('Scale'));
+    $fields['bibcite_section'] = $default_string(t('Section'));
+    $fields['bibcite_source'] = $default_string(t('Source'));
+    $fields['bibcite_status'] = $default_string(t('Status'));
+    $fields['bibcite_title_short'] = $default_string(t('Title Short'));
+    $fields['bibcite_url'] = $default_string(t('URL'));
+    $fields['bibcite_version'] = $default_string(t('Version'));
+    $fields['bibcite_year_suffix'] = $default_string(t('Year Suffix'));
 
     /*
      * Entity dates.
