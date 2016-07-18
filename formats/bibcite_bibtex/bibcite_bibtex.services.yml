@@ -7,3 +7,7 @@ services:
     class: Drupal\bibcite_bibtex\EventSubscriber\BibtexSubscriber
     tags:
       - { name: event_subscriber }
+  bibcite_bibtex.normalizer.bibliography:
+    class: Drupal\bibcite_bibtex\Normalizer\BibtexBibliographyNormalizer
+    tags:
+      - { name: normalizer, priority: 30 }
