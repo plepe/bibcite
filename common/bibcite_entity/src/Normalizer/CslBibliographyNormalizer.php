@@ -2,10 +2,21 @@
 
 namespace Drupal\bibcite_entity\Normalizer;
 
+use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\TypedData\ListInterface;
+use Drupal\serialization\Normalizer\NormalizerBase;
+
 /**
  * Normalizes/denormalizes bibliography entity to CSL format.
  */
-class CslBibliographyNormalizer extends CslNormalizerBase {
+class CslBibliographyNormalizer extends NormalizerBase {
+
+  /**
+   * The format that this Normalizer supports.
+   *
+   * @var array
+   */
+  protected $format = 'csl';
 
   /**
    * The interface or class that this Normalizer supports.
@@ -14,16 +25,16 @@ class CslBibliographyNormalizer extends CslNormalizerBase {
    */
   protected $supportedInterfaceOrClass = ['Drupal\bibcite_entity\Entity\BibliographyInterface'];
 
-  protected $fieldsMapping = [
-    'title' => 'title',
-    'author' => 'author',
-    'keywords' => 'keywords',
+  protected $dateFields = [
     'bibcite_accessed' => 'accessed',
     'bibcite_container' => 'container',
     'bibcite_event_date' => 'event-date',
     'bibcite_issued' => 'issued',
     'bibcite_original_date' => 'original-date',
     'bibcite_submitted' => 'submitted',
+  ];
+
+  protected $scalarFields = [
     'bibcite_chapter_number' => 'chapter-number',
     'bibcite_collection_number' => 'collection-number',
     'bibcite_edition' => 'edition',
@@ -92,18 +103,135 @@ class CslBibliographyNormalizer extends CslNormalizerBase {
   /**
    * {@inheritdoc}
    */
-  public function normalize($object, $format = NULL, array $context = array()) {
+  public function normalize($bibliography, $format = NULL, array $context = array()) {
     $attributes = [];
 
-    foreach ($object as $name => $field) {
-      if (isset($this->fieldsMapping[$name])) {
-        $attributes[$this->fieldsMapping[$name]] = $this->serializer->normalize($field, $format, $context);
+    $attributes['title'] = $bibliography->title->value;
+    $attributes['type'] = $bibliography->type->value;
+
+    if ($authors = $this->extractAuthors($bibliography->author)) {
+      $attributes['author'] = $authors;
+    }
+
+    if ($keywords = $this->extractKeywords($bibliography->keywords)) {
+      $attributes['keywords'] = $keywords;
+    }
+
+    foreach ($this->dateFields as $field_name => $csl_key) {
+      if ($bibliography->{$field_name}->value) {
+        $attributes[$csl_key] = $this->extractDate($bibliography->{$field_name});
       }
     }
 
-    $attributes['type'] = $this->serializer->normalize($object->type, $format, $context);
+    foreach ($this->scalarFields as $field_name => $csl_key) {
+      if ($bibliography->{$field_name}->value) {
+        $attributes[$csl_key] = $this->extractScalar($bibliography->{$field_name});
+      }
+    }
 
     return $attributes;
+  }
+
+  /**
+   * Extract keywords labels from field.
+   *
+   * @param \Drupal\Core\Field\FieldItemListInterface $field_item_list
+   *   List of field items.
+   *
+   * @return array
+   *   Keywords labels.
+   */
+  protected function extractKeywords(FieldItemListInterface $field_item_list) {
+    $keywords = [];
+
+    foreach ($field_item_list as $field) {
+      $keywords[] = $field->entity->label();
+    }
+
+    return $keywords;
+  }
+
+  /**
+   * Extract authors values from field.
+   *
+   * @param \Drupal\Core\Field\FieldItemListInterface $field_item_list
+   *   List of field items.
+   *
+   * @return array
+   *   Authors in CSL format.
+   */
+  protected function extractAuthors(FieldItemListInterface $field_item_list) {
+    $authors = [];
+
+    foreach ($field_item_list as $field) {
+      /** @var \Drupal\bibcite_entity\Entity\ContributorInterface $contributor */
+      $contributor = $field->entity;
+
+      $authors[] = [
+        'category' => $field->category,
+        'role' => $field->role,
+        'family' => $contributor->getLastName(),
+        'given' => $contributor->getFirstName(),
+        'suffix' => $contributor->getSuffix(),
+        'literal' => $contributor->getName(),
+        // @todo Implement another fields.
+      ];
+    }
+
+    return $authors;
+  }
+
+  /**
+   * Extract date value to CSL format.
+   *
+   * @param \Drupal\Core\Field\FieldItemListInterface $date_field
+   *   Date item list.
+   *
+   * @return array
+   *   Date in CSL format.
+   */
+  protected function extractDate(FieldItemListInterface $date_field) {
+    $date_pars = date_parse($date_field->value);
+
+    return [
+      'date-parts' => [
+        [$date_pars['year']],
+        [$date_pars['month']],
+        [$date_pars['day']],
+      ],
+      'literal' => $date_field->value,
+    ];
+  }
+
+  /**
+   * Extract scalar value to CSL format.
+   *
+   * @param \Drupal\Core\Field\FieldItemListInterface $scalar_field
+   *   Number item list.
+   *
+   * @return mixed
+   *   Scalar in CSL format.
+   */
+  protected function extractScalar(FieldItemListInterface $scalar_field) {
+    return $scalar_field->value;
+  }
+
+  /**
+   * Checks if the provided format is supported by this normalizer.
+   *
+   * @param string $format
+   *   The format to check.
+   *
+   * @return bool
+   *   TRUE if the format is supported, FALSE otherwise. If no format is
+   *   specified this will return FALSE.
+   */
+  protected function checkFormat($format = NULL) {
+    if (!isset($format) || !isset($this->format)) {
+      return FALSE;
+    }
+
+    return in_array($format, (array) $this->format);
   }
 
 }
