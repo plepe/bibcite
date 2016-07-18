@@ -11,7 +11,9 @@ use Drupal\serialization\Normalizer\NormalizerBase;
 class BibtexBibliographyNormalizer extends NormalizerBase {
 
   /**
-   * {@inheritdoc}
+   * The format that this Normalizer supports.
+   *
+   * @var string
    */
   protected $format = 'bibtex';
 
@@ -22,10 +24,20 @@ class BibtexBibliographyNormalizer extends NormalizerBase {
    */
   protected $supportedInterfaceOrClass = ['Drupal\bibcite_entity\Entity\BibliographyInterface'];
 
+  /**
+   * List of date fields.
+   *
+   * @var array
+   */
   protected $dateFields = [
     'bibcite_accessed' => 'accessed',
   ];
 
+  /**
+   * List of scalar fields.
+   *
+   * @var array
+   */
   protected $scalarFields = [
     'bibcite_number' => 'number',
     'bibcite_number_of_pages' => 'pages',
@@ -36,6 +48,11 @@ class BibtexBibliographyNormalizer extends NormalizerBase {
     'bibcite_status' => 'status',
   ];
 
+  /**
+   * Mapping between CSL and BibTex publication types.
+   *
+   * @var array
+   */
   protected $typesMapping = [
     'journal-article' => 'article',
     'book' => 'book',

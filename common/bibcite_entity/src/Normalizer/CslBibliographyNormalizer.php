@@ -3,7 +3,6 @@
 namespace Drupal\bibcite_entity\Normalizer;
 
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\TypedData\ListInterface;
 use Drupal\serialization\Normalizer\NormalizerBase;
 
 /**
@@ -14,7 +13,7 @@ class CslBibliographyNormalizer extends NormalizerBase {
   /**
    * The format that this Normalizer supports.
    *
-   * @var array
+   * @var string
    */
   protected $format = 'csl';
 
@@ -25,6 +24,11 @@ class CslBibliographyNormalizer extends NormalizerBase {
    */
   protected $supportedInterfaceOrClass = ['Drupal\bibcite_entity\Entity\BibliographyInterface'];
 
+  /**
+   * List of date fields.
+   *
+   * @var array
+   */
   protected $dateFields = [
     'bibcite_accessed' => 'accessed',
     'bibcite_container' => 'container',
@@ -34,6 +38,11 @@ class CslBibliographyNormalizer extends NormalizerBase {
     'bibcite_submitted' => 'submitted',
   ];
 
+  /**
+   * List of scalar fields.
+   *
+   * @var array
+   */
   protected $scalarFields = [
     'bibcite_chapter_number' => 'chapter-number',
     'bibcite_collection_number' => 'collection-number',
