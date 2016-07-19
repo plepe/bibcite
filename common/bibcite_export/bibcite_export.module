@@ -38,9 +38,11 @@ function bibcite_export_preprocess_bibliography(&$variables) {
 
     if ($items) {
       $variables['content']['export'] = [
-        '#type' => 'fieldset',
-        '#title' => t('Export'),
-        'content' => [
+        '#type' => 'container',
+        '#attributes' => [
+          'class' => ['text-align-right'],
+        ],
+        'links' => [
           '#theme' => 'item_list',
           '#attributes' => [
             'class' => ['inline'],
