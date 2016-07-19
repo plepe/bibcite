@@ -12,7 +12,7 @@ bibcite.settings:
   path: '/admin/config/bibcite/settings'
   defaults:
     _form: '\Drupal\bibcite\Form\SettingsForm'
-    _title: 'Bibliography & Citation Settings'
+    _title: 'Processing'
   requirements:
     _permission: 'administer bibcite'
 
