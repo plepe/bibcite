@@ -3,11 +3,11 @@ services:
     class: Drupal\bibcite_bibtex\Encoder\BibtexEncoder
     tags:
        - { name: encoder, format: bibtex }
-  bibcite_bibtex.bibtex_subscriber:
-    class: Drupal\bibcite_bibtex\EventSubscriber\BibtexSubscriber
-    tags:
-      - { name: event_subscriber }
   bibcite_bibtex.normalizer.bibliography:
     class: Drupal\bibcite_bibtex\Normalizer\BibtexBibliographyNormalizer
     tags:
       - { name: normalizer, priority: 30 }
+  bibcite_bibtex.bibtex_subscriber:
+    class: Drupal\bibcite_bibtex\EventSubscriber\BibtexSubscriber
+    tags:
+      - { name: event_subscriber }
