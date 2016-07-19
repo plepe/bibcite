@@ -1,0 +1,14 @@
+{
+  "name": "drupal/bibcite_export",
+  "type": "drupal-module",
+  "description": "Export your bibliography data",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/bibcite_export",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/bibcite_export",
+    "source": "http://cgit.drupalcode.org/bibcite_export"
+  },
+  "require": { }
+}
