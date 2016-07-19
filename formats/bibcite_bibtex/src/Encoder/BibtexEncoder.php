@@ -47,9 +47,11 @@ class BibtexEncoder implements EncoderInterface, DecoderInterface {
       return [$this->buildEntry($data)];
     }
 
-    return array_map(function($raw) {
+    $data = array_map(function($raw) {
       return $this->buildEntry($raw);
     }, $data);
+
+    return implode("\n", $data);
   }
 
   /**
