@@ -11,3 +11,11 @@ bibcite_export.export:
         type: bibcite_format
       entity:
         type: entity:{entity_type}
+
+bibcite_export.settings:
+  path: '/admin/config/bibcite/settings/export'
+  defaults:
+    _form: '\Drupal\bibcite_export\Form\ExportSettingsForm'
+    _title: 'Export'
+  requirements:
+    _permission: 'administer bibcite'
