@@ -31,15 +31,22 @@ function bibcite_entity_preprocess_bibliography(array &$variables) {
   $bibliography = $variables['elements']['#bibliography'];
   $view_mode = $variables['elements']['#view_mode'];
 
+  $variables['content'] = [
+    '#type' => 'container',
+  ];
+
   // @todo Any better way to handle different view mode?
   if ($view_mode == 'citation') {
-    $variables['content'] = [
+    $variables['content']['citation'] = [
       '#markup' => $bibliography->cite(),
     ];
   }
   else {
     $variables['content'] = [
-      '#type' => 'table',
+      '#type' => 'container',
+      'table' => [
+        '#type' => 'table',
+      ],
     ];
 
 
@@ -47,7 +54,7 @@ function bibcite_entity_preprocess_bibliography(array &$variables) {
       if (Element::children($variables['elements'][$key])) {
         $title = $variables['elements'][$key]['#title'];
         $variables['elements'][$key]['#title'] = '';
-        $variables['content'][] = [
+        $variables['content']['table'][] = [
           'title' => [
             '#markup' => $title,
           ],
