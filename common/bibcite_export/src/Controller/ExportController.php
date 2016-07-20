@@ -71,7 +71,7 @@ class ExportController extends ControllerBase {
 
       $response->sendHeaders();
 
-      $response->setContent($result);
+      $response->setContent(implode("\n", $result));
     }
 
     return $response;
