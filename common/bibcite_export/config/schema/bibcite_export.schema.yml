@@ -1,0 +1,7 @@
+action.configuration.bibcite_export_action:
+  type: mapping
+  label: 'Export bibliography'
+  mapping:
+    format:
+      type: text
+      label: 'Format'
