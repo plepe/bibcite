@@ -21,7 +21,7 @@ use Drupal\bibcite\CslKeyConverter;
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\bibcite_entity\BibliographyListBuilder",
- *     "views_data" = "Drupal\views\EntityViewsData",
+ *     "views_data" = "Drupal\bibcite_entity\BibliographyViewsData",
  *
  *     "form" = {
  *       "default" = "Drupal\bibcite_entity\Form\BibliographyForm",
