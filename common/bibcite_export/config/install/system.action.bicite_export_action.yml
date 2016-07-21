@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - bibcite
+id: bibcite_export_action
+label: 'Export bibliography'
+type: bibliography
+plugin: bibcite_export_action
+configuration: {  }
