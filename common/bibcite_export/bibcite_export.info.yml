@@ -1,4 +1,4 @@
-name: Bibliography & Citation: Export
+name: 'Bibliography & Citation: Export'
 type: module
 description: Export your bibliography data
 core: 8.x
