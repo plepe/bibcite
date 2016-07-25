@@ -12,6 +12,18 @@ bibcite_export.export:
       entity:
         type: entity:{entity_type}
 
+bibcite_export.export_multiple:
+  path: '/bibcite/export/{bibcite_format}/{entity_type}'
+  defaults:
+    _controller: '\Drupal\bibcite_export\Controller\ExportController::exportMultiple'
+    _title: 'BibCite Export'
+  requirements:
+    _permission: 'access bibcite export'
+  options:
+    parameters:
+      bibcite_format:
+        type: bibcite_format
+
 bibcite_export.settings:
   path: '/admin/config/bibcite/settings/export'
   defaults:
