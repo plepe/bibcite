@@ -11,31 +11,10 @@ use Drupal\Core\Url;
  */
 function bibcite_theme($existing, $type, $theme, $path) {
   return [
-    'bibcite_citation' => [
+    'bibliography' => [
       'variables' => [
-        'citation' => '',
-        'links' => [],
         'data' => [],
         'style' => NULL,
-        'default_links' => TRUE,
-      ],
-    ],
-    'bibcite_link_google_scholar' => [
-      'template' => 'bibcite-link',
-      'variables' => [
-        'data' => [],
-      ],
-    ],
-    'bibcite_link_doi' => [
-      'template' => 'bibcite-link',
-      'variables' => [
-        'data' => [],
-      ],
-    ],
-    'bibcite_link_pubmed' => [
-      'template' => 'bibcite-link',
-      'variables' => [
-        'data' => [],
       ],
     ],
   ];
@@ -44,99 +23,70 @@ function bibcite_theme($existing, $type, $theme, $path) {
 /**
  * Implements hook_preprocess_HOOK().
  */
-function bibcite_preprocess_bibcite_citation(&$variables) {
-  $citation = &$variables['citation'];
-  $links = &$variables['links'];
-  $default_links = $variables['default_links'];
+function bibcite_preprocess_bibliography(&$variables) {
+  $config = \Drupal::config('bibcite.settings');
+  $styler = \Drupal::service('bibcite.styler');
   $data = $variables['data'];
-  $style = $variables['style'];
 
-  if (!$citation) {
-    $styler = \Drupal::service('bibcite.styler');
-    $citation = $styler->render($data, $style);
+  if (!$variables['style']) {
+    $variables['style'] = $config->get('default_style');
   }
 
-  if ($default_links && $data) {
-    if (!empty($data['title'])) {
-      $links[] = [
-        '#theme' => 'bibcite_link_google_scholar',
-        '#data' => $data,
-      ];
-    }
-
-    if (!empty($data['DOI'])) {
-      $links[] = [
-        '#theme' => 'bibcite_link_doi',
-        '#data' => $data,
-      ];
-    }
-
-    if (!empty($data['PMID'])) {
-      $links[] = [
-        '#theme' => 'bibcite_link_pubmed',
-        '#data' => $data,
-      ];
-    }
-  }
-}
-
-/**
- * Implements hook_preprocess_HOOK().
- */
-function bibcite_preprocess_bibcite_link_google_scholar(&$variables) {
-  $data = $variables['data'];
-  $title = isset($data['title']) ? $data['title'] : '';
-  $url = Url::fromUri('https://scholar.google.com/', [
-    'query' => [
-      'btnG' => 'Search+Scholar',
-      'as_q' => str_replace([' ', '(', ')'], ['+'], $title),
-      'as_occt' => 'any',
-      'as_epq' => '',
-      'as_oq' => '',
-      'as_eq' => '',
-      'as_publication' => '',
-      'as_ylo' => '',
-      'as_yhi' => '',
-      'as_sdtAAP' => 1,
-      'as_sdtp' => 1,
+  $variables['content'] = [
+    'citation' => [
+      '#markup' => $styler->render($data, $variables['style']),
     ],
-  ]);
-
-  $variables['link'] = [
-    '#type' => 'link',
-    '#url' => $url,
-    '#title' => t('Google Scholar'),
+    'links' => [
+      '#theme' => 'item_list',
+      '#attributes' => [
+        'class' => ['inline'],
+      ],
+      '#items' => [],
+    ],
   ];
-}
 
-/**
- * Implements hook_preprocess_HOOK().
- */
-function bibcite_preprocess_bibcite_link_doi(&$variables) {
-  $data = $variables['data'];
-  $doi = isset($data['DOI']) ? $data['DOI'] : '';
+  $links_config = \Drupal::config('bibcite.settings.links');
+  if ($links_config->get('links.pubmed') && !empty($data['PMID'])) {
+    $url = Url::fromUri('http://www.ncbi.nlm.nih.gov/pubmed/' . $data['PMID'] . '?dopt=Abstract');
 
-  $url = Url::fromUri('http://dx.doi.org/' . $doi);
+    $variables['content']['links']['#items'][] = [
+      '#type' => 'link',
+      '#url' => $url,
+      '#title' => t('PubMed'),
+    ];
+  }
 
-  $variables['link'] = [
-    '#type' => 'link',
-    '#url' => $url,
-    '#title' => t('DOI'),
-  ];
-}
+  if ($links_config->get('links.doi') && !empty($data['DOI'])) {
+    $url = Url::fromUri('http://dx.doi.org/' . $data['DOI']);
 
-/**
- * Implements hook_preprocess_HOOK().
- */
-function bibcite_preprocess_bibcite_link_pubmed(&$variables) {
-  $data = $variables['data'];
-  $pmid = isset($data['PMID']) ? $data['PMID'] : '';
+    $variables['content']['links']['#items'][] = [
+      '#type' => 'link',
+      '#url' => $url,
+      '#title' => t('DOI'),
+    ];
+  }
 
-  $url = Url::fromUri('http://www.ncbi.nlm.nih.gov/pubmed/' . $pmid . '?dopt=Abstract');
+  if ($links_config->get('links.google_scholar') && !empty($data['title'])) {
+    $url = Url::fromUri('https://scholar.google.com/scholar', [
+      'query' => [
+        'btnG' => 'Search+Scholar',
+        'as_q' => '"' . str_replace([' ', '(', ')'], ['+'], $data['title']) . '"',
+        'as_occt' => 'any',
+        'as_epq' => '',
+        'as_oq' => '',
+        'as_eq' => '',
+        'as_publication' => '',
+        'as_ylo' => '',
+        'as_yhi' => '',
+        'as_sdtAAP' => 1,
+        'as_sdtp' => 1,
+      ],
+    ]);
 
-  $variables['link'] = [
-    '#type' => 'link',
-    '#url' => $url,
-    '#title' => t('PubMed'),
-  ];
+    $variables['content']['links']['#items'][] = [
+      '#type' => 'link',
+      '#url' => $url,
+      '#title' => t('Google Scholar'),
+    ];
+  }
 }
