@@ -12,3 +12,8 @@ bibcite.settings.citeproc_php:
   route_name: bibcite.settings.citeproc_php
   title: 'Citeproc PHP'
   parent_id: bibcite.settings
+
+bibcite.settings.links:
+  route_name: bibcite.settings.links
+  title: 'Links'
+  base_route: bibcite.settings
