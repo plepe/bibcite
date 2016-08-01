@@ -1,0 +1,14 @@
+{
+  "name": "drupal/bibcite_import",
+  "type": "drupal-module",
+  "description": "Import your bibliograhic data",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/bibcite_import",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/bibcite_import",
+    "source": "http://cgit.drupalcode.org/bibcite_import"
+  },
+  "require": { }
+}
