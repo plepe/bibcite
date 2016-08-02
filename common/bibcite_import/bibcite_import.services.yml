@@ -1,0 +1,4 @@
+services:
+  plugin.manager.bibcite_import_format:
+    class: Drupal\bibcite_import\BibciteImportFormatManager
+    arguments: ['@module_handler', '@cache.discovery']

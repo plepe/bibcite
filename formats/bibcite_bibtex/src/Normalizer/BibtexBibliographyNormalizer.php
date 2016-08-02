@@ -3,12 +3,14 @@
 namespace Drupal\bibcite_bibtex\Normalizer;
 
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\serialization\Normalizer\EntityNormalizer;
 use Drupal\serialization\Normalizer\NormalizerBase;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
  * Normalizes/denormalizes bibliography entity to BibTex format.
  */
-class BibtexBibliographyNormalizer extends NormalizerBase {
+class BibtexBibliographyNormalizer extends EntityNormalizer {
 
   /**
    * The format that this Normalizer supports.

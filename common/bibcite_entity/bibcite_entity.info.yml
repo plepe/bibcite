@@ -3,3 +3,5 @@ type: module
 description: Storage for your bibliography data.
 package: Bibliography & Citation
 core: 8.x
+dependencies:
+  - bibcite

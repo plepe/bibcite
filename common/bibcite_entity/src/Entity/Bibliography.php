@@ -19,7 +19,7 @@ use Drupal\bibcite\CslKeyConverter;
  *   id = "bibliography",
  *   label = @Translation("Bibliography"),
  *   handlers = {
- *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
+ *     "view_builder" = "Drupal\bibcite_entity\BibliographyViewBuilder",
  *     "list_builder" = "Drupal\bibcite_entity\BibliographyListBuilder",
  *     "views_data" = "Drupal\bibcite_entity\BibliographyViewsData",
  *
