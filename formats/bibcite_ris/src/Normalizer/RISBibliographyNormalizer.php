@@ -163,7 +163,7 @@ class RISBibliographyNormalizer extends NormalizerBase {
 
     $attributes['ST'] = $bibliography->bibcite_title_short->value;
 
-    $attributes['TI'] = $bibliography->title;
+    $attributes['TI'] = $bibliography->title->value;
 
     $attributes['UR'] = $bibliography->bibcite_url->value;
 

@@ -42,10 +42,6 @@ class RISEncoder implements EncoderInterface, DecoderInterface {
    * {@inheritdoc}
    */
   public function encode($data, $format, array $context = array()) {
-    if (isset($data['type'])) {
-      return [$this->buildEntry($data)];
-    }
-
     $data = array_map(function($raw) {
       return $this->buildEntry($raw);
     }, $data);
@@ -63,37 +59,12 @@ class RISEncoder implements EncoderInterface, DecoderInterface {
    *   Formatted BibTex string.
    */
   protected function buildEntry(array $data) {
-    if (empty($data['reference'])) {
-      $data['reference'] = $data['type'];
-    }
-
-    $entry = $this->buildStart($data['type'], $data['reference']);
-
-    unset($data['type']);
-    unset($data['reference']);
-
+    $entry = NULL;
     foreach ($data as $key => $value) {
       $entry .= $this->buildLine($key, $value);
     }
 
-    $entry .= $this->buildEnd();
-
     return $entry;
-  }
-
-  /**
-   * Build first string for bibtex entry.
-   *
-   * @param string $type
-   *   Publication type in Bibtex format.
-   * @param string $reference
-   *   Reference key.
-   *
-   * @return string
-   *   First entry string.
-   */
-  protected function buildStart($type, $reference) {
-    return '@' . $type . '{' . $reference . ',' . "\n";
   }
 
   /**
@@ -108,27 +79,7 @@ class RISEncoder implements EncoderInterface, DecoderInterface {
    *   Entry line.
    */
   protected function buildLine($key, $value) {
-    switch ($key) {
-      case 'author':
-        $value = implode(' and ', $value);
-        break;
-
-      case 'keywords':
-        $value = implode(', ', $value);
-        break;
-    }
-
-    return '  ' . $key . ' = {' . $value . '},' . "\n";
-  }
-
-  /**
-   * Build the end of Bibtex entry.
-   *
-   * @return string
-   *   End line for the Bibtex entry.
-   */
-  protected function buildEnd() {
-    return "}\n";
+    return $key . '  - ' . $value . "\n";
   }
 
 }
