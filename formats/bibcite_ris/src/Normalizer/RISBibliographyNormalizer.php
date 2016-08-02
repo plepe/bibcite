@@ -49,23 +49,66 @@ class RISBibliographyNormalizer extends NormalizerBase {
   ];
 
   /**
-   * Mapping between CSL and BibTex publication types.
+   * Mapping between CSL and RIS publication types.
    *
    * @var array
    */
   protected $typesMapping = [
-    'journal-article' => 'article',
-    'book' => 'book',
-    'pamphlet' => 'booklet',
-    'chapter' => 'inbook',
-    'paper-conference' => 'conference',
-    'thesis' => 'phdthesis',
-    'report' => 'techreport',
-    'patent' => 'patent',
-    'webpage' => 'electronic',
-    'article' => 'other',
-    'legislation' => 'standard',
-    'manuscript' => 'unpublished',
+    'ABST' => 'Abstract',
+    'ADVS' => 'Audiovisual material',
+    'AGGR' => 'Aggregated Database',
+    'ANCIENT' => 'Ancient Text',
+    'ART' => 'Art Work',
+    'BILL' => 'Bill',
+    'BLOG' => 'Blog',
+    'BOOK' => 'Whole book',
+    'CASE' => 'Case',
+    'CHAP' => 'Book chapter',
+    'CHART' => 'Chart',
+    'CLSWK' => 'Classical Work',
+    'COMP' => 'Computer program',
+    'CONF' => 'Conference proceeding',
+    'CPAPER' => 'Conference paper',
+    'CTLG' => 'Catalog',
+    'DATA' => 'Data file',
+    'DBASE' => 'Online Database',
+    'DICT' => 'Dictionary',
+    'EBOOK' => 'Electronic Book',
+    'ECHAP' => 'Electronic Book Section',
+    'EDBOOK' => 'Edited Book',
+    'EJOUR' => 'Electronic Article',
+    'ELEC' => 'Web Page',
+    'ENCYC' => 'Encyclopedia',
+    'EQUA' => 'Equation',
+    'FIGURE' => 'Figure',
+    'GEN' => 'Generic',
+    'GOVDOC' => 'Government Document',
+    'GRANT' => 'Grant',
+    'HEAR' => 'Hearing',
+    'ICOMM' => 'Internet Communication',
+    'INPR' => 'In Press',
+    'JFULL' => 'Journal (full)',
+    'JOUR' => 'Journal',
+    'LEGAL' => 'Legal Rule or Regulation',
+    'MANSCPT' => 'Manuscript',
+    'MAP' => 'Map',
+    'MGZN' => 'Magazine article',
+    'MPCT' => 'Motion picture',
+    'MULTI' => 'Online Multimedia',
+    'MUSIC' => 'Music score',
+    'NEWS' => 'Newspaper',
+    'PAMP' => 'Pamphlet',
+    'PAT' => 'Patent',
+    'PCOMM' => 'Personal communication',
+    'RPRT' => 'Report',
+    'SER' => 'Serial publication',
+    'SLIDE' => 'Slide',
+    'SOUND' => 'Sound recording',
+    'STAND' => 'Standard',
+    'STAT' => 'Statute',
+    'THES' => 'Thesis/Dissertation',
+    'UNPB' => 'Unpublished work',
+    'VIDEO' => 'Video recording',
   ];
 
   /**
@@ -74,44 +117,63 @@ class RISBibliographyNormalizer extends NormalizerBase {
   public function normalize($bibliography, $format = NULL, array $context = array()) {
     $attributes = [];
 
-    $attributes['title'] = $bibliography->title->value;
-    $attributes['type'] = $this->convertType($bibliography->type->value);
-    $attributes['reference'] = $bibliography->id();
-
-    if ($keywords = $this->extractKeywords($bibliography->keywords)) {
-      $attributes['keywords'] = $keywords;
-    }
+    $attributes['TY'] = $this->convertType($bibliography->type->value);
 
     if ($authors = $this->extractAuthors($bibliography->author)) {
-      $attributes['author'] = $authors;
+      $attributes += $authors;
     }
 
-    foreach ($this->dateFields as $field_name => $bibtex_key) {
-      if ($bibliography->{$field_name}->value) {
-        $attributes[$bibtex_key] = $this->extractDate($bibliography->{$field_name});
-      }
+    $attributes['AB'] = $bibliography->bibcite_abstract->value;
+
+    $attributes['AV'] = $bibliography->bibcite_archive_location->value;
+
+    $attributes['CN'] = $bibliography->bibcite_call_number->value;
+
+    $attributes['CY'] = $bibliography->bibcite_publisher_place->value;
+
+    $attributes['DA'] = $bibliography->bibcite_original_date->value;
+
+    $attributes['DO'] = $bibliography->bibcite_doi->value;
+
+    $attributes['ED'] = $bibliography->bibcite_editor->value;
+
+    $attributes['ET'] = $bibliography->bibcite_edition->value;
+
+    $attributes['IS'] = $bibliography->bibcite_issue->value;
+
+    if ($keywords = $this->extractKeywords($bibliography->keywords)) {
+      $attributes['KW'] = $keywords;
     }
 
-    foreach ($this->scalarFields as $field_name => $bibtex_key) {
-      if ($bibliography->{$field_name}->value) {
-        $attributes[$bibtex_key] = $this->extractScalar($bibliography->{$field_name});
-      }
-    }
+    $attributes['M1'] = $bibliography->bibcite_number->value;
+
+    $attributes['NV'] = $bibliography->bibcite_number_of_volumes->value;
+
+    $attributes['PB'] = $bibliography->bibcite_publisher->value;
+
+    $attributes['PP'] = $bibliography->bibcite_publisher_place->value;
+
+    $attributes['PY'] = $bibliography->bibcite_publisher_place->value;
+
+    $attributes['SE'] = $bibliography->bibcite_section->value;
+
+    $attributes['SE'] = $bibliography->bibcite_section->value;
+
+    $attributes['SN'] = trim($bibliography->bibcite_isbn->value . '/' . $bibliography->bibcite_issn->value, '/');
+
+    $attributes['ST'] = $bibliography->bibcite_title_short->value;
+
+    $attributes['TI'] = $bibliography->title;
+
+    $attributes['UR'] = $bibliography->bibcite_url->value;
+
+    $attributes['VL'] = $bibliography->bibcite_volume->value;
+
+    $attributes['Y1'] = $bibliography->bibcite_original_date->value;
+
+    $attributes['Y2'] = $bibliography->bibcite_accessed->value;
 
     return $attributes;
-  }
-
-  /**
-   * Extract date to BibTex format.
-   *
-   * @param \Drupal\Core\Field\FieldItemListInterface $date_field
-   *   Date item list.
-   *
-   * @return string
-   *   Date in BibTex format.
-   */
-  protected function extractDate(FieldItemListInterface $date_field) {
-    return $date_field->value;
   }
 
   /**
@@ -121,7 +183,7 @@ class RISBibliographyNormalizer extends NormalizerBase {
    *   CSL publication type.
    *
    * @return string
-   *   BibTex publication type.
+   *   RIS publication type.
    */
   protected function convertType($type) {
     return isset($this->typesMapping[$type]) ? $this->typesMapping[$type] : 'unassigned';
@@ -153,29 +215,16 @@ class RISBibliographyNormalizer extends NormalizerBase {
    *   List of field items.
    *
    * @return array
-   *   Authors in BibTex format.
+   *   Authors in RIS format.
    */
   protected function extractAuthors(FieldItemListInterface $field_item_list) {
     $authors = [];
 
-    foreach ($field_item_list as $field) {
-      $authors[] = $field->entity->getName();
+    foreach ($field_item_list as $key => $field) {
+      $authors['A' . ($key + 1)] = $field->entity->getName();
     }
 
     return $authors;
-  }
-
-  /**
-   * Extract scalar value to CSL format.
-   *
-   * @param \Drupal\Core\Field\FieldItemListInterface $scalar_field
-   *   Number item list.
-   *
-   * @return mixed
-   *   Scalar in CSL format.
-   */
-  protected function extractScalar(FieldItemListInterface $scalar_field) {
-    return $scalar_field->value;
   }
 
   /**

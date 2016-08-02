@@ -15,7 +15,7 @@ class RISEncoder implements EncoderInterface, DecoderInterface {
    *
    * @var string
    */
-  protected static $format = 'bibtex';
+  protected static $format = 'ris';
 
   /**
    * {@inheritdoc}
