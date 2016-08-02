@@ -3,5 +3,8 @@
   "description": "Bibliography & Citation: RIS format.",
   "type": "drupal-module",
   "license": "GPL 2.0+",
-  "minimum-stability": "dev"
+  "minimum-stability": "dev",
+  "require": {
+    "technosophos/LibRIS": ">=1.0.0"
+  }
 }

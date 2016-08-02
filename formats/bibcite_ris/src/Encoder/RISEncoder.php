@@ -2,6 +2,7 @@
 
 namespace Drupal\bibcite_ris\Encoder;
 
+use LibRIS\RISReader;
 use Symfony\Component\Serializer\Encoder\DecoderInterface;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 
@@ -28,7 +29,9 @@ class RISEncoder implements EncoderInterface, DecoderInterface {
    * {@inheritdoc}
    */
   public function decode($data, $format, array $context = array()) {
-    return BibtexParser::parse_string($data);
+    $ris = new \LibRIS\RISReader();
+    $ris->parseString($data);
+    return $ris->getRecords();
   }
 
   /**
