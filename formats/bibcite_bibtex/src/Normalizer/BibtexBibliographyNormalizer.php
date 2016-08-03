@@ -181,6 +181,69 @@ class BibtexBibliographyNormalizer extends EntityNormalizer {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function denormalize($data, $class, $format = NULL, array $context = []) {
+    if (!empty($data['author'])) {
+      foreach ($data['author'] as $key => $author_name) {
+        // @todo Find a better way to set authors.
+        $data['author'][$key] = $this->prepareAuthor($author_name);
+      }
+    }
+
+    $data = $this->convertKeys($data);
+    return parent::denormalize($data, $class, $format, $context);
+  }
+
+  /**
+   * Convert author name string to Contributor object.
+   *
+   * @param string $author_name
+   *   Raw author name string.
+   *
+   * @return \Drupal\bibcite_entity\Entity\ContributorInterface
+   *   New contributor entity.
+   */
+  protected function prepareAuthor($author_name) {
+    /** @var \Drupal\bibcite\HumanNameParserInterface $name_parser */
+    $name_parser = \Drupal::service('bibcite.human_name_parser');
+    $contributor_storage = $this->entityManager->getStorage('bibcite_contributor');
+    $name_parts = $name_parser->parse($author_name);
+    return $contributor_storage->create($name_parts);
+  }
+
+  /**
+   * Convert bibtex keys to CSL keys and filter non-mapped.
+   *
+   * @param array $data
+   *   Array of decoded values.
+   *
+   * @return array
+   *   Array of decoded values with converted keys.
+   */
+  protected function convertKeys($data) {
+    $fields = array_flip($this->dateFields)
+      + array_flip($this->scalarFields)
+      + [
+        'title' => 'title',
+        'author' => 'author',
+        'keywords' => 'keywords',
+      ];
+    $types = array_flip($this->typesMapping);
+
+    $converted = [];
+    foreach ($data as $key => $field) {
+      if (isset($fields[$key])) {
+        $converted[$fields[$key]] = $field;
+      }
+    }
+
+    $converted['type'] = $types[$data['type']];
+
+    return $converted;
+  }
+
+  /**
    * Checks if the provided format is supported by this normalizer.
    *
    * @param string $format
