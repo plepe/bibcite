@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\bibcite_entity;
+namespace Drupal\bibcite;
 
 /**
  * Define an interface for HumanNameParser service.

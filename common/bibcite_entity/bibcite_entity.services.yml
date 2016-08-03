@@ -4,5 +4,3 @@ services:
     tags:
       - { name: normalizer, priority: 30 }
     arguments: ['@entity.manager']
-  bibcite_entity.human_name_parser:
-    class: Drupal\bibcite_entity\HumanNameParser
