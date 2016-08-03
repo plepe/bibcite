@@ -26,19 +26,22 @@ class Contributor extends EntityReferenceItem implements ContributorFieldInterfa
    * {@inheritdoc}
    */
   public static function defaultStorageSettings() {
-    return array(
+    return [
       'target_type' => 'bibcite_contributor',
-    ) + parent::defaultStorageSettings();
+    ] + parent::defaultStorageSettings();
   }
 
   /**
    * {@inheritdoc}
    */
   public static function defaultFieldSettings() {
-    return array(
-      'handler' => 'default:bibcite_contributor',
-      'handler_settings' => array(),
-    ) + parent::defaultFieldSettings();
+    return [
+      'handler' => 'default',
+      'handler_settings' => [
+        'auto_create' => TRUE,
+        'auto_create_bundle' => 'bibcite_contributor',
+      ],
+    ] + parent::defaultFieldSettings();
   }
 
   /**
