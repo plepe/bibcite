@@ -154,7 +154,9 @@ class CslBibliographyNormalizer extends NormalizerBase {
     $keywords = [];
 
     foreach ($field_item_list as $field) {
-      $keywords[] = $field->entity->label();
+      if ($keyword = $field->entity) {
+        $keywords[] = $field->entity->label();
+      }
     }
 
     return $keywords;
@@ -174,17 +176,17 @@ class CslBibliographyNormalizer extends NormalizerBase {
 
     foreach ($field_item_list as $field) {
       /** @var \Drupal\bibcite_entity\Entity\ContributorInterface $contributor */
-      $contributor = $field->entity;
-
-      $authors[] = [
-        'category' => $field->category,
-        'role' => $field->role,
-        'family' => $contributor->getLastName(),
-        'given' => $contributor->getFirstName(),
-        'suffix' => $contributor->getSuffix(),
-        'literal' => $contributor->getName(),
-        // @todo Implement another fields.
-      ];
+      if ($contributor = $field->entity) {
+        $authors[] = [
+          'category' => $field->category,
+          'role' => $field->role,
+          'family' => $contributor->getLastName(),
+          'given' => $contributor->getFirstName(),
+          'suffix' => $contributor->getSuffix(),
+          'literal' => $contributor->getName(),
+          // @todo Implement another fields.
+        ];
+      }
     }
 
     return $authors;
