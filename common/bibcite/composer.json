@@ -12,6 +12,7 @@
   },
   "require": {
     "academicpuma/citeproc-php": "~1.0",
-    "davidgorges/human-name-parser": "~0.2"
+    "davidgorges/human-name-parser": "~0.2",
+    "nesbot/carbon": "~1.21"
   }
 }

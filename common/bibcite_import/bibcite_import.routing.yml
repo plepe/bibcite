@@ -1,0 +1,7 @@
+bibcite_import.import:
+  path: '/admin/config/bibcite/import'
+  defaults:
+    _form: '\Drupal\bibcite_import\Form\ImportForm'
+    _title: 'Import'
+  requirements:
+    _permission: 'administer bibcite'
