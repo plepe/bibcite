@@ -32,8 +32,14 @@ function bibcite_entity_preprocess_bibliography_table(&$variables) {
     'table' => [
       '#type' => 'table',
     ],
+    'links' => [
+      '#theme' => 'item_list',
+      '#attributes' => [
+        'class' => ['inline'],
+      ],
+      '#items' => [],
+    ],
   ];
-
 
   foreach (Element::children($variables['elements']) as $key) {
     if (Element::children($variables['elements'][$key])) {
