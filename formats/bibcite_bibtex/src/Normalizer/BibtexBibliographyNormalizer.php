@@ -191,6 +191,14 @@ class BibtexBibliographyNormalizer extends EntityNormalizer {
       }
     }
 
+    if (!empty($data['keywords'])) {
+      $data['keywords'] = explode(',', $data['keywords']);
+      foreach ($data['keywords'] as $key => $keyword) {
+        // @todo Find a better way to set keywords.
+        $data['keywords'][$key] = $this->prepareKeyword($keyword);
+      }
+    }
+
     $data = $this->convertKeys($data);
     return parent::denormalize($data, $class, $format, $context);
   }
@@ -210,6 +218,20 @@ class BibtexBibliographyNormalizer extends EntityNormalizer {
     $contributor_storage = $this->entityManager->getStorage('bibcite_contributor');
     $name_parts = $name_parser->parse($author_name);
     return $contributor_storage->create($name_parts);
+  }
+
+  /**
+   * Convert keyword string to Keyword object.
+   *
+   * @param string $keyword
+   *   Keyword string.
+   *
+   * @return \Drupal\bibcite_entity\Entity\KeywordInterface
+   *   New keyword entity.
+   */
+  protected function prepareKeyword($keyword) {
+    $storage = $this->entityManager->getStorage('bibcite_keyword');
+    return $storage->create(['name' => trim($keyword)]);
   }
 
   /**
