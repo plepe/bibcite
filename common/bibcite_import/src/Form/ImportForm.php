@@ -2,13 +2,53 @@
 
 namespace Drupal\bibcite_import\Form;
 
+use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Common import form.
  */
 class ImportForm extends FormBase {
+
+  /**
+   * Import plugins manager.
+   *
+   * @var \Drupal\Component\Plugin\PluginManagerInterface
+   */
+  protected $pluginManager;
+
+  /**
+   * Serializer service.
+   *
+   * @var \Symfony\Component\Serializer\SerializerInterface
+   */
+  protected $serializer;
+
+  /**
+   * Import form constructor.
+   *
+   * @param \Symfony\Component\Serializer\SerializerInterface $serializer
+   *   Import plugins manager.
+   * @param \Drupal\Component\Plugin\PluginManagerInterface $plugin_manager
+   *   Serializer service.
+   */
+  public function __construct(SerializerInterface $serializer, PluginManagerInterface $plugin_manager) {
+    $this->serializer = $serializer;
+    $this->pluginManager = $plugin_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('serializer'),
+      $container->get('plugin.manager.bibcite_import_format')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -29,10 +69,9 @@ class ImportForm extends FormBase {
     $form['format'] = [
       '#type' => 'select',
       '#title' => $this->t('Format'),
-      '#options' => [
-        'bibtex' => 'Bibtex',
-        'ris' => 'RIS',
-      ],
+      '#options' => array_map(function($definition) {
+        return $definition['label'];
+      }, $this->pluginManager->getDefinitions()),
     ];
 
     $form['actions'] = ['#type' => 'actions'];
@@ -69,8 +108,7 @@ class ImportForm extends FormBase {
     $data = file_get_contents($form_state->getValue('file'));
     $format = $form_state->getValue('format');
 
-    $serializer = \Drupal::service('serializer');
-    $decoded = $serializer->decode($data, $format);
+    $decoded = $this->serializer->decode($data, $format);
     $chunks = array_chunk($decoded, 10);
 
     $batch = [
