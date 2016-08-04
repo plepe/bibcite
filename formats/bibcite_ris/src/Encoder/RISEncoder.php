@@ -29,7 +29,7 @@ class RISEncoder implements EncoderInterface, DecoderInterface {
    * {@inheritdoc}
    */
   public function decode($data, $format, array $context = array()) {
-    $ris = new \LibRIS\RISReader();
+    $ris = new RISReader();
     $ris->parseString($data);
     return $ris->getRecords();
   }
