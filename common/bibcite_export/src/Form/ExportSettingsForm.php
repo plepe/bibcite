@@ -37,8 +37,13 @@ class ExportSettingsForm extends ConfigFormBase {
 
     $form['show_full'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Show export links on full view of Bibliography'),
+      '#title' => $this->t('Show export links on table view of Bibliography entity'),
       '#default_value' => $config->get('show_full'),
+    ];
+    $form['show_citation'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Show export links in the rendered citation'),
+      '#default_value' => $config->get('show_citation'),
     ];
     $form['enabled_formats'] = [
       '#type' => 'checkboxes',
@@ -58,6 +63,7 @@ class ExportSettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->config('bibcite_export.settings');
     $config->set('show_full', $form_state->getValue('show_full'));
+    $config->set('show_citation', $form_state->getValue('show_citation'));
 
     $enabled_formats = $form_state->getValue('enabled_formats');
     $config->set('enabled_formats', array_keys($enabled_formats, TRUE));

@@ -4,35 +4,68 @@
  * Module hook.
  */
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 
 /**
  * Implements hook_preprocess_HOOK().
+ *
+ * Add export links to the citation.
  */
 function bibcite_export_preprocess_bibliography(&$variables) {
   $conf = \Drupal::config('bibcite_export.settings');
 
-  if ($conf->get('show_full') && isset($variables['data']['#entity'])) {
+  if ($conf->get('show_citation') && isset($variables['data']['#entity'])) {
     /** @var \Drupal\bibcite_entity\Entity\BibliographyInterface $entity */
     $entity = $variables['data']['#entity'];
-
-    /* @var \Drupal\bibcite_export\BibciteExportFormatManagerInterface $plugin_manager */
-    $plugin_manager = \Drupal::service('plugin.manager.bibcite_export_format');
-
-    $definitions = $plugin_manager->getDefinitions();
-    $enabled = $conf->get('enabled_formats');
-    $definitions = array_intersect_key($definitions, array_flip($enabled));
-
-    foreach ($definitions as $definition) {
-      $url = Url::fromRoute('bibcite_export.export', [
-        'bibcite_format' => $definition['id'],
-        'entity_type' => $entity->getEntityTypeId(),
-        'entity' => $entity->id(),
-      ]);
-
-      $variables['content']['links']['#items'][] = Link::fromTextAndUrl((string) $definition['label'], $url)->toRenderable();
-    }
-
+    $variables['content']['links']['#items'] += bibcite_export_create_export_links($entity, array_flip($conf->get('enabled_formats')));
   }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Add export links to the table view of Bibliogrpahy entity.
+ */
+function bibcite_export_preprocess_bibliography_table(&$variables) {
+  $conf = \Drupal::config('bibcite_export.settings');
+
+  if ($conf->get('show_full') && isset($variables['elements']['#bibliography'])) {
+    /** @var \Drupal\bibcite_entity\Entity\BibliographyInterface $entity */
+    $entity = $variables['elements']['#bibliography'];
+    $variables['content']['links']['#items'] += bibcite_export_create_export_links($entity, array_flip($conf->get('enabled_formats')));
+  }
+}
+
+/**
+ * Create export links for entity.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Entity for export.
+ * @param array $formats
+ *   Array of export formats.
+ *
+ * @return array
+ *   Array of export links.
+ */
+function bibcite_export_create_export_links(EntityInterface $entity, $formats) {
+  /* @var \Drupal\bibcite_export\BibciteExportFormatManagerInterface $plugin_manager */
+  $plugin_manager = \Drupal::service('plugin.manager.bibcite_export_format');
+
+  $definitions = $plugin_manager->getDefinitions();
+  $definitions = array_intersect_key($definitions, $formats);
+
+  $links = [];
+  foreach ($definitions as $definition) {
+    $url = Url::fromRoute('bibcite_export.export', [
+      'bibcite_format' => $definition['id'],
+      'entity_type' => $entity->getEntityTypeId(),
+      'entity' => $entity->id(),
+    ]);
+
+    $links[] = Link::fromTextAndUrl((string) $definition['label'], $url)->toRenderable();
+  }
+
+  return $links;
 }
