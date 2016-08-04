@@ -34,11 +34,6 @@ class ImportForm extends FormBase {
         'ris' => 'RIS',
       ],
     ];
-    $form['batch'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Proceed import with batch'),
-      '#default_value' => TRUE,
-    ];
 
     $form['actions'] = ['#type' => 'actions'];
     $form['actions']['submit'] = [
@@ -76,20 +71,22 @@ class ImportForm extends FormBase {
 
     $serializer = \Drupal::service('serializer');
     $decoded = $serializer->decode($data, $format);
+    $chunks = array_chunk($decoded, 10);
 
-    foreach ($decoded as $entry) {
-      $entity = $serializer->denormalize($entry, \Drupal\bibcite_entity\Entity\Bibliography::class, $format);
+    $batch = [
+      'title' => t('Delete all bibliographic data'),
+      'operations' => [],
+      'finished' => 'bibcite_import_batch_finished',
+      'file' => drupal_get_path('module', 'bibcite_import') . '/bibcite_import.batch.inc',
+    ];
 
-      try {
-        $entity->save();
-        drupal_set_message($entity->label() . ' has been created');
-      }
-      catch (\Exception $e) {
-        drupal_set_message($entity->label() . ' could not be saved', 'error');
-      }
-
+    foreach ($chunks as $chunk) {
+      $batch['operations'][] = [
+        'bibcite_import_batch_callback', [$chunk, $format],
+      ];
     }
 
+    batch_set($batch);
   }
 
 }
