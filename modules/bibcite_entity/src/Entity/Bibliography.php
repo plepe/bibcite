@@ -144,8 +144,7 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
           'size' => '60',
           'placeholder' => '',
         ],
-      ]
-      )
+      ])
       ->setDisplayOptions('view', [
         'type' => 'entity_reference_label',
         'weight' => 4,
@@ -173,27 +172,6 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
         ]);
     };
 
-    $default_datetime = function($label) use (&$weight) {
-      $weight++;
-      return BaseFieldDefinition::create('datetime')
-        ->setLabel($label)
-        ->setDefaultValue(NULL)
-        ->setSettings([
-          'datetime_type' => DateTimeItem::DATETIME_TYPE_DATE,
-        ])
-        ->setDisplayOptions('form', [
-          'type' => 'date',
-          'weight' => $weight,
-        ])
-        ->setDisplayOptions('view', [
-          'type' => 'datetime_default',
-          'settings' => [
-            'format_type' => 'html_date',
-          ],
-          'weight' => $weight,
-        ]);
-    };
-
     $default_integer = function ($label) use (&$weight) {
       $weight++;
       return BaseFieldDefinition::create('integer')
@@ -209,86 +187,82 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
         ]);
     };
 
+    $default_string_long = function ($label, $rows = 1) use (&$weight) {
+      $weight++;
+      return BaseFieldDefinition::create('string_long')
+        ->setLabel($label)
+        ->setDisplayOptions('view', [
+          'type' => 'text_default',
+          'weight' => $weight,
+        ])
+        ->setDisplayOptions('form', [
+          'type' => 'string_textarea',
+          'settings' => [
+            'rows' => $rows,
+          ],
+          'weight' => $weight,
+        ]);
+    };
+
     /*
-     * Date fields.
+     * Text fields.
      */
-    $fields['bibcite_accessed'] = $default_datetime(t('Accessed'));
-    $fields['bibcite_container'] = $default_datetime(t('Container'));
-    $fields['bibcite_event_date'] = $default_datetime(t('Event Date'));
-    $fields['bibcite_issued'] = $default_datetime(t('Issued'));
-    $fields['bibcite_original_date'] = $default_datetime(t('Original Date'));
-    $fields['bibcite_submitted'] = $default_datetime(t('Submitted'));
+    $fields['bibcite_abst_e'] = $default_string_long(t('Abstract'), 4);
+    $fields['bibcite_abst_f'] = $default_string_long(t('French Abstract'), 4);
+    $fields['bibcite_notes'] = $default_string_long(t('Notes'), 4);
+    $fields['bibcite_custom1'] = $default_string_long(t('Custom 1'));
+    $fields['bibcite_custom2'] = $default_string_long(t('Custom 2'));
+    $fields['bibcite_custom3'] = $default_string_long(t('Custom 3'));
+    $fields['bibcite_custom4'] = $default_string_long(t('Custom 4'));
+    $fields['bibcite_custom5'] = $default_string_long(t('Custom 5'));
+    $fields['bibcite_custom6'] = $default_string_long(t('Custom 6'));
+    $fields['bibcite_custom7'] = $default_string_long(t('Custom 7'));
+    $fields['bibcite_auth_address'] = $default_string_long(t('Author Address'));
 
     /*
      * Number fields.
      */
-    $fields['bibcite_chapter_number'] = $default_integer(t('Chapter Number'));
-    $fields['bibcite_collection_number'] = $default_integer(t('Collection Number'));
-    $fields['bibcite_edition'] = $default_integer(t('Edition'));
-    $fields['bibcite_issue'] = $default_integer(t('Issue'));
-    $fields['bibcite_number'] = $default_integer(t('Number'));
-    $fields['bibcite_number_of_pages'] = $default_integer(t('Number of Pages'));
-    $fields['bibcite_number_of_volumes'] = $default_integer(t('Number of Volumes'));
-    $fields['bibcite_volume'] = $default_integer(t('Volume'));
+    $fields['bibcite_year'] = $default_integer(t('Year of Publication'));
 
     /*
      * String fields.
      */
-    $fields['bibcite_collection_editor'] = $default_string(t('Collection Editor'));
-    $fields['bibcite_composer'] = $default_string(t('Composer'));
-    $fields['bibcite_container_author'] = $default_string(t('Container Author'));
-    $fields['bibcite_director'] = $default_string(t('Director'));
-    $fields['bibcite_editor'] = $default_string(t('Editor'));
-    $fields['bibcite_editorial_director'] = $default_string(t('Editorial Director'));
-    $fields['bibcite_illustrator'] = $default_string(t('Illustrator'));
-    $fields['bibcite_interviewer'] = $default_string(t('Interviewer'));
-    $fields['bibcite_original_author'] = $default_string(t('Original Author'));
-    $fields['bibcite_recipient'] = $default_string(t('Recipient'));
-    $fields['bibcite_reviewed_author'] = $default_string(t('Reviewed Author'));
-    $fields['bibcite_translator'] = $default_string(t('Translator'));
-    $fields['bibcite_abstract'] = $default_string(t('Abstract'));
-    $fields['bibcite_annote'] = $default_string(t('Annote'));
-    $fields['bibcite_archive'] = $default_string(t('Archive'));
-    $fields['bibcite_archive_location'] = $default_string(t('Archive Location'));
-    $fields['bibcite_archive_place'] = $default_string(t('Archive Place'));
-    $fields['bibcite_authority'] = $default_string(t('Authority'));
-    $fields['bibcite_call_number'] = $default_string(t('Call Number'));
-    $fields['bibcite_citation_label'] = $default_string(t('Citation Label'));
-    $fields['bibcite_citation_number'] = $default_string(t('Citation Number'));
-    $fields['bibcite_collection_title'] = $default_string(t('Collection Title'));
-    $fields['bibcite_container_title'] = $default_string(t('Container Title'));
-    $fields['bibcite_container_title_short'] = $default_string(t('Container Title Short'));
-    $fields['bibcite_dimensions'] = $default_string(t('Dimensions'));
-    $fields['bibcite_doi'] = $default_string(t('DOI'));
-    $fields['bibcite_event'] = $default_string(t('Event'));
-    $fields['bibcite_event_place'] = $default_string(t('Event Place'));
-    $fields['bibcite_first_reference_note_number'] = $default_string(t('First Reference Note Number'));
-    $fields['bibcite_genre'] = $default_string(t('Genre'));
-    $fields['bibcite_isbn'] = $default_string(t('ISBN'));
-    $fields['bibcite_issn'] = $default_string(t('ISSN'));
-    $fields['bibcite_jurisdiction'] = $default_string(t('Jurisdiction'));
-    $fields['bibcite_locator'] = $default_string(t('Locator'));
-    $fields['bibcite_medium'] = $default_string(t('Medium'));
-    $fields['bibcite_note'] = $default_string(t('Note'));
-    $fields['bibcite_original_publisher'] = $default_string(t('Original Publisher'));
-    $fields['bibcite_original_publisher_place'] = $default_string(t('Original Publisher Place'));
-    $fields['bibcite_original_title'] = $default_string(t('Original Title'));
-    $fields['bibcite_page'] = $default_string(t('Page'));
-    $fields['bibcite_page_first'] = $default_string(t('Page First'));
-    $fields['bibcite_pmid'] = $default_string(t('PMID'));
-    $fields['bibcite_pmcid'] = $default_string(t('PMCID'));
-    $fields['bibcite_publisher'] = $default_string(t('Publisher'));
-    $fields['bibcite_publisher_place'] = $default_string(t('Publisher Place'));
-    $fields['bibcite_references'] = $default_string(t('References'));
-    $fields['bibcite_reviewed_title'] = $default_string(t('Reviewed Title'));
-    $fields['bibcite_scale'] = $default_string(t('Scale'));
+    $fields['bibcite_secondary_title'] = $default_string(t('Secondary Title'));
+    $fields['bibcite_volume'] = $default_string(t('Volume'));
+    $fields['bibcite_edition'] = $default_string(t('Edition'));
     $fields['bibcite_section'] = $default_string(t('Section'));
-    $fields['bibcite_source'] = $default_string(t('Source'));
-    $fields['bibcite_status'] = $default_string(t('Status'));
-    $fields['bibcite_title_short'] = $default_string(t('Title Short'));
+    $fields['bibcite_issue'] = $default_string(t('Issue'));
+    $fields['bibcite_number_of_volumes'] = $default_string(t('Number of Volumes'));
+    $fields['bibcite_number'] = $default_string(t('Number'));
+    $fields['bibcite_pages'] = $default_string(t('Pagination'));
+    $fields['bibcite_date'] = $default_string(t('Date Published'));
+    $fields['bibcite_type_of_work'] = $default_string(t('Type of Work'));
+    $fields['bibcite_lang'] = $default_string(t('Publication Language'));
+    $fields['bibcite_reprint_edition'] = $default_string(t('Reprint Edition'));
+    $fields['bibcite_publisher'] = $default_string(t('Publisher'));
+    $fields['bibcite_place_published'] = $default_string(t('Place Published'));
+    $fields['bibcite_issn'] = $default_string(t('ISSN Number'));
+    $fields['bibcite_isbn'] = $default_string(t('ISBN Number'));
+    $fields['bibcite_accession_number'] = $default_string(t('Accession Number'));
+    $fields['bibcite_call_number'] = $default_string(t('Call Number'));
+    $fields['bibcite_other_number'] = $default_string(t('Other Numbers'));
+    $fields['bibcite_citekey'] = $default_string(t('Citation Key'));
     $fields['bibcite_url'] = $default_string(t('URL'));
-    $fields['bibcite_version'] = $default_string(t('Version'));
-    $fields['bibcite_year_suffix'] = $default_string(t('Year Suffix'));
+    $fields['bibcite_doi'] = $default_string(t('DOI'));
+    $fields['bibcite_research_notes'] = $default_string(t('Reseach Notes'));
+    $fields['bibcite_tertiary_title'] = $default_string(t('Tertiary Title'));
+    $fields['bibcite_short_title'] = $default_string(t('Short Title'));
+    $fields['bibcite_alternate_title'] = $default_string(t('Alternate Title'));
+    $fields['bibcite_translated_title'] = $default_string(t('Translated Title'));
+    $fields['bibcite_original_publication'] = $default_string(t('Original Publication'));
+    $fields['bibcite_other_author_affiliations'] = $default_string(t('Other Author Affiliations'));
+    $fields['bibcite_remote_db_name'] = $default_string(t('Remote Database Name'));
+    $fields['bibcite_remote_db_provider'] = $default_string(t('Remote Database Provider'));
+    $fields['bibcite_label'] = $default_string(t('Label'));
+    $fields['bibcite_access_date'] = $default_string(t('Access Date'));
+    $fields['bibcite_refereed'] = $default_string(t('Refereed Designation'));
+
+    $fields['bibcite_pmid'] = $default_string(t('PMID'));
 
     /*
      * Entity dates.

@@ -25,27 +25,27 @@ class RISBibliographyNormalizer extends NormalizerBase {
   protected $supportedInterfaceOrClass = ['Drupal\bibcite_entity\Entity\BibliographyInterface'];
 
   /**
-   * List of date fields.
-   *
-   * @var array
-   */
-  protected $dateFields = [
-    'bibcite_accessed' => 'accessed',
-  ];
-
-  /**
    * List of scalar fields.
    *
    * @var array
    */
   protected $scalarFields = [
-    'bibcite_number' => 'number',
-    'bibcite_number_of_pages' => 'pages',
-    'bibcite_volume' => 'volume',
-    'bibcite_annote' => 'annote',
-    'bibcite_event_place' => 'address',
-    'bibcite_note' => 'note',
-    'bibcite_status' => 'status',
+    'bibcite_abst_e' => 'AB',
+    'bibcite_year' => 'Y1',
+    'bibcite_secondary_title' => 'T2',
+    'bibcite_volume' => 'VL',
+    'bibcite_issue' => 'IS',
+    'bibcite_publisher' => 'PB',
+    'bibcite_place_published' => 'CY',
+    'bibcite_url' => 'UR',
+    'bibcite_notes' => 'N1',
+    'bibcite_tertiary_title' => 'T3',
+    'bibcite_short_title' => 'J2',
+    'bibcite_custom1' => 'U1',
+    'bibcite_custom2' => 'U2',
+    'bibcite_custom3' => 'U3',
+    'bibcite_custom4' => 'U4',
+    'bibcite_custom5' => 'U5',
   ];
 
   /**
@@ -54,61 +54,25 @@ class RISBibliographyNormalizer extends NormalizerBase {
    * @var array
    */
   protected $typesMapping = [
-    'ABST' => 'Abstract',
-    'ADVS' => 'Audiovisual material',
-    'AGGR' => 'Aggregated Database',
-    'ANCIENT' => 'Ancient Text',
-    'ART' => 'Art Work',
-    'BILL' => 'Bill',
-    'BLOG' => 'Blog',
-    'BOOK' => 'Whole book',
-    'CASE' => 'Case',
-    'CHAP' => 'Book chapter',
-    'CHART' => 'Chart',
-    'CLSWK' => 'Classical Work',
-    'COMP' => 'Computer program',
-    'CONF' => 'Conference proceeding',
-    'CPAPER' => 'Conference paper',
-    'CTLG' => 'Catalog',
-    'DATA' => 'Data file',
-    'DBASE' => 'Online Database',
-    'DICT' => 'Dictionary',
-    'EBOOK' => 'Electronic Book',
-    'ECHAP' => 'Electronic Book Section',
-    'EDBOOK' => 'Edited Book',
-    'EJOUR' => 'Electronic Article',
-    'ELEC' => 'Web Page',
-    'ENCYC' => 'Encyclopedia',
-    'EQUA' => 'Equation',
-    'FIGURE' => 'Figure',
-    'GEN' => 'Generic',
-    'GOVDOC' => 'Government Document',
-    'GRANT' => 'Grant',
-    'HEAR' => 'Hearing',
-    'ICOMM' => 'Internet Communication',
-    'INPR' => 'In Press',
-    'JFULL' => 'Journal (full)',
-    'JOUR' => 'Journal',
-    'LEGAL' => 'Legal Rule or Regulation',
-    'MANSCPT' => 'Manuscript',
-    'MAP' => 'Map',
-    'MGZN' => 'Magazine article',
-    'MPCT' => 'Motion picture',
-    'MULTI' => 'Online Multimedia',
-    'MUSIC' => 'Music score',
-    'NEWS' => 'Newspaper',
-    'PAMP' => 'Pamphlet',
-    'PAT' => 'Patent',
-    'PCOMM' => 'Personal communication',
-    'RPRT' => 'Report',
-    'SER' => 'Serial publication',
-    'SLIDE' => 'Slide',
-    'SOUND' => 'Sound recording',
-    'STAND' => 'Standard',
-    'STAT' => 'Statute',
-    'THES' => 'Thesis/Dissertation',
-    'UNPB' => 'Unpublished work',
-    'VIDEO' => 'Video recording',
+    'bill' => 'BILL',
+    'book' => 'BOOK',
+    'chapter' => 'CHAP',
+    'case' => 'CASE',
+    'paper-conference' => 'CONF',
+    'motion_picture' => 'MPCT',
+    'hearing' => 'HEAR',
+    'article-journal' => 'JOUR',
+    'article-magazine' => 'MGZN',
+    'manuscript' => 'MANSCPT',
+    'map' => 'MAP',
+    'article-newspaper' => 'NEWS',
+    'patent' => 'PAT',
+    'personal_communication' => 'PCOMM',
+    'report' => 'RPRT',
+    'software' => 'COMP',
+    'thesis' => 'THES',
+    'unpublished' => 'UNPB',
+    'webpage' => 'ICOMM',
   ];
 
   /**
@@ -123,55 +87,19 @@ class RISBibliographyNormalizer extends NormalizerBase {
       $attributes += $authors;
     }
 
-    $attributes['AB'] = $bibliography->bibcite_abstract->value;
-
-    $attributes['AV'] = $bibliography->bibcite_archive_location->value;
-
-    $attributes['CN'] = $bibliography->bibcite_call_number->value;
-
-    $attributes['CY'] = $bibliography->bibcite_publisher_place->value;
-
-    $attributes['DA'] = $bibliography->bibcite_original_date->value;
-
-    $attributes['DO'] = $bibliography->bibcite_doi->value;
-
-    $attributes['ED'] = $bibliography->bibcite_editor->value;
-
-    $attributes['ET'] = $bibliography->bibcite_edition->value;
-
-    $attributes['IS'] = $bibliography->bibcite_issue->value;
-
     if ($keywords = $this->extractKeywords($bibliography->keywords)) {
       $attributes['KW'] = $keywords;
     }
 
-    $attributes['M1'] = $bibliography->bibcite_number->value;
+    if ($bibliography->bibcite_isbn->value || $bibliography->bibcite_issn->value) {
+      $attributes['SN'] = trim($bibliography->bibcite_isbn->value . '/' . $bibliography->bibcite_issn->value, '/');
+    }
 
-    $attributes['NV'] = $bibliography->bibcite_number_of_volumes->value;
-
-    $attributes['PB'] = $bibliography->bibcite_publisher->value;
-
-    $attributes['PP'] = $bibliography->bibcite_publisher_place->value;
-
-    $attributes['PY'] = $bibliography->bibcite_publisher_place->value;
-
-    $attributes['SE'] = $bibliography->bibcite_section->value;
-
-    $attributes['SE'] = $bibliography->bibcite_section->value;
-
-    $attributes['SN'] = trim($bibliography->bibcite_isbn->value . '/' . $bibliography->bibcite_issn->value, '/');
-
-    $attributes['ST'] = $bibliography->bibcite_title_short->value;
-
-    $attributes['TI'] = $bibliography->title->value;
-
-    $attributes['UR'] = $bibliography->bibcite_url->value;
-
-    $attributes['VL'] = $bibliography->bibcite_volume->value;
-
-    $attributes['Y1'] = $bibliography->bibcite_original_date->value;
-
-    $attributes['Y2'] = $bibliography->bibcite_accessed->value;
+    foreach ($this->scalarFields as $field_name => $ris_key) {
+      if ($bibliography->{$field_name}->value) {
+        $attributes[$ris_key] = $bibliography->{$field_name}->value;
+      }
+    }
 
     return $attributes;
   }
@@ -186,7 +114,7 @@ class RISBibliographyNormalizer extends NormalizerBase {
    *   RIS publication type.
    */
   protected function convertType($type) {
-    return isset($this->typesMapping[$type]) ? $this->typesMapping[$type] : 'unassigned';
+    return isset($this->typesMapping[$type]) ? $this->typesMapping[$type] : 'GEN';
   }
 
   /**

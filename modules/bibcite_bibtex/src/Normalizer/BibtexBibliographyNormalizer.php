@@ -27,27 +27,27 @@ class BibtexBibliographyNormalizer extends EntityNormalizer {
   protected $supportedInterfaceOrClass = ['Drupal\bibcite_entity\Entity\BibliographyInterface'];
 
   /**
-   * List of date fields.
-   *
-   * @var array
-   */
-  protected $dateFields = [
-    'bibcite_accessed' => 'accessed',
-  ];
-
-  /**
    * List of scalar fields.
    *
    * @var array
    */
   protected $scalarFields = [
-    'bibcite_number' => 'number',
-    'bibcite_number_of_pages' => 'pages',
+    'bibcite_abst_e' => 'abstract',
+    'bibcite_year' => 'year',
+    'bibcite_secondary_title' => 'journal',
     'bibcite_volume' => 'volume',
-    'bibcite_annote' => 'annote',
-    'bibcite_event_place' => 'address',
-    'bibcite_note' => 'note',
-    'bibcite_status' => 'status',
+    'bibcite_edition' => 'edition',
+    'bibcite_section' => 'chapter',
+    'bibcite_number' => 'number',
+    'bibcite_pages' => 'pages',
+    'bibcite_date' => 'month',
+    'bibcite_publisher' => 'publisher',
+    'bibcite_place_published' => 'address',
+    'bibcite_issn' => 'issn',
+    'bibcite_isbn' => 'isbn',
+    'bibcite_url' => 'url',
+    'bibcite_doi' => 'doi',
+    'bibcite_notes' => 'note',
   ];
 
   /**
@@ -88,32 +88,13 @@ class BibtexBibliographyNormalizer extends EntityNormalizer {
       $attributes['author'] = $authors;
     }
 
-    foreach ($this->dateFields as $field_name => $bibtex_key) {
-      if ($bibliography->{$field_name}->value) {
-        $attributes[$bibtex_key] = $this->extractDate($bibliography->{$field_name});
-      }
-    }
-
     foreach ($this->scalarFields as $field_name => $bibtex_key) {
       if ($bibliography->{$field_name}->value) {
-        $attributes[$bibtex_key] = $this->extractScalar($bibliography->{$field_name});
+        $attributes[$bibtex_key] = $bibliography->{$field_name}->value;
       }
     }
 
     return $attributes;
-  }
-
-  /**
-   * Extract date to BibTex format.
-   *
-   * @param \Drupal\Core\Field\FieldItemListInterface $date_field
-   *   Date item list.
-   *
-   * @return string
-   *   Date in BibTex format.
-   */
-  protected function extractDate(FieldItemListInterface $date_field) {
-    return $date_field->value;
   }
 
   /**
@@ -165,19 +146,6 @@ class BibtexBibliographyNormalizer extends EntityNormalizer {
     }
 
     return $authors;
-  }
-
-  /**
-   * Extract scalar value to CSL format.
-   *
-   * @param \Drupal\Core\Field\FieldItemListInterface $scalar_field
-   *   Number item list.
-   *
-   * @return mixed
-   *   Scalar in CSL format.
-   */
-  protected function extractScalar(FieldItemListInterface $scalar_field) {
-    return $scalar_field->value;
   }
 
   /**
@@ -235,7 +203,7 @@ class BibtexBibliographyNormalizer extends EntityNormalizer {
   }
 
   /**
-   * Convert bibtex keys to CSL keys and filter non-mapped.
+   * Convert bibtex keys to Bibtex keys and filter non-mapped.
    *
    * @param array $data
    *   Array of decoded values.
@@ -244,8 +212,7 @@ class BibtexBibliographyNormalizer extends EntityNormalizer {
    *   Array of decoded values with converted keys.
    */
   protected function convertKeys($data) {
-    $fields = array_flip($this->dateFields)
-      + array_flip($this->scalarFields)
+    $fields = array_flip($this->scalarFields)
       + [
         'title' => 'title',
         'author' => 'author',
