@@ -7,3 +7,7 @@ services:
     class: Drupal\bibcite_ris\Normalizer\RISBibliographyNormalizer
     tags:
       - { name: normalizer, priority: 30 }
+  bibcite_ris.ris_subscriber:
+    class: Drupal\bibcite_ris\EventSubscriber\RisSubscriber
+    tags:
+      - { name: event_subscriber }
