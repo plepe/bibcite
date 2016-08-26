@@ -19,7 +19,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\bibcite_entity\ContributorListBuilder",
- *     "views_data" = "Drupal\views\EntityViewsData",
+ *     "views_data" = "Drupal\bibcite_entity\ContributorViewsData",
  *
  *     "form" = {
  *       "default" = "Drupal\bibcite_entity\Form\ContributorForm",
