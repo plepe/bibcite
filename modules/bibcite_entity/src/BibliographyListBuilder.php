@@ -4,8 +4,7 @@ namespace Drupal\bibcite_entity;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
-use Drupal\Core\Routing\LinkGeneratorTrait;
-use Drupal\Core\Url;
+use Drupal\Core\Link;
 
 /**
  * Defines a class to build a listing of Bibliography entities.
@@ -13,8 +12,6 @@ use Drupal\Core\Url;
  * @ingroup bibcite_entity
  */
 class BibliographyListBuilder extends EntityListBuilder {
-
-  use LinkGeneratorTrait;
 
   /**
    * {@inheritdoc}
@@ -31,14 +28,9 @@ class BibliographyListBuilder extends EntityListBuilder {
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\bibcite_entity\Entity\Bibliography */
     $row['id'] = $entity->id();
-    $row['name'] = $this->l(
-      $entity->label(),
-      new Url(
-        'entity.bibliography.edit_form', array(
-          'bibliography' => $entity->id(),
-        )
-      )
-    );
+    $row['name'] = Link::createFromRoute($entity->label(), 'entity.bibliography.canonical', [
+      'bibliography' => $entity->id(),
+    ]);
     return $row + parent::buildRow($entity);
   }
 
