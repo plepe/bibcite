@@ -17,8 +17,8 @@ class BibliographyListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $header['id'] = $this->t('Bibliography ID');
-    $header['name'] = $this->t('Name');
+    $header['name'] = $this->t('Title');
+    $header['type'] = $this->t('Type');
     return $header + parent::buildHeader();
   }
 
@@ -27,10 +27,11 @@ class BibliographyListBuilder extends EntityListBuilder {
    */
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\bibcite_entity\Entity\Bibliography */
-    $row['id'] = $entity->id();
     $row['name'] = Link::createFromRoute($entity->label(), 'entity.bibliography.canonical', [
       'bibliography' => $entity->id(),
     ]);
+    // @todo Use non-magic entity method.
+    $row['type'] = $entity->type->value;
     return $row + parent::buildRow($entity);
   }
 

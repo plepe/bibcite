@@ -17,7 +17,6 @@ class ContributorListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $header['id'] = $this->t('Contributor ID');
     $header['name'] = $this->t('Name');
     return $header + parent::buildHeader();
   }
@@ -27,7 +26,6 @@ class ContributorListBuilder extends EntityListBuilder {
    */
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\bibcite_entity\Entity\Contributor */
-    $row['id'] = $entity->id();
     $row['name'] = Link::createFromRoute($entity->label(), 'entity.bibcite_contributor.canonical', [
       'bibcite_contributor' => $entity->id(),
     ]);

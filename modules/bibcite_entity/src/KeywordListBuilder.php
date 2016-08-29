@@ -17,7 +17,6 @@ class KeywordListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $header['id'] = $this->t('Keyword ID');
     $header['name'] = $this->t('Name');
     return $header + parent::buildHeader();
   }
@@ -27,7 +26,6 @@ class KeywordListBuilder extends EntityListBuilder {
    */
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\bibcite_entity\Entity\Keyword */
-    $row['id'] = $entity->id();
     $row['name'] = Link::createFromRoute($entity->label(), 'entity.bibcite_keyword.canonical', [
       'bibcite_keyword' => $entity->id(),
     ]);
