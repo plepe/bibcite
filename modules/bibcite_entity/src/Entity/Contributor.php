@@ -42,10 +42,10 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "langcode" = "langcode",
  *   },
  *   links = {
- *     "canonical" = "/admin/content/bibliography/contributor/{bibcite_contributor}",
+ *     "canonical" = "/bibcite/contributor/{bibcite_contributor}",
+ *     "edit-form" = "/bibcite/contributor/{bibcite_contributor}/edit",
+ *     "delete-form" = "/bibcite/contributor/{bibcite_contributor}/delete",
  *     "add-form" = "/admin/content/bibliography/contributor/add",
- *     "edit-form" = "/admin/content/bibliography/contributor/{bibcite_contributor}/edit",
- *     "delete-form" = "/admin/content/bibliography/contributor/{bibcite_contributor}/delete",
  *     "collection" = "/admin/content/bibliography/contributor",
  *   },
  * )

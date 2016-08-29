@@ -42,10 +42,10 @@ use Drupal\bibcite\CslKeyConverter;
  *     "langcode" = "langcode",
  *   },
  *   links = {
- *     "canonical" = "/admin/content/bibliography/{bibliography}",
+ *     "canonical" = "/bibcite/bibliography/{bibliography}",
+ *     "edit-form" = "/bibcite/bibliography/{bibliography}/edit",
+ *     "delete-form" = "/bibcite/bibliography/{bibliography}/delete",
  *     "add-form" = "/admin/content/bibliography/add",
- *     "edit-form" = "/admin/content/bibliography/{bibliography}/edit",
- *     "delete-form" = "/admin/content/bibliography/{bibliography}/delete",
  *     "collection" = "/admin/content/bibliography",
  *   },
  * )

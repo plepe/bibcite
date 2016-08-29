@@ -21,7 +21,7 @@ class KeywordAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\bibcite_entity\Entity\KeywordInterface $entity */
     switch ($operation) {
       case 'view':
-        return AccessResult::allowedIfHasPermission($account, 'view published keyword entities');
+        return AccessResult::allowedIfHasPermission($account, 'view keyword entities');
 
       case 'update':
         return AccessResult::allowedIfHasPermission($account, 'edit keyword entities');

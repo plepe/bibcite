@@ -21,7 +21,7 @@ class ContributorAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\bibcite_entity\Entity\ContributorInterface $entity */
     switch ($operation) {
       case 'view':
-        return AccessResult::allowedIfHasPermission($account, 'view published contributor entities');
+        return AccessResult::allowedIfHasPermission($account, 'view contributor entities');
 
       case 'update':
         return AccessResult::allowedIfHasPermission($account, 'edit contributor entities');
