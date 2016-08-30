@@ -22,7 +22,7 @@ class CiteprocPhp extends BibCiteProcessorBase implements BibCiteProcessorInterf
   /**
    * Path to the citeproc libraries.
    */
-  const LIBRARY_PATH = DRUPAL_ROOT . '/vendor/academicpuma';
+  const LIBRARY_PATH = '/vendor/academicpuma';
 
   /**
    * Config factory service.
@@ -99,7 +99,7 @@ class CiteprocPhp extends BibCiteProcessorBase implements BibCiteProcessorInterf
       $styles = $cache->data;
     }
     else {
-      $path = static::LIBRARY_PATH . '/styles';
+      $path = DRUPAL_ROOT . static::LIBRARY_PATH . '/styles';
       $files = scandir($path);
 
       foreach ($files as $filename) {
@@ -126,7 +126,7 @@ class CiteprocPhp extends BibCiteProcessorBase implements BibCiteProcessorInterf
       $locales = $cache->data;
     }
     else {
-      $path = static::LIBRARY_PATH . '/locales';
+      $path = DRUPAL_ROOT . static::LIBRARY_PATH . '/locales';
 
       $json_raw = file_get_contents($path . '/locales.json');
       $data = json_decode($json_raw);
