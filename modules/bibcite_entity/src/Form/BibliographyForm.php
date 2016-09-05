@@ -19,7 +19,7 @@ class BibliographyForm extends ContentEntityForm {
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
 
-    $form['#process'][] = '::bibcitegraphyRestructure';
+    $form['#process'][] = '::bibliographyRestructure';
 
     return $form;
   }
@@ -29,7 +29,7 @@ class BibliographyForm extends ContentEntityForm {
    *
    * @see \Drupal\bibcite_entity\Form\BibliographyForm::form()
    */
-  public function bibcitegraphyRestructure($element, FormStateInterface $form_state, $form) {
+  public function bibliographyRestructure(array $element, FormStateInterface $form_state) {
     // @todo Move field groups to the configuration level.
     $field_groups = [
       'authors' => [
@@ -78,6 +78,7 @@ class BibliographyForm extends ContentEntityForm {
           'bibcite_call_number',
           'bibcite_other_number',
           'bibcite_citekey',
+          'bibcite_pmid',
         ],
       ],
       'locators' => [
@@ -132,26 +133,13 @@ class BibliographyForm extends ContentEntityForm {
       ],
     ];
 
-    $restructured = [];
-
-    $restructured['title'] = $element['title'];
-    $restructured['title']['#weight'] = 1;
-    $restructured['type'] = $element['type'];
-    $restructured['type']['#weight'] = 2;
-    $restructured['actions'] = $element['actions'];
-    $restructured['actions']['#weight'] = 4;
-
-    foreach (Element::properties($element) as $property_key) {
-      $restructured[$property_key] = $element[$property_key];
-    }
-
-    $restructured['tabs'] = [
+    $element['tabs'] = [
       '#type' => 'vertical_tabs',
       '#weight' => 3,
     ];
 
     foreach ($field_groups as $group_id => $group) {
-      $restructured[$group_id] = [
+      $element[$group_id] = [
         '#type' => 'details',
         '#title' => $group['title'],
         '#group' => 'tabs',
@@ -159,12 +147,12 @@ class BibliographyForm extends ContentEntityForm {
 
       foreach ($group['elements'] as $field_id) {
         if (isset($element[$field_id])) {
-          $restructured[$group_id][$field_id] = $element[$field_id];
+          $element[$field_id]['#group'] = $group_id;
         }
       }
     }
 
-    return $restructured;
+    return $element;
   }
 
   /**
@@ -186,7 +174,7 @@ class BibliographyForm extends ContentEntityForm {
           '%label' => $entity->label(),
         ]));
     }
-    $form_state->setRedirect('entity.bibcitegraphy.canonical', ['bibcitegraphy' => $entity->id()]);
+    $form_state->setRedirect('entity.bibliography.canonical', ['bibliography' => $entity->id()]);
   }
 
 }
