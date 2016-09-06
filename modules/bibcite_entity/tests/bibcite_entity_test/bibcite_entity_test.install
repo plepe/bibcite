@@ -1,0 +1,63 @@
+<?php
+/**
+ * @file
+ * Module installation hooks.
+ */
+
+use Drupal\bibcite_entity\Entity\Bibliography;
+use Drupal\bibcite_entity\Entity\Contributor;
+
+/**
+ * Implements hook_install().
+ *
+ * Create test content.
+ */
+function bibcite_entity_test_install() {
+  $contributors_data = [
+    [
+      'first_name' => 'John',
+      'last_name' => 'Doe',
+    ],
+    [
+      'first_name' => 'Mark',
+      'last_name' => 'Twain',
+    ],
+  ];
+
+  $contributors = [];
+  foreach ($contributors_data as $data) {
+    $contributor_entity = Contributor::create($data);
+    $contributor_entity->save();
+    $contributors[] = $contributor_entity;
+  }
+
+  $bibliography_data = [
+    [
+      'title' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      'type' => 'journal-article',
+      'author' => reset($contributors),
+      'bibcite_year' => '1992',
+      'bibcite_issue' => '1',
+      'bibcite_volume' => '5',
+      'bibcite_pages' => '1-13',
+      'bibcite_publisher' => 'Journal',
+    ],
+    [
+      'title' => 'Proin ut laoreet purus. Maecenas sed scelerisque leo.',
+      'type' => 'journal-article',
+      'author' => $contributors,
+      'bibcite_year' => '2001',
+      'bibcite_issue' => '15',
+      'bibcite_volume' => '2',
+      'bibcite_pages' => '5-8',
+      'bibcite_publisher' => 'Journal',
+    ],
+  ];
+
+  $bibliography = [];
+  foreach ($bibliography_data as $data) {
+    $bibliography_entity = Bibliography::create($data);
+    $bibliography_entity->save();
+    $bibliography[] = $bibliography_entity;
+  }
+}
