@@ -3,7 +3,6 @@
 namespace Drupal\bibcite_export\Plugin\Action;
 
 
-use Drupal\bibcite_export\BibciteExportFormatManagerInterface;
 use Drupal\Core\Action\ConfigurableActionBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -24,18 +23,18 @@ use Symfony\Component\Serializer\SerializerInterface;
 class ExportBibliography extends ConfigurableActionBase implements ContainerFactoryPluginInterface {
 
   /**
-   * Manager of export formats.
-   *
-   * @var \Drupal\bibcite_export\BibciteExportFormatManagerInterface
-   */
-  protected $pluginManager;
-
-  /**
    * The serializer service.
    *
    * @var \Symfony\Component\Serializer\SerializerInterface
    */
   protected $serializer;
+
+  /**
+   * The list of export formats definitions.
+   *
+   * @var array
+   */
+  protected $bibcteExportFormats;
 
   /**
    * Constructs a new ExportBibliography action.
@@ -46,16 +45,16 @@ class ExportBibliography extends ConfigurableActionBase implements ContainerFact
    *   The plugin ID for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\bibcite_export\BibciteExportFormatManagerInterface $plugin_manager
-   *   The manager of export formats.
    * @param \Symfony\Component\Serializer\SerializerInterface $serializer
    *   The serializer service.
+   * @param array $bibcite_export_formats
+   *   The list of export formats definitions.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, BibciteExportFormatManagerInterface $plugin_manager, SerializerInterface $serializer) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, SerializerInterface $serializer, array $bibcite_export_formats) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
-    $this->pluginManager = $plugin_manager;
     $this->serializer = $serializer;
+    $this->bibcteExportFormats = $bibcite_export_formats;
   }
 
   /**
@@ -63,8 +62,8 @@ class ExportBibliography extends ConfigurableActionBase implements ContainerFact
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static($configuration, $plugin_id, $plugin_definition,
-      $container->get('plugin.manager.bibcite_export_format'),
-      $container->get('serializer')
+      $container->get('serializer'),
+      $container->getParameter('bibcite_export_formats')
     );
   }
 
@@ -112,14 +111,12 @@ class ExportBibliography extends ConfigurableActionBase implements ContainerFact
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    $plugins = $this->pluginManager->getDefinitions();
-
     $form['format'] = [
       '#type' => 'select',
       '#title' => $this->t('Format'),
       '#options' => array_map(function($definition) {
         return $definition['label'];
-      }, $plugins),
+      }, $this->bibcteExportFormats),
       '#empty_option' => $this->t('- Select -'),
       '#requried' => TRUE,
     ];

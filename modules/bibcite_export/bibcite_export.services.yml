@@ -1,9 +1,6 @@
 services:
-  plugin.manager.bibcite_export_format:
-    class: Drupal\bibcite_export\BibciteExportFormatManager
-    arguments: ['@module_handler', '@cache.discovery']
   bibcite_export.param_converter:
     class: Drupal\bibcite_export\Routing\ExportFormatConverter
-    arguments: ['@plugin.manager.bibcite_export_format']
+    arguments: ['%bibcite_export_formats%']
     tags:
       - { name: paramconverter }

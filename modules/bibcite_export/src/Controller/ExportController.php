@@ -27,13 +27,6 @@ class ExportController extends ControllerBase {
   protected $serializer;
 
   /**
-   * The bibcite export format plugin manager.
-   *
-   * @var \Drupal\bibcite_export\BibciteExportFormatManager
-   */
-  protected $pluginManager;
-
-  /**
    * The entity type manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
@@ -43,9 +36,8 @@ class ExportController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public function __construct(SerializerInterface $serializer, BibciteExportFormatManagerInterface $plugin_manager, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(SerializerInterface $serializer, EntityTypeManagerInterface $entity_type_manager) {
     $this->serializer = $serializer;
-    $this->pluginManager = $plugin_manager;
     $this->entityTypeManager = $entity_type_manager;
   }
 
@@ -55,13 +47,12 @@ class ExportController extends ControllerBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('serializer'),
-      $container->get('plugin.manager.bibcite_export_format'),
       $container->get('entity_type.manager')
     );
   }
 
   /**
-   * Serialize and create response contains file in selectrd format.
+   * Serialize and create response contains file in selected format.
    *
    * @param array $entities
    *   Array of entities objects.
@@ -75,7 +66,7 @@ class ExportController extends ControllerBase {
    */
   protected function processExport(array $entities, array $bibcite_format, $filename = NULL) {
     if (!$filename) {
-      $filename = (string) $bibcite_format['label'];
+      $filename = $bibcite_format['label'];
     }
 
     $response = new Response();
@@ -108,7 +99,9 @@ class ExportController extends ControllerBase {
    *   Response object contains serialized bibliography data.
    */
   public function export(array $bibcite_format, $entity_type, EntityInterface $entity) {
-    $filename = $entity_type . '-' . $entity->id() . (string) $bibcite_format['label'];
+    $filename = vsprintf('%s-%s-%s', [
+      $entity_type, $entity->id(), $bibcite_format['label'],
+    ]);
     return $this->processExport([$entity], $bibcite_format, $filename);
   }
 
@@ -129,8 +122,7 @@ class ExportController extends ControllerBase {
    *   Throw 404 error if Id parameter is not provided or entities not loaded.
    */
   public function exportMultiple(array $bibcite_format, $entity_type, Request $request) {
-    $entity_type_manager = \Drupal::entityTypeManager();
-    $storage = $entity_type_manager->getStorage($entity_type);
+    $storage = $this->entityTypeManager->getStorage($entity_type);
 
     if (!$request->query->has('id')) {
       throw new NotFoundHttpException();
@@ -143,7 +135,9 @@ class ExportController extends ControllerBase {
       throw new NotFoundHttpException();
     }
 
-    $filename = $entity_type . '-' . (string) $bibcite_format['label'];
+    $filename = vsprintf('%s-%s', [
+      $entity_type, $bibcite_format['label'],
+    ]);
     return $this->processExport($entities, $bibcite_format, $filename);
   }
 

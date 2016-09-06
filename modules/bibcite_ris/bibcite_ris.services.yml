@@ -2,7 +2,11 @@ services:
   bibcite_ris.encoder.ris:
     class: Drupal\bibcite_ris\Encoder\RISEncoder
     tags:
-       - { name: encoder, format: ris }
+      - name: encoder
+        format: ris
+        bibcite_export: true
+        bibcite_extension: ris
+        bibcite_label: RIS
   bibcite_ris.normalizer.bibliography:
     class: Drupal\bibcite_ris\Normalizer\RISBibliographyNormalizer
     tags:

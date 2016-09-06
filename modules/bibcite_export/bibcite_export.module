@@ -50,10 +50,9 @@ function bibcite_export_preprocess_bibliography_table(&$variables) {
  *   Array of export links.
  */
 function bibcite_export_create_export_links(EntityInterface $entity, $formats) {
-  /* @var \Drupal\bibcite_export\BibciteExportFormatManagerInterface $plugin_manager */
-  $plugin_manager = \Drupal::service('plugin.manager.bibcite_export_format');
+  $container = \Drupal::getContainer();
+  $definitions = $container->getParameter('bibcite_export_formats');
 
-  $definitions = $plugin_manager->getDefinitions();
   $definitions = array_intersect_key($definitions, $formats);
 
   $links = [];

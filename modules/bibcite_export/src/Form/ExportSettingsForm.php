@@ -3,13 +3,41 @@
 namespace Drupal\bibcite_export\Form;
 
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Export configuration form.
  */
 class ExportSettingsForm extends ConfigFormBase {
+
+  /**
+   * The list of export formats definitions.
+   *
+   * @var array
+   */
+  protected $bibciteExportFormats;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(ConfigFactoryInterface $config_factory, array $bibcite_export_formats) {
+    parent::__construct($config_factory);
+
+    $this->bibciteExportFormats = $bibcite_export_formats;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('config.factory'),
+      $container->getParameter('bibcite_export_formats')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -33,8 +61,6 @@ class ExportSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('bibcite_export.settings');
 
-    $manager = \Drupal::service('plugin.manager.bibcite_export_format');
-
     $form['show_full'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Show export links on table view of Bibliography entity'),
@@ -50,7 +76,7 @@ class ExportSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Enabled export formats'),
       '#options' => array_map(function($definition) {
         return $definition['label'];
-      }, $manager->getDefinitions()),
+      }, $this->bibciteExportFormats),
       '#default_value' => $config->get('enabled_formats'),
     ];
 

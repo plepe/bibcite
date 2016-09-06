@@ -3,7 +3,6 @@
 namespace Drupal\bibcite_export\Routing;
 
 
-use Drupal\bibcite_export\BibciteExportFormatManagerInterface;
 use Drupal\Core\ParamConverter\ParamConverterInterface;
 use Symfony\Component\Routing\Route;
 
@@ -13,28 +12,28 @@ use Symfony\Component\Routing\Route;
 class ExportFormatConverter implements ParamConverterInterface {
 
   /**
-   * The plugin manager of export formats.
+   * List of available export formats.
    *
-   * @var \Drupal\bibcite_export\BibciteExportFormatManagerInterface
+   * @var array
    */
-  protected $pluginManager;
+  protected $bibciteExportFormats;
 
   /**
    * Construct a new ExportFormatConverter.
    *
-   * @param \Drupal\bibcite_export\BibciteExportFormatManagerInterface $plugin_manager
-   *   The plugin manager of export formats.
+   * @param array $bibcite_export_formats
+   *   Array of export formats attributes.
    */
-  public function __construct(BibciteExportFormatManagerInterface $plugin_manager) {
-    $this->pluginManager = $plugin_manager;
+  public function __construct(array $bibcite_export_formats) {
+    $this->bibciteExportFormats = $bibcite_export_formats;
   }
 
   /**
    * {@inheritdoc}
    */
   public function convert($value, $definition, $name, array $defaults) {
-    if (!empty($value) && $this->pluginManager->hasDefinition($value)) {
-      return $this->pluginManager->getDefinition($value);
+    if (!empty($value) && isset($this->bibciteExportFormats[$value])) {
+      return $this->bibciteExportFormats[$value];
     }
 
     return NULL;

@@ -10,7 +10,7 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Basic import tests.
  *
- * @group bibcite_import
+ * @group bibcite
  */
 class ImportBasicTest extends KernelTestBase {
 
@@ -20,16 +20,20 @@ class ImportBasicTest extends KernelTestBase {
    * @var array
    */
   public static $modules = [
-    'system', 'serialization', 'bibcite', 'bibcite_entity',
-    'bibcite_import', 'bibcite_bibtex',
+    'system',
+    'serialization',
+    'bibcite',
+    'bibcite_entity',
+    'bibcite_import',
+    'bibcite_bibtex',
   ];
 
   /**
-   * Plugin manager.
+   * The list of import formats definitions.
    *
-   * @var \Drupal\Component\Plugin\PluginManagerInterface
+   * @var array
    */
-  protected $pluginManager;
+  protected $bibciteImportFormats;
 
   /**
    * Serializer service.
@@ -44,7 +48,7 @@ class ImportBasicTest extends KernelTestBase {
   public function setUp() {
     parent::setUp();
 
-    $this->pluginManager = $this->container->get('plugin.manager.bibcite_import_format');
+    $this->bibciteImportFormats = $this->container->getParameter('bibcite_import_formats');
     $this->serializer = $this->container->get('serializer');
   }
 
@@ -54,7 +58,7 @@ class ImportBasicTest extends KernelTestBase {
    * @dataProvider importData
    */
   public function testAvailableFormats($format) {
-    $this->assertTrue($this->pluginManager->hasDefinition($format));
+    $this->assertTrue(isset($this->bibciteImportFormats[$format]));
   }
 
   /**

@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite_import\Form;
 
-use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -14,11 +13,11 @@ use Symfony\Component\Serializer\SerializerInterface;
 class ImportForm extends FormBase {
 
   /**
-   * Import plugins manager.
+   * The list of import formats definitions.
    *
-   * @var \Drupal\Component\Plugin\PluginManagerInterface
+   * @var array
    */
-  protected $pluginManager;
+  protected $bibciteImportFormats;
 
   /**
    * Serializer service.
@@ -32,12 +31,12 @@ class ImportForm extends FormBase {
    *
    * @param \Symfony\Component\Serializer\SerializerInterface $serializer
    *   Import plugins manager.
-   * @param \Drupal\Component\Plugin\PluginManagerInterface $plugin_manager
-   *   Serializer service.
+   * @param array $bibcite_import_formats
+   *   List of available import formats.
    */
-  public function __construct(SerializerInterface $serializer, PluginManagerInterface $plugin_manager) {
+  public function __construct(SerializerInterface $serializer, array $bibcite_import_formats) {
     $this->serializer = $serializer;
-    $this->pluginManager = $plugin_manager;
+    $this->bibciteImportFormats = $bibcite_import_formats;
   }
 
   /**
@@ -46,7 +45,7 @@ class ImportForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('serializer'),
-      $container->get('plugin.manager.bibcite_import_format')
+      $container->getParameter('bibcite_import_formats')
     );
   }
 
@@ -71,7 +70,7 @@ class ImportForm extends FormBase {
       '#title' => $this->t('Format'),
       '#options' => array_map(function($definition) {
         return $definition['label'];
-      }, $this->pluginManager->getDefinitions()),
+      }, $this->bibciteImportFormats),
     ];
 
     $form['actions'] = ['#type' => 'actions'];
@@ -112,7 +111,7 @@ class ImportForm extends FormBase {
     $chunks = array_chunk($decoded, 10);
 
     $batch = [
-      'title' => t('Delete all bibliographic data'),
+      'title' => t('Import bibliographic data'),
       'operations' => [],
       'finished' => 'bibcite_import_batch_finished',
       'file' => drupal_get_path('module', 'bibcite_import') . '/bibcite_import.batch.inc',
