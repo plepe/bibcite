@@ -29,7 +29,25 @@ class BibtexEncoder implements EncoderInterface, DecoderInterface {
    * {@inheritdoc}
    */
   public function decode($data, $format, array $context = array()) {
-    return BibtexParser::parse_string($data);
+    $parsed = BibtexParser::parse_string($data);
+
+    $this->contactPages($parsed);
+
+    return $parsed;
+  }
+
+  /**
+   * Concat pages array to string.
+   *
+   * @param array $parsed
+   *   List of parsed entries.
+   */
+  protected function contactPages(array &$parsed) {
+    foreach ($parsed as &$entry) {
+      if (!empty($entry['pages']) && is_array($entry['pages'])) {
+        $entry['pages'] = implode('-', $entry['pages']);
+      }
+    }
   }
 
   /**
