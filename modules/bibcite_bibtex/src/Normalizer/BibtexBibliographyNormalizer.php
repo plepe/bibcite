@@ -51,23 +51,19 @@ class BibtexBibliographyNormalizer extends EntityNormalizer {
   ];
 
   /**
-   * Mapping between CSL and BibTex publication types.
+   * Mapping between bibcite and BibTex publication types.
    *
    * @var array
    */
   protected $typesMapping = [
-    'journal-article' => 'article',
     'book' => 'book',
-    'pamphlet' => 'booklet',
-    'chapter' => 'inbook',
-    'paper-conference' => 'conference',
+    'book_chapter' => 'inbook',
+    'conference_paper' => 'conference',
+    'conference_proceedings' => 'proceedings',
+    'journal_article' => 'article',
+    'miscellaneous' => 'misc',
     'thesis' => 'phdthesis',
-    'report' => 'techreport',
-    'patent' => 'patent',
-    'webpage' => 'electronic',
-    'article' => 'other',
-    'legislation' => 'standard',
-    'manuscript' => 'unpublished',
+    'unpublished' => 'unpublished',
   ];
 
   /**

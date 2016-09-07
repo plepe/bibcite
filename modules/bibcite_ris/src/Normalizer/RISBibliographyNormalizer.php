@@ -54,25 +54,29 @@ class RISBibliographyNormalizer extends NormalizerBase {
    * @var array
    */
   protected $typesMapping = [
+    'artwork' => 'ART',
+    'audiovisual' => 'ADVS',
     'bill' => 'BILL',
     'book' => 'BOOK',
-    'chapter' => 'CHAP',
+    'book_chapter' => 'CHAP',
     'case' => 'CASE',
-    'paper-conference' => 'CONF',
-    'motion_picture' => 'MPCT',
+    'conference_paper' => 'CONF',
+    'database' => 'DATA',
+    'film' => 'MPCT',
     'hearing' => 'HEAR',
-    'article-journal' => 'JOUR',
-    'article-magazine' => 'MGZN',
+    'journal_article' => 'JOUR',
+    'magazine_article' => 'MGZN',
     'manuscript' => 'MANSCPT',
     'map' => 'MAP',
-    'article-newspaper' => 'NEWS',
+    'miscellaneous' => 'GEN',
+    'newspaper_article' => 'NEWS',
     'patent' => 'PAT',
-    'personal_communication' => 'PCOMM',
+    'personal' => 'PCOMM',
     'report' => 'RPRT',
     'software' => 'COMP',
     'thesis' => 'THES',
     'unpublished' => 'UNPB',
-    'webpage' => 'ICOMM',
+    'web_article' => 'ICOMM',
   ];
 
   /**

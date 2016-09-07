@@ -63,13 +63,39 @@ class CslBibliographyNormalizer extends NormalizerBase {
   ];
 
   /**
+   * Mapping between bibcite and CSL publication types.
+   *
+   * @var array
+   */
+  protected $typesMapping = [
+    'bill' => 'bill',
+    'book' => 'book',
+    'book_chapter' => 'chapter',
+    'broadcast' => 'broadcast',
+    'conference_paper' => 'paper-conference',
+    'film' => 'motion_picture',
+    'journal_article' => 'article-journal',
+    'legal_ruling' => 'legal_case',
+    'magazine_article' => 'article-magazine',
+    'manuscript' => 'manuscript',
+    'map' => 'map',
+    'newspaper_article' => 'article-newspaper',
+    'patent' => 'patent',
+    'personal' => 'personal_communication',
+    'report' => 'report',
+    'statute' => 'legislation',
+    'thesis' => 'thesis',
+    'web_article' => 'webpage',
+  ];
+
+  /**
    * {@inheritdoc}
    */
   public function normalize($bibliography, $format = NULL, array $context = array()) {
     $attributes = [];
 
     $attributes['title'] = $bibliography->title->value;
-    $attributes['type'] = $bibliography->type->target_id;
+    $attributes['type'] = $this->convertType($bibliography->type->target_id);
 
     if ($authors = $this->extractAuthors($bibliography->author)) {
       $attributes['author'] = $authors;
@@ -92,6 +118,19 @@ class CslBibliographyNormalizer extends NormalizerBase {
     }
 
     return $attributes;
+  }
+
+  /**
+   * Convert publication type to CSL format.
+   *
+   * @param string $type
+   *   CSL publication type.
+   *
+   * @return string
+   *   BibTex publication type.
+   */
+  protected function convertType($type) {
+    return isset($this->typesMapping[$type]) ? $this->typesMapping[$type] : '';
   }
 
   /**
