@@ -69,7 +69,7 @@ class CslBibliographyNormalizer extends NormalizerBase {
     $attributes = [];
 
     $attributes['title'] = $bibliography->title->value;
-    $attributes['type'] = $bibliography->type->value;
+    $attributes['type'] = $bibliography->type->target_id;
 
     if ($authors = $this->extractAuthors($bibliography->author)) {
       $attributes['author'] = $authors;

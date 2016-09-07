@@ -1,0 +1,5 @@
+langcode: en
+status: true
+dependencies: {  }
+id: web_project_page
+label: 'Web project page'

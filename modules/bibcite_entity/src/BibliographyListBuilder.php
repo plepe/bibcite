@@ -31,7 +31,7 @@ class BibliographyListBuilder extends EntityListBuilder {
       'bibliography' => $entity->id(),
     ]);
     // @todo Use non-magic entity method.
-    $row['type'] = $entity->type->value;
+    $row['type'] = $entity->type->target_id;
     return $row + parent::buildRow($entity);
   }
 

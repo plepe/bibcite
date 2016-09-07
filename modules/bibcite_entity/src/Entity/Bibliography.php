@@ -91,20 +91,18 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
      * Main attributes.
      */
 
-    $fields['type'] = BaseFieldDefinition::create('string')
+    $fields['type'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Type'))
-      ->setDescription(t('The type of publication for the Bibliography'))
-      ->setSettings([
-        'text_processing' => 0,
-      ])
-      ->setDefaultValue('')
+      ->setSetting('target_type', 'bibliography_type')
       ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
+        'type' => 'options_select',
         'weight' => 1,
       ])
       ->setDisplayOptions('view', [
-        'label' => 'above',
-        'type' => 'string',
+        'type' => 'entity_reference_label',
+        'settings' => [
+          'link' => FALSE,
+        ],
         'weight' => 1,
       ]);
 

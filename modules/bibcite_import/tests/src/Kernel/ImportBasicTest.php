@@ -66,14 +66,14 @@ class ImportBasicTest extends KernelTestBase {
    *
    * @dataProvider importData
    */
-  public function testBibliographyDeserialization($format, $text, $entity_expected_values) {
+  public function testBibliographyDeserialization($format, $text, $expected_type, $entity_expected_values) {
     $entries = $this->serializer->decode($text, $format);
 
     foreach ($entries as $entry) {
       /** @var \Drupal\bibcite_entity\Entity\BibliographyInterface $entity */
       $entity = $this->serializer->denormalize($entry, Bibliography::class, $format);
       $this->assertTrue($entity instanceof Bibliography);
-
+      $this->assertEquals($expected_type, $entity->type->target_id);
       $this->assertEntityValues($entity, $entity_expected_values);
     }
   }

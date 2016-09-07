@@ -69,3 +69,8 @@ entity.bibcite_keyword.collection:
   route_name: entity.bibcite_keyword.collection
   parent_id: entity.bibliography.admin
   title: Keyword
+
+bibcite_entity.types:
+  route_name: entity.bibliography_type.collection
+  title: 'Publication Types'
+  base_route: bibcite.settings

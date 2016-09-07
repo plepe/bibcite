@@ -1,0 +1,5 @@
+langcode: en
+status: true
+dependencies: {  }
+id: journal_article
+label: 'Journal Article'

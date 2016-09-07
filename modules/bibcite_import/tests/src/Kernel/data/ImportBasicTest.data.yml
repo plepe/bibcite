@@ -10,8 +10,8 @@
         pages = {5-8},
         publisher = {Journal},
       }
+  - journal_article
   -
-    type: journal-article
     bibcite_year: 2001
     bibcite_volume: 2
     bibcite_pages: 5-8

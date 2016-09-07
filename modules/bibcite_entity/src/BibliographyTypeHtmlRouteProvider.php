@@ -7,12 +7,12 @@ use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
 use Symfony\Component\Routing\Route;
 
 /**
- * Provides routes for Bibliography entities.
+ * Provides routes for Bibliography type entities.
  *
  * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
-class BibliographyHtmlRouteProvider extends AdminHtmlRouteProvider {
+class BibliographyTypeHtmlRouteProvider extends AdminHtmlRouteProvider {
 
   /**
    * {@inheritdoc}
@@ -45,9 +45,11 @@ class BibliographyHtmlRouteProvider extends AdminHtmlRouteProvider {
       $route
         ->setDefaults([
           '_entity_list' => $entity_type_id,
-          '_title' => "{$entity_type->getLabel()}",
+          // Make sure this is not a TranslatableMarkup object as the
+          // TitleResolver translates this string again.
+          '_title' => (string) $entity_type->getLabel(),
         ])
-        ->setRequirement('_permission', 'view bibliography entities')
+        ->setRequirement('_permission', $entity_type->getAdminPermission())
         ->setOption('_admin_route', TRUE);
 
       return $route;

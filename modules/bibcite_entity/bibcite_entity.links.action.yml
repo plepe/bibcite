@@ -13,3 +13,9 @@ entity.bibcite_keyword.add_form:
   title: 'Add Keyword'
   appears_on:
     - entity.bibcite_keyword.collection
+entity.bibliography_type.add_form:
+  route_name: 'entity.bibliography_type.add_form'
+  title: 'Add Bibliography type'
+  appears_on:
+    - entity.bibliography_type.collection
+

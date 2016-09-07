@@ -81,7 +81,7 @@ class RISBibliographyNormalizer extends NormalizerBase {
   public function normalize($bibliography, $format = NULL, array $context = array()) {
     $attributes = [];
 
-    $attributes['TY'] = $this->convertType($bibliography->type->value);
+    $attributes['TY'] = $this->convertType($bibliography->type->target_id);
 
     if ($authors = $this->extractAuthors($bibliography->author)) {
       $attributes += $authors;

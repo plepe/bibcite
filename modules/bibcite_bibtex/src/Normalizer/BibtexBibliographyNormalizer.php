@@ -77,7 +77,7 @@ class BibtexBibliographyNormalizer extends EntityNormalizer {
     $attributes = [];
 
     $attributes['title'] = $bibliography->title->value;
-    $attributes['type'] = $this->convertType($bibliography->type->value);
+    $attributes['type'] = $this->convertType($bibliography->type->target_id);
     $attributes['reference'] = $bibliography->id();
 
     if ($keywords = $this->extractKeywords($bibliography->keywords)) {
