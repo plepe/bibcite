@@ -1,0 +1,161 @@
+<?php
+/**
+ * @file
+ * Batch callbacks.
+ */
+
+use Drupal\file\Entity\File;
+
+/**
+ * Batch export callback. Import static list of entities.
+ *
+ * @param array $id_list
+ *   List of entity identifiers.
+ * @param string $entity_type
+ *   Entity type identifier.
+ * @param array $format
+ *   Format definition array.
+ * @param array $context
+ *   The batch context array.
+ */
+function bibcite_export_batch_list(array $id_list, $entity_type, array $format, &$context) {
+  $storage = \Drupal::entityTypeManager()->getStorage($entity_type);
+  $serializer = \Drupal::service('serializer');
+
+  if (empty($context['sandbox'])) {
+    $context['sandbox']['id_list'] = $id_list;
+  }
+
+  if (empty($context['results'])) {
+    /** @var \Drupal\Core\File\FileSystemInterface $file_system */
+    $file_system = \Drupal::service('file_system');
+    $context['results']['file'] = $file_system->tempnam('temporary://', 'bibcite-');
+    $context['results']['count'] = 0;
+    $context['results']['format'] = $format;
+    $context['results']['save_storage'] = FALSE;
+  }
+
+  $entities = $storage->loadMultiple($id_list);
+
+  $export_string = $serializer->serialize($entities, $format['id']);
+  file_put_contents($context['results']['file'], $export_string, FILE_APPEND);
+
+  $context['results']['count'] += count($entities);
+
+  $latest_entity = end($entities);
+  $context['message'] = $latest_entity->label();
+}
+
+/**
+ * Batch export callback. Export all entities by entity type.
+ *
+ * @param string $entity_type
+ *   Entity type identifier.
+ * @param array $format
+ *   Format definition array.
+ * @param array $context
+ *   The batch context array.
+ */
+function bibcite_export_batch_all($entity_type, array $format, &$context) {
+  $storage = \Drupal::entityTypeManager()->getStorage($entity_type);
+  $serializer = \Drupal::service('serializer');
+
+  if (empty($context['sandbox'])) {
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['current_id'] = 0;
+    $context['sandbox']['max'] = $storage->getQuery()->count()->execute();
+  }
+
+  if (empty($context['results'])) {
+    /** @var \Drupal\Core\File\FileSystemInterface $file_system */
+    $file_system = \Drupal::service('file_system');
+    $context['results']['file'] = $file_system->tempnam('temporary://', 'bibcite-');
+    $context['results']['count'] = 0;
+    $context['results']['format'] = $format;
+    $context['results']['save_storage'] = TRUE;
+  }
+
+  $limit = 50;
+  $result = $storage->getQuery()
+    ->range(0, $limit)
+    ->condition('id', $context['sandbox']['current_id'], '>')
+    ->sort('id')
+    ->execute();
+
+  $entities = $storage->loadMultiple(array_keys($result));
+
+  $export_string = $serializer->serialize($entities, $format['id']);
+  file_put_contents($context['results']['file'], $export_string, FILE_APPEND);
+
+  $latest_entity = end($entities);
+
+  $context['sandbox']['progress'] += count($entities);
+  $context['sandbox']['current_id'] = $latest_entity->id();
+  $context['results']['count'] = $context['sandbox']['progress'];
+  $context['message'] = $latest_entity->label();
+
+  if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
+    $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+  }
+}
+
+/**
+ * Batch export finished callback.
+ *
+ * @param bool $success
+ *   A boolean indicating whether the batch has completed successfully.
+ * @param array $results
+ *   The value set in $context['results'].
+ *   Must be an array and contain next elements:
+ *   $results['file'] - URI for temporary file contains export result.
+ *   $results['format'] - Format definition array.
+ *   $results['count'] -  Count of exported entries.
+ *   Optionally you can set $results['save_storage'] to TRUE and file info
+ *   will be saved to private storage.
+ * @param mixed $operations
+ *   If $success is FALSE, contains the operations that remained unprocessed.
+ */
+function bibcite_export_batch_finished($success, array $results, $operations) {
+  if ($success && isset($results['file'], $results['format'], $results['count'])) {
+
+    /** @var \Drupal\user\PrivateTempStore $tempstorage */
+    $tempstorage = \Drupal::service('user.private_tempstore')->get('bibcite_export');
+
+    $current_user = \Drupal::currentUser();
+
+    $file_schema = 'temporary://';
+    $file_name = sprintf('bibcite-export-%s-%s.%s', date('mdYHis'), $current_user->id(), $results['format']['extension']);
+
+    $file = File::create([
+      'uid' => $current_user->id(),
+      'filename' => $file_name,
+      'uri' => $results['file'],
+      'status' => 0,
+    ]);
+
+    if ($file->save() && $file = file_move($file, $file_schema . $file_name)) {
+      if (!empty($results['save_storage'])) {
+        $file_data = [
+          'id' => $file->id(),
+          'timestamp' => time(),
+          'format' => $results['format']['id'],
+        ];
+
+        $data = $tempstorage->get('export_files');
+        $data[] = array_unshift($data, $file_data);
+        $tempstorage->set('export_files', $data);
+      }
+
+      $message = t('Bibliography export is complete (@count entries has been exported)', [
+        '@count' => $results['count'],
+      ]);
+      drupal_set_message($message);
+    }
+    else {
+      drupal_set_message(t('Temporary file can not be saved'), 'error');
+    }
+  }
+  else {
+    drupal_set_message(t('An error occurred while processing export'), 'error');
+  }
+}
