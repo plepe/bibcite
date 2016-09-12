@@ -31,3 +31,11 @@ bibcite_export.settings:
     _title: 'Export'
   requirements:
     _permission: 'administer bibcite'
+
+bibcite_export.export_all:
+  path: '/admin/config/bibcite/export'
+  defaults:
+    _form: '\Drupal\bibcite_export\Form\ExportAllForm'
+    _title: 'Export all bibliography'
+  requirements:
+    _permission: 'administer bibcite'
