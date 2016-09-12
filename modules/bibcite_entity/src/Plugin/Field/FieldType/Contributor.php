@@ -14,6 +14,7 @@ use Drupal\Core\TypedData\DataDefinition;
  * @FieldType(
  *   id = "bibcite_contributor",
  *   label = @Translation("Contributor"),
+ *   no_ui = TRUE,
  *   description = @Translation("Entity reference with label"),
  *   default_widget = "bibcite_contributor_widget",
  *   default_formatter = "bibcite_contributor_label",

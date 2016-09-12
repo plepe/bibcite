@@ -70,7 +70,23 @@ entity.bibcite_keyword.collection:
   parent_id: entity.bibliography.admin
   title: Keyword
 
+# Admin routing definition
 bibcite_entity.types:
   route_name: entity.bibliography_type.collection
   title: 'Publication Types'
   base_route: bibcite.settings
+
+bibcite_entity.contributor:
+  route_name: entity.bibcite_contributor_category.collection
+  title: 'Contributor'
+  base_route: bibcite.settings
+
+bibcite_entity.contributor.category:
+  route_name: entity.bibcite_contributor_category.collection
+  title: 'Category'
+  parent_id: bibcite_entity.contributor
+
+bibcite_entity.contributor.role:
+  route_name: entity.bibcite_contributor_role.collection
+  title: 'Role'
+  parent_id: bibcite_entity.contributor

@@ -2,9 +2,13 @@
 
 namespace Drupal\bibcite_entity\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\EntityReferenceAutocompleteWidget;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'bibcite_contributor_widget' widget.
@@ -17,7 +21,37 @@ use Drupal\Core\Form\FormStateInterface;
  *   }
  * )
  */
-class ContributorWidget extends EntityReferenceAutocompleteWidget {
+class ContributorWidget extends EntityReferenceAutocompleteWidget implements ContainerFactoryPluginInterface {
+
+  /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, EntityTypeManagerInterface $entity_type_manager) {
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
+
+    $this->entityTypeManager = $entity_type_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $plugin_id,
+      $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['third_party_settings'],
+      $container->get('entity_type.manager')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -39,13 +73,7 @@ class ContributorWidget extends EntityReferenceAutocompleteWidget {
       '#default_value' => isset($items[$delta]->category) ? $items[$delta]->category : NULL,
       '#maxlength' => $this->getFieldSetting('max_length'),
       '#weight' => $delta,
-      '#options' => [
-        'primary' => 'Primary',
-        'secondary' => 'Secondary',
-        'tertiary' => 'Tertiary',
-        'subsidiary' => 'Subsidiary',
-        'corporate' => 'Corporate/Institutional',
-      ],
+      '#options' => $this->getContributorCategories(),
     ];
 
     $element['role'] = [
@@ -54,32 +82,43 @@ class ContributorWidget extends EntityReferenceAutocompleteWidget {
       '#default_value' => isset($items[$delta]->role) ? $items[$delta]->role : NULL,
       '#maxlength' => $this->getFieldSetting('max_length'),
       '#weight' => $delta,
-      '#options' => [
-        '1' => 'Author',
-        '2' => 'Secondary Author',
-        '3' => 'Tertiary Author',
-        '4' => 'Subsidiary Author',
-        '5' => 'Corporate Author',
-        '10' => 'Series Editor',
-        '11' => 'Performers',
-        '12' => 'Sponsor',
-        '13' => 'Translator',
-        '14' => 'Editor',
-        '15' => 'Counsel',
-        '16' => 'Series Director',
-        '17' => 'Producer',
-        '18' => 'Department',
-        '19' => 'Issuing Organization',
-        '20' => 'International Author',
-        '21' => 'Recipient',
-        '22' => 'Advisor',
-      ],
+      '#options' => $this->getContributorRoles(),
     ];
 
     $element['#type'] = 'container';
     $element['#attributes']['class'][] = 'container-inline';
 
     return $element;
+  }
+
+  /**
+   * Get list of contributor categories.
+   *
+   * @return array
+   *   Contributor categories.
+   */
+  protected function getContributorCategories() {
+    $entities = $this->entityTypeManager->getStorage('bibcite_contributor_category')->loadMultiple();
+
+    return array_map(function($entity) {
+      /** @var \Drupal\Core\Entity\EntityInterface $entity */
+      return $entity->label();
+    }, $entities);
+  }
+
+  /**
+   * Get list of contributor roles.
+   *
+   * @return array
+   *   Contributor roles.
+   */
+  protected function getContributorRoles() {
+    $entities = $this->entityTypeManager->getStorage('bibcite_contributor_role')->loadMultiple();
+
+    return array_map(function($entity) {
+      /** @var \Drupal\Core\Entity\EntityInterface $entity */
+      return $entity->label();
+    }, $entities);
   }
 
 }

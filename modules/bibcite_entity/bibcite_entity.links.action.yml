@@ -18,4 +18,15 @@ entity.bibliography_type.add_form:
   title: 'Add Bibliography type'
   appears_on:
     - entity.bibliography_type.collection
+entity.bibcite_contributor_role.add_form:
+  route_name: 'entity.bibcite_contributor_role.add_form'
+  title: 'Add Contributor role'
+  appears_on:
+    - entity.bibcite_contributor_role.collection
+
+entity.bibcite_contributor_category.add_form:
+  route_name: 'entity.bibcite_contributor_category.add_form'
+  title: 'Add Contributor category'
+  appears_on:
+    - entity.bibcite_contributor_category.collection
 
