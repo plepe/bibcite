@@ -3,8 +3,7 @@
 namespace Drupal\bibcite_export\Plugin\Action;
 
 
-use Drupal\Core\Action\ConfigurableActionBase;
-use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Action\ActionBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -17,10 +16,11 @@ use Symfony\Component\Serializer\SerializerInterface;
  * @Action(
  *   id = "bibcite_export_action",
  *   label = @Translation("Export bibliography"),
- *   type = "bibliography"
+ *   type = "bibliography",
+ *   deriver = "Drupal\bibcite_export\Plugin\Derivative\ExportFormatDeriver"
  * )
  */
-class ExportBibliography extends ConfigurableActionBase implements ContainerFactoryPluginInterface {
+class ExportBibliography extends ActionBase implements ContainerFactoryPluginInterface {
 
   /**
    * The serializer service.
@@ -78,12 +78,15 @@ class ExportBibliography extends ConfigurableActionBase implements ContainerFact
    * {@inheritdoc}
    */
   public function executeMultiple(array $entities) {
-    $content = $this->serializer->serialize($entities, $this->configuration['format']);
+    $format_info = $this->bibcteExportFormats[$this->pluginDefinition['format']];
+    $filename = sprintf('bibcite-multiple-export.%s', $format_info['extension']);
+
+    $content = $this->serializer->serialize($entities, $format_info['id']);
 
     $response = new Response($content);
     $response->headers->set('Cache-Control', 'no-cache');
-    $response->headers->set('Content-type', 'text/plain');
-    $response->headers->set('Content-Disposition', 'attachment; filename="multiple.bib";');
+    $response->headers->set('Content-type', 'application/octet-stream');
+    $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '";');
 
     $response->send();
 
@@ -96,39 +99,6 @@ class ExportBibliography extends ConfigurableActionBase implements ContainerFact
    */
   public function access($object, AccountInterface $account = NULL, $return_as_object = FALSE) {
     return $object->access('view', $account, $return_as_object);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function defaultConfiguration() {
-    return array(
-      'format' => 'bibtex',
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    $form['format'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Format'),
-      '#options' => array_map(function($definition) {
-        return $definition['label'];
-      }, $this->bibcteExportFormats),
-      '#empty_option' => $this->t('- Select -'),
-      '#requried' => TRUE,
-    ];
-
-    return $form;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
-    $this->configuration['format'] = $form_state->getValue('format');
   }
 
 }

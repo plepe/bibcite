@@ -1,0 +1,20 @@
+<?php
+/**
+ * @file
+ * Installation hooks.
+ */
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Delete all configuration for module action plugins.
+ */
+function bibcite_export_uninstall() {
+  /** @var \Drupal\Core\Config\ConfigFactoryInterface $config_factory */
+  $config_factory = \Drupal::service('config.factory');
+  $configs = $config_factory->listAll('system.action.bibcite_export_action');
+
+  foreach ($configs as $config_name) {
+    $config_factory->getEditable($config_name)->delete();
+  }
+}
