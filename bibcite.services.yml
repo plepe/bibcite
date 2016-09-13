@@ -4,6 +4,6 @@ services:
     parent: default_plugin_manager
   bibcite.styler:
     class: Drupal\bibcite\Styler
-    arguments: ['@plugin.manager.bibcite_processor', '@config.factory']
+    arguments: ['@plugin.manager.bibcite_processor', '@config.factory', '@language_manager']
   bibcite.human_name_parser:
     class: Drupal\bibcite\HumanNameParser

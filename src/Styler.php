@@ -5,6 +5,7 @@ namespace Drupal\bibcite;
 use Drupal\bibcite\Plugin\BibCiteProcessorInterface;
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Language\LanguageManagerInterface;
 
 /**
  * Render CSL data to bibliography citation.
@@ -33,22 +34,36 @@ class Styler implements StylerInterface {
   protected $configFactory;
 
   /**
+   * Language manager service.
+   *
+   * @var \Drupal\Core\Language\LanguageManagerInterface
+   */
+  protected $languageManager;
+
+  /**
    * Styler constructor.
    *
    * @param \Drupal\Component\Plugin\PluginManagerInterface $plugin_manager
    *   Manager of processor plugins.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   Config factory service.
+   * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
+   *   Language manager service.
    */
-  public function __construct(PluginManagerInterface $plugin_manager, ConfigFactoryInterface $config_factory) {
+  public function __construct(PluginManagerInterface $plugin_manager, ConfigFactoryInterface $config_factory, LanguageManagerInterface $language_manager) {
     $this->pluginManager = $plugin_manager;
     $this->configFactory = $config_factory;
+    $this->languageManager = $language_manager;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function render(array $data, $style = NULL, $lang = 'en_US') {
+  public function render(array $data, $style = NULL, $lang = NULL) {
+    if (!$lang) {
+      $lang = $this->languageManager->getCurrentLanguage()->getId();
+    }
+
     $style = $style ?: $this->getDefaultStyleId();
     $processor = $this->getProcessor();
 

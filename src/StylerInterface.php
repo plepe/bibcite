@@ -23,7 +23,7 @@ interface StylerInterface {
    * @return string Rendered bibliography citation.
    *   Rendered bibliography citation.
    */
-  public function render(array $data, $style = NULL, $lang = 'en-US');
+  public function render(array $data, $style = NULL, $lang = NULL);
 
   /**
    * Set processor plugin.

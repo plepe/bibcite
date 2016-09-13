@@ -22,7 +22,7 @@ interface BibCiteProcessorInterface extends PluginInspectionInterface {
    * @return string Rendered citation.
    *   Rendered citation.
    */
-  public function render(array $data, $style, $lang = 'en_US');
+  public function render(array $data, $style, $lang);
 
   /**
    * Get plugin description markup.

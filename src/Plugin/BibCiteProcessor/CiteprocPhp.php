@@ -62,8 +62,7 @@ class CiteprocPhp extends BibCiteProcessorBase implements BibCiteProcessorInterf
   /**
    * {@inheritdoc}
    */
-  public function render(array $data, $style, $lang = 'en-US') {
-    // @todo Use Drupal language.
+  public function render(array $data, $style, $lang) {
     $csl = CiteProc::loadStyleSheet($style);
 
     $cite_proc = new CiteProc($csl, $lang);
