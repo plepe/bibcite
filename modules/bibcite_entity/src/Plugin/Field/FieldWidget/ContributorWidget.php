@@ -8,6 +8,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\EntityReferenceAutocompleteWidget;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\user\EntityOwnerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -87,6 +88,12 @@ class ContributorWidget extends EntityReferenceAutocompleteWidget implements Con
 
     $element['#type'] = 'container';
     $element['#attributes']['class'][] = 'container-inline';
+
+    $entity = $items->getEntity();
+    $element['target_id']['#autocreate'] = array(
+      'bundle' => 'bibcite_contributor',
+      'uid' => ($entity instanceof EntityOwnerInterface) ? $entity->getOwnerId() : \Drupal::currentUser()->id(),
+    );
 
     return $element;
   }

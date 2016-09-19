@@ -37,7 +37,7 @@ class Contributor extends EntityReferenceItem implements ContributorFieldInterfa
    */
   public static function defaultFieldSettings() {
     return [
-      'handler' => 'default',
+      'handler' => 'default:bibcite_contributor',
       'handler_settings' => [
         'auto_create' => TRUE,
         'auto_create_bundle' => 'bibcite_contributor',
