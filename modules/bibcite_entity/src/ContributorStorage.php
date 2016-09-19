@@ -3,7 +3,7 @@
 namespace Drupal\bibcite_entity;
 
 
-use Drupal\bibcite_entity\Entity\ContributorInterface;
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
 
 /**
@@ -16,7 +16,7 @@ class ContributorStorage extends SqlContentEntityStorage {
   /**
    * {@inheritdoc}
    */
-  protected function initFieldValues(ContributorInterface $entity, array $values = [], array $field_names = []) {
+  protected function initFieldValues(ContentEntityInterface $entity, array $values = [], array $field_names = []) {
     $this->initContributorName($entity, $values);
     parent::initFieldValues($entity, $values, $field_names);
   }
@@ -24,14 +24,14 @@ class ContributorStorage extends SqlContentEntityStorage {
   /**
    * Init contributor properties by full name string.
    *
-   * @param \Drupal\bibcite_entity\Entity\ContributorInterface $entity
+   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
    *   Contributor entity.
    * @param array $values
    *   Array of values.
    */
-  protected function initContributorName(ContributorInterface $entity, array &$values = []) {
+  protected function initContributorName(ContentEntityInterface $entity, array &$values = []) {
     if (isset($values['name'])) {
-      $entity->setName($values['name']);
+      $entity->set('name', $values['name']);
 
       foreach (['first_name', 'last_name', 'prefix', 'suffix'] as $property) {
         if (!empty($value = $entity->{$property}->value)) {
