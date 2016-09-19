@@ -19,40 +19,18 @@ class ContributorName extends FieldItemBase {
     /** @var \Drupal\bibcite_entity\Entity\ContributorInterface $contributor */
     $contributor = $this->parent->getValue();
 
-    $last_name = $contributor->getLastName();
-    $first_name = $contributor->getFirstName();
-    $suffix = $contributor->getSuffix();
-    $prefix = $contributor->getPrefix();
-
     $arguments = [
-      '@last_name' => $last_name,
-      '@first_name' => $first_name,
-      '@suffix' => $suffix,
-      '@prefix' => $prefix,
+      '@last_name' => $contributor->getLastName(),
+      '@first_name' => $contributor->getFirstName(),
+      '@suffix' => $contributor->getSuffix(),
+      '@prefix' => $contributor->getPrefix(),
     ];
 
-    $format = '@last_name';
+    // @todo Dependency injection.
+    $format = \Drupal::config('bibcite_entity.contributor.settings')->get('full_name_pattern') ?: '@prefix @first_name @last_name @suffix';
 
-    if ($prefix && $last_name && $first_name && $suffix) {
-      $format = '@prefix @last_name @first_name @suffix';
-    }
-    elseif ($prefix && $last_name && $first_name) {
-      $format = '@prefix @last_name @first_name';
-    }
-    elseif ($last_name && $first_name && $suffix) {
-      $format = '@last_name @first_name @suffix';
-    }
-    elseif ($prefix && $last_name) {
-      $format = '@prefix @last_name';
-    }
-    elseif ($last_name && $suffix) {
-      $format = '@last_name @suffix';
-    }
-    elseif ($last_name && $first_name) {
-      $format = '@last_name @first_name';
-    }
-
-    return (string) new FormattableMarkup($format, $arguments);
+    $full_name = (string) new FormattableMarkup($format, $arguments);
+    return trim(str_replace('  ', ' ', $full_name));
   }
 
   /**

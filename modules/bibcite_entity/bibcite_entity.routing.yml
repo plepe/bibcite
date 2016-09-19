@@ -1,0 +1,7 @@
+bibcite_entity.contributor.settings:
+  path: '/admin/config/bibcite/settings/contributor/settings'
+  defaults:
+    _form: '\Drupal\bibcite_entity\Form\ContributorSettings'
+    _title: 'Settings'
+  requirements:
+    _permission: 'administer bibcite'
