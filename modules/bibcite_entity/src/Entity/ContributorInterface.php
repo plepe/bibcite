@@ -46,12 +46,25 @@ interface ContributorInterface extends ContentEntityInterface, EntityChangedInte
   public function getSuffix();
 
   /**
-   * Get the Contributor postfix.
+   * Get the Contributor prefix.
    *
    * @return string
-   *   Postfix of Contributor.
+   *   Prefix of Contributor.
    */
-  public function getPostfix();
+  public function getPrefix();
+
+  /**
+   * Sets the Contributor full name.
+   *
+   * Full name string will be parsed and another fields will be changed.
+   *
+   * @param string $name
+   *   Full name sting.
+   *
+   * @return \Drupal\bibcite_entity\Entity\ContributorInterface
+   *   The called Contributor entity.
+   */
+  public function setName($name);
 
   /**
    * Sets the Contributor first name.
@@ -87,15 +100,15 @@ interface ContributorInterface extends ContentEntityInterface, EntityChangedInte
   public function setSuffix($suffix);
 
   /**
-   * Sets the Contributor postfix.
+   * Sets the Contributor prefix.
    *
-   * @param string $postfix
-   *   The Contributor postfix.
+   * @param string $prefix
+   *   The Contributor prefix.
    *
    * @return \Drupal\bibcite_entity\Entity\ContributorInterface
    *   The called Contributor entity.
    */
-  public function setPostfix($postfix);
+  public function setPrefix($prefix);
 
   /**
    * Gets the Contributor creation timestamp.

@@ -21,8 +21,7 @@ class ContributorForm extends ContentEntityForm {
 
     $form['name'] = [
       '#type' => 'item',
-      '#title' => $this->t('Name'),
-      '#description' => $this->t('Will be created from another fields'),
+      '#title' => $this->t('Full Name'),
       '#markup' => $entity->getName(),
     ];
 

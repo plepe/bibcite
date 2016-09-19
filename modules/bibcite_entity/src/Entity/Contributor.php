@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite_entity\Entity;
 
-use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityChangedTrait;
@@ -17,6 +16,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *   id = "bibcite_contributor",
  *   label = @Translation("Contributor"),
  *   handlers = {
+ *     "storage" = "Drupal\bibcite_entity\ContributorStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\bibcite_entity\ContributorListBuilder",
  *     "views_data" = "Drupal\bibcite_entity\ContributorViewsData",
@@ -57,17 +57,15 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
   /**
    * {@inheritdoc}
    */
-  public function preSave(EntityStorageInterface $storage) {
-    $this->generateName();
-
-    parent::preSave($storage);
+  public function label() {
+    return $this->getName();
   }
 
   /**
    * {@inheritdoc}
    */
   public function getName() {
-    return $this->get('name')->value;
+    return $this->get('name')->getValue();
   }
 
   /**
@@ -94,8 +92,8 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
   /**
    * {@inheritdoc}
    */
-  public function getPostfix() {
-    return $this->get('postfix')->value;
+  public function getPrefix() {
+    return $this->get('prefix')->value;
   }
 
   /**
@@ -103,6 +101,14 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
    */
   public function getCreatedTime() {
     return $this->get('created')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setName($name) {
+    $this->set('name', $name);
+    return $this;
   }
 
   /**
@@ -132,8 +138,8 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
   /**
    * {@inheritdoc}
    */
-  public function setPostfix($postfix) {
-    $this->set('postfix', $postfix);
+  public function setPrefix($prefix) {
+    $this->set('prefix', $prefix);
     return $this;
   }
 
@@ -153,16 +159,12 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
 
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
-      ->setDescription(t('Can be automatically created from another fields.'))
-      ->setDefaultValue('')
-      ->setDisplayOptions('view', [
-        'label' => 'above',
-        'type' => 'string',
-        'weight' => 1,
-      ]);
+      ->setComputed(TRUE)
+      ->setReadOnly(FALSE)
+      ->setClass('\Drupal\bibcite_entity\ContributorName');
 
-    $fields['suffix'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Suffix'))
+    $fields['prefix'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Prefix'))
       ->setDefaultValue('')
       ->setDisplayOptions('form', array(
         'type' => 'string_textfield',
@@ -201,8 +203,8 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
         'weight' => 4,
       ]);
 
-    $fields['postfix'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Postfix'))
+    $fields['suffix'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Suffix'))
       ->setDefaultValue('')
       ->setDisplayOptions('form', array(
         'type' => 'string_textfield',
@@ -223,51 +225,6 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
       ->setDescription(t('The time that the entity was last edited.'));
 
     return $fields;
-  }
-
-  /**
-   * Generate name from another fields.
-   */
-  protected function generateName() {
-    $last_name = $this->getLastName();
-    $first_name = $this->getFirstName();
-    $suffix = $this->getSuffix();
-    $prefix = $this->getPostfix();
-
-    $name = $last_name;
-
-    if ($prefix && $last_name && $first_name && $suffix) {
-      $name = vsprintf('%s %s %s %s', [
-        $prefix, $last_name, $first_name, $suffix,
-      ]);
-    }
-    elseif ($prefix && $last_name && $first_name) {
-      $name = vsprintf('%s %s %s', [
-        $prefix, $last_name, $first_name,
-      ]);
-    }
-    elseif ($last_name && $first_name && $suffix) {
-      $name = vsprintf('%s %s %s', [
-        $last_name, $first_name, $suffix,
-      ]);
-    }
-    elseif ($prefix && $last_name) {
-      $name = vsprintf('%s %s', [
-        $prefix, $last_name,
-      ]);
-    }
-    elseif ($last_name && $suffix) {
-      $name = vsprintf('%s %s', [
-        $last_name, $suffix,
-      ]);
-    }
-    elseif ($last_name && $first_name) {
-      $name = vsprintf('%s %s', [
-        $last_name, $first_name,
-      ]);
-    }
-
-    $this->set('name', $name);
   }
 
 }

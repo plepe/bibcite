@@ -177,11 +177,8 @@ class BibtexBibliographyNormalizer extends EntityNormalizer {
    *   New contributor entity.
    */
   protected function prepareAuthor($author_name) {
-    /** @var \Drupal\bibcite\HumanNameParserInterface $name_parser */
-    $name_parser = \Drupal::service('bibcite.human_name_parser');
     $contributor_storage = $this->entityManager->getStorage('bibcite_contributor');
-    $name_parts = $name_parser->parse($author_name);
-    return $contributor_storage->create($name_parts);
+    return $contributor_storage->create(['name' => trim($author_name)]);
   }
 
   /**
