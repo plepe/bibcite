@@ -37,7 +37,6 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *   fieldable = FALSE,
  *   entity_keys = {
  *     "id" = "id",
- *     "label" = "name",
  *     "uuid" = "uuid",
  *     "langcode" = "langcode",
  *   },
@@ -161,6 +160,7 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
       ->setLabel(t('Name'))
       ->setComputed(TRUE)
       ->setReadOnly(FALSE)
+      ->setQueryable(FALSE)
       ->setClass('\Drupal\bibcite_entity\ContributorName');
 
     $fields['prefix'] = BaseFieldDefinition::create('string')
