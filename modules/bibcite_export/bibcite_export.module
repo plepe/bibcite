@@ -19,7 +19,9 @@ function bibcite_export_preprocess_bibliography(&$variables) {
   if ($conf->get('show_citation') && isset($variables['data']['#entity'])) {
     /** @var \Drupal\bibcite_entity\Entity\BibliographyInterface $entity */
     $entity = $variables['data']['#entity'];
-    $variables['content']['links']['#items'] += bibcite_export_create_export_links($entity, array_flip($conf->get('enabled_formats')));
+    foreach (bibcite_export_create_export_links($entity, array_flip($conf->get('enabled_formats'))) as $link) {
+      $variables['content']['links']['#items'][] = $link;
+    }
   }
 }
 
@@ -34,7 +36,9 @@ function bibcite_export_preprocess_bibliography_table(&$variables) {
   if ($conf->get('show_full') && isset($variables['elements']['#bibliography'])) {
     /** @var \Drupal\bibcite_entity\Entity\BibliographyInterface $entity */
     $entity = $variables['elements']['#bibliography'];
-    $variables['content']['links']['#items'] += bibcite_export_create_export_links($entity, array_flip($conf->get('enabled_formats')));
+    foreach (bibcite_export_create_export_links($entity, array_flip($conf->get('enabled_formats'))) as $link) {
+      $variables['content']['links']['#items'][] = $link;
+    }
   }
 }
 
