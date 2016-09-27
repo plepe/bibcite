@@ -93,7 +93,9 @@ class CslStyleForm extends EntityForm {
       $original_csl_style = $this->entityTypeManager->getStorage($csl_style->getEntityTypeId())->load($csl_style->id());
 
       if ($csl_style->calculateHash() != $original_csl_style->calculateHash()) {
-        $this->validateUnique($form, $form_state, $csl->getId());
+        if ($original_csl_style->getUrlId() != $csl->getId()) {
+          $this->validateUnique($form, $form_state, $csl->getId());
+        }
 
         if ($parent_url = $csl->getParent()) {
           $this->validateParent($form, $form_state, $parent_url);
