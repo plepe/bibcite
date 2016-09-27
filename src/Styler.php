@@ -2,9 +2,11 @@
 
 namespace Drupal\bibcite;
 
+use Drupal\bibcite\Entity\CslStyleInterface;
 use Drupal\bibcite\Plugin\BibCiteProcessorInterface;
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 
 /**
@@ -27,11 +29,11 @@ class Styler implements StylerInterface {
   protected $pluginManager;
 
   /**
-   * Config factory service.
+   * Service configuration.
    *
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   * @var \Drupal\Core\Config\ImmutableConfig
    */
-  protected $configFactory;
+  protected $configuration;
 
   /**
    * Language manager service.
@@ -39,6 +41,27 @@ class Styler implements StylerInterface {
    * @var \Drupal\Core\Language\LanguageManagerInterface
    */
   protected $languageManager;
+
+  /**
+   * Storage of CSL style entity.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $cslStorage;
+
+  /**
+   * CSL style entity.
+   *
+   * @var \Drupal\bibcite\Entity\CslStyleInterface
+   */
+  protected $style;
+
+  /**
+   * Language code.
+   *
+   * @var string
+   */
+  protected $langCode;
 
   /**
    * Styler constructor.
@@ -49,25 +72,24 @@ class Styler implements StylerInterface {
    *   Config factory service.
    * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
    *   Language manager service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   Entity type manager service.
    */
-  public function __construct(PluginManagerInterface $plugin_manager, ConfigFactoryInterface $config_factory, LanguageManagerInterface $language_manager) {
+  public function __construct(PluginManagerInterface $plugin_manager, ConfigFactoryInterface $config_factory, LanguageManagerInterface $language_manager, EntityTypeManagerInterface $entity_type_manager) {
     $this->pluginManager = $plugin_manager;
-    $this->configFactory = $config_factory;
+    $this->configuration = $config_factory->get('bibcite.settings');
     $this->languageManager = $language_manager;
+    $this->cslStorage = $entity_type_manager->getStorage('bibcite_csl_style');
   }
 
   /**
    * {@inheritdoc}
    */
-  public function render(array $data, $style = NULL, $lang = NULL) {
-    if (!$lang) {
-      $lang = $this->languageManager->getCurrentLanguage()->getId();
-    }
+  public function render($data) {
+    $csl = $this->getStyle()->getCslText();
+    $lang = $this->getLanguageCode();
 
-    $style = $style ?: $this->getDefaultStyleId();
-    $processor = $this->getProcessor();
-
-    return $processor->render($data, $style, $lang);
+    return $this->getProcessor()->render($data, $csl, $lang);
   }
 
   /**
@@ -91,8 +113,7 @@ class Styler implements StylerInterface {
    */
   public function getProcessor() {
     if (!$this->processor) {
-      $config = $this->configFactory->get('bibcite.settings');
-      $this->setProcessorById($config->get('processor'));
+      $this->setProcessorById($this->configuration->get('processor'));
     }
 
     return $this->processor;
@@ -109,15 +130,58 @@ class Styler implements StylerInterface {
    * {@inheritdoc}
    */
   public function getAvailableStyles() {
-    return $this->processor->getAvailableStyles();
+    return $this->cslStorage->loadMultiple();
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getDefaultStyleId() {
-    $settings = $this->configFactory->get('bibcite.settings');
-    return $settings->get('default_style');
+  public function getStyle() {
+    if (!$this->style) {
+      $this->setStyleById($this->configuration->get('default_style'));
+    }
+
+    return $this->style;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setStyle(CslStyleInterface $csl_style) {
+    $this->style = $csl_style;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setStyleById($style_id) {
+    $this->style = $this->cslStorage->load($style_id);
+
+    if (!$this->style) {
+      throw new \Exception('You are trying to use non-existing style.');
+    }
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLanguageCode() {
+    if (!$this->langCode) {
+      $this->langCode = $this->languageManager->getCurrentLanguage()->getId();
+    }
+
+    return $this->langCode;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setLanguageCode($lang_code) {
+    $this->lang = $lang_code;
+    return $this;
   }
 
 }

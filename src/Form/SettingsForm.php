@@ -2,7 +2,7 @@
 
 namespace Drupal\bibcite\Form;
 
-use Drupal\Component\Plugin\PluginManagerInterface;
+use Drupal\bibcite\StylerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -14,18 +14,18 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SettingsForm extends ConfigFormBase {
 
   /**
-   * BibCiteProcessor plugins manager.
+   * The styler service.
    *
-   * @var \Drupal\Component\Plugin\PluginManagerInterface
+   * @var \Drupal\bibcite\StylerInterface
    */
-  protected $processorManager;
+  protected $styler;
 
   /**
    * {@inheritdoc}
    */
-  public function __construct(ConfigFactoryInterface $config_factory, PluginManagerInterface $processor_manager) {
+  public function __construct(ConfigFactoryInterface $config_factory, StylerInterface $styler) {
     parent::__construct($config_factory);
-    $this->processorManager = $processor_manager;
+    $this->styler = $styler;
   }
 
   /**
@@ -34,7 +34,7 @@ class SettingsForm extends ConfigFormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('config.factory'),
-      $container->get('plugin.manager.bibcite_processor')
+      $container->get('bibcite.styler')
     );
   }
 
@@ -60,38 +60,28 @@ class SettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('bibcite.settings');
 
-    $available_processors = array_map(function($definition) {
+    $processor_definitions = $this->styler->getAvailableProcessors();
+    $processor_options = array_map(function($definition) {
       return $definition['label'];
-    }, $this->processorManager->getDefinitions());
+    }, $processor_definitions);
 
-    $form['processor'] = array(
+    $form['processor'] = [
       '#type' => 'select',
-      '#options' => $available_processors,
+      '#options' => $processor_options,
       '#title' => $this->t('Processor'),
       '#default_value' => $config->get('processor'),
-    );
+    ];
 
-    /** @var \Drupal\bibcite\Plugin\BibCiteProcessorInterface $processor */
-    $processor = $this->processorManager->createInstance($config->get('processor'));
-    $description = $processor->getDescription();
-
-    if (is_array($description)) {
-      $form['description'] = [
-        '#type' => 'container',
-        'content' => $description,
-      ];
-    }
-    else {
-      $form['description'] = [
-        '#type' => 'item',
-        '#markup' => $description,
-      ];
-    }
+    $csl_styles = $this->styler->getAvailableStyles();
+    $styles_options = array_map(function($entity) {
+      /** @var \Drupal\bibcite\Entity\CslStyleInterface $entity */
+      return $entity->label();
+    }, $csl_styles);
 
     $form['default_style'] = [
       '#type' => 'select',
       '#title' => $this->t('Default style'),
-      '#options' => $processor->getAvailableStyles(),
+      '#options' => $styles_options,
       '#default_value' => $config->get('default_style'),
     ];
 

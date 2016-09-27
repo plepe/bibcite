@@ -8,9 +8,9 @@ bibcite.settings.processor:
   title: 'Processor'
   parent_id: bibcite.settings
 
-bibcite.settings.citeproc_php:
-  route_name: bibcite.settings.citeproc_php
-  title: 'Citeproc PHP'
+bibcite.settings.styles:
+  route_name: entity.bibcite_csl_style.collection
+  title: 'CSL styles'
   parent_id: bibcite.settings
 
 bibcite.settings.links:

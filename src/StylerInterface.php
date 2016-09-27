@@ -2,6 +2,7 @@
 
 namespace Drupal\bibcite;
 
+use Drupal\bibcite\Entity\CslStyleInterface;
 use Drupal\bibcite\Plugin\BibCiteProcessorInterface;
 
 /**
@@ -12,24 +13,19 @@ interface StylerInterface {
   /**
    * Render CSL data to bibliography citation.
    *
-   * @param array $data
-   *   Array of values in CSL format.
-   * @param string|null $style
-   *   Identifier of bibliography style.
-   *   Default style will be used if this value is NULL.
-   * @param string $lang
-   *   Citation language.
+   * @param array|\stdClass $data
+   *   Array or object of values in CSL format.
    *
-   * @return string Rendered bibliography citation.
+   * @return string
    *   Rendered bibliography citation.
    */
-  public function render(array $data, $style = NULL, $lang = NULL);
+  public function render($data);
 
   /**
    * Set processor plugin.
    *
    * @param \Drupal\bibcite\Plugin\BibCiteProcessorInterface $processor
-   *   Processtor plugin object.
+   *   Processor plugin object.
    *
    * @return \Drupal\bibcite\StylerInterface
    *   The called Styler object.
@@ -64,6 +60,36 @@ interface StylerInterface {
   public function getAvailableProcessors();
 
   /**
+   * Get current CSL style.
+   *
+   * @return \Drupal\bibcite\Entity\CslStyleInterface|null
+   *   Current CSL style.
+   */
+  public function getStyle();
+
+  /**
+   * Set CSL style.
+   *
+   * @param \Drupal\bibcite\Entity\CslStyleInterface $csl_style
+   *   CSL style object.
+   *
+   * @return \Drupal\bibcite\StylerInterface
+   *   The called Styler object.
+   */
+  public function setStyle(CslStyleInterface $csl_style);
+
+  /**
+   * Load and set style by identifier.
+   *
+   * @param string $style_id
+   *   CSL style identifier.
+   *
+   * @return \Drupal\bibcite\StylerInterface
+   *   The called Styler object.
+   */
+  public function setStyleById($style_id);
+
+  /**
    * Get list of available bibliography styles.
    *
    * @return array
@@ -72,11 +98,22 @@ interface StylerInterface {
   public function getAvailableStyles();
 
   /**
-   * Get identifier of default style.
+   * Get current used language code.
    *
    * @return string
-   *   Default style identifier.
+   *   Current language code.
    */
-  public function getDefaultStyleId();
+  public function getLanguageCode();
+
+  /**
+   * Set language code.
+   *
+   * @param string $lang_code
+   *   Language code.
+   *
+   * @return \Drupal\bibcite\StylerInterface
+   *   The called Styler object.
+   */
+  public function setLanguageCode($lang_code);
 
 }

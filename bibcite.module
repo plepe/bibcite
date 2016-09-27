@@ -24,17 +24,17 @@ function bibcite_theme($existing, $type, $theme, $path) {
  * Implements hook_preprocess_HOOK().
  */
 function bibcite_preprocess_bibliography(&$variables) {
-  $config = \Drupal::config('bibcite.settings');
+  /** @var \Drupal\bibcite\StylerInterface $styler */
   $styler = \Drupal::service('bibcite.styler');
   $data = $variables['data'];
 
-  if (!$variables['style']) {
-    $variables['style'] = $config->get('default_style');
+  if ($variables['style']) {
+    $styler->setStyleById($variables['style']);
   }
 
   $variables['content'] = [
     'citation' => [
-      '#markup' => $styler->render($data, $variables['style']),
+      '#markup' => $styler->render($data),
     ],
     'links' => [
       '#theme' => 'item_list',

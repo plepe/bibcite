@@ -7,8 +7,6 @@ use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
-use Drupal\datetime\Plugin\Field\FieldType\DateTimeItem;
-use Drupal\bibcite\CslKeyConverter;
 
 /**
  * Defines the Bibliography entity.
@@ -59,11 +57,17 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
    */
   public function cite($style = NULL) {
     // @todo Make a better dependency injection.
+    /** @var \Drupal\bibcite\StylerInterface $styler */
     $styler = \Drupal::service('bibcite.styler');
+
+    if ($style) {
+      $styler->setStyleById($style);
+    }
+
     $serializer = \Drupal::service('serializer');
 
     $data = $serializer->normalize($this, 'csl');
-    return $styler->render($data, $style);
+    return $styler->render($data);
   }
 
   /**

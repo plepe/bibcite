@@ -1,0 +1,17 @@
+bibcite.settings:
+  type: config_object
+  label: 'Module common configuration'
+  mapping:
+    processor:
+      type: string
+    default_style:
+      type: string
+    links:
+      type: mapping
+      mapping:
+        pubmed:
+          type: boolean
+        doi:
+          type: boolean
+        google_scholar:
+          type: boolean

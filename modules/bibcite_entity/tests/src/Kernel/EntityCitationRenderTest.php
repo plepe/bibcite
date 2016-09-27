@@ -43,9 +43,9 @@ class EntityCitationRenderTest extends KernelTestBase {
   public function setUp() {
     parent::setUp();
 
-    $this->styler = $this->container->get('bibcite.styler');
-    $this->styler->setProcessor(new CiteprocPhp([], 'citeproc-php', [], $this->container->get('config.factory')));
+    $this->installConfig(['bibcite']);
 
+    $this->styler = $this->container->get('bibcite.styler');
     $this->serializer = $this->container->get('serializer');
   }
 

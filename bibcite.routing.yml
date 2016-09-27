@@ -6,7 +6,7 @@ bibcite.admin_config_bibcite:
   requirements:
     _permission: 'administer bibcite'
   options:
-      _admin_route: TRUE
+    _admin_route: TRUE
 
 bibcite.settings:
   path: '/admin/config/bibcite/settings'
@@ -15,14 +15,6 @@ bibcite.settings:
     _title: 'Processing'
   requirements:
     _permission: 'administer bibcite'
-
-bibcite.settings.citeproc_php:
-  path: '/admin/config/bibcite/settings/citeproc-php'
-  defaults:
-    _form: '\Drupal\bibcite\Form\CiteprocPhpSettings'
-    _title: 'Citeproc PHP'
-  requirements:
-      _permission: 'administer bibcite'
 
 bibcite.settings.links:
   path: '/admin/config/bibcite/settings/links'
