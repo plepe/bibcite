@@ -126,7 +126,8 @@ class CslStyle extends ConfigEntityBase implements CslStyleInterface {
    * {@inheritdoc}
    */
   public function calculateHash() {
-    return hash('sha256', $this->csl);
+    $xml = simplexml_load_string($this->csl);
+    return hash('sha256', $xml->asXML());
   }
 
   /**

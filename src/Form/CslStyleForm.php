@@ -18,7 +18,7 @@ class CslStyleForm extends EntityForm {
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
     /** @var \Drupal\bibcite\Entity\CslStyleInterface $csl_style */
-    $csl_style = $this->entity;
+    $csl_style = $this->getEntity();
 
     $form['label'] = [
       '#type' => 'textfield',
@@ -76,35 +76,88 @@ class CslStyleForm extends EntityForm {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
+    /** @var \Drupal\bibcite\Entity\CslStyleInterface $csl_style */
+    $csl_style = $this->getEntity();
     $csl = new Csl($form_state->getValue('csl'));
 
-    if (!$csl->validate()) {
-      $form_state->setErrorByName('csl', $this->t('You are trying to save not valid CSL'));
+    if ($csl_style->isNew()) {
+      $this->validateUnique($form, $form_state, $csl->getId());
+
+      if ($parent_url = $csl->getParent()) {
+        $this->validateParent($form, $form_state, $parent_url);
+      }
     }
 
+    if (!$csl_style->isNew()) {
+      /** @var \Drupal\bibcite\Entity\CslStyleInterface $original_csl_style */
+      $original_csl_style = $this->entityTypeManager->getStorage($csl_style->getEntityTypeId())->load($csl_style->id());
 
+      if ($csl_style->calculateHash() != $original_csl_style->calculateHash()) {
+        $this->validateUnique($form, $form_state, $csl->getId());
+
+        if ($parent_url = $csl->getParent()) {
+          $this->validateParent($form, $form_state, $parent_url);
+        }
+      }
+
+      $default_style = $this->config('bibcite.settings')->get('default_style');
+      if (!$csl_style->status() && $default_style == $csl_style->id()) {
+        $form_state->setErrorByName('status', $this->t('You can not disable default style.'));
+      }
+    }
+  }
+
+  /**
+   * Find CSL styles by URL ID property.
+   *
+   * @param string $url_id
+   *   URL ID property.
+   *
+   * @return array
+   *   List of found CSL styles.
+   */
+  protected function findStyleByUrlId($url_id) {
     $storage = $this->entityTypeManager->getStorage('bibcite_csl_style');
-    if ($url_id = $csl->getId()) {
-      $result = $storage->getQuery()
-        ->condition('url_id', $url_id)
-        ->execute();
 
-      if ($result) {
-        $form_state->setError($form, $this->t('You are trying to save existing style. Check out style with this id: @id', ['@id' => reset($result)]));
-      }
+    $result = $storage->getQuery()
+      ->condition('url_id', $url_id)
+      ->execute();
+
+    return $result;
+  }
+
+  /**
+   * Validate unique URl ID property.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   * @param string $url_id
+   *   URL ID property.
+   */
+  protected function validateUnique(array &$form, FormStateInterface $form_state, $url_id) {
+    if ($result = $this->findStyleByUrlId($url_id)) {
+      $form_state->setError($form, $this->t('You are trying to save existing style. Check out style with this id: @id', ['@id' => reset($result)]));
     }
+  }
 
-    if ($parent_url = $csl->getParent()) {
-      $result = $storage->getQuery()
-        ->condition('url_id', $parent_url)
-        ->execute();
-
-      if (!$result) {
-        $message = $this->t('You are trying to save dependent style without installed parent. You should install parent style first: @style', [
-          '@style' => $parent_url,
-        ]);
-        $form_state->setError($form, $message);
-      }
+  /**
+   * Validate existing of parent style.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   * @param string $parent_url
+   *   URL ID of parent style.
+   */
+  protected function validateParent(array &$form, FormStateInterface $form_state, $parent_url) {
+    if (!$this->findStyleByUrlId($parent_url)) {
+      $message = $this->t('You are trying to save dependent style without installed parent. You should install parent style first: @style', [
+        '@style' => $parent_url,
+      ]);
+      $form_state->setError($form, $message);
     }
   }
 
