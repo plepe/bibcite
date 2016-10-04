@@ -2,8 +2,16 @@ services:
   plugin.manager.bibcite_processor:
     class: Drupal\bibcite\Plugin\BibCiteProcessorManager
     parent: default_plugin_manager
+  plugin.manager.bibcite_format:
+    class: Drupal\bibcite\Plugin\BibciteFormatManager
+    arguments: ['@module_handler', '@cache.discovery']
   bibcite.styler:
     class: Drupal\bibcite\Styler
     arguments: ['@plugin.manager.bibcite_processor', '@config.factory', '@language_manager', '@entity_type.manager']
   bibcite.human_name_parser:
     class: Drupal\bibcite\HumanNameParser
+  bibcite.format_param_converter:
+    class: Drupal\bibcite\Routing\FormatConverter
+    arguments: ['@plugin.manager.bibcite_format']
+    tags:
+      - { name: paramconverter }

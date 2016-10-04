@@ -5,3 +5,23 @@ bibcite_entity.contributor.settings:
     _title: 'Settings'
   requirements:
     _permission: 'administer bibcite'
+
+bibcite_entity.mapping:
+  path: '/admin/config/bibcite/settings/mapping/{bibcite_format}'
+  defaults:
+    _form: '\Drupal\bibcite_entity\Form\MappingForm'
+    _title_callback: '\Drupal\bibcite_entity\Form\MappingForm:formTitle'
+  requirements:
+    _permission: 'administer bibcite'
+  options:
+    parameters:
+      bibcite_format:
+        type: bibcite_format
+
+bibcite_entity.mapping.csl:
+  path: '/admin/config/bibcite/settings/mapping/csl'
+  defaults:
+    _form: '\Drupal\bibcite_entity\Form\CslMappingForm'
+    _title: 'Mapping for CSL format'
+  requirements:
+    _permission: 'administer bibcite'

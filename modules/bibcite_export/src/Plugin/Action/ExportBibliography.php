@@ -3,6 +3,7 @@
 namespace Drupal\bibcite_export\Plugin\Action;
 
 
+use Drupal\bibcite\Plugin\BibciteFormatManagerInterface;
 use Drupal\Core\Action\ActionBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -30,11 +31,11 @@ class ExportBibliography extends ActionBase implements ContainerFactoryPluginInt
   protected $serializer;
 
   /**
-   * The list of export formats definitions.
+   * Bibcite format manager service.
    *
-   * @var array
+   * @var \Drupal\bibcite\Plugin\BibciteFormatManagerInterface
    */
-  protected $bibcteExportFormats;
+  protected $formatManager;
 
   /**
    * Constructs a new ExportBibliography action.
@@ -47,14 +48,14 @@ class ExportBibliography extends ActionBase implements ContainerFactoryPluginInt
    *   The plugin implementation definition.
    * @param \Symfony\Component\Serializer\SerializerInterface $serializer
    *   The serializer service.
-   * @param array $bibcite_export_formats
-   *   The list of export formats definitions.
+   * @param \Drupal\bibcite\Plugin\BibciteFormatManagerInterface $format_manager
+   *   Bibcite format manager service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, SerializerInterface $serializer, array $bibcite_export_formats) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, SerializerInterface $serializer, BibciteFormatManagerInterface $format_manager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
     $this->serializer = $serializer;
-    $this->bibcteExportFormats = $bibcite_export_formats;
+    $this->formatManager = $format_manager;
   }
 
   /**
@@ -63,7 +64,7 @@ class ExportBibliography extends ActionBase implements ContainerFactoryPluginInt
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static($configuration, $plugin_id, $plugin_definition,
       $container->get('serializer'),
-      $container->getParameter('bibcite_export_formats')
+      $container->get('plugin.manager.bibcite_format')
     );
   }
 
@@ -78,10 +79,11 @@ class ExportBibliography extends ActionBase implements ContainerFactoryPluginInt
    * {@inheritdoc}
    */
   public function executeMultiple(array $entities) {
-    $format_info = $this->bibcteExportFormats[$this->pluginDefinition['format']];
-    $filename = sprintf('bibcite-multiple-export.%s', $format_info['extension']);
+    /** @var \Drupal\bibcite\Plugin\BibciteFormatInterface $format */
+    $format = $this->formatManager->createInstance($this->pluginDefinition['format']);
+    $filename = sprintf('bibcite-multiple-export.%s', $format->getExtension());
 
-    $content = $this->serializer->serialize($entities, $format_info['id']);
+    $content = $this->serializer->serialize($entities, $format->getPluginId());
 
     $response = new Response($content);
     $response->headers->set('Cache-Control', 'no-cache');

@@ -4,6 +4,7 @@
  * Batch callbacks.
  */
 
+use Drupal\bibcite\Plugin\BibciteFormatInterface;
 use Drupal\file\Entity\File;
 
 /**
@@ -13,12 +14,12 @@ use Drupal\file\Entity\File;
  *   List of entity identifiers.
  * @param string $entity_type
  *   Entity type identifier.
- * @param array $format
- *   Format definition array.
+ * @param \Drupal\bibcite\Plugin\BibciteFormatInterface $format
+ *   Instance of format plugin.
  * @param array $context
  *   The batch context array.
  */
-function bibcite_export_batch_list(array $id_list, $entity_type, array $format, &$context) {
+function bibcite_export_batch_list(array $id_list, $entity_type, BibciteFormatInterface $format, &$context) {
   $storage = \Drupal::entityTypeManager()->getStorage($entity_type);
   $serializer = \Drupal::service('serializer');
 
@@ -37,7 +38,7 @@ function bibcite_export_batch_list(array $id_list, $entity_type, array $format, 
 
   $entities = $storage->loadMultiple($id_list);
 
-  $export_string = $serializer->serialize($entities, $format['id']);
+  $export_string = $serializer->serialize($entities, $format->getPluginId());
   file_put_contents($context['results']['file'], $export_string, FILE_APPEND);
 
   $context['results']['count'] += count($entities);
@@ -51,12 +52,12 @@ function bibcite_export_batch_list(array $id_list, $entity_type, array $format, 
  *
  * @param string $entity_type
  *   Entity type identifier.
- * @param array $format
- *   Format definition array.
+ * @param \Drupal\bibcite\Plugin\BibciteFormatInterface $format
+ *   Instance of format plugin.
  * @param array $context
  *   The batch context array.
  */
-function bibcite_export_batch_all($entity_type, array $format, &$context) {
+function bibcite_export_batch_all($entity_type, BibciteFormatInterface $format, &$context) {
   $storage = \Drupal::entityTypeManager()->getStorage($entity_type);
   $serializer = \Drupal::service('serializer');
 
@@ -84,7 +85,7 @@ function bibcite_export_batch_all($entity_type, array $format, &$context) {
 
   $entities = $storage->loadMultiple(array_keys($result));
 
-  $export_string = $serializer->serialize($entities, $format['id']);
+  $export_string = $serializer->serialize($entities, $format->getPluginId());
   file_put_contents($context['results']['file'], $export_string, FILE_APPEND);
 
   $latest_entity = end($entities);
@@ -108,7 +109,7 @@ function bibcite_export_batch_all($entity_type, array $format, &$context) {
  *   The value set in $context['results'].
  *   Must be an array and contain next elements:
  *   $results['file'] - URI for temporary file contains export result.
- *   $results['format'] - Format definition array.
+ *   $results['format'] - Instance of format plugin.
  *   $results['count'] -  Count of exported entries.
  *   Optionally you can set $results['save_storage'] to TRUE and file info
  *   will be saved to private storage.
@@ -117,6 +118,8 @@ function bibcite_export_batch_all($entity_type, array $format, &$context) {
  */
 function bibcite_export_batch_finished($success, array $results, $operations) {
   if ($success && isset($results['file'], $results['format'], $results['count'])) {
+    /** @var \Drupal\bibcite\Plugin\BibciteFormatInterface $format */
+    $format = $results['format'];
 
     /** @var \Drupal\user\PrivateTempStore $tempstorage */
     $tempstorage = \Drupal::service('user.private_tempstore')->get('bibcite_export');
@@ -124,7 +127,7 @@ function bibcite_export_batch_finished($success, array $results, $operations) {
     $current_user = \Drupal::currentUser();
 
     $file_schema = 'temporary://';
-    $file_name = sprintf('bibcite-export-%s-%s.%s', date('mdYHis'), $current_user->id(), $results['format']['extension']);
+    $file_name = sprintf('bibcite-export-%s-%s.%s', date('mdYHis'), $current_user->id(), $format->getExtension());
 
     $file = File::create([
       'uid' => $current_user->id(),
@@ -138,7 +141,7 @@ function bibcite_export_batch_finished($success, array $results, $operations) {
         $file_data = [
           'id' => $file->id(),
           'timestamp' => time(),
-          'format' => $results['format']['id'],
+          'format' => $format->getPluginId(),
         ];
 
         $data = $tempstorage->get('export_files');

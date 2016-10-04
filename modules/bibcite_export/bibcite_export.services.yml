@@ -1,6 +1,0 @@
-services:
-  bibcite_export.param_converter:
-    class: Drupal\bibcite_export\Routing\ExportFormatConverter
-    arguments: ['%bibcite_export_formats%']
-    tags:
-      - { name: paramconverter }

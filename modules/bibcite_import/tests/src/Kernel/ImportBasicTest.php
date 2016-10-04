@@ -29,11 +29,11 @@ class ImportBasicTest extends KernelTestBase {
   ];
 
   /**
-   * The list of import formats definitions.
+   * Bibcite format manager service.
    *
-   * @var array
+   * @var \Drupal\bibcite\Plugin\BibciteFormatManagerInterface
    */
-  protected $bibciteImportFormats;
+  protected $formatManager;
 
   /**
    * Serializer service.
@@ -48,7 +48,9 @@ class ImportBasicTest extends KernelTestBase {
   public function setUp() {
     parent::setUp();
 
-    $this->bibciteImportFormats = $this->container->getParameter('bibcite_import_formats');
+    $this->installConfig(['bibcite', 'bibcite_bibtex', 'bibcite_entity']);
+
+    $this->formatManager = $this->container->get('plugin.manager.bibcite_format');
     $this->serializer = $this->container->get('serializer');
   }
 
@@ -58,7 +60,7 @@ class ImportBasicTest extends KernelTestBase {
    * @dataProvider importData
    */
   public function testAvailableFormats($format) {
-    $this->assertTrue(isset($this->bibciteImportFormats[$format]));
+    $this->assertTrue($this->formatManager->hasDefinition($format));
   }
 
   /**

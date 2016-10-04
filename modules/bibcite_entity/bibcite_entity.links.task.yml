@@ -95,3 +95,18 @@ bibcite_entity.contributor.role:
   route_name: entity.bibcite_contributor_role.collection
   title: 'Role'
   parent_id: bibcite_entity.contributor
+
+bibcite_entity.mapping:
+  route_name: bibcite_entity.mapping.csl
+  title: 'Mapping'
+  base_route: bibcite.settings
+
+bibcite_entity.mapping.csl:
+  route_name: bibcite_entity.mapping.csl
+  title: 'CSL'
+  parent_id: bibcite_entity.mapping
+
+bibcite_entity.mapping.format:
+  route_name: bibcite_entity.mapping
+  parent_id: bibcite_entity.mapping
+  deriver: '\Drupal\bibcite_entity\Plugin\Derivative\FormatLocalTask'

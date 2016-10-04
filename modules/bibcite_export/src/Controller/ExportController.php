@@ -2,7 +2,7 @@
 
 namespace Drupal\bibcite_export\Controller;
 
-use Drupal\bibcite_export\BibciteExportFormatManagerInterface;
+use Drupal\bibcite\Plugin\BibciteFormatInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -56,25 +56,25 @@ class ExportController extends ControllerBase {
    *
    * @param array $entities
    *   Array of entities objects.
-   * @param array $bibcite_format
-   *   Format definition.
+   * @param \Drupal\bibcite\Plugin\BibciteFormatInterface $bibcite_format
+   *   Instance of format plugin.
    * @param null|string $filename
    *   Filename. Will be generated if not provided.
    *
    * @return \Symfony\Component\HttpFoundation\Response
    *   Response object contains serialized bibliography data.
    */
-  protected function processExport(array $entities, array $bibcite_format, $filename = NULL) {
+  protected function processExport(array $entities, BibciteFormatInterface $bibcite_format, $filename = NULL) {
     if (!$filename) {
-      $filename = $bibcite_format['label'];
+      $filename = $bibcite_format->getLabel();
     }
 
     $response = new Response();
 
-    if ($result = $this->serializer->serialize($entities, $bibcite_format['id'])) {
+    if ($result = $this->serializer->serialize($entities, $bibcite_format->getPluginId())) {
       $response->headers->set('Cache-Control', 'no-cache');
       $response->headers->set('Content-type', 'text/plain');
-      $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '.' . $bibcite_format['extension'] . '";');
+      $response->headers->set('Content-Disposition', 'attachment; filename="' . $filename . '.' . $bibcite_format->getExtension() . '";');
 
       $response->sendHeaders();
 
@@ -88,8 +88,8 @@ class ExportController extends ControllerBase {
   /**
    * Export entity to available export format.
    *
-   * @param array $bibcite_format
-   *   Format definition.
+   * @param \Drupal\bibcite\Plugin\BibciteFormatInterface $bibcite_format
+   *   Instance of format plugin.
    * @param string $entity_type
    *   Entity type identifier.
    * @param \Drupal\Core\Entity\EntityInterface $entity
@@ -98,9 +98,13 @@ class ExportController extends ControllerBase {
    * @return \Symfony\Component\HttpFoundation\Response
    *   Response object contains serialized bibliography data.
    */
-  public function export(array $bibcite_format, $entity_type, EntityInterface $entity) {
+  public function export(BibciteFormatInterface $bibcite_format, $entity_type, EntityInterface $entity) {
+    if (!$bibcite_format->isExportFormat()) {
+      throw new NotFoundHttpException();
+    }
+
     $filename = vsprintf('%s-%s-%s', [
-      $entity_type, $entity->id(), $bibcite_format['label'],
+      $entity_type, $entity->id(), $bibcite_format->getLabel(),
     ]);
     return $this->processExport([$entity], $bibcite_format, $filename);
   }
@@ -108,8 +112,8 @@ class ExportController extends ControllerBase {
   /**
    * Export multiple entities to available export formats.
    *
-   * @param array $bibcite_format
-   *   Format definition.
+   * @param \Drupal\bibcite\Plugin\BibciteFormatInterface $bibcite_format
+   *   Instance of format plugin.
    * @param string $entity_type
    *   Entity type identifier.
    * @param \Symfony\Component\HttpFoundation\Request $request
@@ -121,7 +125,11 @@ class ExportController extends ControllerBase {
    * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
    *   Throw 404 error if Id parameter is not provided or entities not loaded.
    */
-  public function exportMultiple(array $bibcite_format, $entity_type, Request $request) {
+  public function exportMultiple(BibciteFormatInterface $bibcite_format, $entity_type, Request $request) {
+    if (!$bibcite_format->isExportFormat()) {
+      throw new NotFoundHttpException();
+    }
+
     $storage = $this->entityTypeManager->getStorage($entity_type);
 
     if (!$request->query->has('id')) {
@@ -136,7 +144,7 @@ class ExportController extends ControllerBase {
     }
 
     $filename = vsprintf('%s-%s', [
-      $entity_type, $bibcite_format['label'],
+      $entity_type, $bibcite_format->getLabel(),
     ]);
     return $this->processExport($entities, $bibcite_format, $filename);
   }

@@ -9,7 +9,7 @@ use Symfony\Component\Serializer\Encoder\EncoderInterface;
 /**
  * RIS format encoder.
  */
-class RISEncoder implements EncoderInterface, DecoderInterface {
+class RISEncoder implements EncoderInterface {
 
   /**
    * The format that this encoder supports.
@@ -45,6 +45,10 @@ class RISEncoder implements EncoderInterface, DecoderInterface {
    * {@inheritdoc}
    */
   public function encode($data, $format, array $context = array()) {
+    if (isset($data['TY'])) {
+      $data = [$data];
+    }
+
     $data = array_map(function($raw) {
       return $this->buildEntry($raw);
     }, $data);
@@ -63,11 +67,40 @@ class RISEncoder implements EncoderInterface, DecoderInterface {
    */
   protected function buildEntry(array $data) {
     $entry = NULL;
+
     foreach ($data as $key => $value) {
-      $entry .= $this->buildLine($key, $value);
+      if (is_array($value)) {
+        $entry .= $this->buildMultiLine($key, $value);
+      }
+      else {
+        $entry .= $this->buildLine($key, $value);
+      }
     }
 
+    $entry .= $this->buildEnd();
+
     return $entry;
+  }
+
+  /**
+   * Build multi line entry.
+   *
+   * @param string $key
+   *   Line key.
+   * @param array $value
+   *   Array of multi line values.
+   *
+   * @return string
+   *   Multi line entry.
+   */
+  protected function buildMultiLine($key, array $value) {
+    $lines = '';
+
+    foreach ($value as $item) {
+      $lines .= $this->buildLine($key, $item);
+    }
+
+    return $lines;
   }
 
   /**
@@ -82,7 +115,17 @@ class RISEncoder implements EncoderInterface, DecoderInterface {
    *   Entry line.
    */
   protected function buildLine($key, $value) {
-    return $key . '  - ' . $value . "\n";
+    return $key . ' - ' . $value . "\n";
+  }
+
+  /**
+   * Build the end of Bibtex entry.
+   *
+   * @return string
+   *   End line for the Bibtex entry.
+   */
+  protected function buildEnd() {
+    return $this->buildLine('RE', '');
   }
 
 }

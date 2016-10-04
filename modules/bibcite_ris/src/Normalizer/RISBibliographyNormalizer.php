@@ -2,179 +2,49 @@
 
 namespace Drupal\bibcite_ris\Normalizer;
 
-use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\serialization\Normalizer\NormalizerBase;
+use Drupal\bibcite_entity\Normalizer\BibliographyNormalizerBase;
 
 /**
  * Normalizes/denormalizes bibliography entity to RIS format.
  */
-class RISBibliographyNormalizer extends NormalizerBase {
+class RISBibliographyNormalizer extends BibliographyNormalizerBase {
 
   /**
-   * The format that this Normalizer supports.
-   *
-   * @var string
+   * {@inheritdoc}
    */
   protected $format = 'ris';
 
   /**
-   * The interface or class that this Normalizer supports.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  protected $supportedInterfaceOrClass = ['Drupal\bibcite_entity\Entity\BibliographyInterface'];
-
-  /**
-   * List of scalar fields.
-   *
-   * @var array
-   */
-  protected $scalarFields = [
-    'bibcite_abst_e' => 'AB',
-    'bibcite_year' => 'Y1',
-    'bibcite_secondary_title' => 'T2',
-    'bibcite_volume' => 'VL',
-    'bibcite_issue' => 'IS',
-    'bibcite_publisher' => 'PB',
-    'bibcite_place_published' => 'CY',
-    'bibcite_url' => 'UR',
-    'bibcite_notes' => 'N1',
-    'bibcite_tertiary_title' => 'T3',
-    'bibcite_short_title' => 'J2',
-    'bibcite_custom1' => 'U1',
-    'bibcite_custom2' => 'U2',
-    'bibcite_custom3' => 'U3',
-    'bibcite_custom4' => 'U4',
-    'bibcite_custom5' => 'U5',
-  ];
-
-  /**
-   * Mapping between CSL and RIS publication types.
-   *
-   * @var array
-   */
-  protected $typesMapping = [
-    'artwork' => 'ART',
-    'audiovisual' => 'ADVS',
-    'bill' => 'BILL',
-    'book' => 'BOOK',
-    'book_chapter' => 'CHAP',
-    'case' => 'CASE',
-    'conference_paper' => 'CONF',
-    'database' => 'DATA',
-    'film' => 'MPCT',
-    'hearing' => 'HEAR',
-    'journal_article' => 'JOUR',
-    'magazine_article' => 'MGZN',
-    'manuscript' => 'MANSCPT',
-    'map' => 'MAP',
-    'miscellaneous' => 'GEN',
-    'newspaper_article' => 'NEWS',
-    'patent' => 'PAT',
-    'personal' => 'PCOMM',
-    'report' => 'RPRT',
-    'software' => 'COMP',
-    'thesis' => 'THES',
-    'unpublished' => 'UNPB',
-    'web_article' => 'ICOMM',
-  ];
+  protected $defaultType = 'GEN';
 
   /**
    * {@inheritdoc}
    */
   public function normalize($bibliography, $format = NULL, array $context = array()) {
+    /** @var \Drupal\bibcite_entity\Entity\BibliographyInterface $bibliography */
     $attributes = [];
 
-    $attributes['TY'] = $this->convertType($bibliography->type->target_id);
+    $attributes['TY'] = $this->convertEntityType($bibliography->get('type')->target_id);
 
-    if ($authors = $this->extractAuthors($bibliography->author)) {
-      $attributes += $authors;
+    if ($authors = $this->extractAuthors($bibliography->get('author'))) {
+      $attributes['AU'] = $authors;
     }
 
-    if ($keywords = $this->extractKeywords($bibliography->keywords)) {
+    if ($keywords = $this->extractKeywords($bibliography->get('keywords'))) {
       $attributes['KW'] = $keywords;
     }
 
-    if ($bibliography->bibcite_isbn->value || $bibliography->bibcite_issn->value) {
-      $attributes['SN'] = trim($bibliography->bibcite_isbn->value . '/' . $bibliography->bibcite_issn->value, '/');
+    $isbn = $this->extractScalar($bibliography->get('bibcite_isbn'));
+    $issn = $this->extractScalar($bibliography->get('bibcite_issn'));
+    if ($isbn || $issn) {
+      $attributes['SN'] = trim($isbn . '/' . $issn, '/');
     }
 
-    foreach ($this->scalarFields as $field_name => $ris_key) {
-      if ($bibliography->{$field_name}->value) {
-        $attributes[$ris_key] = $bibliography->{$field_name}->value;
-      }
-    }
+    $attributes += $this->extractFields($bibliography);
 
     return $attributes;
-  }
-
-  /**
-   * Convert publication type to BibTex format.
-   *
-   * @param string $type
-   *   CSL publication type.
-   *
-   * @return string
-   *   RIS publication type.
-   */
-  protected function convertType($type) {
-    return isset($this->typesMapping[$type]) ? $this->typesMapping[$type] : 'GEN';
-  }
-
-  /**
-   * Extract keywords labels from field.
-   *
-   * @param \Drupal\Core\Field\FieldItemListInterface $field_item_list
-   *   List of field items.
-   *
-   * @return array
-   *   Keywords labels.
-   */
-  protected function extractKeywords(FieldItemListInterface $field_item_list) {
-    $keywords = [];
-
-    foreach ($field_item_list as $field) {
-      $keywords[] = $field->entity->label();
-    }
-
-    return $keywords;
-  }
-
-  /**
-   * Extract authors values from field.
-   *
-   * @param \Drupal\Core\Field\FieldItemListInterface $field_item_list
-   *   List of field items.
-   *
-   * @return array
-   *   Authors in RIS format.
-   */
-  protected function extractAuthors(FieldItemListInterface $field_item_list) {
-    $authors = [];
-
-    foreach ($field_item_list as $key => $field) {
-      $authors['A' . ($key + 1)] = $field->entity->getName();
-    }
-
-    return $authors;
-  }
-
-  /**
-   * Checks if the provided format is supported by this normalizer.
-   *
-   * @param string $format
-   *   The format to check.
-   *
-   * @return bool
-   *   TRUE if the format is supported, FALSE otherwise. If no format is
-   *   specified this will return FALSE.
-   */
-  protected function checkFormat($format = NULL) {
-    if (!isset($format) || !isset($this->format)) {
-      return FALSE;
-    }
-
-    return in_array($format, (array) $this->format);
   }
 
 }

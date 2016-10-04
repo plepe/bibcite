@@ -62,7 +62,7 @@ class BibtexEncoder implements EncoderInterface, DecoderInterface {
    */
   public function encode($data, $format, array $context = array()) {
     if (isset($data['type'])) {
-      return [$this->buildEntry($data)];
+      $data = [$data];
     }
 
     $data = array_map(function($raw) {

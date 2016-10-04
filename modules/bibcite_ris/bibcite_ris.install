@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ * Module installation hooks.
+ */
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Delete mapping configuration.
+ */
+function bibcite_ris_uninstall() {
+  \Drupal::service('config.factory')->getEditable('bibcite_entity_mapping.ris')->delete();
+}

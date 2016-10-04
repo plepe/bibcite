@@ -4,7 +4,6 @@
 namespace Drupal\Tests\bibcite_entity\Kernel;
 
 
-use Drupal\bibcite\Plugin\BibCiteProcessor\CiteprocPhp;
 use Drupal\bibcite_entity\Entity\Bibliography;
 use Drupal\KernelTests\KernelTestBase;
 use Symfony\Component\Yaml\Yaml;
@@ -43,7 +42,7 @@ class EntityCitationRenderTest extends KernelTestBase {
   public function setUp() {
     parent::setUp();
 
-    $this->installConfig(['bibcite']);
+    $this->installConfig(['bibcite', 'bibcite_entity']);
 
     $this->styler = $this->container->get('bibcite.styler');
     $this->serializer = $this->container->get('serializer');
@@ -58,7 +57,7 @@ class EntityCitationRenderTest extends KernelTestBase {
     $entity = Bibliography::create($entity_values);
 
     $data = $this->serializer->normalize($entity, 'csl');
-    $citation = $this->styler->render($data, 'apa');
+    $citation = $this->styler->render($data);
 
     $this->assertEquals($expected, strip_tags($citation));
   }

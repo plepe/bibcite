@@ -3,4 +3,4 @@ services:
     class: Drupal\bibcite_entity\Normalizer\CslBibliographyNormalizer
     tags:
       - { name: normalizer, priority: 30 }
-    arguments: ['@entity.manager']
+    arguments: ['@entity.manager', '@config.factory']

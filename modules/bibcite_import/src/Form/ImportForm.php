@@ -2,6 +2,7 @@
 
 namespace Drupal\bibcite_import\Form;
 
+use Drupal\bibcite\Plugin\BibciteFormatManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -13,11 +14,11 @@ use Symfony\Component\Serializer\SerializerInterface;
 class ImportForm extends FormBase {
 
   /**
-   * The list of import formats definitions.
+   * Bibcite format manager service.
    *
-   * @var array
+   * @var \Drupal\bibcite\Plugin\BibciteFormatManagerInterface
    */
-  protected $bibciteImportFormats;
+  protected $formatManager;
 
   /**
    * Serializer service.
@@ -31,12 +32,12 @@ class ImportForm extends FormBase {
    *
    * @param \Symfony\Component\Serializer\SerializerInterface $serializer
    *   Import plugins manager.
-   * @param array $bibcite_import_formats
-   *   List of available import formats.
+   * @param \Drupal\bibcite\Plugin\BibciteFormatManagerInterface $format_manager
+   *   Bibcite format manager service.
    */
-  public function __construct(SerializerInterface $serializer, array $bibcite_import_formats) {
+  public function __construct(SerializerInterface $serializer, BibciteFormatManagerInterface $format_manager) {
     $this->serializer = $serializer;
-    $this->bibciteImportFormats = $bibcite_import_formats;
+    $this->formatManager = $format_manager;
   }
 
   /**
@@ -45,7 +46,7 @@ class ImportForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('serializer'),
-      $container->getParameter('bibcite_import_formats')
+      $container->get('plugin.manager.bibcite_format')
     );
   }
 
@@ -70,7 +71,7 @@ class ImportForm extends FormBase {
       '#title' => $this->t('Format'),
       '#options' => array_map(function($definition) {
         return $definition['label'];
-      }, $this->bibciteImportFormats),
+      }, $this->formatManager->getImportDefinitions()),
     ];
 
     $form['actions'] = ['#type' => 'actions'];
@@ -88,14 +89,16 @@ class ImportForm extends FormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $all_files = $this->getRequest()->files->get('files', []);
     if (!empty($all_files['file'])) {
+      /** @var \Symfony\Component\HttpFoundation\File\UploadedFile $file_upload */
       $file_upload = $all_files['file'];
       if ($file_upload->isValid()) {
         $form_state->setValue('file', $file_upload->getRealPath());
         return;
       }
     }
-
-    $form_state->setErrorByName('file', $this->t('The file could not be uploaded.'));
+    else {
+      $form_state->setErrorByName('file', $this->t('The file could not be uploaded.'));
+    }
 
     parent::validateForm($form, $form_state);
   }
@@ -105,10 +108,12 @@ class ImportForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $data = file_get_contents($form_state->getValue('file'));
-    $format = $form_state->getValue('format');
+    $format_id = $form_state->getValue('format');
+    /** @var \Drupal\bibcite\Plugin\BibciteFormatInterface $format */
+    $format = $this->formatManager->createInstance($format_id);
 
-    $decoded = $this->serializer->decode($data, $format);
-    $chunks = array_chunk($decoded, 10);
+    $decoded = $this->serializer->decode($data, $format->getPluginId());
+    $chunks = array_chunk($decoded, 50);
 
     $batch = [
       'title' => t('Import bibliographic data'),

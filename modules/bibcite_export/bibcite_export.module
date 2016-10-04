@@ -54,8 +54,9 @@ function bibcite_export_preprocess_bibliography_table(&$variables) {
  *   Array of export links.
  */
 function bibcite_export_create_export_links(EntityInterface $entity, $formats) {
-  $container = \Drupal::getContainer();
-  $definitions = $container->getParameter('bibcite_export_formats');
+  /** @var \Drupal\bibcite\Plugin\BibciteFormatManagerInterface $manager */
+  $manager = \Drupal::service('plugin.manager.bibcite_format');
+  $definitions = $manager->getExportDefinitions();
 
   $definitions = array_intersect_key($definitions, $formats);
 
@@ -111,7 +112,7 @@ function _bibcite_export_rebuild_action_config() {
 
   /** @var \Drupal\Core\Config\ConfigFactoryInterface $config_factory */
   $config_factory = \Drupal::service('config.factory');
-  $formats = \Drupal::getContainer()->getParameter('bibcite_export_formats');
+  $formats = \Drupal::service('plugin.manager.bibcite_format')->getExportDefinitions();
   $base_plugin_id = 'bibcite_export_action';
 
   foreach ($formats as $format_info) {

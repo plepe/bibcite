@@ -3,6 +3,7 @@
 namespace Drupal\bibcite_export\Form;
 
 
+use Drupal\bibcite\Plugin\BibciteFormatManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -14,19 +15,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ExportSettingsForm extends ConfigFormBase {
 
   /**
-   * The list of export formats definitions.
+   * Bibcite format manager service.
    *
-   * @var array
+   * @var \Drupal\bibcite\Plugin\BibciteFormatManagerInterface
    */
-  protected $bibciteExportFormats;
+  protected $formatManager;
 
   /**
    * {@inheritdoc}
    */
-  public function __construct(ConfigFactoryInterface $config_factory, array $bibcite_export_formats) {
+  public function __construct(ConfigFactoryInterface $config_factory, BibciteFormatManagerInterface $format_manager) {
     parent::__construct($config_factory);
 
-    $this->bibciteExportFormats = $bibcite_export_formats;
+    $this->formatManager = $format_manager;
   }
 
   /**
@@ -35,7 +36,7 @@ class ExportSettingsForm extends ConfigFormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('config.factory'),
-      $container->getParameter('bibcite_export_formats')
+      $container->get('plugin.manager.bibcite_format')
     );
   }
 
@@ -50,9 +51,7 @@ class ExportSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function getEditableConfigNames() {
-    return [
-      'bibcite_export.settings',
-    ];
+    return ['bibcite_export.settings'];
   }
 
   /**
@@ -76,7 +75,7 @@ class ExportSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Enabled export formats'),
       '#options' => array_map(function($definition) {
         return $definition['label'];
-      }, $this->bibciteExportFormats),
+      }, $this->formatManager->getExportDefinitions()),
       '#default_value' => $config->get('enabled_formats'),
     ];
 

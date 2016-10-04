@@ -3,6 +3,7 @@
 namespace Drupal\bibcite_export\Plugin\Derivative;
 
 
+use Drupal\bibcite\Plugin\BibciteFormatManagerInterface;
 use Drupal\Component\Plugin\Derivative\DeriverBase;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -13,11 +14,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ExportFormatDeriver extends DeriverBase implements ContainerDeriverInterface {
 
   /**
-   * List of format definitions.
+   * Bibcite format manager service.
    *
-   * @var array
+   * @var \Drupal\bibcite\Plugin\BibciteFormatManagerInterface
    */
-  protected $bibciteExportFormats;
+  protected $formatManager;
 
   /**
    * Identifier of base plugin.
@@ -27,15 +28,15 @@ class ExportFormatDeriver extends DeriverBase implements ContainerDeriverInterfa
   protected $basePluginId;
 
   /**
-   * ExportFormatDeriver constructor.
+   * Construct new ExportFormatDeriver object.
    *
-   * @param array $bibcite_export_formats
-   *   List of format definitions.
+   * @param \Drupal\bibcite\Plugin\BibciteFormatManagerInterface $format_manager
+   *   Bibcite format manager service.
    * @param string $base_plugin_id
    *   Identifier of base plugin.
    */
-  public function __construct(array $bibcite_export_formats, $base_plugin_id) {
-    $this->bibciteExportFormats = $bibcite_export_formats;
+  public function __construct(BibciteFormatManagerInterface $format_manager, $base_plugin_id) {
+    $this->formatManager = $format_manager;
     $this->basePluginId = $base_plugin_id;
   }
 
@@ -44,7 +45,7 @@ class ExportFormatDeriver extends DeriverBase implements ContainerDeriverInterfa
    */
   public static function create(ContainerInterface $container, $base_plugin_id) {
     return new static(
-      $container->getParameter('bibcite_export_formats'),
+      $container->get('plugin.manager.bibcite_format'),
       $base_plugin_id
     );
   }
@@ -53,11 +54,11 @@ class ExportFormatDeriver extends DeriverBase implements ContainerDeriverInterfa
    * {@inheritdoc}
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
-    foreach ($this->bibciteExportFormats as $format_info) {
-      $label = t('Export to @format', ['@format' => $format_info['label']]);
+    foreach ($this->formatManager->getExportDefinitions() as $format_definition) {
+      $label = t('Export to @format', ['@format' => $format_definition['label']]);
 
-      $this->derivatives[$format_info['id']] = [
-        'format' => $format_info['id'],
+      $this->derivatives[$format_definition['id']] = [
+        'format' => $format_definition['id'],
         'label' => $label,
       ] + $base_plugin_definition;
     }

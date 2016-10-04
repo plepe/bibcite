@@ -3,6 +3,7 @@
 namespace Drupal\bibcite_export\Form;
 
 
+use Drupal\bibcite\Plugin\BibciteFormatManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
@@ -23,18 +24,18 @@ class ExportAllForm extends FormBase {
   protected $tempStorage;
 
   /**
-   * Export formats definitions.
+   * Bibcite format manager service.
    *
-   * @var array
+   * @var \Drupal\bibcite\Plugin\BibciteFormatManagerInterface
    */
-  protected $exportFormats;
+  protected $formatManager;
 
   /**
    * {@inheritdoc}
    */
-  public function __construct(PrivateTempStoreFactory $temp_store_factory, array $export_formats) {
+  public function __construct(PrivateTempStoreFactory $temp_store_factory, BibciteFormatManagerInterface $format_manager) {
     $this->tempStorage = $temp_store_factory->get('bibcite_export');
-    $this->exportFormats = $export_formats;
+    $this->formatManager = $format_manager;
   }
 
   /**
@@ -43,7 +44,7 @@ class ExportAllForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('user.private_tempstore'),
-      $container->getParameter('bibcite_export_formats')
+      $container->get('plugin.manager.bibcite_format')
     );
   }
 
@@ -63,7 +64,7 @@ class ExportAllForm extends FormBase {
       '#type' => 'select',
       '#options' => array_map(function($format) {
         return $format['label'];
-      }, $this->exportFormats),
+      }, $this->formatManager->getExportDefinitions()),
       '#required' => TRUE,
     ];
 
@@ -98,9 +99,9 @@ class ExportAllForm extends FormBase {
 
     foreach ($files_info as $key => $file_info) {
       if ($file = $this->loadFile($file_info['id'])) {
-        $format = $this->exportFormats[$file_info['format']];
+        $format = $this->formatManager->createInstance($file_info['format']);
         $date = date('m-d-Y H:i:s', $file_info['timestamp']);
-        $title = sprintf('%s - %s - %s', $file->label(), $format['label'], $date);
+        $title = sprintf('%s - %s - %s', $file->label(), $format->getLabel(), $date);
 
         $items[$key] = [
           '#type' => 'link',
@@ -156,7 +157,8 @@ class ExportAllForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    if (!isset($this->exportFormats[$form_state->getValue('format')])) {
+    $format = $this->formatManager->hasDefinition($form_state->getValue('format'));
+    if (!isset($format)) {
       $form_state->setErrorByName('format', $this->t('Trying export to non-existing format.'));
     }
   }
@@ -165,7 +167,7 @@ class ExportAllForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $format = $this->exportFormats[$form_state->getValue('format')];
+    $format = $this->formatManager->createInstance($form_state->getValue('format'));
 
     $batch = [
       'title' => t('Export all bibliographic data'),

@@ -4,6 +4,47 @@
  * Batch functions.
  */
 
+use Drupal\bibcite_entity\Entity\Bibliography;
+use Drupal\bibcite\Plugin\BibciteFormatInterface;
+
+/**
+ * Batch operation callback. Denormalize entries and try to save entity.
+ *
+ * @param array $entries
+ *   Array of parsed entries.
+ * @param \Drupal\bibcite\Plugin\BibciteFormatInterface $format
+ *   Instance of format plugin.
+ * @param array $context
+ *   The batch context array, passed by reference.
+ */
+function bibcite_import_batch_callback($entries, BibciteFormatInterface $format, &$context) {
+  $serializer = \Drupal::service('serializer');
+
+  foreach ($entries as $entry) {
+    /** @var \Drupal\Core\Entity\EntityInterface $entity */
+    $entity = $serializer->denormalize($entry, Bibliography::class, $format->getPluginId());
+
+    try {
+      if ($entity->save()) {
+        $context['results']['success'][] = $entity->id() . ' : ' . $entity->label();
+      }
+    }
+    catch (Exception $e) {
+      $message = [
+        t('Entity can not be saved.'),
+        t('Label: @label', ['@label' => $entity->label()]),
+        '<pre>',
+        $e->getMessage(),
+        '</pre>',
+      ];
+      \Drupal::logger('bibcite_import')->error(implode("\n", $message));
+      $context['results']['errors'][] = $entity->label();
+    }
+
+    $context['message'] = $entity->label();
+  }
+}
+
 /**
  * Complete a batch process.
  *
@@ -28,42 +69,4 @@ function bibcite_import_batch_finished($success, $results, $operations) {
   }
 
   drupal_set_message($message);
-}
-
-/**
- * Batch operation callback. Denormalize entries and try to save entity.
- *
- * @param array $entries
- *   Array of parsed entries.
- * @param string $format
- *   Format identifier.
- * @param array $context
- *   The batch context array, passed by reference.
- */
-function bibcite_import_batch_callback($entries, $format, &$context) {
-  $serializer = \Drupal::service('serializer');
-
-  foreach ($entries as $entry) {
-    /** @var \Drupal\Core\Entity\EntityInterface $entity */
-    $entity = $serializer->denormalize($entry, \Drupal\bibcite_entity\Entity\Bibliography::class, $format);
-
-    try {
-      if ($entity->save()) {
-        $context['results']['success'][] = $entity->id() . ' : ' . $entity->label();
-      }
-    }
-    catch (Exception $e) {
-      $message = [
-        t('Entity can not be saved.'),
-        t('Label: @label', ['@label' => $entity->label()]),
-        '<pre>',
-        $e->getMessage(),
-        '</pre>',
-      ];
-      \Drupal::logger('bibcite_import')->error(implode("\n", $message));
-      $context['results']['errors'][] = $entity->label();
-    }
-
-    $context['message'] = $entity->label();
-  }
 }

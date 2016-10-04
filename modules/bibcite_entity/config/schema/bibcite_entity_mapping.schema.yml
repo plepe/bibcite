@@ -1,0 +1,19 @@
+bibcite_entity_mapping.*:
+  type: config_object
+  label: 'Mapping between entity and format fields'
+  mapping:
+    format:
+      type: string
+      label: 'Format ID'
+    types:
+      type: sequence
+      label: 'Types mapping'
+      sequence:
+        type: string
+        label: 'Type'
+    fields:
+      type: sequence
+      label: 'Fields mapping'
+      sequence:
+        type: string
+        label: 'Field'
