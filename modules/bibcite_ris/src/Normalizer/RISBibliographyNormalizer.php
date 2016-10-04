@@ -47,4 +47,57 @@ class RISBibliographyNormalizer extends BibliographyNormalizerBase {
     return $attributes;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function denormalize($data, $class, $format = NULL, array $context = []) {
+    if (!empty($data['AU'])) {
+      foreach ($data['AU'] as $key => $author_name) {
+        // @todo Find a better way to set authors.
+        $data['AU'][$key] = $this->prepareAuthor($author_name);
+      }
+    }
+
+    if (!empty($data['KW'])) {
+      foreach ($data['KW'] as $key => $keyword) {
+        // @todo Find a better way to set keywords.
+        $data['KW'][$key] = $this->prepareKeyword($keyword);
+      }
+    }
+
+    foreach ($data as $key => $value) {
+      if (is_array($value) && count($value) == 1) {
+        $data[$key] = reset($value);
+      }
+    }
+
+    if (!empty($data['TY'])) {
+      $data['TY'] = $this->convertFormatType($data['TY']);
+    }
+
+    $data = $this->convertKeys($data);
+
+    return parent::denormalize($data, $class, $format, $context);
+  }
+
+  /**
+   * Convert bibtex keys to Bibcite entity keys and filter non-mapped.
+   *
+   * @param array $data
+   *   Array of decoded values.
+   *
+   * @return array
+   *   Array of decoded values with converted keys.
+   */
+  protected function convertKeys($data) {
+    $converted = [];
+    foreach ($data as $key => $field) {
+      if (!empty($this->fieldsMapping[$key])) {
+        $converted[$this->fieldsMapping[$key]] = $field;
+      }
+    }
+
+    return $converted;
+  }
+
 }

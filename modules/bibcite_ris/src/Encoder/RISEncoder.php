@@ -9,7 +9,7 @@ use Symfony\Component\Serializer\Encoder\EncoderInterface;
 /**
  * RIS format encoder.
  */
-class RISEncoder implements EncoderInterface {
+class RISEncoder implements EncoderInterface, DecoderInterface {
 
   /**
    * The format that this encoder supports.
@@ -125,7 +125,7 @@ class RISEncoder implements EncoderInterface {
    *   End line for the Bibtex entry.
    */
   protected function buildEnd() {
-    return $this->buildLine('RE', '');
+    return $this->buildLine('ER', '');
   }
 
 }
