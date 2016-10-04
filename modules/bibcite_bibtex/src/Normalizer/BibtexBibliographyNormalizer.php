@@ -83,7 +83,7 @@ class BibtexBibliographyNormalizer extends BibliographyNormalizerBase {
   protected function convertKeys($data) {
     $converted = [];
     foreach ($data as $key => $field) {
-      if (isset($this->fieldsMapping[$key])) {
+      if (!empty($this->fieldsMapping[$key])) {
         $converted[$this->fieldsMapping[$key]] = $field;
       }
     }
