@@ -56,18 +56,37 @@ types:
   UNPB: unpublished
   VIDEO: miscellaneous
 fields:
+  TY: type
   A1: ''
   A2: ''
+  A3: ''
+  A4: ''
   AB: bibcite_abst_e
   AD: ''
+  AN: ''
   AU: author
   AV: ''
   BT: title
+  C1: ''
+  C2: ''
+  C3: ''
+  C4: ''
+  C5: ''
+  C6: ''
+  C7: ''
+  C8: ''
+  CA: ''
+  CN: ''
   CP: bibcite_issue
   CT: title
   CY: bibcite_place_published
+  DA: ''
+  DB: ''
+  DO: ''
+  DP: ''
+  ED: ''
   EP: ''
-  ER: ''
+  ET: ''
   ID: ''
   IS: bibcite_issue
   J1: bibcite_short_title
@@ -80,19 +99,32 @@ fields:
   L2: ''
   L3: ''
   L4: ''
+  LA: ''
+  LB: ''
+  LK: ''
   M1: ''
+  M2: ''
   M3: ''
   N1: bibcite_notes
   N2: bibcite_abst_e
+  NV: ''
+  OP: ''
   PB: bibcite_publisher
+  PP: ''
   PY: ''
+  RI: ''
+  RN: ''
   RP: ''
+  SE: ''
   SN: bibcite_isbn
   SP: ''
+  ST: title
   T1: title
   T2: bibcite_secondary_title
   T3: bibcite_tertiary_title
-  TY: type
+  TA: ''
+  TI: title
+  TT: ''
   U1: bibcite_custom1
   U2: bibcite_custom2
   U3: bibcite_custom3
@@ -100,4 +132,6 @@ fields:
   U5: bibcite_custom5
   UR: bibcite_url
   VL: bibcite_volume
+  VO: ''
   Y1: bibcite_year
+  Y2: ''
