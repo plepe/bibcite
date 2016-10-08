@@ -41,3 +41,8 @@ fields:
   DOI: bibcite_doi
   note: bibcite_notes
   original-title: bibcite_alternate_title
+
+dependencies:
+  enforced:
+    module:
+      - bibcite_entity

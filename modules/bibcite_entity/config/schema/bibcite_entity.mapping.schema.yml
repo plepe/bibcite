@@ -1,4 +1,4 @@
-bibcite_entity_mapping.*:
+bibcite_entity.mapping.*:
   type: config_object
   label: 'Mapping between entity and format fields'
   mapping:

@@ -68,7 +68,7 @@ abstract class BibliographyNormalizerBase extends EntityNormalizer {
 
     $this->configFactory = $config_factory;
 
-    $config_name = sprintf('bibcite_entity_mapping.%s', $this->format);
+    $config_name = sprintf('bibcite_entity.mapping.%s', $this->format);
     $config = $this->configFactory->get($config_name);
 
     $this->fieldsMapping = $config->get('fields');

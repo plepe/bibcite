@@ -195,7 +195,7 @@ class MappingForm extends FormBase {
    *   Format plugin instance.
    */
   protected function initConfiguration(BibciteFormatInterface $bibcite_format) {
-    $config_name = sprintf('bibcite_entity_mapping.%s', $bibcite_format->getPluginId());
+    $config_name = sprintf('bibcite_entity.mapping.%s', $bibcite_format->getPluginId());
     $this->config = $this->configFactory()->getEditable($config_name);
   }
 

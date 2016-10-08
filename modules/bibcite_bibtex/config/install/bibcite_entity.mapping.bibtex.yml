@@ -40,3 +40,8 @@ fields:
   url: bibcite_url
   doi: bibcite_doi
   note: bibcite_notes
+
+dependencies:
+  enforced:
+    module:
+      - bibcite_bibtex

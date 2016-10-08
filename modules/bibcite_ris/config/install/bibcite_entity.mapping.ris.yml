@@ -135,3 +135,8 @@ fields:
   VO: ''
   Y1: bibcite_year
   Y2: ''
+
+dependencies:
+  enforced:
+    module:
+      - bibcite_ris
