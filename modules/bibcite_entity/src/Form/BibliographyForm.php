@@ -88,12 +88,6 @@ class BibliographyForm extends ContentEntityForm {
           'bibcite_doi',
         ],
       ],
-      'keywords' => [
-        'title' => $this->t('Keywords'),
-        'elements' => [
-          'keywords',
-        ],
-      ],
       'notes' => [
         'title' => $this->t('Notes'),
         'elements' => [
@@ -114,6 +108,7 @@ class BibliographyForm extends ContentEntityForm {
       'other' => [
         'title' => $this->t('Other'),
         'elements' => [
+          'keywords',
           'bibcite_other_author_affiliations',
           'bibcite_abst_f',
           'bibcite_custom1',
