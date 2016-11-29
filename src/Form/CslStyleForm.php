@@ -167,7 +167,9 @@ class CslStyleForm extends EntityForm {
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
+    /** @var \Drupal\bibcite\Entity\CslStyle $bibcite_csl_style */
     $bibcite_csl_style = $this->entity;
+    $bibcite_csl_style->setUpdatedTime(time());
     $status = $bibcite_csl_style->save();
 
     switch ($status) {

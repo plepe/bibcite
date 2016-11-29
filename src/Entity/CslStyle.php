@@ -211,8 +211,6 @@ class CslStyle extends ConfigEntityBase implements CslStyleInterface {
       $parent_internal_id = reset($result);
       $this->setParent($parent_internal_id);
     }
-
-    $this->setUpdatedTime(time());
   }
 
 }
