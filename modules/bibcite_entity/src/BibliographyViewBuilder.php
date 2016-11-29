@@ -18,6 +18,7 @@ class BibliographyViewBuilder extends EntityViewBuilder {
     $build = parent::getBuildDefaults($entity, $view_mode);
 
     switch ($view_mode) {
+      case 'default':
       case 'full':
         $build['#theme'] = 'bibliography_table';
         break;
