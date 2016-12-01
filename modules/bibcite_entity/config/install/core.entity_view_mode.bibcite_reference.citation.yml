@@ -1,8 +1,8 @@
-id: bibliography.citation
+id: bibcite_reference.citation
 label: Citation
 status: true
 cache: true
-targetEntityType: bibliography
+targetEntityType: bibcite_reference
 dependencies:
   module:
     - bibcite_entity

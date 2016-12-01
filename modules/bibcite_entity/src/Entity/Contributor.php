@@ -44,8 +44,8 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "canonical" = "/bibcite/contributor/{bibcite_contributor}",
  *     "edit-form" = "/bibcite/contributor/{bibcite_contributor}/edit",
  *     "delete-form" = "/bibcite/contributor/{bibcite_contributor}/delete",
- *     "add-form" = "/admin/content/bibliography/contributor/add",
- *     "collection" = "/admin/content/bibliography/contributor",
+ *     "add-form" = "/admin/content/bibcite/contributor/add",
+ *     "collection" = "/admin/content/bibcite/contributor",
  *   },
  * )
  */

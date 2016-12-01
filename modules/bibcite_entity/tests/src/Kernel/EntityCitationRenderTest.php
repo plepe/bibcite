@@ -4,7 +4,7 @@
 namespace Drupal\Tests\bibcite_entity\Kernel;
 
 
-use Drupal\bibcite_entity\Entity\Bibliography;
+use Drupal\bibcite_entity\Entity\Reference;
 use Drupal\KernelTests\KernelTestBase;
 use Symfony\Component\Yaml\Yaml;
 
@@ -25,7 +25,7 @@ class EntityCitationRenderTest extends KernelTestBase {
   /**
    * Styler service.
    *
-   * @var \Drupal\bibcite\StylerInterface
+   * @var \Drupal\bibcite\CitationStylerInterface
    */
   protected $styler;
 
@@ -44,17 +44,17 @@ class EntityCitationRenderTest extends KernelTestBase {
 
     $this->installConfig(['bibcite', 'bibcite_entity']);
 
-    $this->styler = $this->container->get('bibcite.styler');
+    $this->styler = $this->container->get('bibcite.citation_styler');
     $this->serializer = $this->container->get('serializer');
   }
 
   /**
-   * Test rendering Bibliography entity to citation.
+   * Test rendering Reference entity to citation.
    *
-   * @dataProvider providerBibliographyEntity
+   * @dataProvider providerReferenceEntity
    */
   public function testEntityRender($entity_values, $expected) {
-    $entity = Bibliography::create($entity_values);
+    $entity = Reference::create($entity_values);
 
     $data = $this->serializer->normalize($entity, 'csl');
     $citation = $this->styler->render($data);
@@ -68,7 +68,7 @@ class EntityCitationRenderTest extends KernelTestBase {
    * @return array
    *   Data for test.
    */
-  public function providerBibliographyEntity() {
+  public function providerReferenceEntity() {
     $yaml_text = file_get_contents(__DIR__ . '/data/testEntityRender.data.yml');
     return Yaml::parse($yaml_text);
   }

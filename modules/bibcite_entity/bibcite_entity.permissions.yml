@@ -1,20 +1,20 @@
-# Bibliography
-administer bibliography entities:
-  title: 'Administer Bibliography entities'
-  description: 'Allow to access the administration form to configure Bibliography entities.'
+# Reference
+administer bibcite_reference entities:
+  title: 'Administer Reference entities'
+  description: 'Allow to access the administration form to configure Reference entities.'
   restrict access: true
 
-add bibliography entities:
-  title: 'Create new Bibliography entities'
+add bibcite_reference entities:
+  title: 'Create new Reference entities'
 
-delete bibliography entities:
-  title: 'Delete Bibliography entities'
+delete bibcite_reference entities:
+  title: 'Delete Reference entities'
 
-edit bibliography entities:
-  title: 'Edit Bibliography entities'
+edit bibcite_reference entities:
+  title: 'Edit Reference entities'
 
-view bibliography entities:
-  title: 'View Bibliography entities'
+view bibcite_reference entities:
+  title: 'View Reference entities'
 
 # Contributor
 administer contributor entities:

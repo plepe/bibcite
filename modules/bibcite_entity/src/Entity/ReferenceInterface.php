@@ -7,33 +7,33 @@ use Drupal\Core\Entity\EntityChangedInterface;
 use Drupal\user\EntityOwnerInterface;
 
 /**
- * Provides an interface for defining Bibliography entities.
+ * Provides an interface for defining Reference entities.
  *
  * @ingroup bibcite_entity
  */
-interface BibliographyInterface extends ContentEntityInterface, EntityChangedInterface {
+interface ReferenceInterface extends ContentEntityInterface, EntityChangedInterface {
 
   /**
-   * Gets the Bibliography creation timestamp.
+   * Gets the Reference creation timestamp.
    *
    * @return int
-   *   Creation timestamp of the Bibliography.
+   *   Creation timestamp of the Reference.
    */
   public function getCreatedTime();
 
   /**
-   * Sets the Bibliography creation timestamp.
+   * Sets the Reference creation timestamp.
    *
    * @param int $timestamp
-   *   The Bibliography creation timestamp.
+   *   The Reference creation timestamp.
    *
-   * @return \Drupal\bibcite_entity\Entity\BibliographyInterface
-   *   The called Bibliography entity.
+   * @return \Drupal\bibcite_entity\Entity\ReferenceInterface
+   *   The called Reference entity.
    */
   public function setCreatedTime($timestamp);
 
   /**
-   * Render bibliography entity as citation.
+   * Render reference entity as citation.
    *
    * @param string|null $style
    *   Identifier of citation style.

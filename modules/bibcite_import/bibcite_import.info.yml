@@ -1,6 +1,6 @@
-name: 'Bibliography & Citation: Import'
+name: 'Bibliography & Citation - Import'
 type: module
-description: Import your bibliography data
+description: Import your bibliographic data
 core: 8.x
 package: Bibliography & Citation
 dependencies:

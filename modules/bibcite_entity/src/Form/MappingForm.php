@@ -79,10 +79,10 @@ class MappingForm extends FormBase {
     $form['types'] = [
       '#type' => 'table',
       '#caption' => $this->t('Formats mapping'),
-      '#header' => [$this->t('Format type'), $this->t('Bibliography type')],
+      '#header' => [$this->t('Format type'), $this->t('Reference type')],
     ];
 
-    $type_options = $this->getBibliographyTypesOptions();
+    $type_options = $this->getReferenceTypesOptions();
     $type_defaults = $this->config->get('types');
     foreach ($bibcite_format->getTypes() as $type) {
       $form['types'][$type]['format'] = [
@@ -101,10 +101,10 @@ class MappingForm extends FormBase {
     $form['fields'] = [
       '#type' => 'table',
       '#caption' => $this->t('Fields mapping'),
-      '#header' => [$this->t('Format field'), $this->t('Bibliography field')],
+      '#header' => [$this->t('Format field'), $this->t('Reference field')],
     ];
 
-    $field_options = $this->getBibliographyFieldOptions();
+    $field_options = $this->getReferenceFieldOptions();
     $field_defaults = $this->config->get('fields');
     foreach ($bibcite_format->getFields() as $field) {
       $form['fields'][$field]['format'] = [
@@ -131,13 +131,13 @@ class MappingForm extends FormBase {
   }
 
   /**
-   * Get array of bibliography field options.
+   * Get array of Reference field options.
    *
    * @return array
    *   Array of fields options.
    */
-  protected function getBibliographyFieldOptions() {
-    $fields = $this->entityFieldManager->getFieldDefinitions('bibliography', 'bibliography');
+  protected function getReferenceFieldOptions() {
+    $fields = $this->entityFieldManager->getFieldDefinitions('bibcite_reference', 'bibcite_reference');
 
     $excluded_fields = [
       'id',
@@ -154,17 +154,17 @@ class MappingForm extends FormBase {
   }
 
   /**
-   * Get array of bibliography types options.
+   * Get array of Reference types options.
    *
    * @return array
    *   Array of types options.
    */
-  protected function getBibliographyTypesOptions() {
-    $storage = $this->entityTypeManager->getStorage('bibliography_type');
+  protected function getReferenceTypesOptions() {
+    $storage = $this->entityTypeManager->getStorage('bibcite_reference_type');
     $entities = $storage->loadMultiple();
 
     return array_map(function($entity) {
-      /** @var \Drupal\bibcite_entity\Entity\BibliographyInterface $entity */
+      /** @var \Drupal\bibcite_entity\Entity\ReferenceInterface $entity */
       return $entity->label();
     }, $entities);
   }

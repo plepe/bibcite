@@ -2,12 +2,12 @@
 
 namespace Drupal\bibcite_bibtex\Normalizer;
 
-use Drupal\bibcite_entity\Normalizer\BibliographyNormalizerBase;
+use Drupal\bibcite_entity\Normalizer\ReferenceNormalizerBase;
 
 /**
- * Normalizes/denormalizes bibliography entity to BibTex format.
+ * Normalizes/denormalizes reference entity to BibTex format.
  */
-class BibtexBibliographyNormalizer extends BibliographyNormalizerBase {
+class BibtexReferenceNormalizer extends ReferenceNormalizerBase {
 
   /**
    * {@inheritdoc}
@@ -22,24 +22,24 @@ class BibtexBibliographyNormalizer extends BibliographyNormalizerBase {
   /**
    * {@inheritdoc}
    */
-  public function normalize($bibliography, $format = NULL, array $context = array()) {
-    /** @var \Drupal\bibcite_entity\Entity\BibliographyInterface $bibliography */
+  public function normalize($reference, $format = NULL, array $context = array()) {
+    /** @var \Drupal\bibcite_entity\Entity\ReferenceInterface $reference */
 
     $attributes = [];
 
-    $attributes['title'] = $this->extractScalar($bibliography->get('title'));
-    $attributes['type'] = $this->convertEntityType($bibliography->get('type')->target_id);
-    $attributes['reference'] = $bibliography->id();
+    $attributes['title'] = $this->extractScalar($reference->get('title'));
+    $attributes['type'] = $this->convertEntityType($reference->get('type')->target_id);
+    $attributes['reference'] = $reference->id();
 
-    if ($keywords = $this->extractKeywords($bibliography->get('keywords'))) {
+    if ($keywords = $this->extractKeywords($reference->get('keywords'))) {
       $attributes['keywords'] = $keywords;
     }
 
-    if ($authors = $this->extractAuthors($bibliography->get('author'))) {
+    if ($authors = $this->extractAuthors($reference->get('author'))) {
       $attributes['author'] = $authors;
     }
 
-    $attributes += $this->extractFields($bibliography);
+    $attributes += $this->extractFields($reference);
 
     return $attributes;
   }

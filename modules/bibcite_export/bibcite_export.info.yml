@@ -1,6 +1,6 @@
-name: 'Bibliography & Citation: Export'
+name: 'Bibliography & Citation - Export'
 type: module
-description: Export your bibliography data
+description: Export your bibliographic data
 core: 8.x
 package: Bibliography & Citation
 dependencies:

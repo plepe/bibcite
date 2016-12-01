@@ -3,21 +3,21 @@ entity.bibcite_contributor.add_form:
   title: 'Add Contributor'
   appears_on:
     - entity.bibcite_contributor.collection
-entity.bibliography.add_form:
-  route_name: entity.bibliography.add_form
-  title: 'Add Bibliography'
+entity.bibcite_reference.add_form:
+  route_name: entity.bibcite_reference.add_form
+  title: 'Add Reference'
   appears_on:
-    - entity.bibliography.collection
+    - entity.bibcite_reference.collection
 entity.bibcite_keyword.add_form:
   route_name: entity.bibcite_keyword.add_form
   title: 'Add Keyword'
   appears_on:
     - entity.bibcite_keyword.collection
-entity.bibliography_type.add_form:
-  route_name: 'entity.bibliography_type.add_form'
-  title: 'Add Bibliography type'
+entity.bibcite_reference_type.add_form:
+  route_name: 'entity.bibcite_reference_type.add_form'
+  title: 'Add Reference type'
   appears_on:
-    - entity.bibliography_type.collection
+    - entity.bibcite_reference_type.collection
 entity.bibcite_contributor_role.add_form:
   route_name: 'entity.bibcite_contributor_role.add_form'
   title: 'Add Contributor role'

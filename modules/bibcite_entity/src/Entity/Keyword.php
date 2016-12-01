@@ -44,8 +44,8 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "canonical" = "/bibcite/keyword/{bibcite_keyword}",
  *     "edit-form" = "/bibcite/keyword/{bibcite_keyword}/edit",
  *     "delete-form" = "/bibcite/keyword/{bibcite_keyword}/delete",
- *     "add-form" = "/admin/content/bibliography/keyword/add",
- *     "collection" = "/admin/content/bibliography/keyword",
+ *     "add-form" = "/admin/content/bibcite/keyword/add",
+ *     "collection" = "/admin/content/bibcite/keyword",
  *   },
  * )
  */

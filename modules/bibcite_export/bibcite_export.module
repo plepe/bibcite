@@ -13,11 +13,11 @@ use Drupal\Core\Url;
  *
  * Add export links to the citation.
  */
-function bibcite_export_preprocess_bibliography(&$variables) {
+function bibcite_export_preprocess_bibcite_citation(&$variables) {
   $conf = \Drupal::config('bibcite_export.settings');
 
   if ($conf->get('show_citation') && isset($variables['data']['#entity'])) {
-    /** @var \Drupal\bibcite_entity\Entity\BibliographyInterface $entity */
+    /** @var \Drupal\bibcite_entity\Entity\ReferenceInterface $entity */
     $entity = $variables['data']['#entity'];
     foreach (bibcite_export_create_export_links($entity, array_flip($conf->get('enabled_formats'))) as $link) {
       $variables['content']['links']['#items'][] = $link;
@@ -28,14 +28,14 @@ function bibcite_export_preprocess_bibliography(&$variables) {
 /**
  * Implements hook_preprocess_HOOK().
  *
- * Add export links to the table view of Bibliogrpahy entity.
+ * Add export links to the table view of Reference entity.
  */
-function bibcite_export_preprocess_bibliography_table(&$variables) {
+function bibcite_export_preprocess_bibcite_reference_table(&$variables) {
   $conf = \Drupal::config('bibcite_export.settings');
 
-  if ($conf->get('show_full') && isset($variables['elements']['#bibliography'])) {
-    /** @var \Drupal\bibcite_entity\Entity\BibliographyInterface $entity */
-    $entity = $variables['elements']['#bibliography'];
+  if ($conf->get('show_full') && isset($variables['elements']['#bibcite_reference'])) {
+    /** @var \Drupal\bibcite_entity\Entity\ReferenceInterface $entity */
+    $entity = $variables['elements']['#bibcite_reference'];
     foreach (bibcite_export_create_export_links($entity, array_flip($conf->get('enabled_formats'))) as $link) {
       $variables['content']['links']['#items'][] = $link;
     }
@@ -127,7 +127,7 @@ function _bibcite_export_rebuild_action_config() {
       'label' => $label,
       'status' => TRUE,
       'plugin' => $plugin_name,
-      'type' => 'bibliography',
+      'type' => 'Reference',
       'dependencies' => [
         'module' => ['bibcite_export'],
       ],

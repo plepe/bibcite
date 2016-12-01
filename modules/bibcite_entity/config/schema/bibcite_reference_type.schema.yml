@@ -1,6 +1,6 @@
-bibcite_entity.bibliography_type.*:
+bibcite_entity.bibcite_reference_type.*:
   type: config_entity
-  label: 'Bibliography type config'
+  label: 'Reference type config'
   mapping:
     id:
       type: string

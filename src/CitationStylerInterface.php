@@ -8,16 +8,16 @@ use Drupal\bibcite\Plugin\BibCiteProcessorInterface;
 /**
  * Defines an interface for Styler service.
  */
-interface StylerInterface {
+interface CitationStylerInterface {
 
   /**
-   * Render CSL data to bibliography citation.
+   * Render CSL data to bibliographic citation.
    *
    * @param array|\stdClass $data
    *   Array or object of values in CSL format.
    *
    * @return string
-   *   Rendered bibliography citation.
+   *   Rendered bibliographic citation.
    */
   public function render($data);
 
@@ -27,7 +27,7 @@ interface StylerInterface {
    * @param \Drupal\bibcite\Plugin\BibCiteProcessorInterface $processor
    *   Processor plugin object.
    *
-   * @return \Drupal\bibcite\StylerInterface
+   * @return \Drupal\bibcite\CitationStylerInterface
    *   The called Styler object.
    */
   public function setProcessor(BibCiteProcessorInterface $processor);
@@ -38,7 +38,7 @@ interface StylerInterface {
    * @param string $processor_id
    *   Identifier of processor plugin.
    *
-   * @return \Drupal\bibcite\StylerInterface
+   * @return \Drupal\bibcite\CitationStylerInterface
    *   The called Styler object.
    */
   public function setProcessorById($processor_id);
@@ -73,7 +73,7 @@ interface StylerInterface {
    * @param \Drupal\bibcite\Entity\CslStyleInterface $csl_style
    *   CSL style object.
    *
-   * @return \Drupal\bibcite\StylerInterface
+   * @return \Drupal\bibcite\CitationStylerInterface
    *   The called Styler object.
    */
   public function setStyle(CslStyleInterface $csl_style);
@@ -84,16 +84,16 @@ interface StylerInterface {
    * @param string $style_id
    *   CSL style identifier.
    *
-   * @return \Drupal\bibcite\StylerInterface
+   * @return \Drupal\bibcite\CitationStylerInterface
    *   The called Styler object.
    */
   public function setStyleById($style_id);
 
   /**
-   * Get list of available bibliography styles.
+   * Get list of available bibliographic styles.
    *
    * @return array
-   *   Bibliography styles list.
+   *   Bibliographic styles list.
    */
   public function getAvailableStyles();
 
@@ -111,7 +111,7 @@ interface StylerInterface {
    * @param string $lang_code
    *   Language code.
    *
-   * @return \Drupal\bibcite\StylerInterface
+   * @return \Drupal\bibcite\CitationStylerInterface
    *   The called Styler object.
    */
   public function setLanguageCode($lang_code);

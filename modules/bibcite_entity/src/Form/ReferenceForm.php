@@ -7,11 +7,11 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 
 /**
- * Form controller for Bibliography edit forms.
+ * Form controller for Reference edit forms.
  *
  * @ingroup bibcite_entity
  */
-class BibliographyForm extends ContentEntityForm {
+class ReferenceForm extends ContentEntityForm {
 
   /**
    * {@inheritdoc}
@@ -19,7 +19,7 @@ class BibliographyForm extends ContentEntityForm {
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
 
-    $form['#process'][] = '::bibliographyRestructure';
+    $form['#process'][] = '::referenceRestructure';
 
     return $form;
   }
@@ -27,9 +27,9 @@ class BibliographyForm extends ContentEntityForm {
   /**
    * Restructure form elements to the vertical tabs view.
    *
-   * @see \Drupal\bibcite_entity\Form\BibliographyForm::form()
+   * @see \Drupal\bibcite_entity\Form\ReferenceForm::form()
    */
-  public function bibliographyRestructure(array $element, FormStateInterface $form_state) {
+  public function referenceRestructure(array $element, FormStateInterface $form_state) {
     // @todo Move field groups to the configuration level.
     $field_groups = [
       'authors' => [
@@ -159,17 +159,17 @@ class BibliographyForm extends ContentEntityForm {
 
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label Bibliography.', [
+        drupal_set_message($this->t('Created the %label Reference.', [
           '%label' => $entity->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('Saved the %label Bibliography.', [
+        drupal_set_message($this->t('Saved the %label Reference.', [
           '%label' => $entity->label(),
         ]));
     }
-    $form_state->setRedirect('entity.bibliography.canonical', ['bibliography' => $entity->id()]);
+    $form_state->setRedirect('entity.bibcite_reference.canonical', ['bibcite_reference' => $entity->id()]);
   }
 
 }

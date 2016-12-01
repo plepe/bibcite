@@ -7,9 +7,9 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 
 /**
- * Builds the form to delete Bibliography type entities.
+ * Builds the form to delete Reference type entities.
  */
-class BibliographyTypeDeleteForm extends EntityConfirmFormBase {
+class ReferenceTypeDeleteForm extends EntityConfirmFormBase {
 
   /**
    * {@inheritdoc}
@@ -22,7 +22,7 @@ class BibliographyTypeDeleteForm extends EntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getCancelUrl() {
-    return new Url('entity.bibliography_type.collection');
+    return new Url('entity.reference_type.collection');
   }
 
   /**

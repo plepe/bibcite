@@ -149,7 +149,7 @@ function bibcite_export_batch_finished($success, array $results, $operations) {
         $tempstorage->set('export_files', $data);
       }
 
-      $message = t('Bibliography export is complete (@count entries has been exported)', [
+      $message = t('Reference export is complete (@count entries has been exported)', [
         '@count' => $results['count'],
       ]);
       drupal_set_message($message);

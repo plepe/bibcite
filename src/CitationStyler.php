@@ -10,9 +10,9 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 
 /**
- * Render CSL data to bibliography citation.
+ * Render CSL data to bibliographic citation.
  */
-class Styler implements StylerInterface {
+class CitationStyler implements CitationStylerInterface {
 
   /**
    * Processor plugin.

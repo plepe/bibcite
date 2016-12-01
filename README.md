@@ -8,10 +8,10 @@ INTRODUCTION
  It is a core module that provides API for a render of bibliography citation. The library we used is from official CSL style repository with over 8000 styles. Those styles are available without charge under a Creative Commons Attribution-ShareAlike (BY-SA) license.
  
  **Bibliography & Citation - Entity**
- Implements storage for bibliography data as Drupal entities: bibliography, contributor and keyword. Bibliography entity can be rendered as citations, exported and imported.
+ Implements storage for bibliographic data as Drupal entities: Reference, Contributor and Keyword. Reference entity can be rendered as citations, exported and imported.
  
  **Bibliography & Citation - Export** 
- Provides the possibility to export bibliography content. Adds export links to citations (configurable)
+ Provides the possibility to export bibliographic content. Adds export links to citations (configurable)
  
  **Bibliography & Citation - Import** 
  Provides import feature and UI for import from files.

@@ -7,9 +7,9 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityViewBuilder;
 
 /**
- * Bibliography entity view builder.
+ * Reference entity view builder.
  */
-class BibliographyViewBuilder extends EntityViewBuilder {
+class ReferenceViewBuilder extends EntityViewBuilder {
 
   /**
    * {@inheritdoc}
@@ -20,11 +20,11 @@ class BibliographyViewBuilder extends EntityViewBuilder {
     switch ($view_mode) {
       case 'default':
       case 'full':
-        $build['#theme'] = 'bibliography_table';
+        $build['#theme'] = 'bibcite_reference_table';
         break;
 
       case 'citation':
-        $build['#theme'] = 'bibliography';
+        $build['#theme'] = 'bibcite_citation';
 
         // @todo Dependency injection
         $serializer = \Drupal::service('serializer');

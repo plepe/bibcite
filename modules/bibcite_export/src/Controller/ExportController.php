@@ -62,7 +62,7 @@ class ExportController extends ControllerBase {
    *   Filename. Will be generated if not provided.
    *
    * @return \Symfony\Component\HttpFoundation\Response
-   *   Response object contains serialized bibliography data.
+   *   Response object contains serialized reference data.
    */
   protected function processExport(array $entities, BibciteFormatInterface $bibcite_format, $filename = NULL) {
     if (!$filename) {
@@ -96,7 +96,7 @@ class ExportController extends ControllerBase {
    *   Entity object.
    *
    * @return \Symfony\Component\HttpFoundation\Response
-   *   Response object contains serialized bibliography data.
+   *   Response object contains serialized reference data.
    */
   public function export(BibciteFormatInterface $bibcite_format, $entity_type, EntityInterface $entity) {
     if (!$bibcite_format->isExportFormat()) {
@@ -120,7 +120,7 @@ class ExportController extends ControllerBase {
    *   Request object.
    *
    * @return \Symfony\Component\HttpFoundation\Response
-   *   Response object contains serialized bibliography data.
+   *   Response object contains serialized reference data.
    *
    * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
    *   Throw 404 error if Id parameter is not provided or entities not loaded.

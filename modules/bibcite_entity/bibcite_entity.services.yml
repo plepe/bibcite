@@ -1,6 +1,6 @@
 services:
-  bibcite_entity.normalizer.bibliography:
-    class: Drupal\bibcite_entity\Normalizer\CslBibliographyNormalizer
+  bibcite_entity.normalizer.reference:
+    class: Drupal\bibcite_entity\Normalizer\CslReferenceNormalizer
     tags:
       - { name: normalizer, priority: 30 }
     arguments: ['@entity.manager', '@config.factory']

@@ -2,12 +2,12 @@
 
 namespace Drupal\bibcite_ris\Normalizer;
 
-use Drupal\bibcite_entity\Normalizer\BibliographyNormalizerBase;
+use Drupal\bibcite_entity\Normalizer\ReferenceNormalizerBase;
 
 /**
- * Normalizes/denormalizes bibliography entity to RIS format.
+ * Normalizes/denormalizes reference entity to RIS format.
  */
-class RISBibliographyNormalizer extends BibliographyNormalizerBase {
+class RISReferenceNormalizer extends ReferenceNormalizerBase {
 
   /**
    * {@inheritdoc}
@@ -22,27 +22,27 @@ class RISBibliographyNormalizer extends BibliographyNormalizerBase {
   /**
    * {@inheritdoc}
    */
-  public function normalize($bibliography, $format = NULL, array $context = array()) {
-    /** @var \Drupal\bibcite_entity\Entity\BibliographyInterface $bibliography */
+  public function normalize($reference, $format = NULL, array $context = array()) {
+    /** @var \Drupal\bibcite_entity\Entity\ReferenceInterface $reference */
     $attributes = [];
 
-    $attributes['TY'] = $this->convertEntityType($bibliography->get('type')->target_id);
+    $attributes['TY'] = $this->convertEntityType($reference->get('type')->target_id);
 
-    if ($authors = $this->extractAuthors($bibliography->get('author'))) {
+    if ($authors = $this->extractAuthors($reference->get('author'))) {
       $attributes['AU'] = $authors;
     }
 
-    if ($keywords = $this->extractKeywords($bibliography->get('keywords'))) {
+    if ($keywords = $this->extractKeywords($reference->get('keywords'))) {
       $attributes['KW'] = $keywords;
     }
 
-    $isbn = $this->extractScalar($bibliography->get('bibcite_isbn'));
-    $issn = $this->extractScalar($bibliography->get('bibcite_issn'));
+    $isbn = $this->extractScalar($reference->get('bibcite_isbn'));
+    $issn = $this->extractScalar($reference->get('bibcite_issn'));
     if ($isbn || $issn) {
       $attributes['SN'] = trim($isbn . '/' . $issn, '/');
     }
 
-    $attributes += $this->extractFields($bibliography);
+    $attributes += $this->extractFields($reference);
 
     return $attributes;
   }

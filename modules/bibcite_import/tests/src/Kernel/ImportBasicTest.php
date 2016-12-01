@@ -4,7 +4,7 @@ namespace Drupal\Tests\bibcite_import\Kernel;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\bibcite_entity\Entity\Bibliography;
+use Drupal\bibcite_entity\Entity\Reference;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -68,13 +68,13 @@ class ImportBasicTest extends KernelTestBase {
    *
    * @dataProvider importData
    */
-  public function testBibliographyDeserialization($format, $text, $expected_type, $entity_expected_values) {
+  public function testReferenceDeserialization($format, $text, $expected_type, $entity_expected_values) {
     $entries = $this->serializer->decode($text, $format);
 
     foreach ($entries as $entry) {
-      /** @var \Drupal\bibcite_entity\Entity\BibliographyInterface $entity */
-      $entity = $this->serializer->denormalize($entry, Bibliography::class, $format);
-      $this->assertTrue($entity instanceof Bibliography);
+      /** @var \Drupal\bibcite_entity\Entity\ReferenceInterface $entity */
+      $entity = $this->serializer->denormalize($entry, Reference::class, $format);
+      $this->assertTrue($entity instanceof Reference);
       $this->assertEquals($expected_type, $entity->type->target_id);
       $this->assertEntityValues($entity, $entity_expected_values);
     }

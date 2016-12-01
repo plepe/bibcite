@@ -4,7 +4,7 @@
  * Batch functions.
  */
 
-use Drupal\bibcite_entity\Entity\Bibliography;
+use Drupal\bibcite_entity\Entity\Reference;
 use Drupal\bibcite\Plugin\BibciteFormatInterface;
 
 /**
@@ -22,7 +22,7 @@ function bibcite_import_batch_callback($entries, BibciteFormatInterface $format,
 
   foreach ($entries as $entry) {
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
-    $entity = $serializer->denormalize($entry, Bibliography::class, $format->getPluginId());
+    $entity = $serializer->denormalize($entry, Reference::class, $format->getPluginId());
 
     try {
       if ($entity->save()) {

@@ -2,13 +2,13 @@
 
 namespace Drupal\bibcite_entity\Normalizer;
 
-use Drupal\bibcite_entity\Entity\BibliographyInterface;
+use Drupal\bibcite_entity\Entity\ReferenceInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 
 /**
- * Normalizes/denormalizes bibliography entity to CSL format.
+ * Normalizes/denormalizes reference entity to CSL format.
  */
-class CslBibliographyNormalizer extends BibliographyNormalizerBase {
+class CslReferenceNormalizer extends ReferenceNormalizerBase {
 
   /**
    * The format that this Normalizer supports.
@@ -35,41 +35,41 @@ class CslBibliographyNormalizer extends BibliographyNormalizerBase {
   /**
    * {@inheritdoc}
    */
-  public function normalize($bibliography, $format = NULL, array $context = array()) {
-    /** @var \Drupal\bibcite_entity\Entity\BibliographyInterface $bibliography */
+  public function normalize($reference, $format = NULL, array $context = array()) {
+    /** @var \Drupal\bibcite_entity\Entity\ReferenceInterface $reference */
 
     $attributes = [];
 
-    $attributes['title'] = $this->extractScalar($bibliography->get('title'));
-    $attributes['type'] = $this->convertEntityType($bibliography->get('type')->target_id);
+    $attributes['title'] = $this->extractScalar($reference->get('title'));
+    $attributes['type'] = $this->convertEntityType($reference->get('type')->target_id);
 
-    if ($authors = $this->extractAuthors($bibliography->get('author'))) {
+    if ($authors = $this->extractAuthors($reference->get('author'))) {
       $attributes['author'] = $authors;
     }
 
-    if ($keywords = $this->extractKeywords($bibliography->get('keywords'))) {
+    if ($keywords = $this->extractKeywords($reference->get('keywords'))) {
       $attributes['keywords'] = $keywords;
     }
 
-    $attributes += $this->extractFields($bibliography);
+    $attributes += $this->extractFields($reference);
 
     return $attributes;
   }
 
   /**
-   * Extract fields values from bibliography entity.
+   * Extract fields values from reference entity.
    *
-   * @param \Drupal\bibcite_entity\Entity\BibliographyInterface $bibliography
-   *   Bibliography entity object.
+   * @param \Drupal\bibcite_entity\Entity\ReferenceInterface $reference
+   *   Reference entity object.
    *
    * @return array
    *   Array of entity values.
    */
-  protected function extractFields(BibliographyInterface $bibliography) {
+  protected function extractFields(ReferenceInterface $reference) {
     $attributes = [];
 
     foreach ($this->fieldsMapping as $csl_field => $entity_field) {
-      if ($entity_field && $bibliography->hasField($entity_field) && ($field = $bibliography->get($entity_field)) && !$field->isEmpty()) {
+      if ($entity_field && $reference->hasField($entity_field) && ($field = $reference->get($entity_field)) && !$field->isEmpty()) {
         if (in_array($entity_field, $this->dateFields)) {
           $attributes[$csl_field] = $this->extractDate($field);
         }

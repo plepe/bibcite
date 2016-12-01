@@ -2,7 +2,7 @@
 
 namespace Drupal\bibcite\Form;
 
-use Drupal\bibcite\StylerInterface;
+use Drupal\bibcite\CitationStylerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -16,14 +16,14 @@ class SettingsForm extends ConfigFormBase {
   /**
    * The styler service.
    *
-   * @var \Drupal\bibcite\StylerInterface
+   * @var \Drupal\bibcite\CitationStylerInterface
    */
   protected $styler;
 
   /**
    * {@inheritdoc}
    */
-  public function __construct(ConfigFactoryInterface $config_factory, StylerInterface $styler) {
+  public function __construct(ConfigFactoryInterface $config_factory, CitationStylerInterface $styler) {
     parent::__construct($config_factory);
     $this->styler = $styler;
   }
@@ -34,7 +34,7 @@ class SettingsForm extends ConfigFormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('config.factory'),
-      $container->get('bibcite.styler')
+      $container->get('bibcite.citation_styler')
     );
   }
 

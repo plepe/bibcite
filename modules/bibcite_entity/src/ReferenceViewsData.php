@@ -6,9 +6,9 @@ namespace Drupal\bibcite_entity;
 use Drupal\views\EntityViewsData;
 
 /**
- * Provides the views data for the bibliography entity type.
+ * Provides the views data for the reference entity type.
  */
-class BibliographyViewsData extends EntityViewsData {
+class ReferenceViewsData extends EntityViewsData {
 
   /**
    * {@inheritdoc}
@@ -16,9 +16,9 @@ class BibliographyViewsData extends EntityViewsData {
   public function getViewsData() {
     $data = parent::getViewsData();
 
-    $data['bibliography']['bulk_form'] = [
+    $data['bibcite_reference']['bulk_form'] = [
       'title' => $this->t('Operations bulk form'),
-      'help' => $this->t('Add a form element that lets you run operations on multiple bibliography entries.'),
+      'help' => $this->t('Add a form element that lets you run operations on multiple reference entries.'),
       'field' => [
         'id' => 'bulk_form',
       ],
@@ -28,7 +28,7 @@ class BibliographyViewsData extends EntityViewsData {
      * @todo Optimize structure of fields handlers.
      */
 
-    $data['bibliography__keywords'] = [
+    $data['bibcite_reference__keywords'] = [
       'keywords_target_id' => [
         'title' => $this->t('Keywords'),
         'field' => [
@@ -46,11 +46,11 @@ class BibliographyViewsData extends EntityViewsData {
         'entity field' => 'keywords',
       ],
       'table' => [
-        'group' => $this->t('Bibliography'),
+        'group' => $this->t('Reference'),
         'provider' => 'bibcite_entity',
-        'entity type' => 'bibliography',
+        'entity type' => 'bibcite_reference',
         'join' => [
-          'bibliography' => [
+          'bibcite_reference' => [
             'left_field' => 'id',
             'field' => 'entity_id',
             'extra' => [
@@ -66,7 +66,7 @@ class BibliographyViewsData extends EntityViewsData {
     ];
 
     $entity_type = $this->entityManager->getDefinition('bibcite_keyword');
-    $data['bibliography__keywords']['keywords_target_id']['relationship'] = [
+    $data['bibcite_reference__keywords']['keywords_target_id']['relationship'] = [
       'base' => $this->getViewsTableForEntityType($entity_type),
       'base field' => $entity_type->getKey('id'),
       'label' => $entity_type->getLabel(),
@@ -74,7 +74,7 @@ class BibliographyViewsData extends EntityViewsData {
       'id' => 'standard',
     ];
 
-    $data['bibliography__author'] = [
+    $data['bibcite_reference__author'] = [
       'author_target_id' => [
         'title' => $this->t('Author'),
         'field' => [
@@ -122,11 +122,11 @@ class BibliographyViewsData extends EntityViewsData {
         ],
       ],
       'table' => [
-        'group' => $this->t('Bibliography'),
+        'group' => $this->t('Reference'),
         'provider' => 'bibcite_entity',
-        'entity type' => 'bibliography',
+        'entity type' => 'bibcite_reference',
         'join' => [
-          'bibliography' => [
+          'bibcite_reference' => [
             'left_field' => 'id',
             'field' => 'entity_id',
             'extra' => [
@@ -142,7 +142,7 @@ class BibliographyViewsData extends EntityViewsData {
     ];
 
     $entity_type = $this->entityManager->getDefinition('bibcite_contributor');
-    $data['bibliography__author']['author_target_id']['relationship'] = [
+    $data['bibcite_reference__author']['author_target_id']['relationship'] = [
       'base' => $this->getViewsTableForEntityType($entity_type),
       'base field' => $entity_type->getKey('id'),
       'label' => $entity_type->getLabel(),

@@ -12,7 +12,7 @@ use Drupal\user\PrivateTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Export all bibliographic data to any available export format.
+ * Export all reference data to any available export format.
  */
 class ExportAllForm extends FormBase {
 
@@ -170,10 +170,10 @@ class ExportAllForm extends FormBase {
     $format = $this->formatManager->createInstance($form_state->getValue('format'));
 
     $batch = [
-      'title' => t('Export all bibliographic data'),
+      'title' => t('Export all reference data'),
       'operations' => [
         [
-          'bibcite_export_batch_all', ['bibliography', $format],
+          'bibcite_export_batch_all', ['bibcite_reference', $format],
         ],
       ],
       'file' => drupal_get_path('module', 'bibcite_export') . '/bibcite_export.batch.inc',

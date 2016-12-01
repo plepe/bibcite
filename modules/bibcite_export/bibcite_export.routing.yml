@@ -36,6 +36,6 @@ bibcite_export.export_all:
   path: '/admin/config/bibcite/export'
   defaults:
     _form: '\Drupal\bibcite_export\Form\ExportAllForm'
-    _title: 'Export all bibliography'
+    _title: 'Export all references'
   requirements:
     _permission: 'administer bibcite'

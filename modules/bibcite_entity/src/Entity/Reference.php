@@ -9,29 +9,29 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 
 /**
- * Defines the Bibliography entity.
+ * Defines the Reference entity.
  *
  * @ingroup bibcite_entity
  *
  * @ContentEntityType(
- *   id = "bibliography",
- *   label = @Translation("Bibliography"),
+ *   id = "bibcite_reference",
+ *   label = @Translation("Reference"),
  *   handlers = {
- *     "view_builder" = "Drupal\bibcite_entity\BibliographyViewBuilder",
- *     "list_builder" = "Drupal\bibcite_entity\BibliographyListBuilder",
- *     "views_data" = "Drupal\bibcite_entity\BibliographyViewsData",
+ *     "view_builder" = "Drupal\bibcite_entity\ReferenceViewBuilder",
+ *     "list_builder" = "Drupal\bibcite_entity\ReferenceListBuilder",
+ *     "views_data" = "Drupal\bibcite_entity\ReferenceViewsData",
  *
  *     "form" = {
- *       "default" = "Drupal\bibcite_entity\Form\BibliographyForm",
- *       "delete" = "Drupal\bibcite_entity\Form\BibliographyDeleteForm",
+ *       "default" = "Drupal\bibcite_entity\Form\ReferenceForm",
+ *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm",
  *     },
- *     "access" = "Drupal\bibcite_entity\BibliographyAccessControlHandler",
+ *     "access" = "Drupal\bibcite_entity\ReferenceAccessControlHandler",
  *     "route_provider" = {
- *       "html" = "Drupal\bibcite_entity\BibliographyHtmlRouteProvider",
+ *       "html" = "Drupal\bibcite_entity\ReferenceHtmlRouteProvider",
  *     },
  *   },
- *   base_table = "bibliography",
- *   admin_permission = "administer bibliography entities",
+ *   base_table = "bibcite_reference",
+ *   admin_permission = "administer bibcite_reference entities",
  *   fieldable = FALSE,
  *   entity_keys = {
  *     "id" = "id",
@@ -40,15 +40,15 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  *     "langcode" = "langcode",
  *   },
  *   links = {
- *     "canonical" = "/bibcite/bibliography/{bibliography}",
- *     "edit-form" = "/bibcite/bibliography/{bibliography}/edit",
- *     "delete-form" = "/bibcite/bibliography/{bibliography}/delete",
- *     "add-form" = "/admin/content/bibliography/add",
- *     "collection" = "/admin/content/bibliography",
+ *     "canonical" = "/bibcite/reference/{bibcite_reference}",
+ *     "edit-form" = "/bibcite/reference/{bibcite_reference}/edit",
+ *     "delete-form" = "/bibcite/reference/{bibcite_reference}/delete",
+ *     "add-form" = "/admin/content/bibcite/reference/add",
+ *     "collection" = "/admin/content/bibcite/reference",
  *   },
  * )
  */
-class Bibliography extends ContentEntityBase implements BibliographyInterface {
+class Reference extends ContentEntityBase implements ReferenceInterface {
 
   use EntityChangedTrait;
 
@@ -57,8 +57,8 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
    */
   public function cite($style = NULL) {
     // @todo Make a better dependency injection.
-    /** @var \Drupal\bibcite\StylerInterface $styler */
-    $styler = \Drupal::service('bibcite.styler');
+    /** @var \Drupal\bibcite\CitationStylerInterface $styler */
+    $styler = \Drupal::service('bibcite.citation_styler');
 
     if ($style) {
       $styler->setStyleById($style);
@@ -97,7 +97,7 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
 
     $fields['type'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Type'))
-      ->setSetting('target_type', 'bibliography_type')
+      ->setSetting('target_type', 'bibcite_reference_type')
       ->setDisplayOptions('form', [
         'type' => 'options_select',
         'weight' => 1,
@@ -112,7 +112,7 @@ class Bibliography extends ContentEntityBase implements BibliographyInterface {
 
     $fields['title'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Title'))
-      ->setDescription(t('The title of the Bibliography.'))
+      ->setDescription(t('The title of the Reference.'))
       ->setSettings([
         'text_processing' => 0,
       ])

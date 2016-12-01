@@ -4,7 +4,7 @@
  * Module installation hooks.
  */
 
-use Drupal\bibcite_entity\Entity\Bibliography;
+use Drupal\bibcite_entity\Entity\Reference;
 use Drupal\bibcite_entity\Entity\Contributor;
 
 /**
@@ -31,7 +31,7 @@ function bibcite_entity_test_install() {
     $contributors[] = $contributor_entity;
   }
 
-  $bibliography_data = [
+  $reference_data = [
     [
       'title' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       'type' => 'journal_article',
@@ -54,10 +54,10 @@ function bibcite_entity_test_install() {
     ],
   ];
 
-  $bibliography = [];
-  foreach ($bibliography_data as $data) {
-    $bibliography_entity = Bibliography::create($data);
-    $bibliography_entity->save();
-    $bibliography[] = $bibliography_entity;
+  $reference = [];
+  foreach ($reference_data as $data) {
+    $reference_entity = Reference::create($data);
+    $reference_entity->save();
+    $reference[] = $reference_entity;
   }
 }

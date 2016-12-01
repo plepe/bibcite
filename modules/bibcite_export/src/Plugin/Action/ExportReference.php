@@ -12,16 +12,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * Export bibliography.
+ * Export reference.
  *
  * @Action(
  *   id = "bibcite_export_action",
- *   label = @Translation("Export bibliography"),
- *   type = "bibliography",
+ *   label = @Translation("Export reference"),
+ *   type = "bibcite_reference",
  *   deriver = "Drupal\bibcite_export\Plugin\Derivative\ExportFormatDeriver"
  * )
  */
-class ExportBibliography extends ActionBase implements ContainerFactoryPluginInterface {
+class ExportReference extends ActionBase implements ContainerFactoryPluginInterface {
 
   /**
    * The serializer service.
@@ -38,7 +38,7 @@ class ExportBibliography extends ActionBase implements ContainerFactoryPluginInt
   protected $formatManager;
 
   /**
-   * Constructs a new ExportBibliography action.
+   * Constructs a new ExportReference action.
    *
    * @param array $configuration
    *   A configuration array containing information about the plugin instance.

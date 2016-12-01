@@ -7,11 +7,11 @@ use Drupal\Core\Entity\EntityListBuilder;
 use Drupal\Core\Link;
 
 /**
- * Defines a class to build a listing of Bibliography entities.
+ * Defines a class to build a listing of Reference entities.
  *
  * @ingroup bibcite_entity
  */
-class BibliographyListBuilder extends EntityListBuilder {
+class ReferenceListBuilder extends EntityListBuilder {
 
   /**
    * {@inheritdoc}
@@ -26,9 +26,9 @@ class BibliographyListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\bibcite_entity\Entity\Bibliography */
-    $row['name'] = Link::createFromRoute($entity->label(), 'entity.bibliography.canonical', [
-      'bibliography' => $entity->id(),
+    /* @var $entity \Drupal\bibcite_entity\Entity\Reference */
+    $row['name'] = Link::createFromRoute($entity->label(), 'entity.bibcite_reference.canonical', [
+      'bibcite_reference' => $entity->id(),
     ]);
     // @todo Use non-magic entity method.
     $row['type'] = $entity->type->target_id;

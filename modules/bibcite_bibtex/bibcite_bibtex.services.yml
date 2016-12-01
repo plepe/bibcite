@@ -3,8 +3,8 @@ services:
     class: Drupal\bibcite_bibtex\Encoder\BibtexEncoder
     tags:
       - { name: encoder, format: bibtex }
-  bibcite_bibtex.normalizer.bibliography:
-    class: Drupal\bibcite_bibtex\Normalizer\BibtexBibliographyNormalizer
+  bibcite_bibtex.normalizer.reference:
+    class: Drupal\bibcite_bibtex\Normalizer\BibtexReferenceNormalizer
     tags:
       - { name: normalizer, priority: 30 }
     arguments: ['@entity.manager', '@config.factory']

@@ -116,7 +116,7 @@ class ImportForm extends FormBase {
     $chunks = array_chunk($decoded, 50);
 
     $batch = [
-      'title' => t('Import bibliographic data'),
+      'title' => t('Import reference data'),
       'operations' => [],
       'finished' => 'bibcite_import_batch_finished',
       'file' => drupal_get_path('module', 'bibcite_import') . '/bibcite_import.batch.inc',

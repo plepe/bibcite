@@ -3,7 +3,7 @@
 namespace Drupal\bibcite_entity\Normalizer;
 
 
-use Drupal\bibcite_entity\Entity\BibliographyInterface;
+use Drupal\bibcite_entity\Entity\ReferenceInterface;
 use Drupal\Core\Config\ConfigException;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
@@ -13,7 +13,7 @@ use Drupal\serialization\Normalizer\EntityNormalizer;
 /**
  * Base normalizer class for bibcite formats.
  */
-abstract class BibliographyNormalizerBase extends EntityNormalizer {
+abstract class ReferenceNormalizerBase extends EntityNormalizer {
 
   /**
    * The format that this Normalizer supports.
@@ -48,7 +48,7 @@ abstract class BibliographyNormalizerBase extends EntityNormalizer {
    *
    * @var array
    */
-  protected $supportedInterfaceOrClass = ['Drupal\bibcite_entity\Entity\BibliographyInterface'];
+  protected $supportedInterfaceOrClass = ['Drupal\bibcite_entity\Entity\ReferenceInterface'];
 
   /**
    * Configuration factory service.
@@ -112,19 +112,19 @@ abstract class BibliographyNormalizerBase extends EntityNormalizer {
   }
 
   /**
-   * Extract fields values from bibliography entity.
+   * Extract fields values from reference entity.
    *
-   * @param \Drupal\bibcite_entity\Entity\BibliographyInterface $bibliography
-   *   Bibliography entity object.
+   * @param \Drupal\bibcite_entity\Entity\ReferenceInterface $reference
+   *   Reference entity object.
    *
    * @return array
    *   Array of entity values.
    */
-  protected function extractFields(BibliographyInterface $bibliography) {
+  protected function extractFields(ReferenceInterface $reference) {
     $attributes = [];
 
     foreach ($this->fieldsMapping as $format_field => $entity_field) {
-      if ($entity_field && $bibliography->hasField($entity_field) && ($field = $bibliography->get($entity_field)) && !$field->isEmpty()) {
+      if ($entity_field && $reference->hasField($entity_field) && ($field = $reference->get($entity_field)) && !$field->isEmpty()) {
         $attributes[$format_field] = $this->extractScalar($field);
       }
     }

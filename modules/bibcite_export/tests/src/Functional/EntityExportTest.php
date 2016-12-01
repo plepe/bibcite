@@ -30,7 +30,7 @@ class EntityExportTest extends BrowserTestBase {
     parent::setUp();
 
     $this->user = $this->drupalCreateUser([
-      'view bibliography entities',
+      'view bibcite_reference entities',
       'access bibcite export',
     ]);
   }
@@ -43,7 +43,7 @@ class EntityExportTest extends BrowserTestBase {
   public function testExportUrl($id, $format, $expected_result) {
     $this->drupalLogin($this->user);
 
-    $text = $this->drupalGet(sprintf('bibcite/export/%s/bibliography/%s', $format, $id));
+    $text = $this->drupalGet(sprintf('bibcite/export/%s/bibcite_reference/%s', $format, $id));
 
     $this->assertEquals(trim($expected_result), trim($text));
   }
@@ -56,7 +56,7 @@ class EntityExportTest extends BrowserTestBase {
   public function testExportLinks($id, $format, $expected_result) {
     $this->drupalLogin($this->user);
 
-    $this->drupalGet(sprintf('bibcite/bibliography/%s', $id));
+    $this->drupalGet(sprintf('bibcite/reference/%s', $id));
 
     $page = $this->getSession()->getPage();
 

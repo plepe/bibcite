@@ -62,7 +62,7 @@ class ExportSettingsForm extends ConfigFormBase {
 
     $form['show_full'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Show export links on table view of Bibliography entity'),
+      '#title' => $this->t('Show export links on table view of Reference entity'),
       '#default_value' => $config->get('show_full'),
     ];
     $form['show_citation'] = [

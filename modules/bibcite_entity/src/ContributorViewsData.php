@@ -16,12 +16,12 @@ class ContributorViewsData extends EntityViewsData {
   public function getViewsData() {
     $data = parent::getViewsData();
 
-    $entity_type = $this->entityManager->getDefinition('bibliography');
+    $entity_type = $this->entityManager->getDefinition('bibcite_reference');
 
     $data[$this->entityType->getBaseTable()] += [
       'reverse__' . $entity_type->id() . '__' . $this->entityType->id() => [
         'relationship' => [
-          'title' => $this->t('Bibliography using contributors'),
+          'title' => $this->t('Reference using contributors'),
           'label' => $entity_type->getLabel(),
           'group' => $this->entityType->getLabel(),
           'id' => 'entity_reverse',
@@ -29,7 +29,7 @@ class ContributorViewsData extends EntityViewsData {
           'entity_type' => $entity_type->id(),
           'base field' => $entity_type->getKey('id'),
           'field_name' => 'author',
-          'field table' => 'bibliography__author',
+          'field table' => 'bibcite_reference__author',
           'field field' => 'author_target_id',
           'join_extra' => [
             [

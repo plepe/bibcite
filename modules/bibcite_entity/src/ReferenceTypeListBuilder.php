@@ -6,15 +6,15 @@ use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
 
 /**
- * Provides a listing of Bibliography type entities.
+ * Provides a listing of Reference type entities.
  */
-class BibliographyTypeListBuilder extends ConfigEntityListBuilder {
+class ReferenceTypeListBuilder extends ConfigEntityListBuilder {
 
   /**
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $header['label'] = $this->t('Bibliography type');
+    $header['label'] = $this->t('Reference type');
     $header['id'] = $this->t('Machine name');
     return $header + parent::buildHeader();
   }

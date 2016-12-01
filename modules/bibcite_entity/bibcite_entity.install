@@ -1,0 +1,29 @@
+<?php
+/**
+ * @file
+ * Module installation hooks implementation.
+ */
+
+use Drupal\Core\Database\Database;
+
+/**
+ * Rename database tables and configuration objects.
+ */
+function bibcite_entity_update_8001() {
+  $tables_name_mapping = [
+    'bibliography' => 'bibcite_reference',
+    'bibliography__author' => 'bibcite_reference__author',
+    'bibliography__keywords' => 'bibcite_reference__keywords',
+  ];
+  $database_schema = Database::getConnection()->schema();
+  foreach ($tables_name_mapping as $table => $new_name) {
+    $database_schema->renameTable($table, $new_name);
+  }
+
+  $config_factory = \Drupal::configFactory();
+  foreach ($config_factory->listAll('bibcite_entity.bibliography_type') as $config_name) {
+    $config = $config_factory->getEditable($config_name);
+    $config->setName("bibcite_entity.bibcite_reference_type.{$config->get('id')}");
+    $config->save(TRUE);
+  }
+}
