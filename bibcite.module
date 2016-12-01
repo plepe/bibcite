@@ -45,7 +45,7 @@ function bibcite_preprocess_bibcite_citation(&$variables) {
     ],
   ];
 
-  $links_config = \Drupal::config('bibcite.settings.links');
+  $links_config = \Drupal::config('bibcite.settings');
   if ($links_config->get('links.pubmed') && !empty($data['PMID'])) {
     $url = Url::fromUri('http://www.ncbi.nlm.nih.gov/pubmed/' . $data['PMID'] . '?dopt=Abstract');
 

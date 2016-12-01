@@ -23,7 +23,7 @@ class SettingsLinksForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return [
-      'bibcite.settings.links',
+      'bibcite.settings',
     ];
   }
 
@@ -37,7 +37,7 @@ class SettingsLinksForm extends ConfigFormBase {
       '#tree' => TRUE,
     ];
 
-    $config = $this->config('bibcite.settings.links');
+    $config = $this->config('bibcite.settings');
 
     $form['links']['pubmed'] = [
       '#type' => 'checkbox',
@@ -62,7 +62,7 @@ class SettingsLinksForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $config = $this->config('bibcite.settings.links');
+    $config = $this->config('bibcite.settings');
     $config->set('links', $form_state->getValue('links'))
       ->save();
 

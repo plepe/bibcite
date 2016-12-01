@@ -17,3 +17,6 @@ bibcite_entity.mapping.*:
       sequence:
         type: string
         label: 'Field'
+    dependencies:
+      type: config_dependencies
+      label: Dependencies
