@@ -1,5 +1,4 @@
-langcode: en
-status: true
 dependencies: {  }
 id: tertiary
 label: Tertiary
+weight: -8

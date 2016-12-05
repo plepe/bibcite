@@ -2,13 +2,20 @@
 
 namespace Drupal\bibcite_entity;
 
-use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
+use Drupal\Core\Config\Entity\DraggableListBuilder;
 use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Provides a listing of Contributor role entities.
  */
-class ContributorRoleListBuilder extends ConfigEntityListBuilder {
+class ContributorRoleListBuilder extends DraggableListBuilder {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId() {
+    return 'bibcite_contributor_role_overview';
+  }
 
   /**
    * {@inheritdoc}
@@ -24,7 +31,9 @@ class ContributorRoleListBuilder extends ConfigEntityListBuilder {
    */
   public function buildRow(EntityInterface $entity) {
     $row['label'] = $entity->label();
-    $row['id'] = $entity->id();
+    $row['id'] = [
+      '#markup' => $entity->id(),
+    ];
     return $row + parent::buildRow($entity);
   }
 

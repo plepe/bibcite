@@ -1,5 +1,4 @@
-langcode: en
-status: true
 dependencies: {  }
 id: tertiary_author
 label: 'Tertiary Author'
+weight: -8

@@ -1,5 +1,4 @@
-langcode: en
-status: true
 dependencies: {  }
 id: secondary
 label: Secondary
+weight: -9

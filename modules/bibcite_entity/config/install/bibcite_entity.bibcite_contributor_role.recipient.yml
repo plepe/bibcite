@@ -1,5 +1,4 @@
-langcode: en
-status: true
 dependencies: {  }
 id: recipient
 label: Recipient
+weight: 6

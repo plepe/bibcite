@@ -26,7 +26,8 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
- *     "uuid" = "uuid"
+ *     "uuid" = "uuid",
+ *     "weight" = "weight"
  *   },
  *   links = {
  *     "canonical" = "/admin/config/bibcite/settings/contributor/category/{bibcite_contributor_category}",
@@ -52,5 +53,26 @@ class ContributorCategory extends ConfigEntityBase implements ContributorCategor
    * @var string
    */
   protected $label;
+
+  /**
+   * The Contributor category weight.
+   *
+   * @var string
+   */
+  protected $weight;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getWeight() {
+    return $this->get('weight');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setWeight($weight) {
+    return $this->set('weight', $weight);
+  }
 
 }

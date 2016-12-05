@@ -1,5 +1,4 @@
-langcode: en
-status: true
 dependencies: {  }
 id: translator
 label: Translator
+weight: -2

@@ -1,5 +1,4 @@
-langcode: en
-status: true
 dependencies: {  }
 id: author
 label: Author
+weight: -10

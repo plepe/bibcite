@@ -1,5 +1,4 @@
-langcode: en
-status: true
 dependencies: {  }
 id: international_author
 label: 'International Author'
+weight: 5

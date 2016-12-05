@@ -2,6 +2,7 @@
 
 namespace Drupal\bibcite_entity\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -106,6 +107,7 @@ class ContributorWidget extends EntityReferenceAutocompleteWidget implements Con
    */
   protected function getContributorCategories() {
     $entities = $this->entityTypeManager->getStorage('bibcite_contributor_category')->loadMultiple();
+    uasort($entities, [$this, 'sortWeightOptions']);
 
     return array_map(function($entity) {
       /** @var \Drupal\Core\Entity\EntityInterface $entity */
@@ -121,11 +123,33 @@ class ContributorWidget extends EntityReferenceAutocompleteWidget implements Con
    */
   protected function getContributorRoles() {
     $entities = $this->entityTypeManager->getStorage('bibcite_contributor_role')->loadMultiple();
+    uasort($entities, [$this, 'sortWeightOptions']);
 
     return array_map(function($entity) {
       /** @var \Drupal\Core\Entity\EntityInterface $entity */
       return $entity->label();
     }, $entities);
+  }
+
+  /**
+   * Sort callback for config entities with weight parameter.
+   *
+   * @param \Drupal\Core\Config\Entity\ConfigEntityInterface $entity_first
+   *   First entity to compare.
+   * @param \Drupal\Core\Config\Entity\ConfigEntityInterface $entity_second
+   *   Second entity to compare.
+   *
+   * @return int
+   *   Sort result.
+   */
+  protected function sortWeightOptions(ConfigEntityInterface $entity_first, ConfigEntityInterface $entity_second) {
+    $weight_first = $entity_first->get('weight');
+    $weight_second = $entity_second->get('weight');
+
+    if ($weight_first == $weight_second) {
+      return 0;
+    }
+    return ($weight_first < $weight_second) ? -1 : 1;
   }
 
 }

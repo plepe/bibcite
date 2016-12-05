@@ -8,5 +8,8 @@ bibcite_entity.bibcite_contributor_category.*:
     label:
       type: label
       label: 'Label'
+    weight:
+      type: integer
+      label: 'Weight'
     uuid:
       type: string

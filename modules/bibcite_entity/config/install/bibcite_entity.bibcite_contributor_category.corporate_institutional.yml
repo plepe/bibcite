@@ -1,5 +1,4 @@
-langcode: en
-status: true
 dependencies: {  }
 id: corporate_institutional
 label: Corporate/Institutional
+weight: -6

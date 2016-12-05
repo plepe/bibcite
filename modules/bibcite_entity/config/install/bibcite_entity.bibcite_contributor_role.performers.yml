@@ -1,5 +1,4 @@
-langcode: en
-status: true
 dependencies: {  }
 id: performers
 label: Performers
+weight: -4

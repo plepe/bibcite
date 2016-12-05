@@ -9,5 +9,23 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
  */
 interface ContributorCategoryInterface extends ConfigEntityInterface {
 
-  // Add get/set methods for your configuration properties here.
+  /**
+   * Get weight of the Contributor category.
+   *
+   * @return int
+   *   Weight of the Contributor category.
+   */
+  public function getWeight();
+
+  /**
+   * Set weight of the Contributor category.
+   *
+   * @param int $weight
+   *   New weight of the Contributor category.
+   *
+   * @return \Drupal\bibcite_entity\Entity\ContributorCategoryInterface
+   *   The called Contributor category object.
+   */
+  public function setWeight($weight);
+
 }
