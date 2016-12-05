@@ -40,6 +40,12 @@ INSTALLATION
 ------------
 
  * Install requirement libraries via [Composer](https://www.drupal.org/docs/8/extending-drupal/installing-modules-composer-dependencies)
+    * `composer require academicpuma/citeproc-php:~1.0`
+    * `composer require technosophos/LibRIS:~2.0`
+    * `composer require audiolabs/bibtexparser:dev-master`
+    * `composer require davidgorges/human-name-parser:~0.2`
+    
+    You can find a bit more info about Composer [here](https://www.drupal.org/node/2804889#comment-11651131)
 
  * Install as you would normally install a contributed Drupal module. See:
    https://www.drupal.org/docs/8/extending-drupal/installing-contributed-modules
