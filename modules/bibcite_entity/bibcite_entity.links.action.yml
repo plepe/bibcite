@@ -4,7 +4,7 @@ entity.bibcite_contributor.add_form:
   appears_on:
     - entity.bibcite_contributor.collection
 entity.bibcite_reference.add_form:
-  route_name: entity.bibcite_reference.add_form
+  route_name: entity.bibcite_reference.add_page
   title: 'Add Reference'
   appears_on:
     - entity.bibcite_reference.collection
@@ -23,7 +23,6 @@ entity.bibcite_contributor_role.add_form:
   title: 'Add Contributor role'
   appears_on:
     - entity.bibcite_contributor_role.collection
-
 entity.bibcite_contributor_category.add_form:
   route_name: 'entity.bibcite_contributor_category.add_form'
   title: 'Add Contributor category'

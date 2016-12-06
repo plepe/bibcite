@@ -16,6 +16,7 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  * @ContentEntityType(
  *   id = "bibcite_reference",
  *   label = @Translation("Reference"),
+ *   bundle_label = @Translation("Reference type"),
  *   handlers = {
  *     "view_builder" = "Drupal\bibcite_entity\ReferenceViewBuilder",
  *     "list_builder" = "Drupal\bibcite_entity\ReferenceListBuilder",
@@ -23,6 +24,8 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  *
  *     "form" = {
  *       "default" = "Drupal\bibcite_entity\Form\ReferenceForm",
+ *       "add" = "Drupal\bibcite_entity\Form\ReferenceForm",
+ *       "edit" = "Drupal\bibcite_entity\Form\ReferenceForm",
  *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm",
  *     },
  *     "access" = "Drupal\bibcite_entity\ReferenceAccessControlHandler",
@@ -35,15 +38,19 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  *   fieldable = FALSE,
  *   entity_keys = {
  *     "id" = "id",
+ *     "bundle" = "type",
  *     "label" = "title",
  *     "uuid" = "uuid",
  *     "langcode" = "langcode",
  *   },
+ *   common_reference_target = TRUE,
+ *   bundle_entity_type = "bibcite_reference_type",
  *   links = {
  *     "canonical" = "/bibcite/reference/{bibcite_reference}",
  *     "edit-form" = "/bibcite/reference/{bibcite_reference}/edit",
  *     "delete-form" = "/bibcite/reference/{bibcite_reference}/delete",
- *     "add-form" = "/admin/content/bibcite/reference/add",
+ *     "add-page" = "/admin/content/bibcite/reference/add",
+ *     "add-form" = "/admin/content/bibcite/reference/add/{bibcite_reference_type}",
  *     "collection" = "/admin/content/bibcite/reference",
  *   },
  * )
@@ -94,21 +101,6 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
     /*
      * Main attributes.
      */
-
-    $fields['type'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Type'))
-      ->setSetting('target_type', 'bibcite_reference_type')
-      ->setDisplayOptions('form', [
-        'type' => 'options_select',
-        'weight' => 1,
-      ])
-      ->setDisplayOptions('view', [
-        'type' => 'entity_reference_label',
-        'settings' => [
-          'link' => FALSE,
-        ],
-        'weight' => 1,
-      ]);
 
     $fields['title'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Title'))

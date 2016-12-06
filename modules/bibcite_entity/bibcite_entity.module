@@ -72,3 +72,17 @@ function bibcite_entity_preprocess_bibcite_keyword(array &$variables) {
     $variables['content'][$key] = $variables['elements'][$key];
   }
 }
+
+/**
+ * Implements hook_modules_installed().
+ *
+ * Clear bundles cache after module is installed.
+ * For some reason bundles does not cached after module installation.
+ *
+ * @todo Find what is caused this issue
+ */
+function bibcite_entity_modules_installed($modules) {
+  if (in_array('bibcite_entity', $modules)) {
+    \Drupal::service('entity_type.bundle.info')->clearCachedBundles();
+  }
+}

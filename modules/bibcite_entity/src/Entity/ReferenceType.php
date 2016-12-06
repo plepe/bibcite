@@ -22,6 +22,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     },
  *   },
  *   config_prefix = "bibcite_reference_type",
+ *   bundle_of = "bibcite_reference",
  *   admin_permission = "administer reference entities",
  *   entity_keys = {
  *     "id" = "id",
