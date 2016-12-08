@@ -86,6 +86,22 @@ function bibcite_entity_preprocess_bibcite_keyword(array &$variables) {
 }
 
 /**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ *
+ * Override fields attributes and add fieldset's for grouping.
+ */
+function bibcite_entity_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+  /*
+   * @todo
+   * This is a temporary solution.
+   * Should be replaces by default fields mechanism in the next major release.
+   */
+  $overrider = new BibciteEntityFormOverrider();
+  $overrider->referenceFieldsOverride($entity_form, $entity_form['#bundle']);
+  $overrider->referenceFormFieldsetRestructure($entity_form);
+}
+
+/**
  * Implements hook_modules_installed().
  *
  * Clear bundles cache after module is installed.
