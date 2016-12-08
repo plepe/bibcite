@@ -54,4 +54,26 @@ class ReferenceType extends ConfigEntityBase implements ReferenceTypeInterface {
    */
   protected $label;
 
+  /**
+   * The Reference fields configuration.
+   *
+   * @var array
+   */
+  protected $fields = [];
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFields() {
+    return $this->fields;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setFields(array $fields) {
+    $this->fields = $fields;
+    return $this;
+  }
+
 }

@@ -4,6 +4,7 @@
  * Module hooks.
  */
 
+use Drupal\bibcite_entity\BibciteEntityFormOverrider;
 use Drupal\Core\Render\Element;
 
 /**
@@ -27,6 +28,9 @@ function bibcite_entity_theme($existing, $type, $theme, $path) {
  * Implements hook_preprocess_HOOK().
  */
 function bibcite_entity_preprocess_bibcite_reference_table(&$variables) {
+  /** @var \Drupal\bibcite_entity\Entity\ReferenceInterface $entity */
+  $entity = $variables['elements']['#bibcite_reference'];
+
   $variables['content'] = [
     '#type' => 'container',
     'table' => [
@@ -40,6 +44,14 @@ function bibcite_entity_preprocess_bibcite_reference_table(&$variables) {
       '#items' => [],
     ],
   ];
+
+  /*
+   * @todo
+   * This is a temporary solution.
+   * Should be replaces by default fields mechanism in the next major release.
+   */
+  $overrider = new BibciteEntityFormOverrider();
+  $overrider->referenceViewFieldsOverride($variables['elements'], $entity->bundle());
 
   foreach (Element::children($variables['elements']) as $key) {
     if (Element::children($variables['elements'][$key])) {

@@ -8,5 +8,24 @@ bibcite_entity.bibcite_reference_type.*:
     label:
       type: label
       label: 'Label'
+    fields:
+      type: sequence
+      label: 'Fields'
+      sequence:
+        type: mapping
+        label: 'Field'
+        mapping:
+          visible:
+            type: boolean
+            label: 'Visible'
+          required:
+            type: boolean
+            label: 'Required'
+          label:
+            type: label
+            label: 'Label'
+          hint:
+            type: text
+            label: 'Hint'
     uuid:
       type: string
