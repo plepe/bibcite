@@ -106,7 +106,9 @@ class ExportAllForm extends FormBase {
         $items[$key] = [
           '#type' => 'link',
           '#title' => $title,
-          '#url' => Url::fromUri($file->url()),
+          '#url' => Url::fromRoute('bibcite_export.download', [
+            'file' => $file->id(),
+          ]),
         ];
       }
       else {

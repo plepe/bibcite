@@ -39,3 +39,15 @@ bibcite_export.export_all:
     _title: 'Export all references'
   requirements:
     _permission: 'administer bibcite'
+
+bibcite_export.download:
+  path: '/admin/config/bibcite/export/download/{file}'
+  defaults:
+    _controller: '\Drupal\bibcite_export\Controller\ExportDownload::download'
+    _title: 'Download export file'
+  requirements:
+    _custom_access: '\Drupal\bibcite_export\Access\DownloadFileAccess::access'
+  options:
+    parameters:
+      file:
+        type: entity:file
