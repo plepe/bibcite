@@ -130,6 +130,13 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
       ->setLabel(t('Keywords'))
       ->setSetting('target_type', 'bibcite_keyword')
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
+      ->setSettings([
+        'handler' => 'default:bibcite_keyword',
+        'handler_settings' => [
+          'target_bundles' => ['bibcite_keyword'],
+          'auto_create' => TRUE,
+        ],
+      ])
       ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete_tags',
         'weight' => 4,
