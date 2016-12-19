@@ -7,11 +7,17 @@ administer bibcite_reference entities:
 add bibcite_reference entities:
   title: 'Create new Reference entities'
 
-delete bibcite_reference entities:
-  title: 'Delete Reference entities'
+delete own bibcite_reference entities:
+  title: 'Delete own Reference entities'
 
-edit bibcite_reference entities:
-  title: 'Edit Reference entities'
+delete all bibcite_reference entities:
+  title: 'Delete all Reference entities'
+
+edit own bibcite_reference entities:
+  title: 'Edit own Reference entities'
+
+edit all bibcite_reference entities:
+  title: 'Edit all Reference entities'
 
 view bibcite_reference entities:
   title: 'View Reference entities'

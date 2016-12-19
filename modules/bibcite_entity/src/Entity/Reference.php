@@ -7,6 +7,7 @@ use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\user\UserInterface;
 
 /**
  * Defines the Reference entity.
@@ -42,6 +43,7 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  *     "label" = "title",
  *     "uuid" = "uuid",
  *     "langcode" = "langcode",
+ *     "uid" = "uid",
  *   },
  *   common_reference_target = TRUE,
  *   bundle_entity_type = "bibcite_reference_type",
@@ -95,6 +97,36 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
   /**
    * {@inheritdoc}
    */
+  public function getOwner() {
+    return $this->get('uid')->entity;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getOwnerId() {
+    return $this->getEntityKey('uid');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setOwnerId($uid) {
+    $this->set('uid', $uid);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setOwner(UserInterface $account) {
+    $this->set('uid', $account->id());
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
 
@@ -112,6 +144,21 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => 2,
+      ]);
+
+    $fields['uid'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Authored by'))
+      ->setDescription(t('The username of the content author.'))
+      ->setSetting('target_type', 'user')
+      ->setDefaultValueCallback('Drupal\bibcite_entity\Entity\Reference::getCurrentUserId')
+      ->setDisplayOptions('form', [
+        'type' => 'entity_reference_autocomplete',
+        'weight' => 100,
+        'settings' => [
+          'match_operator' => 'CONTAINS',
+          'size' => '60',
+          'placeholder' => '',
+        ],
       ]);
 
     $fields['author'] = BaseFieldDefinition::create('bibcite_contributor')
@@ -278,6 +325,18 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
       ->setDescription(t('The time that the entity was last edited.'));
 
     return $fields;
+  }
+
+  /**
+   * Default value callback for 'uid' base field definition.
+   *
+   * @see ::baseFieldDefinitions()
+   *
+   * @return array
+   *   An array of default values.
+   */
+  public static function getCurrentUserId() {
+    return [\Drupal::currentUser()->id()];
   }
 
 }

@@ -27,3 +27,18 @@ function bibcite_entity_update_8001() {
     $config->save(TRUE);
   }
 }
+
+/**
+ * Add "uid" property to "bibcite_reference" table.
+ */
+function bibcite_entity_update_8002() {
+  $spec = [
+    'type' => 'int',
+    'description' => "User ID",
+    'length' => 10,
+    'not null' => TRUE,
+    'default' => 0,
+  ];
+  $schema = Database::getConnection()->schema();
+  $schema->addField('bibcite_reference', 'uid', $spec);
+}

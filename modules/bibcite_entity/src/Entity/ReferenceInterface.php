@@ -11,7 +11,7 @@ use Drupal\user\EntityOwnerInterface;
  *
  * @ingroup bibcite_entity
  */
-interface ReferenceInterface extends ContentEntityInterface, EntityChangedInterface {
+interface ReferenceInterface extends ContentEntityInterface, EntityChangedInterface, EntityOwnerInterface {
 
   /**
    * Gets the Reference creation timestamp.

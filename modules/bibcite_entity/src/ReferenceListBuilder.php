@@ -19,6 +19,7 @@ class ReferenceListBuilder extends EntityListBuilder {
   public function buildHeader() {
     $header['name'] = $this->t('Title');
     $header['type'] = $this->t('Type');
+    $header['uid'] = $this->t('Authored by');
     return $header + parent::buildHeader();
   }
 
@@ -26,12 +27,14 @@ class ReferenceListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\bibcite_entity\Entity\Reference */
+    /* @var $entity \Drupal\bibcite_entity\Entity\ReferenceInterface */
     $row['name'] = Link::createFromRoute($entity->label(), 'entity.bibcite_reference.canonical', [
       'bibcite_reference' => $entity->id(),
     ]);
-    // @todo Use non-magic entity method.
-    $row['type'] = $entity->type->target_id;
+    $row['type'] = $entity->get('type')->target_id;
+
+    $account = $entity->getOwner();
+    $row['uid'] = $account->isAnonymous() ? $account->label() : $account->toLink();
     return $row + parent::buildRow($entity);
   }
 
