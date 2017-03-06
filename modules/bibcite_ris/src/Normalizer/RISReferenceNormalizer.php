@@ -22,6 +22,21 @@ class RISReferenceNormalizer extends ReferenceNormalizerBase {
   /**
    * {@inheritdoc}
    */
+  protected $contributorKey = 'AU';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $keywordKey = 'KW';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $typeKey = 'TY';
+
+  /**
+   * {@inheritdoc}
+   */
   public function normalize($reference, $format = NULL, array $context = array()) {
     /** @var \Drupal\bibcite_entity\Entity\ReferenceInterface $reference */
     $attributes = [];
@@ -45,61 +60,6 @@ class RISReferenceNormalizer extends ReferenceNormalizerBase {
     $attributes += $this->extractFields($reference);
 
     return $attributes;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function denormalize($data, $class, $format = NULL, array $context = []) {
-    if (!empty($data['AU'])) {
-      if (!is_array($data['AU'])) {
-        $data['AU'] = [$data['AU']];
-      }
-
-      foreach ($data['AU'] as $key => $author_name) {
-        // @todo Find a better way to set authors.
-        $data['AU'][$key] = $this->prepareAuthor($author_name);
-      }
-    }
-
-    if (!empty($data['KW'])) {
-      if (!is_array($data['KW'])) {
-        $data['KW'] = [$data['KW']];
-      }
-
-      foreach ($data['KW'] as $key => $keyword) {
-        // @todo Find a better way to set keywords.
-        $data['KW'][$key] = $this->prepareKeyword($keyword);
-      }
-    }
-
-    if (!empty($data['TY'])) {
-      $data['TY'] = $this->convertFormatType($data['TY']);
-    }
-
-    $data = $this->convertKeys($data);
-
-    return parent::denormalize($data, $class, $format, $context);
-  }
-
-  /**
-   * Convert bibtex keys to Bibcite entity keys and filter non-mapped.
-   *
-   * @param array $data
-   *   Array of decoded values.
-   *
-   * @return array
-   *   Array of decoded values with converted keys.
-   */
-  protected function convertKeys($data) {
-    $converted = [];
-    foreach ($data as $key => $field) {
-      if (!empty($this->fieldsMapping[$key])) {
-        $converted[$this->fieldsMapping[$key]] = $field;
-      }
-    }
-
-    return $converted;
   }
 
 }

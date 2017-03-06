@@ -58,6 +58,27 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
   protected $configFactory;
 
   /**
+   * Format contributor key.
+   *
+   * @var string|null
+   */
+  protected $contributorKey = NULL;
+
+  /**
+   * Format keyword key.
+   *
+   * @var null|string
+   */
+  protected $keywordKey = NULL;
+
+  /**
+   * Format type key.
+   *
+   * @var null|string
+   */
+  protected $typeKey = NULL;
+
+  /**
    * Construct new BiblioraphyNormalizer object.
    *
    * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
@@ -73,6 +94,71 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
 
     $this->fieldsMapping = $config->get('fields');
     $this->typesMapping = $config->get('types');
+  }
+
+  /**
+   * Get format contributor key.
+   *
+   * @return string|null
+   *   Contributor key.
+   */
+  protected function getContributorKey() {
+    return $this->contributorKey;
+  }
+
+  /**
+   * Get format keyword key.
+   *
+   * @return string|null
+   *   Keyword key.
+   */
+  protected function getKeywordKey() {
+    return $this->keywordKey;
+  }
+
+  /**
+   * Get format type key.
+   *
+   * @return string|null
+   *   Type key.
+   */
+  protected function getTypeKey() {
+    return $this->typeKey;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function denormalize($data, $class, $format = NULL, array $context = []) {
+    $contributor_key = $this->getContributorKey();
+    if (!empty($data[$contributor_key])) {
+      if (!is_array($data[$contributor_key])) {
+        $data[$contributor_key] = [$data[$contributor_key]];
+      }
+
+      foreach ($data[$contributor_key] as $key => $contributor_name) {
+        // @todo Find a better way to set authors.
+        $data[$contributor_key][$key] = $this->prepareAuthor($contributor_name);
+      }
+    }
+
+    $keyword_key = $this->getKeywordKey();
+    if (!empty($data[$keyword_key])) {
+      if (!is_array($data[$keyword_key])) {
+        $data[$keyword_key] = [$data[$keyword_key]];
+      }
+
+      foreach ($data[$keyword_key] as $key => $keyword) {
+        // @todo Find a better way to set keywords.
+        $data[$keyword_key][$key] = $this->prepareKeyword($keyword);
+      }
+    }
+
+    $type_key = $this->getTypeKey();
+    $data[$type_key] = $this->convertFormatType($data[$type_key]);
+    $data = $this->convertKeys($data);
+
+    return parent::denormalize($data, $class, $format, $context);
   }
 
   /**
@@ -223,6 +309,26 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
    */
   protected function extractScalar(FieldItemListInterface $scalar_field) {
     return $scalar_field->value;
+  }
+
+  /**
+   * Convert format keys to Bibcite entity keys and filter non-mapped.
+   *
+   * @param array $data
+   *   Array of decoded values.
+   *
+   * @return array
+   *   Array of decoded values with converted keys.
+   */
+  protected function convertKeys($data) {
+    $converted = [];
+    foreach ($data as $key => $field) {
+      if (!empty($this->fieldsMapping[$key])) {
+        $converted[$this->fieldsMapping[$key]] = $field;
+      }
+    }
+
+    return $converted;
   }
 
 }
