@@ -17,6 +17,7 @@ class EntityCitationRenderTest extends KernelTestBase {
 
   public static $modules = [
     'system',
+    'user',
     'serialization',
     'bibcite',
     'bibcite_entity',
@@ -42,7 +43,7 @@ class EntityCitationRenderTest extends KernelTestBase {
   public function setUp() {
     parent::setUp();
 
-    $this->installConfig(['bibcite', 'bibcite_entity']);
+    $this->installConfig(['user', 'bibcite', 'bibcite_entity']);
 
     $this->styler = $this->container->get('bibcite.citation_styler');
     $this->serializer = $this->container->get('serializer');
