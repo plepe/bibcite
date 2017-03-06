@@ -16,3 +16,18 @@
     bibcite_volume: 2
     bibcite_pages: 5-8
     bibcite_publisher: Journal
+-
+  - ris
+  - |
+      TY - JOUR
+      AU - Shannon, Claude E.
+      TI - Proin ut laoreet purus. Maecenas sed scelerisque leo.
+      Y1 - 2001
+      PB - Journal
+      VL - 2
+      ER -
+  - journal_article
+  -
+    bibcite_year: 2001
+    bibcite_volume: 2
+    bibcite_publisher: Journal

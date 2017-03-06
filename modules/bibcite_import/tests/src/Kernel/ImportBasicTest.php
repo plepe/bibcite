@@ -27,6 +27,7 @@ class ImportBasicTest extends KernelTestBase {
     'bibcite_entity',
     'bibcite_import',
     'bibcite_bibtex',
+    'bibcite_ris',
   ];
 
   /**
@@ -49,7 +50,16 @@ class ImportBasicTest extends KernelTestBase {
   public function setUp() {
     parent::setUp();
 
-    $this->installConfig(['user', 'bibcite', 'bibcite_bibtex', 'bibcite_entity']);
+    $this->installConfig([
+      'system',
+      'user',
+      'serialization',
+      'bibcite',
+      'bibcite_entity',
+      'bibcite_import',
+      'bibcite_bibtex',
+      'bibcite_ris',
+    ]);
 
     $this->formatManager = $this->container->get('plugin.manager.bibcite_format');
     $this->serializer = $this->container->get('serializer');
