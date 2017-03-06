@@ -31,21 +31,27 @@ class BibtexEncoder implements EncoderInterface, DecoderInterface {
   public function decode($data, $format, array $context = array()) {
     $parsed = BibtexParser::parse_string($data);
 
-    $this->contactPages($parsed);
+    $this->processEntries($parsed);
 
     return $parsed;
   }
 
   /**
-   * Concat pages array to string.
+   * Workaround about some things in BibtexParser library.
    *
    * @param array $parsed
    *   List of parsed entries.
    */
-  protected function contactPages(array &$parsed) {
+  protected function processEntries(array &$parsed) {
     foreach ($parsed as &$entry) {
       if (!empty($entry['pages']) && is_array($entry['pages'])) {
         $entry['pages'] = implode('-', $entry['pages']);
+      }
+
+      if (!empty($entry['keywords'])) {
+        $entry['keywords'] = array_map(function($keyword) {
+          return trim($keyword);
+        }, explode(',', $entry['keywords']));
       }
     }
   }
