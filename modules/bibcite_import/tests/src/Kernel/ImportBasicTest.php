@@ -50,6 +50,9 @@ class ImportBasicTest extends KernelTestBase {
   public function setUp() {
     parent::setUp();
 
+    $this->installEntitySchema('bibcite_keyword');
+    $this->installEntitySchema('bibcite_contributor');
+
     $this->installConfig([
       'system',
       'user',

@@ -41,7 +41,7 @@ class CslReferenceNormalizer extends ReferenceNormalizerBase {
     $attributes = [];
 
     $attributes['title'] = $this->extractScalar($reference->get('title'));
-    $attributes['type'] = $this->convertEntityType($reference->get('type')->target_id);
+    $attributes['type'] = $this->convertEntityType($reference->bundle());
 
     if ($authors = $this->extractAuthors($reference->get('author'))) {
       $attributes['author'] = $authors;

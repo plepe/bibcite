@@ -41,7 +41,7 @@ class RISReferenceNormalizer extends ReferenceNormalizerBase {
     /** @var \Drupal\bibcite_entity\Entity\ReferenceInterface $reference */
     $attributes = [];
 
-    $attributes['TY'] = $this->convertEntityType($reference->get('type')->target_id);
+    $attributes['TY'] = $this->convertEntityType($reference->bundle());
 
     if ($authors = $this->extractAuthors($reference->get('author'))) {
       $attributes['AU'] = $authors;

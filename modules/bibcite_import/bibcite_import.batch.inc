@@ -18,30 +18,44 @@ use Drupal\bibcite\Plugin\BibciteFormatInterface;
  *   The batch context array, passed by reference.
  */
 function bibcite_import_batch_callback($entries, BibciteFormatInterface $format, &$context) {
+  /** @var \Symfony\Component\Serializer\Serializer $serializer */
   $serializer = \Drupal::service('serializer');
+
+  $config = \Drupal::config('bibcite_import.settings');
+  $denormalize_context = [
+    'contributor_deduplication' => $config->get('settings.contributor_deduplication'),
+    'keyword_deduplication' => $config->get('settings.keyword_deduplication'),
+  ];
 
   foreach ($entries as $entry) {
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
-    $entity = $serializer->denormalize($entry, Reference::class, $format->getPluginId());
-
     try {
-      if ($entity->save()) {
-        $context['results']['success'][] = $entity->id() . ' : ' . $entity->label();
-      }
+      $entity = $serializer->denormalize($entry, Reference::class, $format->getPluginId(), $denormalize_context);
     }
-    catch (Exception $e) {
-      $message = [
-        t('Entity can not be saved.'),
-        t('Label: @label', ['@label' => $entity->label()]),
-        '<pre>',
-        $e->getMessage(),
-        '</pre>',
-      ];
-      \Drupal::logger('bibcite_import')->error(implode("\n", $message));
-      $context['results']['errors'][] = $entity->label();
+    catch (UnexpectedValueException $e) {
+      // Skip import for this row.
     }
 
-    $context['message'] = $entity->label();
+    if (!empty($entity)) {
+      try {
+        if ($entity->save()) {
+          $context['results']['success'][] = $entity->id() . ' : ' . $entity->label();
+        }
+      }
+      catch (Exception $e) {
+        $message = [
+          t('Entity can not be saved.'),
+          t('Label: @label', ['@label' => $entity->label()]),
+          '<pre>',
+          $e->getMessage(),
+          '</pre>',
+        ];
+        \Drupal::logger('bibcite_import')->error(implode("\n", $message));
+        $context['results']['errors'][] = $entity->label();
+      }
+
+      $context['message'] = $entity->label();
+    }
   }
 }
 

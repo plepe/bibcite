@@ -2,9 +2,7 @@
 
 namespace Drupal\bibcite_entity\Normalizer;
 
-
 use Drupal\bibcite_entity\Entity\ReferenceInterface;
-use Drupal\Core\Config\ConfigException;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -138,7 +136,7 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
 
       foreach ($data[$contributor_key] as $key => $contributor_name) {
         // @todo Find a better way to set authors.
-        $data[$contributor_key][$key] = $this->prepareAuthor($contributor_name);
+        $data[$contributor_key][$key] = $this->prepareAuthor($contributor_name, !empty($context['contributor_deduplication']));
       }
     }
 
@@ -150,7 +148,7 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
 
       foreach ($data[$keyword_key] as $key => $keyword) {
         // @todo Find a better way to set keywords.
-        $data[$keyword_key][$key] = $this->prepareKeyword($keyword);
+        $data[$keyword_key][$key] = $this->prepareKeyword($keyword, !empty($context['keyword_deduplication']));
       }
     }
 
@@ -261,13 +259,34 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
    *
    * @param string $author_name
    *   Raw author name string.
+   * @param bool $deduplicate
+   *   Process deduplication.
    *
-   * @return \Drupal\bibcite_entity\Entity\ContributorInterface
+   * @return \Drupal\Core\Entity\EntityInterface
    *   New contributor entity.
    */
-  protected function prepareAuthor($author_name) {
-    $contributor_storage = $this->entityManager->getStorage('bibcite_contributor');
-    return $contributor_storage->create(['name' => trim($author_name)]);
+  protected function prepareAuthor($author_name, $deduplicate = TRUE) {
+    $storage = $this->entityManager->getStorage('bibcite_contributor');
+
+    if (!$deduplicate) {
+      return $storage->create(['name' => $author_name]);
+    }
+
+    $author_name_parsed = \Drupal::service('bibcite.human_name_parser')->parse($author_name);
+    $query = $storage->getQuery()->range(0, 1);
+    foreach ($author_name_parsed as $name_part => $value) {
+      if (empty($value)) {
+        $query->notExists($name_part);
+      }
+      else {
+        $query->condition($name_part, $value);
+      }
+    }
+
+    $entity = $storage->loadMultiple($query->execute());
+    $entity = $entity ? reset($entity) : $storage->create(['name' => $author_name]);
+
+    return $entity;
   }
 
   /**
@@ -275,13 +294,30 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
    *
    * @param string $keyword
    *   Keyword string.
+   * @param bool $deduplicate
+   *   Process deduplication.
    *
-   * @return \Drupal\bibcite_entity\Entity\KeywordInterface
+   * @return \Drupal\Core\Entity\EntityInterface
    *   New keyword entity.
    */
-  protected function prepareKeyword($keyword) {
+  protected function prepareKeyword($keyword, $deduplicate = TRUE) {
     $storage = $this->entityManager->getStorage('bibcite_keyword');
-    return $storage->create(['name' => trim($keyword)]);
+    $label_key = $storage->getEntityType()->getKey('label');
+
+    if (!$deduplicate) {
+      return $storage->create([$label_key => trim($keyword)]);
+    }
+
+    $label_key = $storage->getEntityType()->getKey('label');
+    $query = $storage->getQuery()
+      ->condition($label_key, trim($keyword))
+      ->range(0, 1)
+      ->execute();
+
+    $entity = $storage->loadMultiple($query);
+    $entity = $entity ? reset($entity) : $storage->create([$label_key => trim($keyword)]);
+
+    return $entity;
   }
 
   /**
