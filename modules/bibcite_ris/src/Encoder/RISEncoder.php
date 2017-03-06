@@ -29,9 +29,27 @@ class RISEncoder implements EncoderInterface, DecoderInterface {
    * {@inheritdoc}
    */
   public function decode($data, $format, array $context = array()) {
+    /*
+     * Workaround for weird behavior of "LibRIS" library.
+     *
+     * Replace LF line ends by CRLF.
+     */
+    $data = str_replace("\n", "\r\n", $data);
+
     $ris = new RISReader();
     $ris->parseString($data);
-    return $ris->getRecords();
+    $records = $ris->getRecords();
+
+    // Workaround for weird behavior of "LibRIS" library.
+    foreach ($records as &$record) {
+      foreach ($record as $key => $value) {
+        if (is_array($value) && count($value) == 1) {
+          $record[$key] = reset($value);
+        }
+      }
+    }
+
+    return $records;
   }
 
   /**

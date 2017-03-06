@@ -52,6 +52,10 @@ class RISReferenceNormalizer extends ReferenceNormalizerBase {
    */
   public function denormalize($data, $class, $format = NULL, array $context = []) {
     if (!empty($data['AU'])) {
+      if (!is_array($data['AU'])) {
+        $data['AU'] = [$data['AU']];
+      }
+
       foreach ($data['AU'] as $key => $author_name) {
         // @todo Find a better way to set authors.
         $data['AU'][$key] = $this->prepareAuthor($author_name);
@@ -59,15 +63,13 @@ class RISReferenceNormalizer extends ReferenceNormalizerBase {
     }
 
     if (!empty($data['KW'])) {
+      if (!is_array($data['KW'])) {
+        $data['KW'] = [$data['KW']];
+      }
+
       foreach ($data['KW'] as $key => $keyword) {
         // @todo Find a better way to set keywords.
         $data['KW'][$key] = $this->prepareKeyword($keyword);
-      }
-    }
-
-    foreach ($data as $key => $value) {
-      if (is_array($value) && count($value) == 1) {
-        $data[$key] = reset($value);
       }
     }
 
