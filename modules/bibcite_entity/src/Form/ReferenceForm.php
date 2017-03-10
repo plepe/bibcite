@@ -38,7 +38,7 @@ class ReferenceForm extends ContentEntityForm {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity.manager'),
-      $container->get('user.private_tempstore')->get('bibcite_entity')
+      $container->get('user.private_tempstore')->get('bibcite_entity_populate')
     );
   }
 
@@ -68,10 +68,11 @@ class ReferenceForm extends ContentEntityForm {
     /*
      * Allow to populate entity object from external source.
      */
-    $entity = $this->tempStore->get('entity');
+    $current_user_id = \Drupal::currentUser()->id();
+    $entity = $this->tempStore->get($current_user_id);
     if ($entity && $entity instanceof ReferenceInterface) {
       $this->entity = $entity;
-      $this->tempStore->delete('entity');
+      $this->tempStore->delete($current_user_id);
     }
   }
 

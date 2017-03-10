@@ -61,7 +61,7 @@ class PopulateForm extends FormBase {
     return new static(
       $container->get('serializer'),
       $container->get('plugin.manager.bibcite_format'),
-      $container->get('user.private_tempstore')->get('bibcite_entity')
+      $container->get('user.private_tempstore')->get('bibcite_entity_populate')
     );
   }
 
@@ -128,7 +128,7 @@ class PopulateForm extends FormBase {
     $entity = $form_state->getValue('entity');
 
     if ($entity) {
-      $this->tempStore->set('entity', $entity);
+      $this->tempStore->set(\Drupal::currentUser()->id(), $entity);
 
       $redirect_url = Url::fromRoute("entity.bibcite_reference.add_form", [
         'bibcite_reference_type' => $entity->bundle(),
