@@ -3,8 +3,12 @@
 namespace Drupal\bibcite_entity\Form;
 
 use Drupal\bibcite_entity\BibciteEntityFormOverrider;
+use Drupal\bibcite_entity\Entity\ReferenceInterface;
 use Drupal\Core\Entity\ContentEntityForm;
+use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\user\PrivateTempStore;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Form controller for Reference edit forms.
@@ -12,6 +16,31 @@ use Drupal\Core\Form\FormStateInterface;
  * @ingroup bibcite_entity
  */
 class ReferenceForm extends ContentEntityForm {
+
+  /**
+   * Module temp store.
+   *
+   * @var \Drupal\user\PrivateTempStore
+   */
+  protected $tempStore;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(EntityManagerInterface $entity_manager, PrivateTempStore $temp_store) {
+    $this->entityManager = $entity_manager;
+    $this->tempStore = $temp_store;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity.manager'),
+      $container->get('user.private_tempstore')->get('bibcite_entity')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -28,6 +57,22 @@ class ReferenceForm extends ContentEntityForm {
     $form['#process'][] = [BibciteEntityFormOverrider::class, 'staticReferenceRestructure'];
 
     return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function prepareEntity() {
+    parent::prepareEntity();
+
+    /*
+     * Allow to populate entity object from external source.
+     */
+    $entity = $this->tempStore->get('entity');
+    if ($entity && $entity instanceof ReferenceInterface) {
+      $this->entity = $entity;
+      $this->tempStore->delete('entity');
+    }
   }
 
   /**
