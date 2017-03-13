@@ -29,6 +29,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "access" = "Drupal\bibcite_entity\KeywordAccessControlHandler",
  *     "route_provider" = {
  *       "html" = "Drupal\bibcite_entity\KeywordHtmlRouteProvider",
+ *       "delete-multiple" = "Drupal\bibcite_entity\DeleteMultipleRouterProvider",
  *     },
  *   },
  *   base_table = "bibcite_keyword",
@@ -45,6 +46,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "edit-form" = "/bibcite/keyword/{bibcite_keyword}/edit",
  *     "delete-form" = "/bibcite/keyword/{bibcite_keyword}/delete",
  *     "add-form" = "/admin/content/bibcite/keyword/add",
+ *     "delete-multiple-form" = "/admin/content/bibcite/keyword/delete",
  *     "collection" = "/admin/content/bibcite/keyword",
  *   },
  * )

@@ -32,6 +32,7 @@ use Drupal\user\UserInterface;
  *     "access" = "Drupal\bibcite_entity\ReferenceAccessControlHandler",
  *     "route_provider" = {
  *       "html" = "Drupal\bibcite_entity\ReferenceHtmlRouteProvider",
+ *       "delete-multiple" = "Drupal\bibcite_entity\DeleteMultipleRouterProvider",
  *     },
  *   },
  *   base_table = "bibcite_reference",
@@ -53,6 +54,7 @@ use Drupal\user\UserInterface;
  *     "delete-form" = "/bibcite/reference/{bibcite_reference}/delete",
  *     "add-page" = "/admin/content/bibcite/reference/add",
  *     "add-form" = "/admin/content/bibcite/reference/add/{bibcite_reference_type}",
+ *     "delete-multiple-form" = "/admin/content/bibcite/reference/delete",
  *     "collection" = "/admin/content/bibcite/reference",
  *   },
  * )
