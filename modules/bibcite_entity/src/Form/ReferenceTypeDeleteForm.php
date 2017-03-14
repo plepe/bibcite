@@ -22,7 +22,7 @@ class ReferenceTypeDeleteForm extends EntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getCancelUrl() {
-    return new Url('entity.reference_type.collection');
+    return new Url('entity.bibcite_reference_type.collection');
   }
 
   /**
