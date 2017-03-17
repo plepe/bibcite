@@ -78,3 +78,20 @@ function bibcite_entity_update_8003() {
   $storage = new FileStorage($path);
   $installer->installOptionalConfig($storage);
 }
+
+/**
+ * Enable "Override default properties" in reference types and enable UI overrides.
+ */
+function bibcite_entity_update_8004() {
+  $config_factory = \Drupal::configFactory();
+  foreach ($config_factory->listAll('bibcite_entity.bibcite_reference_type') as $config_name) {
+    $config = $config_factory->getEditable($config_name);
+    $config->set('override', TRUE);
+    $config->save(TRUE);
+  }
+
+  $config = $config_factory->getEditable('bibcite_entity.reference.settings');
+  $config->set('ui_override.enable_form_override', TRUE);
+  $config->set('display_override.enable_display_override', TRUE);
+  $config->save();
+}

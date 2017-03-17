@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: software
 label: Software
+override: true
 fields:
   bibcite_secondary_title:
     visible: true

@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: web_article
 label: 'Web Article'
+override: true
 fields:
   bibcite_secondary_title:
     visible: true

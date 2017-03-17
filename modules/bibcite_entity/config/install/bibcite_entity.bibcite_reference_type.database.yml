@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: database
 label: Database
+override: true
 fields:
   bibcite_secondary_title:
     visible: false

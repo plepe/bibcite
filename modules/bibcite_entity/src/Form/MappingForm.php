@@ -137,7 +137,7 @@ class MappingForm extends FormBase {
    *   Array of fields options.
    */
   protected function getReferenceFieldOptions() {
-    $fields = $this->entityFieldManager->getFieldDefinitions('bibcite_reference', 'bibcite_reference');
+    $fields = $this->entityFieldManager->getBaseFieldDefinitions('bibcite_reference');
 
     $excluded_fields = [
       'id',

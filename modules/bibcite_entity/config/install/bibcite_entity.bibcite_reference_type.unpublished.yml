@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: unpublished
 label: Unpublished
+override: true
 fields:
   bibcite_secondary_title:
     visible: true

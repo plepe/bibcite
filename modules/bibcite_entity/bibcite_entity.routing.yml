@@ -6,6 +6,14 @@ bibcite_entity.contributor.settings:
   requirements:
     _permission: 'administer bibcite'
 
+bibcite_entity.reference.settings:
+  path: '/admin/config/bibcite/settings/reference/settings'
+  defaults:
+    _form: '\Drupal\bibcite_entity\Form\ReferenceSettings'
+    _title: 'Settings'
+  requirements:
+    _permission: 'administer bibcite'
+
 bibcite_entity.mapping:
   path: '/admin/config/bibcite/settings/mapping/{bibcite_format}'
   defaults:

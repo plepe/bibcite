@@ -72,13 +72,18 @@ entity.bibcite_keyword.collection:
 
 # Admin routing definition
 bibcite_entity.reference:
-  route_name: entity.bibcite_reference_type.collection
+  route_name: bibcite_entity.reference.settings
   title: 'Reference'
   base_route: bibcite.settings
 
+bibcite_entity.reference.settings:
+  route_name: bibcite_entity.reference.settings
+  title: 'Settings'
+  parent_id: bibcite_entity.reference
+
 bibcite_entity.reference.types:
   route_name: entity.bibcite_reference_type.collection
-  title: 'Reference types'
+  title: 'Types'
   parent_id: bibcite_entity.reference
 
 bibcite_entity.contributor:

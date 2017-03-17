@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: web_service
 label: 'Web service'
+override: true
 fields:
   bibcite_secondary_title:
     visible: false

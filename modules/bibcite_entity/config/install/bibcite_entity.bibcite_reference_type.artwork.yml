@@ -2,6 +2,7 @@ id: artwork
 status: true
 dependencies: {  }
 label: Artwork
+override: true
 fields:
   bibcite_secondary_title:
     visible: false

@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: presentation
 label: Presentation
+override: true
 fields:
   bibcite_secondary_title:
     visible: false

@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: miscellaneous_section
 label: 'Miscellaneous Section'
+override: true
 fields:
   bibcite_secondary_title:
     visible: false

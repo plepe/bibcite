@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: newspaper_article
 label: 'Newspaper Article'
+override: true
 fields:
   bibcite_secondary_title:
     visible: true

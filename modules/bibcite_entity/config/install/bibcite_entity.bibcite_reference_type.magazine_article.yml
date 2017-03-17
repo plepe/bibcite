@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: magazine_article
 label: 'Magazine Article'
+override: true
 fields:
   bibcite_secondary_title:
     visible: true

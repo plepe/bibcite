@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: patent
 label: Patent
+override: true
 fields:
   bibcite_secondary_title:
     visible: true

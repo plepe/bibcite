@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: bill
 label: Bill
+override: true
 fields:
   bibcite_secondary_title:
     visible: true

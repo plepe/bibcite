@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: website
 label: Website
+override: true
 fields:
   bibcite_secondary_title:
     visible: false

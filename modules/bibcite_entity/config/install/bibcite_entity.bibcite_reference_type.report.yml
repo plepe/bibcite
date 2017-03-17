@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: report
 label: Report
+override: true
 fields:
   bibcite_secondary_title:
     visible: true

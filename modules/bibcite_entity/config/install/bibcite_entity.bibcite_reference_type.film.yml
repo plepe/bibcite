@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: film
 label: Film
+override: true
 fields:
   bibcite_secondary_title:
     visible: true

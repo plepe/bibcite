@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: legal_ruling
 label: 'Legal Ruling'
+override: true
 fields:
   bibcite_secondary_title:
     visible: false

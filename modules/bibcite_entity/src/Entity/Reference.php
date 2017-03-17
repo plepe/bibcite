@@ -37,7 +37,6 @@ use Drupal\user\UserInterface;
  *   },
  *   base_table = "bibcite_reference",
  *   admin_permission = "administer bibcite_reference entities",
- *   fieldable = FALSE,
  *   entity_keys = {
  *     "id" = "id",
  *     "bundle" = "type",
@@ -57,6 +56,7 @@ use Drupal\user\UserInterface;
  *     "delete-multiple-form" = "/admin/content/bibcite/reference/delete",
  *     "collection" = "/admin/content/bibcite/reference",
  *   },
+ *   field_ui_base_route = "entity.bibcite_reference_type.edit_form",
  * )
  */
 class Reference extends ContentEntityBase implements ReferenceInterface {
@@ -139,14 +139,15 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
     $fields['title'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Title'))
       ->setDescription(t('The title of the Reference.'))
-      ->setSettings([
-        'text_processing' => 0,
-      ])
-      ->setDefaultValue('')
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => 2,
-      ]);
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setSettings([
+        'text_processing' => 0,
+      ])
+      ->setDefaultValue('');
 
     $fields['uid'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Authored by'))
@@ -161,7 +162,9 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
           'size' => '60',
           'placeholder' => '',
         ],
-      ]);
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['author'] = BaseFieldDefinition::create('bibcite_contributor')
       ->setLabel(t('Author'))
@@ -173,18 +176,17 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
       ->setDisplayOptions('view', [
         'type' => 'bibcite_contributor_label',
         'weight' => 3,
-      ]);
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['keywords'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Keywords'))
       ->setSetting('target_type', 'bibcite_keyword')
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
-      ->setSettings([
-        'handler' => 'default:bibcite_keyword',
-        'handler_settings' => [
-          'target_bundles' => ['bibcite_keyword'],
-          'auto_create' => TRUE,
-        ],
+      ->setDisplayOptions('view', [
+        'type' => 'entity_reference_label',
+        'weight' => 4,
       ])
       ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete_tags',
@@ -195,9 +197,14 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
           'placeholder' => '',
         ],
       ])
-      ->setDisplayOptions('view', [
-        'type' => 'entity_reference_label',
-        'weight' => 4,
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setSettings([
+        'handler' => 'default:bibcite_keyword',
+        'handler_settings' => [
+          'target_bundles' => ['bibcite_keyword'],
+          'auto_create' => TRUE,
+        ],
       ]);
 
     /*
@@ -210,7 +217,6 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
       $weight++;
       return BaseFieldDefinition::create('string')
         ->setLabel($label)
-        ->setDefaultValue('')
         ->setDisplayOptions('view', [
           'label' => 'above',
           'type' => 'string',
@@ -219,22 +225,27 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
         ->setDisplayOptions('form', [
           'type' => 'string_textfield',
           'weight' => $weight,
-        ]);
+        ])
+        ->setDisplayConfigurable('form', TRUE)
+        ->setDisplayConfigurable('view', TRUE)
+        ->setDefaultValue('');
     };
 
     $default_integer = function ($label) use (&$weight) {
       $weight++;
       return BaseFieldDefinition::create('integer')
         ->setLabel($label)
-        ->setDefaultValue(NULL)
+        ->setDisplayOptions('view', [
+          'type' => 'number_integer',
+          'weight' => $weight,
+        ])
         ->setDisplayOptions('form', [
           'type' => 'number',
           'weight' => $weight,
         ])
-        ->setDisplayOptions('view', [
-          'type' => 'number_integer',
-          'weight' => $weight,
-        ]);
+        ->setDisplayConfigurable('form', TRUE)
+        ->setDisplayConfigurable('view', TRUE)
+        ->setDefaultValue(NULL);
     };
 
     $default_string_long = function ($label, $rows = 1) use (&$weight) {
@@ -251,7 +262,9 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
             'rows' => $rows,
           ],
           'weight' => $weight,
-        ]);
+        ])
+        ->setDisplayConfigurable('form', TRUE)
+        ->setDisplayConfigurable('view', TRUE);
     };
 
     /*

@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: conference_paper
 label: 'Conference Paper'
+override: true
 fields:
   bibcite_secondary_title:
     visible: true

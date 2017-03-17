@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: statute
 label: Statute
+override: true
 fields:
   bibcite_secondary_title:
     visible: true

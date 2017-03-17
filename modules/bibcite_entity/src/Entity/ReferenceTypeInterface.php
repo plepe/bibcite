@@ -28,4 +28,11 @@ interface ReferenceTypeInterface extends ConfigEntityInterface {
    */
   public function setFields(array $fields);
 
+  /**
+   * Check if properties should be overridden for this type.
+   *
+   * @return mixed
+   */
+  public function isRequiredOverride();
+
 }

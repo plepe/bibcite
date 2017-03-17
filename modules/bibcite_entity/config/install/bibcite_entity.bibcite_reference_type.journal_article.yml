@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: journal_article
 label: 'Journal Article'
+override: true
 fields:
   bibcite_secondary_title:
     visible: true

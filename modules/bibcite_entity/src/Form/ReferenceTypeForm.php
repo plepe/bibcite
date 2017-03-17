@@ -37,7 +37,22 @@ class ReferenceTypeForm extends EntityForm {
       '#disabled' => !$reference_type->isNew(),
     ];
 
-    $form['fields'] = [
+    $form['override'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Override default properties'),
+      '#default_value' => $reference_type->isRequiredOverride(),
+    ];
+
+    $form['overrides'] = [
+      '#type' => 'container',
+      '#states' => [
+        'visible' => [
+          [':input[name="override"]' => ['checked' => TRUE]],
+        ],
+      ],
+    ];
+
+    $form['overrides']['fields'] = [
       '#type' => 'table',
       '#header' => [
         $this->t('Field name'),
@@ -61,7 +76,7 @@ class ReferenceTypeForm extends EntityForm {
     ];
 
     $fields_configuration = $reference_type->getFields();
-    $fields = \Drupal::service('entity_field.manager')->getFieldDefinitions('bibcite_reference', 'bibcite_reference');
+    $fields = \Drupal::service('entity_field.manager')->getBaseFieldDefinitions('bibcite_reference', 'bibcite_reference');
     /** @var \Drupal\Core\Field\FieldDefinitionInterface $field */
     foreach ($fields as $field) {
       $field_name = $field->getName();
@@ -73,7 +88,7 @@ class ReferenceTypeForm extends EntityForm {
         ? $fields_configuration[$field_name]
         : [];
 
-      $form['fields'][$field_name] = [
+      $form['overrides']['fields'][$field_name] = [
         'name' => [
           '#markup' => new FormattableMarkup('@label (@name)', [
             '@label' => $field->getLabel(),

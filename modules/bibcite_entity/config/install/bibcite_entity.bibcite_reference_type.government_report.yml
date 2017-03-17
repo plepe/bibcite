@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: government_report
 label: 'Government Report'
+override: true
 fields:
   bibcite_secondary_title:
     visible: false

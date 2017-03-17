@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: map
 label: Map
+override: true
 fields:
   bibcite_secondary_title:
     visible: true

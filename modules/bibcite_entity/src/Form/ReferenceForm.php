@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite_entity\Form;
 
-use Drupal\bibcite_entity\BibciteEntityFormOverrider;
 use Drupal\bibcite_entity\Entity\ReferenceInterface;
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Entity\EntityManagerInterface;
@@ -40,23 +39,6 @@ class ReferenceForm extends ContentEntityForm {
       $container->get('entity.manager'),
       $container->get('user.private_tempstore')->get('bibcite_entity_populate')
     );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function form(array $form, FormStateInterface $form_state) {
-    $form = parent::form($form, $form_state);
-
-    /*
-     * @todo
-     * This is a temporary solution.
-     * Should be replaces by default fields mechanism in the next major release.
-     */
-    $form['#process'][] = [BibciteEntityFormOverrider::class, 'staticReferenceFieldsOverride'];
-    $form['#process'][] = [BibciteEntityFormOverrider::class, 'staticReferenceRestructure'];
-
-    return $form;
   }
 
   /**

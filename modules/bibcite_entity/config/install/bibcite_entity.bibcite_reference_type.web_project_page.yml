@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: web_project_page
 label: 'Web project page'
+override: true
 fields:
   bibcite_secondary_title:
     visible: false

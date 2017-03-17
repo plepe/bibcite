@@ -3,6 +3,7 @@ status: true
 dependencies: {  }
 id: broadcast
 label: Broadcast
+override: true
 fields:
   bibcite_secondary_title:
     visible: false
