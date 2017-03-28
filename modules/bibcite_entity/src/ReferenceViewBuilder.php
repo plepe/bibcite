@@ -55,6 +55,23 @@ class ReferenceViewBuilder extends EntityViewBuilder {
     );
   }
 
+  public function buildComponents(array &$build, array $entities, array $displays, $view_mode) {
+    parent::buildComponents($build, $entities, $displays, $view_mode);
+
+    foreach ($entities as $id => $entity) {
+      $bundle = $entity->bundle();
+      $display = $displays[$bundle];
+
+      if ($display->getComponent('citation')) {
+        $build[$id]['citation'] = [
+          '#theme' => 'bibcite_citation',
+          '#data' => $this->serializer->normalize($entity, 'csl'),
+          '#entity' => $entity,
+        ];
+      }
+    }
+  }
+
   /**
    * {@inheritdoc}
    */

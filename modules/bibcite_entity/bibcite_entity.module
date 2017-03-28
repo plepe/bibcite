@@ -77,6 +77,24 @@ function bibcite_entity_preprocess_bibcite_keyword(array &$variables) {
 }
 
 /**
+ * Implements hook_entity_extra_field_info().
+ */
+function bibcite_entity_entity_extra_field_info() {
+  $extra = [];
+
+  $storage = \Drupal::entityTypeManager()->getStorage('bibcite_reference_type');
+  foreach ($storage->loadMultiple() as $bundle) {
+    $extra['bibcite_reference'][$bundle->id()]['display']['citation'] = [
+      'label' => t('Citation'),
+      'description' => t('Reference rendered as citation'),
+      'weight' => 100,
+    ];
+  }
+
+  return $extra;
+}
+
+/**
  * Implements hook_form_bibcite_reference_form_alter().
  *
  * Override reference entity fields attributes and regroups them.
