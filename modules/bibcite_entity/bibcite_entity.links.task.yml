@@ -120,3 +120,8 @@ bibcite_entity.mapping.format:
   route_name: bibcite_entity.mapping
   parent_id: bibcite_entity.mapping
   deriver: '\Drupal\bibcite_entity\Plugin\Derivative\FormatLocalTask'
+
+bibcite_entity.merge:
+  deriver: 'Drupal\bibcite_entity\Plugin\Derivative\MergeLocalTask'
+  title: 'Merge'
+  weight: 10

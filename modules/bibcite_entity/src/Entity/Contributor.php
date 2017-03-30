@@ -31,6 +31,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "route_provider" = {
  *       "html" = "Drupal\bibcite_entity\ContributorHtmlRouteProvider",
  *       "delete-multiple" = "Drupal\bibcite_entity\DeleteMultipleRouterProvider",
+ *       "merge" = "Drupal\bibcite_entity\MergeRouteProvider",
  *     },
  *   },
  *   base_table = "bibcite_contributor",
@@ -45,7 +46,9 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "canonical" = "/bibcite/contributor/{bibcite_contributor}",
  *     "edit-form" = "/bibcite/contributor/{bibcite_contributor}/edit",
  *     "delete-form" = "/bibcite/contributor/{bibcite_contributor}/delete",
+ *     "bibcite-merge-form" = "/bibcite/contributor/{bibcite_contributor}/merge",
  *     "add-form" = "/admin/content/bibcite/contributor/add",
+ *     "bibcite-merge-multiple-form" = "/admin/content/bibcite/contributor/merge",
  *     "delete-multiple-form" = "/admin/content/bibcite/contributor/delete",
  *     "collection" = "/admin/content/bibcite/contributor",
  *   },

@@ -30,6 +30,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "route_provider" = {
  *       "html" = "Drupal\bibcite_entity\KeywordHtmlRouteProvider",
  *       "delete-multiple" = "Drupal\bibcite_entity\DeleteMultipleRouterProvider",
+ *       "merge" = "Drupal\bibcite_entity\MergeRouteProvider",
  *     },
  *   },
  *   base_table = "bibcite_keyword",
@@ -45,7 +46,9 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "canonical" = "/bibcite/keyword/{bibcite_keyword}",
  *     "edit-form" = "/bibcite/keyword/{bibcite_keyword}/edit",
  *     "delete-form" = "/bibcite/keyword/{bibcite_keyword}/delete",
+ *     "bibcite-merge-form" = "/bibcite/keyword/{bibcite_keyword}/merge",
  *     "add-form" = "/admin/content/bibcite/keyword/add",
+ *     "bibcite-merge-multiple-form" = "/admin/content/bibcite/keyword/merge",
  *     "delete-multiple-form" = "/admin/content/bibcite/keyword/delete",
  *     "collection" = "/admin/content/bibcite/keyword",
  *   },
