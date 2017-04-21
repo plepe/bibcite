@@ -355,12 +355,17 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
    *
    * @return array
    *   Array of decoded values with converted keys.
+   *
+   * @todo This is a temporary solution. Normalizers and encodes must be revisited to avoid this dirty hack.
    */
-  protected function convertKeys($data) {
+  protected function convertKeys(array $data) {
     $converted = [];
+
+    $system = ['type', 'author', 'keyword'];
+
     foreach ($data as $key => $field) {
       if (!empty($this->fieldsMapping[$key])) {
-        $converted[$this->fieldsMapping[$key]] = $field;
+        $converted[$this->fieldsMapping[$key]] = !in_array($key, $system) ? [$field] : $field;
       }
     }
 
