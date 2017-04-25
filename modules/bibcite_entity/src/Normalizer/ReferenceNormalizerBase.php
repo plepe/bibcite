@@ -362,10 +362,9 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
     $converted = [];
 
     $system = ['type', 'author', 'keyword'];
-
     foreach ($data as $key => $field) {
       if (!empty($this->fieldsMapping[$key])) {
-        $converted[$this->fieldsMapping[$key]] = !in_array($key, $system) ? [$field] : $field;
+        $converted[$this->fieldsMapping[$key]] = !in_array($this->fieldsMapping[$key], $system) ? [$field] : $field;
       }
     }
 
