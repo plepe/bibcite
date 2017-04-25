@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite_import\Form;
 
-
 use Drupal\bibcite\Plugin\BibciteFormatManagerInterface;
 use Drupal\bibcite_entity\Entity\Reference;
 use Drupal\Core\Form\FormBase;

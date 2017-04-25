@@ -28,4 +28,3 @@ entity.bibcite_contributor_category.add_form:
   title: 'Add Contributor category'
   appears_on:
     - entity.bibcite_contributor_category.collection
-

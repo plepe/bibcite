@@ -2,11 +2,15 @@
 
 namespace Drupal\bibcite_ris\EventSubscriber;
 
-
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
+/**
+ * Class RisSubscriber.
+ *
+ * @todo Better class phpdoc.
+ */
 class RisSubscriber implements EventSubscriberInterface {
 
   /**

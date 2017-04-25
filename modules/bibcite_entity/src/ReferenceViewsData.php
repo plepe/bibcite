@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite_entity;
 
-
 use Drupal\views\EntityViewsData;
 
 /**

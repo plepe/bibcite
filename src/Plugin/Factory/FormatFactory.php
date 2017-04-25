@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite\Plugin\Factory;
 
-
 use Drupal\Core\Plugin\Factory\ContainerFactory;
 
 /**

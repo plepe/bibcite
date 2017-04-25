@@ -40,7 +40,7 @@ class ImportBasicTest extends KernelTestBase {
   /**
    * Serializer service.
    *
-   * @var \Symfony\Component\Serializer\SerializerInterface
+   * @var \Symfony\Component\Serializer\Serializer
    */
   protected $serializer;
 

@@ -28,7 +28,7 @@ class BibtexEncoder implements EncoderInterface, DecoderInterface {
   /**
    * {@inheritdoc}
    */
-  public function decode($data, $format, array $context = array()) {
+  public function decode($data, $format, array $context = []) {
     $parsed = BibtexParser::parse_string($data);
 
     $this->processEntries($parsed);
@@ -49,7 +49,7 @@ class BibtexEncoder implements EncoderInterface, DecoderInterface {
       }
 
       if (!empty($entry['keywords'])) {
-        $entry['keywords'] = array_map(function($keyword) {
+        $entry['keywords'] = array_map(function ($keyword) {
           return trim($keyword);
         }, explode(',', $entry['keywords']));
       }
@@ -66,12 +66,12 @@ class BibtexEncoder implements EncoderInterface, DecoderInterface {
   /**
    * {@inheritdoc}
    */
-  public function encode($data, $format, array $context = array()) {
+  public function encode($data, $format, array $context = []) {
     if (isset($data['type'])) {
       $data = [$data];
     }
 
-    $data = array_map(function($raw) {
+    $data = array_map(function ($raw) {
       return $this->buildEntry($raw);
     }, $data);
 
@@ -126,7 +126,7 @@ class BibtexEncoder implements EncoderInterface, DecoderInterface {
    *
    * @param string $key
    *   Line key.
-   * @param string $value
+   * @param string|array $value
    *   Line value.
    *
    * @return string

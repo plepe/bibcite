@@ -171,10 +171,10 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
     $fields['prefix'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Prefix'))
       ->setDefaultValue('')
-      ->setDisplayOptions('form', array(
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => 1,
-      ))
+      ])
       ->setDisplayOptions('view', [
         'label' => 'inline',
         'type' => 'string',
@@ -184,10 +184,10 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
     $fields['first_name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('First name'))
       ->setDefaultValue('')
-      ->setDisplayOptions('form', array(
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => 2,
-      ))
+      ])
       ->setDisplayOptions('view', [
         'label' => 'inline',
         'type' => 'string',
@@ -198,10 +198,10 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
       ->setLabel(t('Last name'))
       ->setDefaultValue('')
       ->setRequired(TRUE)
-      ->setDisplayOptions('form', array(
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => 3,
-      ))
+      ])
       ->setDisplayOptions('view', [
         'label' => 'inline',
         'type' => 'string',
@@ -211,10 +211,10 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
     $fields['suffix'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Suffix'))
       ->setDefaultValue('')
-      ->setDisplayOptions('form', array(
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => 4,
-      ))
+      ])
       ->setDisplayOptions('view', [
         'label' => 'inline',
         'type' => 'string',

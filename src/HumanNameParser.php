@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite;
 
-
 use HumanNameParser\Parser;
 
 /**

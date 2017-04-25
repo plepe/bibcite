@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite_export\Plugin\Action;
 
-
 use Drupal\bibcite\Plugin\BibciteFormatManagerInterface;
 use Drupal\Core\Action\ActionBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;

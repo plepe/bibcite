@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Batch callbacks.
@@ -19,7 +20,7 @@ use Drupal\file\Entity\File;
  * @param array $context
  *   The batch context array.
  */
-function bibcite_export_batch_list(array $id_list, $entity_type, BibciteFormatInterface $format, &$context) {
+function bibcite_export_batch_list(array $id_list, $entity_type, BibciteFormatInterface $format, array &$context) {
   $storage = \Drupal::entityTypeManager()->getStorage($entity_type);
   $serializer = \Drupal::service('serializer');
 
@@ -57,7 +58,7 @@ function bibcite_export_batch_list(array $id_list, $entity_type, BibciteFormatIn
  * @param array $context
  *   The batch context array.
  */
-function bibcite_export_batch_all($entity_type, BibciteFormatInterface $format, &$context) {
+function bibcite_export_batch_all($entity_type, BibciteFormatInterface $format, array &$context) {
   $storage = \Drupal::entityTypeManager()->getStorage($entity_type);
   $serializer = \Drupal::service('serializer');
 

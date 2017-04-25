@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite\Routing;
 
-
 use Drupal\bibcite\Plugin\BibciteFormatManagerInterface;
 use Drupal\Core\ParamConverter\ParamConverterInterface;
 use Symfony\Component\Routing\Route;

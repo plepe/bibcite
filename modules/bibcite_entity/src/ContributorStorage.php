@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite_entity;
 
-
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
 

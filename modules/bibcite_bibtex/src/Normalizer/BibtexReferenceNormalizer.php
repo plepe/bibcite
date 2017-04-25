@@ -37,7 +37,7 @@ class BibtexReferenceNormalizer extends ReferenceNormalizerBase {
   /**
    * {@inheritdoc}
    */
-  public function normalize($reference, $format = NULL, array $context = array()) {
+  public function normalize($reference, $format = NULL, array $context = []) {
     /** @var \Drupal\bibcite_entity\Entity\ReferenceInterface $reference */
 
     $attributes = [];

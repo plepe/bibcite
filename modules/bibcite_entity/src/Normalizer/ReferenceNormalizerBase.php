@@ -81,6 +81,8 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
    *
    * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
    *   The entity manager.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   Config factory.
    */
   public function __construct(EntityManagerInterface $entity_manager, ConfigFactoryInterface $config_factory) {
     parent::__construct($entity_manager);

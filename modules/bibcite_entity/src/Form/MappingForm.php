@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite_entity\Form;
 
-
 use Drupal\bibcite\Plugin\BibciteFormatInterface;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -147,7 +146,7 @@ class MappingForm extends FormBase {
       'changed',
     ];
 
-    return array_map(function($field) {
+    return array_map(function ($field) {
       /** @var \Drupal\Core\Field\FieldDefinitionInterface $field */
       return $field->getLabel();
     }, array_diff_key($fields, array_flip($excluded_fields)));
@@ -163,7 +162,7 @@ class MappingForm extends FormBase {
     $storage = $this->entityTypeManager->getStorage('bibcite_reference_type');
     $entities = $storage->loadMultiple();
 
-    return array_map(function($entity) {
+    return array_map(function ($entity) {
       /** @var \Drupal\bibcite_entity\Entity\ReferenceInterface $entity */
       return $entity->label();
     }, $entities);
@@ -173,12 +172,12 @@ class MappingForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $types = array_map(function($type_values) {
+    $types = array_map(function ($type_values) {
       return $type_values['entity'];
     }, $form_state->getValue('types'));
     $this->config->set('types', $types);
 
-    $fields = array_map(function($field_values) {
+    $fields = array_map(function ($field_values) {
       return $field_values['entity'];
     }, $form_state->getValue('fields'));
     $this->config->set('fields', $fields);

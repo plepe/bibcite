@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite_export\Form;
 
-
 use Drupal\bibcite\Plugin\BibciteFormatManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -62,7 +61,7 @@ class ExportAllForm extends FormBase {
     $form['format'] = [
       '#title' => $this->t('Export format'),
       '#type' => 'select',
-      '#options' => array_map(function($format) {
+      '#options' => array_map(function ($format) {
         return $format['label'];
       }, $this->formatManager->getExportDefinitions()),
       '#required' => TRUE,

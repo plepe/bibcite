@@ -19,7 +19,7 @@ interface BibCiteProcessorInterface extends PluginInspectionInterface {
    * @param string $lang
    *   Citation language.
    *
-   * @return string Rendered citation.
+   * @return string
    *   Rendered citation.
    */
   public function render($data, $csl, $lang);

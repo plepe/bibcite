@@ -4,8 +4,6 @@ namespace Drupal\bibcite;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\Core\Entity\EntityTypeInterface;
 
 /**
  * Provides a listing of CSL style entities.

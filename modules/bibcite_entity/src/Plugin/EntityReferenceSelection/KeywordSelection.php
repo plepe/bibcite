@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite_entity\Plugin\EntityReferenceSelection;
 
-
 use Drupal\Core\Entity\Plugin\EntityReferenceSelection\DefaultSelection;
 
 /**

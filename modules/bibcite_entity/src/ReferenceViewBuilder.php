@@ -55,6 +55,9 @@ class ReferenceViewBuilder extends EntityViewBuilder {
     );
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function buildComponents(array &$build, array $entities, array $displays, $view_mode) {
     parent::buildComponents($build, $entities, $displays, $view_mode);
 

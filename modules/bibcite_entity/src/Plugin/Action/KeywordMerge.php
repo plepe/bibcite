@@ -13,4 +13,5 @@ namespace Drupal\bibcite_entity\Plugin\Action;
  * )
  */
 class KeywordMerge extends EntityMergeBase {
+
 }

@@ -91,10 +91,10 @@ class ContributorWidget extends EntityReferenceAutocompleteWidget implements Con
     $element['#attributes']['class'][] = 'container-inline';
 
     $entity = $items->getEntity();
-    $element['target_id']['#autocreate'] = array(
+    $element['target_id']['#autocreate'] = [
       'bundle' => 'bibcite_contributor',
       'uid' => ($entity instanceof EntityOwnerInterface) ? $entity->getOwnerId() : \Drupal::currentUser()->id(),
-    );
+    ];
 
     return $element;
   }
@@ -109,7 +109,7 @@ class ContributorWidget extends EntityReferenceAutocompleteWidget implements Con
     $entities = $this->entityTypeManager->getStorage('bibcite_contributor_category')->loadMultiple();
     uasort($entities, [$this, 'sortWeightOptions']);
 
-    return array_map(function($entity) {
+    return array_map(function ($entity) {
       /** @var \Drupal\Core\Entity\EntityInterface $entity */
       return $entity->label();
     }, $entities);
@@ -125,7 +125,7 @@ class ContributorWidget extends EntityReferenceAutocompleteWidget implements Con
     $entities = $this->entityTypeManager->getStorage('bibcite_contributor_role')->loadMultiple();
     uasort($entities, [$this, 'sortWeightOptions']);
 
-    return array_map(function($entity) {
+    return array_map(function ($entity) {
       /** @var \Drupal\Core\Entity\EntityInterface $entity */
       return $entity->label();
     }, $entities);

@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite_entity\Form;
 
-
 use Drupal\bibcite\Plugin\BibciteFormat;
 use Drupal\Core\Form\FormStateInterface;
 
@@ -14,7 +13,7 @@ class CslMappingForm extends MappingForm {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state, $bibcite_format = NULL) {
     $definition = [
       'id' => 'csl',
       'label' => $this->t('CSL'),

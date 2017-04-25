@@ -104,15 +104,15 @@ class Keyword extends ContentEntityBase implements KeywordInterface {
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
       ->setDescription(t('The value of the Keyword.'))
-      ->setSettings(array(
+      ->setSettings([
         'max_length' => 255,
         'text_processing' => 0,
-      ))
+      ])
       ->setDefaultValue('')
-      ->setDisplayOptions('form', array(
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => -4,
-      ))
+      ])
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',

@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite\Form;
 
-
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 

@@ -61,7 +61,7 @@ class SettingsForm extends ConfigFormBase {
     $config = $this->config('bibcite.settings');
 
     $processor_definitions = $this->styler->getAvailableProcessors();
-    $processor_options = array_map(function($definition) {
+    $processor_options = array_map(function ($definition) {
       return $definition['label'];
     }, $processor_definitions);
 
@@ -73,7 +73,7 @@ class SettingsForm extends ConfigFormBase {
     ];
 
     $csl_styles = $this->styler->getAvailableStyles();
-    $styles_options = array_map(function($entity) {
+    $styles_options = array_map(function ($entity) {
       /** @var \Drupal\bibcite\Entity\CslStyleInterface $entity */
       return $entity->label();
     }, $csl_styles);

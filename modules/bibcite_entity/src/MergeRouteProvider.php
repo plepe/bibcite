@@ -59,6 +59,15 @@ class MergeRouteProvider implements EntityRouteProviderInterface {
     return $routes;
   }
 
+  /**
+   * Get route for merge.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
+   *   Entity type.
+   *
+   * @return \Symfony\Component\Routing\Route
+   *   Merge route definition.
+   */
   protected function getMergeRoute(EntityTypeInterface $entity_type) {
     $link_template = $entity_type->getLinkTemplate('bibcite-merge-form');
     $entity_type_id = $entity_type->id();
@@ -77,6 +86,15 @@ class MergeRouteProvider implements EntityRouteProviderInterface {
     return $route;
   }
 
+  /**
+   * Get route for merge confirm.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
+   *   Entity type.
+   *
+   * @return \Symfony\Component\Routing\Route
+   *   Merge confirm route definition.
+   */
   protected function getMergeConfirmRoute(EntityTypeInterface $entity_type) {
     $link_template = $entity_type->getLinkTemplate('bibcite-merge-form');
     $entity_type_id = $entity_type->id();
@@ -96,6 +114,15 @@ class MergeRouteProvider implements EntityRouteProviderInterface {
     return $route;
   }
 
+  /**
+   * Get route for multiple merge.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
+   *   Entity type.
+   *
+   * @return \Symfony\Component\Routing\Route
+   *   Multiple merge route definition.
+   */
   protected function getMergeMultipleRoute(EntityTypeInterface $entity_type) {
     $link_template = $entity_type->getLinkTemplate('bibcite-merge-multiple-form');
     $entity_type_id = $entity_type->id();
@@ -111,7 +138,17 @@ class MergeRouteProvider implements EntityRouteProviderInterface {
     return $route;
   }
 
+  /**
+   * Get route for multiple merge confirm.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
+   *   Entity type.
+   *
+   * @return null
+   *   Nothing.
+   */
   protected function getMergeMultipleConfirmRoute(EntityTypeInterface $entity_type) {
+    // @todo What was supposed to be returned here?
     return NULL;
   }
 

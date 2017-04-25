@@ -28,7 +28,7 @@ class RISEncoder implements EncoderInterface, DecoderInterface {
   /**
    * {@inheritdoc}
    */
-  public function decode($data, $format, array $context = array()) {
+  public function decode($data, $format, array $context = []) {
     /*
      * Workaround for weird behavior of "LibRIS" library.
      *
@@ -62,12 +62,12 @@ class RISEncoder implements EncoderInterface, DecoderInterface {
   /**
    * {@inheritdoc}
    */
-  public function encode($data, $format, array $context = array()) {
+  public function encode($data, $format, array $context = []) {
     if (isset($data['TY'])) {
       $data = [$data];
     }
 
-    $data = array_map(function($raw) {
+    $data = array_map(function ($raw) {
       return $this->buildEntry($raw);
     }, $data);
 

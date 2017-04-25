@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite\Plugin;
 
-
 use Drupal\Core\Plugin\PluginBase;
 use Symfony\Component\Serializer\Encoder\DecoderInterface;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;

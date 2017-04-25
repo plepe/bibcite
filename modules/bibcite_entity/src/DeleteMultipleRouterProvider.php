@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite_entity;
 
-
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\Routing\EntityRouteProviderInterface;
 use Symfony\Component\Routing\Route;

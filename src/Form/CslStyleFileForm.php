@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite\Form;
 
-
 use Drupal\bibcite\Csl;
 use Drupal\Core\Form\FormStateInterface;
 

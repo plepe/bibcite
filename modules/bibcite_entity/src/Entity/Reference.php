@@ -213,7 +213,7 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
 
     $weight = 5;
 
-    $default_string = function($label) use (&$weight) {
+    $default_string = function ($label) use (&$weight) {
       $weight++;
       return BaseFieldDefinition::create('string')
         ->setLabel($label)

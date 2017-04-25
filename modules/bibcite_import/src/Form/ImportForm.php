@@ -23,7 +23,7 @@ class ImportForm extends FormBase {
   /**
    * Serializer service.
    *
-   * @var \Symfony\Component\Serializer\SerializerInterface
+   * @var \Symfony\Component\Serializer\Serializer
    */
   protected $serializer;
 
@@ -69,7 +69,7 @@ class ImportForm extends FormBase {
     $form['format'] = [
       '#type' => 'select',
       '#title' => $this->t('Format'),
-      '#options' => array_map(function($definition) {
+      '#options' => array_map(function ($definition) {
         return $definition['label'];
       }, $this->formatManager->getImportDefinitions()),
     ];

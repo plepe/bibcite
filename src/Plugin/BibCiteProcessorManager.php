@@ -11,7 +11,6 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
  */
 class BibCiteProcessorManager extends DefaultPluginManager {
 
-
   /**
    * Constructor for BibCiteProcessorManager objects.
    *

@@ -75,7 +75,7 @@ class BibciteFormatManager extends DefaultPluginManager implements BibciteFormat
   protected function filterDefinitionsBySubclass($subclass) {
     $definitions = $this->getDefinitions();
 
-    return array_filter($definitions, function($definition) use ($subclass) {
+    return array_filter($definitions, function ($definition) use ($subclass) {
       return is_subclass_of($definition['encoder'], $subclass);
     });
   }

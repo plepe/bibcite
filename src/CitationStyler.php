@@ -180,6 +180,7 @@ class CitationStyler implements CitationStylerInterface {
    * {@inheritdoc}
    */
   public function setLanguageCode($lang_code) {
+    // @todo M? $this->langCode maybe?
     $this->lang = $lang_code;
     return $this;
   }

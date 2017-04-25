@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite_export\Form;
 
-
 use Drupal\bibcite\Plugin\BibciteFormatManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
@@ -73,7 +72,7 @@ class ExportSettingsForm extends ConfigFormBase {
     $form['enabled_formats'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Enabled export formats'),
-      '#options' => array_map(function($definition) {
+      '#options' => array_map(function ($definition) {
         return $definition['label'];
       }, $this->formatManager->getExportDefinitions()),
       '#default_value' => $config->get('enabled_formats'),

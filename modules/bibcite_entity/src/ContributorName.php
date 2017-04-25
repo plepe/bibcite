@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite_entity;
 
-
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;

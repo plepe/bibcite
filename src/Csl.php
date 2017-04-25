@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite;
 
-
 /**
  * Simple wrapper for CSL XML.
  */

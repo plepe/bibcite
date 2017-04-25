@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Drupal\Tests\bibcite_entity\Kernel;
-
 
 use Drupal\bibcite_entity\Entity\Reference;
 use Drupal\KernelTests\KernelTestBase;
@@ -33,7 +31,7 @@ class EntityCitationRenderTest extends KernelTestBase {
   /**
    * Serializer service.
    *
-   * @var \Symfony\Component\Serializer\SerializerInterface
+   * @var \Symfony\Component\Serializer\Serializer
    */
   protected $serializer;
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Module hook.
@@ -53,7 +54,7 @@ function bibcite_export_preprocess_bibcite_reference_table(&$variables) {
  * @return array
  *   Array of export links.
  */
-function bibcite_export_create_export_links(EntityInterface $entity, $formats) {
+function bibcite_export_create_export_links(EntityInterface $entity, array $formats) {
   /** @var \Drupal\bibcite\Plugin\BibciteFormatManagerInterface $manager */
   $manager = \Drupal::service('plugin.manager.bibcite_format');
   $definitions = $manager->getExportDefinitions();

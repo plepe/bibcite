@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite_entity\Plugin\Derivative;
 
-
 use Drupal\bibcite\Plugin\BibciteFormatManagerInterface;
 use Drupal\Component\Plugin\Derivative\DeriverBase;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Batch functions.
@@ -17,7 +18,7 @@ use Drupal\bibcite\Plugin\BibciteFormatInterface;
  * @param array $context
  *   The batch context array, passed by reference.
  */
-function bibcite_import_batch_callback($entries, BibciteFormatInterface $format, &$context) {
+function bibcite_import_batch_callback(array $entries, BibciteFormatInterface $format, array &$context) {
   /** @var \Symfony\Component\Serializer\Serializer $serializer */
   $serializer = \Drupal::service('serializer');
 

@@ -31,7 +31,8 @@ interface ReferenceTypeInterface extends ConfigEntityInterface {
   /**
    * Check if properties should be overridden for this type.
    *
-   * @return mixed
+   * @return bool
+   *   TRUE if override is required, false otherwise.
    */
   public function isRequiredOverride();
 

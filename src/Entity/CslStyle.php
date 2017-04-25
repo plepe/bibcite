@@ -74,7 +74,7 @@ class CslStyle extends ConfigEntityBase implements CslStyleInterface {
   /**
    * The time of latest update.
    *
-   * @var integer
+   * @var int
    */
   protected $updated;
 

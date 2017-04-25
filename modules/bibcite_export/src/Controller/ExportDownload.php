@@ -2,7 +2,6 @@
 
 namespace Drupal\bibcite_export\Controller;
 
-
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\file\FileInterface;

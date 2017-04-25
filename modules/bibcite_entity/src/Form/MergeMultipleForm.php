@@ -117,7 +117,7 @@ class MergeMultipleForm extends ConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form,   FormStateInterface $form_state, $entity_type_id = NULL, $field_name = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, $entity_type_id = NULL, $field_name = NULL) {
     $this->entityType = $this->entityTypeManager->getDefinition($entity_type_id);
     $this->entityInfo = $this->tempStore->get($this->currentUser->id());
     $this->fieldName = $field_name;
