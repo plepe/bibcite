@@ -73,19 +73,19 @@ display:
           row_class: ''
           default_row_class: true
           override: true
-          sticky: false
+          sticky: true
           caption: ''
           summary: ''
           description: ''
           columns:
-            bulk_form: bulk_form
+            bibcite_reference_bulk_form: bibcite_reference_bulk_form
             title: title
             type: type
             uid: uid
             changed: changed
             operations: operations
           info:
-            bulk_form:
+            bibcite_reference_bulk_form:
               align: ''
               separator: ''
               empty_column: false
@@ -124,7 +124,7 @@ display:
               empty_column: false
               responsive: ''
           default: changed
-          empty_table: false
+          empty_table: true
       row:
         type: fields
       fields:
@@ -580,10 +580,22 @@ display:
       title: Reference
       header: {  }
       footer: {  }
-      empty: {  }
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content: 'No references available.'
+          plugin_id: text_custom
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
+      show_admin_links: false
     cache_metadata:
       max-age: 0
       contexts:
