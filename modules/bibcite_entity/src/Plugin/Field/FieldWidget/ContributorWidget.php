@@ -58,14 +58,6 @@ class ContributorWidget extends EntityReferenceAutocompleteWidget implements Con
   /**
    * {@inheritdoc}
    */
-  public function form(FieldItemListInterface $items, array &$form, FormStateInterface $form_state, $get_delta = NULL) {
-    // @todo Render form as draggable table.
-    return parent::form($items, $form, $form_state, $get_delta);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $element += parent::formElement($items, $delta, $element, $form, $form_state);
 
@@ -74,8 +66,9 @@ class ContributorWidget extends EntityReferenceAutocompleteWidget implements Con
       '#title' => $this->t('Category'),
       '#default_value' => isset($items[$delta]->category) ? $items[$delta]->category : NULL,
       '#maxlength' => $this->getFieldSetting('max_length'),
-      '#weight' => $delta,
       '#options' => $this->getContributorCategories(),
+      '#weight' => $delta,
+      '#prefix' => '<div class="bibcite-contributor__selects">',
     ];
 
     $element['role'] = [
@@ -83,18 +76,18 @@ class ContributorWidget extends EntityReferenceAutocompleteWidget implements Con
       '#title' => $this->t('Role'),
       '#default_value' => isset($items[$delta]->role) ? $items[$delta]->role : NULL,
       '#maxlength' => $this->getFieldSetting('max_length'),
-      '#weight' => $delta,
       '#options' => $this->getContributorRoles(),
+      '#weight' => $delta,
+      '#suffix' => '</div>',
     ];
-
-    $element['#type'] = 'container';
-    $element['#attributes']['class'][] = 'container-inline';
 
     $entity = $items->getEntity();
     $element['target_id']['#autocreate'] = [
       'bundle' => 'bibcite_contributor',
       'uid' => ($entity instanceof EntityOwnerInterface) ? $entity->getOwnerId() : \Drupal::currentUser()->id(),
     ];
+
+    $element['#attached']['library'][] = 'bibcite_entity/widget';
 
     return $element;
   }
