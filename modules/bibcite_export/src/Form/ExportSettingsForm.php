@@ -69,14 +69,6 @@ class ExportSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Show export links in the rendered citation'),
       '#default_value' => $config->get('show_citation'),
     ];
-    $form['enabled_formats'] = [
-      '#type' => 'checkboxes',
-      '#title' => $this->t('Enabled export formats'),
-      '#options' => array_map(function ($definition) {
-        return $definition['label'];
-      }, $this->formatManager->getExportDefinitions()),
-      '#default_value' => $config->get('enabled_formats'),
-    ];
 
     return parent::buildForm($form, $form_state);
   }
@@ -88,9 +80,6 @@ class ExportSettingsForm extends ConfigFormBase {
     $config = $this->config('bibcite_export.settings');
     $config->set('show_full', $form_state->getValue('show_full'));
     $config->set('show_citation', $form_state->getValue('show_citation'));
-
-    $enabled_formats = $form_state->getValue('enabled_formats');
-    $config->set('enabled_formats', array_keys($enabled_formats, TRUE));
 
     $config->save();
 

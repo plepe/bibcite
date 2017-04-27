@@ -8,9 +8,3 @@ bibcite_export.settings:
     show_citation:
       type: boolean
       label: 'Show export links on citation view'
-    enabled_formats:
-      type: sequence
-      label: 'List of enabled formats'
-      sequence:
-        type: string
-        label: 'Format'

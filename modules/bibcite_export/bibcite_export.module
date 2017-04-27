@@ -20,7 +20,7 @@ function bibcite_export_preprocess_bibcite_citation(&$variables) {
   if ($conf->get('show_citation') && isset($variables['data']['#entity'])) {
     /** @var \Drupal\bibcite_entity\Entity\ReferenceInterface $entity */
     $entity = $variables['data']['#entity'];
-    foreach (bibcite_export_create_export_links($entity, array_flip($conf->get('enabled_formats'))) as $link) {
+    foreach (bibcite_export_create_export_links($entity) as $link) {
       $variables['content']['links']['#items'][] = $link;
     }
   }
@@ -37,7 +37,7 @@ function bibcite_export_preprocess_bibcite_reference_table(&$variables) {
   if ($conf->get('show_full') && isset($variables['elements']['#bibcite_reference'])) {
     /** @var \Drupal\bibcite_entity\Entity\ReferenceInterface $entity */
     $entity = $variables['elements']['#bibcite_reference'];
-    foreach (bibcite_export_create_export_links($entity, array_flip($conf->get('enabled_formats'))) as $link) {
+    foreach (bibcite_export_create_export_links($entity) as $link) {
       $variables['content']['links']['#items'][] = $link;
     }
   }
@@ -48,18 +48,14 @@ function bibcite_export_preprocess_bibcite_reference_table(&$variables) {
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   Entity for export.
- * @param array $formats
- *   Array of export formats.
  *
  * @return array
  *   Array of export links.
  */
-function bibcite_export_create_export_links(EntityInterface $entity, array $formats) {
+function bibcite_export_create_export_links(EntityInterface $entity) {
   /** @var \Drupal\bibcite\Plugin\BibciteFormatManagerInterface $manager */
   $manager = \Drupal::service('plugin.manager.bibcite_format');
   $definitions = $manager->getExportDefinitions();
-
-  $definitions = array_intersect_key($definitions, $formats);
 
   $links = [];
   foreach ($definitions as $definition) {
