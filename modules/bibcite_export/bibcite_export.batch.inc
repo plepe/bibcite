@@ -6,6 +6,7 @@
  */
 
 use Drupal\bibcite\Plugin\BibciteFormatInterface;
+use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 
 /**
@@ -151,8 +152,11 @@ function bibcite_export_batch_finished($success, array $results, $operations) {
         $tempstorage->set('export_files', $data);
       }
 
-      $message = t('Reference export is complete (@count entries has been exported)', [
+      $message = t('Reference export is complete (@count entries has been exported). <a href="@download_url">Download</a>.', [
         '@count' => $results['count'],
+        '@download_url' => Url::fromRoute('bibcite_export.download', [
+          'file' => $file->id(),
+        ])->toString(),
       ]);
       drupal_set_message($message);
     }
