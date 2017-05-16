@@ -24,11 +24,11 @@ class ReferenceAccessControlHandler extends EntityAccessControlHandler {
         return AccessResult::allowedIfHasPermission($account, 'view bibcite_reference entities');
 
       case 'update':
-        return AccessResult::allowedIf($account->hasPermission('edit any bibcite_reference entities')
+        return AccessResult::allowedIf($account->hasPermission('edit all bibcite_reference entities')
           || ($account->hasPermission('edit own bibcite_reference entities')) && $entity->getOwnerId() == $account->id());
 
       case 'delete':
-        return AccessResult::allowedIf($account->hasPermission('delete any bibcite_reference entities')
+        return AccessResult::allowedIf($account->hasPermission('delete all bibcite_reference entities')
           || ($account->hasPermission('delete own bibcite_reference entities')) && $entity->getOwnerId() == $account->id());
     }
 
