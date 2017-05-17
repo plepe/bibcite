@@ -29,6 +29,8 @@ class BibtexEncoder implements EncoderInterface, DecoderInterface {
    * {@inheritdoc}
    */
   public function decode($data, $format, array $context = []) {
+    $data = str_replace(["\r\n", "\r"], "\n", $data);
+
     $parsed = BibtexParser::parse_string($data);
 
     $this->processEntries($parsed);
