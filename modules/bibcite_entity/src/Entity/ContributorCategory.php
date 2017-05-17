@@ -22,7 +22,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     },
  *   },
  *   config_prefix = "bibcite_contributor_category",
- *   admin_permission = "administer reference entities",
+ *   admin_permission = "administer bibcite_reference entities",
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
