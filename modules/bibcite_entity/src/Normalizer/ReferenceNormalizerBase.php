@@ -363,7 +363,7 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
   protected function convertKeys(array $data) {
     $converted = [];
 
-    $system = ['type', 'author', 'keyword'];
+    $system = ['type', 'author', 'keywords'];
     foreach ($data as $key => $field) {
       if (!empty($this->fieldsMapping[$key])) {
         $converted[$this->fieldsMapping[$key]] = !in_array($this->fieldsMapping[$key], $system) ? [$field] : $field;
