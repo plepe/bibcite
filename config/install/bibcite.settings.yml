@@ -1,6 +1,2 @@
 processor: citeproc-php
 default_style: apa
-links:
-  pubmed: true
-  doi: true
-  google_scholar: true

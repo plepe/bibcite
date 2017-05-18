@@ -14,6 +14,14 @@ bibcite_entity.reference.settings:
   requirements:
     _permission: 'administer bibcite'
 
+bibcite_entity.reference.settings.links:
+  path: '/admin/config/bibcite/settings/reference/settings/links'
+  defaults:
+    _form: '\Drupal\bibcite_entity\Form\ReferenceSettingsLinksForm'
+    _title: 'Links'
+  requirements:
+    _permission: 'administer bibcite'
+
 bibcite_entity.mapping:
   path: '/admin/config/bibcite/settings/mapping/{bibcite_format}'
   defaults:

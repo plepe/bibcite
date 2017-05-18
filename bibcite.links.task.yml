@@ -12,8 +12,3 @@ bibcite.settings.styles:
   route_name: entity.bibcite_csl_style.collection
   title: 'CSL styles'
   parent_id: bibcite.settings
-
-bibcite.settings.links:
-  route_name: bibcite.settings.links
-  title: 'Links'
-  base_route: bibcite.settings

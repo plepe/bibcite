@@ -20,14 +20,6 @@ entity.bibcite_reference.export_multiple_form:
   requirements:
     _permission: 'access bibcite export'
 
-bibcite_export.settings:
-  path: '/admin/config/bibcite/settings/export'
-  defaults:
-    _form: '\Drupal\bibcite_export\Form\ExportSettingsForm'
-    _title: 'Export'
-  requirements:
-    _permission: 'administer bibcite'
-
 bibcite_export.export_all:
   path: '/admin/config/bibcite/export'
   defaults:

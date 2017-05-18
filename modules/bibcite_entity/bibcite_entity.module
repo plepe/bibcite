@@ -64,13 +64,6 @@ function bibcite_entity_preprocess_bibcite_reference_table(&$variables) {
     'table' => [
       '#type' => 'table',
     ],
-    'links' => [
-      '#theme' => 'item_list',
-      '#attributes' => [
-        'class' => ['inline'],
-      ],
-      '#items' => [],
-    ],
   ];
 
   foreach (Element::children($variables['elements']) as $key) {
@@ -118,9 +111,60 @@ function bibcite_entity_entity_extra_field_info() {
       'description' => t('Reference rendered as citation'),
       'weight' => 100,
     ];
+
+    $extra['bibcite_reference'][$bundle->id()]['display']['bibcite_links'] = [
+      'label' => t('Links'),
+      'description' => t('Render all available reference links'),
+      'weight' => 100,
+    ];
   }
 
   return $extra;
+}
+
+/**
+ * Implements hook_bibcite_reference_view_alter().
+ */
+function bibcite_entity_bibcite_reference_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  if ($component = $display->getComponent('bibcite_links')) {
+    /** @var \Drupal\Component\Plugin\PluginManagerInterface $manager */
+    $manager = \Drupal::service('plugin.manager.bibcite_link');
+    $config = \Drupal::config('bibcite_entity.reference.settings');
+
+    $build['bibcite_links'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => ['bibcite-links'],
+      ],
+      '#weight' => $component['weight'],
+      'links' => [
+        '#theme' => 'item_list',
+        '#attributes' => [
+          'class' => ['inline'],
+        ],
+        '#items' => [],
+      ],
+    ];
+
+    $default_link_attributes = [
+      'enabled' => TRUE,
+      'weight' => 0,
+    ];
+
+    foreach ($manager->getDefinitions() as $plugin_id => $definition) {
+      $plugin_config = $config->get("links.{$plugin_id}") ?: [];
+      $plugin_config = $plugin_config + $default_link_attributes;
+
+      if ($plugin_config['enabled']) {
+        $instance = $manager->createInstance($plugin_id);
+        if ($link = $instance->build($entity)) {
+          $build['bibcite_links']['links']['#items'][] = $link + ['#weight' => $plugin_config['weight']];
+        }
+      }
+    }
+
+    uasort($build['bibcite_links']['links']['#items'], 'Drupal\Component\Utility\SortArray::sortByWeightProperty');
+  }
 }
 
 /**

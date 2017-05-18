@@ -7,3 +7,6 @@ services:
   bibcite.ui_override_provider:
     class: Drupal\bibcite_entity\UIOverrideProvider
     arguments: ['@entity.manager', '@config.factory']
+  plugin.manager.bibcite_link:
+    class: Drupal\bibcite_entity\Plugin\BibciteLinkPluginManager
+    parent: default_plugin_manager

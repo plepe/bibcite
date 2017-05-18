@@ -15,11 +15,3 @@ bibcite.settings:
     _title: 'Processing'
   requirements:
     _permission: 'administer bibcite'
-
-bibcite.settings.links:
-  path: '/admin/config/bibcite/settings/links'
-  defaults:
-    _form: '\Drupal\bibcite\Form\SettingsLinksForm'
-    _title: 'Links'
-  requirements:
-    _permission: 'administer bibcite'

@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Module installation hooks implementation.
+ */
+
+/**
+ * Delete "links" from bibcite.settings configuration.
+ */
+function bibcite_update_8001() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('bibcite.settings');
+  $config->clear('links');
+  $config->save(TRUE);
+}

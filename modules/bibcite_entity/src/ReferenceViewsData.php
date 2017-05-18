@@ -23,6 +23,14 @@ class ReferenceViewsData extends EntityViewsData {
       ],
     ];
 
+    $data['bibcite_reference']['links'] = [
+      'title' => $this->t('Links'),
+      'help' => $this->t('Render reference links'),
+      'field' => [
+        'id' => 'bibcite_links',
+      ],
+    ];
+
     $data['bibcite_reference']['bulk_form'] = [
       'title' => $this->t('Operations bulk form'),
       'help' => $this->t('Add a form element that lets you run operations on multiple reference entries.'),

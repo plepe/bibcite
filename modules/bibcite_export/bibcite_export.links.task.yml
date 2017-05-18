@@ -1,4 +1,0 @@
-bibcite_export.settings:
-  route_name: bibcite_export.settings
-  title: 'Export'
-  base_route: bibcite.settings

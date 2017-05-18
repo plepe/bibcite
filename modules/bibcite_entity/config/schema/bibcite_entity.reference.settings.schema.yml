@@ -14,3 +14,7 @@ bibcite_entity.reference.settings:
         enable_display_override:
           type: boolean
           label: 'Enable display override'
+    links:
+      type: sequence
+      sequence:
+        type: bibcite_entity.link

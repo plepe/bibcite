@@ -21,3 +21,11 @@ action.configuration.bibcite_entity_keyword_merge:
 
 action.configuration.bibcite_entity_contributor_merge:
   type: action_configuration_default
+
+bibcite_entity.link:
+  type: mapping
+  mapping:
+    enabled:
+      type: boolean
+    weight:
+      type: integer

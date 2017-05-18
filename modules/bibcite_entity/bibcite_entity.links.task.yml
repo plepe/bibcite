@@ -81,6 +81,11 @@ bibcite_entity.reference.settings:
   title: 'Settings'
   parent_id: bibcite_entity.reference
 
+bibcite_entity.reference.links:
+  route_name: bibcite_entity.reference.settings.links
+  title: 'Links'
+  parent_id: bibcite_entity.reference
+
 bibcite_entity.reference.types:
   route_name: entity.bibcite_reference_type.collection
   title: 'Types'
