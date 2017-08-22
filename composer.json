@@ -11,7 +11,7 @@
     "source": "http://cgit.drupalcode.org/bibcite"
   },
   "require": {
-    "academicpuma/citeproc-php": "~1.0",
+    "seboettg/citeproc-php": "~2.0.0",
     "davidgorges/human-name-parser": "~0.2",
     "technosophos/LibRIS": "~2.0",
     "audiolabs/bibtexparser": "dev-master"

@@ -2,11 +2,11 @@
 
 namespace Drupal\bibcite\Plugin\BibCiteProcessor;
 
-use AcademicPuma\CiteProc\CiteProc;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\bibcite\Plugin\BibCiteProcessorBase;
 use Drupal\bibcite\Plugin\BibCiteProcessorInterface;
+use Seboettg\CiteProc\CiteProc;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
