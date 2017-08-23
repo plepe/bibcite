@@ -29,7 +29,13 @@ class BibtexEncoder implements EncoderInterface, DecoderInterface {
    * {@inheritdoc}
    */
   public function decode($data, $format, array $context = []) {
-    $data = str_replace(["\r\n", "\r"], "\n", $data);
+    /*
+     * Different sources uses different line endings in exports.
+     * Convert all line endings to unix which is expected by BibtexParser.
+     * \R is escape sequence of newline, equivalent to the following: (\r\n|\n|\x0b|\f|\r|\x85)
+     * @see http://www.pcre.org/original/doc/html/pcrepattern.html Newline sequences.
+     */
+    $data = preg_replace("/\R/", "\n", $data);
 
     $parsed = BibtexParser::parse_string($data);
 
