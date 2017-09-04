@@ -36,6 +36,8 @@ class BibtexEncoder implements EncoderInterface, DecoderInterface {
      * @see http://www.pcre.org/original/doc/html/pcrepattern.html Newline sequences.
      */
     $data = preg_replace("/\R/", "\n", $data);
+
+    $data = preg_replace('/ *type *= *{.*}.*$/m', '', $data);
     $parsed = BibtexParser::parse_string($data);
 
     $this->processEntries($parsed);
