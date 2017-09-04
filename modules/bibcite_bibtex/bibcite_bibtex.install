@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Module installation hooks implementation.
+ */
+
+/**
+ * Set mapping of bibtex language field.
+ */
+function bibcite_bibtex_update_8001() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('bibcite_entity.mapping.bibtex');
+  $fields = $config->get('fields');
+  $fields['language'] = 'bibcite_lang';
+  $config->set('fields', $fields);
+  $config->save(TRUE);
+}
