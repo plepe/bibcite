@@ -36,7 +36,6 @@ class BibtexEncoder implements EncoderInterface, DecoderInterface {
      * @see http://www.pcre.org/original/doc/html/pcrepattern.html Newline sequences.
      */
     $data = preg_replace("/\R/", "\n", $data);
-
     $parsed = BibtexParser::parse_string($data);
 
     $this->processEntries($parsed);
@@ -59,7 +58,7 @@ class BibtexEncoder implements EncoderInterface, DecoderInterface {
       if (!empty($entry['keywords'])) {
         $entry['keywords'] = array_map(function ($keyword) {
           return trim($keyword);
-        }, explode(',', $entry['keywords']));
+        }, explode(',', str_replace(';', ',', $entry['keywords'])));
       }
     }
   }
