@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Module installation hooks implementation.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function bibcite_marc_uninstall() {
+  Drupal::configFactory()->getEditable('bibcite_entity.mapping.marc')->delete();
+}

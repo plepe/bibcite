@@ -17,6 +17,12 @@ bibcite_entity.mapping.*:
       sequence:
         type: string
         label: 'Field'
+    indexes:
+      type: sequence
+      label: 'Fields indexes'
+      sequence:
+        type: string
+        label: 'Indexes'
     dependencies:
       type: config_dependencies
       label: Dependencies
