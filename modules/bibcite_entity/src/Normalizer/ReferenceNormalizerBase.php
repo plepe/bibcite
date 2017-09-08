@@ -6,6 +6,7 @@ use Drupal\bibcite_entity\Entity\ReferenceInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Url;
 use Drupal\serialization\Normalizer\EntityNormalizer;
 
 /**
@@ -89,11 +90,13 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
 
     $this->configFactory = $config_factory;
 
-    $config_name = sprintf('bibcite_entity.mapping.%s', $this->format);
-    $config = $this->configFactory->get($config_name);
+    foreach ((array) $this->format as $format) {
+      $config_name = sprintf('bibcite_entity.mapping.%s', $format);
+      $config = $this->configFactory->get($config_name);
 
-    $this->fieldsMapping = $config->get('fields');
-    $this->typesMapping = $config->get('types');
+      $this->fieldsMapping[$format] = $config->get('fields');
+      $this->typesMapping[$format] = $config->get('types');
+    }
   }
 
   /**
@@ -155,8 +158,20 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
     }
 
     $type_key = $this->getTypeKey();
-    $data[$type_key] = $this->convertFormatType($data[$type_key]);
-    $data = $this->convertKeys($data);
+    if (!$data[$type_key]) {
+      throw new \Exception('Incorrect type of reference or not set.');
+    }
+    $data_type = $data[$type_key];
+    $data[$type_key] = $this->convertFormatType($data[$type_key], $format);
+    if (!$data[$type_key]) {
+      $link = Url::fromRoute('bibcite_entity.mapping', ['bibcite_format' => $format])
+        ->toString();
+      throw new \Exception(t('@data_type type is not mapped to reference type. <a href = ":url" > Check mapping. </a >', [
+        '@data_type' => $data_type,
+        ':url' => $link,
+      ]));
+    }
+    $data = $this->convertKeys($data, $format);
 
     return parent::denormalize($data, $class, $format, $context);
   }
@@ -170,10 +185,10 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
    * @return string
    *   Format publication type.
    */
-  protected function convertEntityType($type) {
+  protected function convertEntityType($type, $format) {
     $types_mapping = [];
 
-    foreach ($this->typesMapping as $format_type => $entity_type) {
+    foreach ($this->typesMapping[$format] as $format_type => $entity_type) {
       if (empty($entity_type) || isset($mapping[$entity_type])) {
         continue;
       }
@@ -193,8 +208,8 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
    * @return string|null
    *   Bibcite entity publication type.
    */
-  protected function convertFormatType($type) {
-    return isset($this->typesMapping[$type]) ? $this->typesMapping[$type] : NULL;
+  protected function convertFormatType($type, $format) {
+    return isset($this->typesMapping[$format][$type]) ? $this->typesMapping[$format][$type] : NULL;
   }
 
   /**
@@ -206,10 +221,10 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
    * @return array
    *   Array of entity values.
    */
-  protected function extractFields(ReferenceInterface $reference) {
+  protected function extractFields(ReferenceInterface $reference, $format) {
     $attributes = [];
 
-    foreach ($this->fieldsMapping as $format_field => $entity_field) {
+    foreach ($this->fieldsMapping[$format] as $format_field => $entity_field) {
       if ($entity_field && $reference->hasField($entity_field) && ($field = $reference->get($entity_field)) && !$field->isEmpty()) {
         $attributes[$format_field] = $this->extractScalar($field);
       }
@@ -274,7 +289,8 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
       return $storage->create(['name' => $author_name]);
     }
 
-    $author_name_parsed = \Drupal::service('bibcite.human_name_parser')->parse($author_name);
+    $author_name_parsed = \Drupal::service('bibcite.human_name_parser')
+      ->parse($author_name);
     $query = $storage->getQuery()->range(0, 1);
     foreach ($author_name_parsed as $name_part => $value) {
       if (empty($value)) {
@@ -331,9 +347,11 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
    * @return bool
    *   TRUE if the format is supported, FALSE otherwise. If no format is
    *   specified this will return FALSE.
+   *
+   * @todo No more need this override?
    */
   protected function checkFormat($format = NULL) {
-    return isset($format, $this->format) && $format == $this->format;
+    return ((!isset($format) || !isset($this->format)) || in_array($format, (array) $this->format));
   }
 
   /**
@@ -358,15 +376,17 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
    * @return array
    *   Array of decoded values with converted keys.
    *
-   * @todo This is a temporary solution. Normalizers and encodes must be revisited to avoid this dirty hack.
+   * @todo This is a temporary solution. Normalizers and encodes must be
+   *   revisited to avoid this dirty hack.
    */
-  protected function convertKeys(array $data) {
+  protected function convertKeys(array $data, $format) {
     $converted = [];
 
     $system = ['type', 'author', 'keywords'];
     foreach ($data as $key => $field) {
-      if (!empty($this->fieldsMapping[$key])) {
-        $converted[$this->fieldsMapping[$key]] = !in_array($this->fieldsMapping[$key], $system) ? [$field] : $field;
+      if (!empty($this->fieldsMapping[$format][$key]) || in_array($key, $system)) {
+        $converted_key = empty($this->fieldsMapping[$format][$key]) ? $key : $this->fieldsMapping[$format][$key];
+        $converted[$converted_key] = !in_array($converted_key, $system) ? [$field] : $field;
       }
     }
 

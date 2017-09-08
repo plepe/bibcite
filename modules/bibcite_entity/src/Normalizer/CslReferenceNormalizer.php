@@ -41,7 +41,7 @@ class CslReferenceNormalizer extends ReferenceNormalizerBase {
     $attributes = [];
 
     $attributes['title'] = $this->extractScalar($reference->get('title'));
-    $attributes['type'] = $this->convertEntityType($reference->bundle());
+    $attributes['type'] = $this->convertEntityType($reference->bundle(), $this->format);
 
     if ($authors = $this->extractAuthors($reference->get('author'))) {
       $attributes['author'] = $authors;
@@ -65,10 +65,10 @@ class CslReferenceNormalizer extends ReferenceNormalizerBase {
    * @return array
    *   Array of entity values.
    */
-  protected function extractFields(ReferenceInterface $reference) {
+  protected function extractFields(ReferenceInterface $reference, $format = NULL) {
     $attributes = [];
 
-    foreach ($this->fieldsMapping as $csl_field => $entity_field) {
+    foreach ($this->fieldsMapping[$this->format] as $csl_field => $entity_field) {
       if ($entity_field && $reference->hasField($entity_field) && ($field = $reference->get($entity_field)) && !$field->isEmpty()) {
         if (in_array($entity_field, $this->dateFields)) {
           $attributes[$csl_field] = $this->extractDate($field);

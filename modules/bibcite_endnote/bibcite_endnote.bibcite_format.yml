@@ -1,0 +1,92 @@
+endnote8:
+  id: endnote8
+  label: Endnote 7 XML
+  extension: xml
+  encoder: \Drupal\bibcite_endnote\Encoder\EndnoteEncoder
+  normalizer: \Drupal\bibcite_endnote\Normalizer\EndnoteReferenceNormalizer
+  types:
+    - Aggregated Database
+    - Ancient Text
+    - Artwork
+    - Audiovisual Material
+    - Bill
+    - Blog
+    - Book
+    - Book Section
+    - Case
+    - Catalog
+    - Chart or Table
+    - Classical Work
+    - Computer Program
+    - Conference Paper
+    - Conference Proceedings
+    - Dataset
+    - Dictionary
+    - Edited Book
+    - Electronic Article
+    - Electronic Book Section
+    - Encyclopedia
+    - Equation
+    - Figure
+    - Film or Broadcast
+    - Generic
+    - Government Document
+    - Grant
+    - Hearing
+    - Journal Article
+    - Legal Rule or Regulation
+    - Magazine Article
+    - Manuscript
+    - Map
+    - Music
+    - Newspaper Article
+    - Online Database
+    - Online Multimedia
+    - Pamphlet
+    - Patent
+    - Personal Communication
+    - Report
+    - Serial
+    - Standard
+    - Statute
+    - Thesis
+    - Unpublished Work
+    - Web Page
+  fields:
+    - title
+    - authors
+    - title-secondary
+    - title-short
+    - alt-journal
+    - periodical-title
+    - rec-number
+    - urls
+    - type
+    - year
+    - date
+    - keyword
+    - access-date
+    - accession-num
+    - auth-address
+    - electronic-resource-num
+    - pages
+    - volume
+    - number
+    - section
+    - abstract
+    - isbn
+    - label
+    - caption
+    - language
+    - notes
+    - research-notes
+    - remote-database-provider
+    - remote-database-name
+    - work-type
+    - custom1
+    - custom2
+    - custom3
+    - custom4
+    - custom5
+    - custom6
+    - custom7
