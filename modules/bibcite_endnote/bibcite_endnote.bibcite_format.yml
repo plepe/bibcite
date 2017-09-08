@@ -90,3 +90,77 @@ endnote8:
     - custom5
     - custom6
     - custom7
+
+endnote7:
+  id: endnote7
+  label: Endnote X3 XML
+  extension: xml
+  encoder: \Drupal\bibcite_endnote\Encoder\EndnoteEncoder
+  normalizer: \Drupal\bibcite_endnote\Normalizer\EndnoteReferenceNormalizer
+  types:
+    - Artwork
+    - Audiovisual Material
+    - Bill
+    - Book
+    - Book Section
+    - Case
+    - Chart or Table
+    - Computer Program
+    - Conference Proceedings
+    - Edited Book
+    - Electronic Source
+    - Film or Broadcast
+    - Generic
+    - Hearing
+    - Journal Article
+    - Legal Rule or Regulation
+    - Magazine Article
+    - Manuscript
+    - Map
+    - Newspaper Article
+    - Patent
+    - Personal Communication
+    - Report
+    - Statute
+    - Thesis
+  fields:
+    - AUTHORS
+    - TITLE
+    - REFERENCE_TYPE
+    - REFNUM
+    - YEAR
+    - SECONDARY_TITLE
+    - PLACE_PUBLISHED
+    - PUBLISHER
+    - VOLUME
+    - ISSUE
+    - NUMBER_OF_VOLUMES
+    - NUMBER
+    - PAGES
+    - SECTION
+    - TERTIARY_TITLE
+    - EDITION
+    - DATE
+    - TYPE_OF_WORK
+    - SHORT_TITLE
+    - ALTERNATE_TITLE
+    - ISBN
+    - ORIGINAL_PUB
+    - REPRINT_EDITION
+    - REVIEWED_ITEM
+    - CUSTOM1
+    - CUSTOM2
+    - CUSTOM3
+    - CUSTOM4
+    - CUSTOM5
+    - CUSTOM6
+    - ACCESSION_NUMBER
+    - CALL_NUMBER
+    - LABEL
+    - KEYWORD
+    - ABSTRACT
+    - NOTES
+    - URL
+    - AUTHOR_ADDRESS
+    - IMAGE
+    - CAPTION

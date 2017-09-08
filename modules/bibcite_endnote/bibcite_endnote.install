@@ -9,5 +9,6 @@
  * Implements hook_uninstall().
  */
 function bibcite_endnote_uninstall() {
+  Drupal::configFactory()->getEditable('bibcite_entity.mapping.endnote7')->delete();
   Drupal::configFactory()->getEditable('bibcite_entity.mapping.endnote8')->delete();
 }

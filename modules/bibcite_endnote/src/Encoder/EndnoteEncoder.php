@@ -16,7 +16,7 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
    *
    * @var array
    */
-  protected static $format = ['endnote8'];
+  protected static $format = ['endnote7', 'endnote8'];
 
   /**
    * {@inheritdoc}
@@ -46,6 +46,7 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
           foreach ($record->children() as $child) {
             if ($child instanceof SimpleXMLElement) {
               switch ($child->getName()) {
+                case'REFERENCE_TYPE':
                 case'ref-type':
                   if (strlen($child->__toString()) > 0) {
                     $type = array_search($child->__toString(), $indexes);
@@ -58,14 +59,17 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
                   }
                   break;
 
+                case'DATES':
                 case 'dates':
                   foreach ($child->children() as $dates) {
                     if ($dates instanceof SimpleXMLElement) {
                       switch ($dates->getName()) {
+                        case'YEAR':
                         case'year':
                           $rec[$dates->getName()] = $dates->style->__toString();
                           break;
 
+                        case'DATE':
                         case'date':
                           $rec[$dates->{'pub-dates'}->getName()] = $dates->{'pub-dates'}->style->__toString();
                           break;
@@ -74,6 +78,7 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
                   }
                   break;
 
+                case'CONTRIBUTORS':
                 case'contributors':
                   foreach ($child->children() as $authors) {
                     if ($authors instanceof SimpleXMLElement) {
@@ -84,6 +89,7 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
                   }
                   break;
 
+                case'TITLES':
                 case'titles':
                   foreach ($child->children() as $title) {
                     if ($title instanceof SimpleXMLElement) {
@@ -92,6 +98,7 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
                   }
                   break;
 
+                case'KEYWORDS':
                 case'keywords':
                   foreach ($child->children() as $keyword) {
                     if ($keyword instanceof SimpleXMLElement) {
@@ -132,6 +139,19 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
     foreach ($data as $id => $ref) {
       if ($records instanceof SimpleXMLElement) {
         switch ($format) {
+          case'endnote7':
+            $record = $records->addChild('RECORD');
+            $contrib_key = 'CONTRIBUTORS';
+            $author_key = 'AUTHOR';
+            $titles_key = 'TITLES';
+            $keywords_key = 'KEYWORDS';
+            $dates_key = 'DATES';
+            $web_key = 'WEB-URLS';
+            $pub_key = 'PUB-DATES';
+            $keyword_key = 'KEYWORD';
+            $authors_key = 'AUTHORS';
+            break;
+
           case'endnote8':
           default:
             $record = $records->addChild('record');
