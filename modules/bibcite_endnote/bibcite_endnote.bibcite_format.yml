@@ -164,3 +164,99 @@ endnote7:
     - AUTHOR_ADDRESS
     - IMAGE
     - CAPTION
+
+tagged:
+  id: tagged
+  label: Endnote tagged
+  extension: enw
+  encoder: \Drupal\bibcite_endnote\Encoder\EndnoteEncoder
+  normalizer: \Drupal\bibcite_endnote\Normalizer\EndnoteReferenceNormalizer
+  types:
+    - Generic
+    - Government Document
+    - Aggregated Database
+    - Ancient Text
+    - Artwork
+    - Audiovisual Material
+    - Bill
+    - Blog
+    - Book
+    - Book Section
+    - Case
+    - Catalog
+    - Chart or Table
+    - Classical Work
+    - Computer Program
+    - Conference Paper
+    - Conference Proceedings
+    - Dictionary
+    - Edited Book
+    - Electronic Article
+    - Electronic Book
+    - Encyclopedia
+    - Equation
+    - Figure
+    - Film or Broadcast
+    - Grant
+    - Hearing
+    - Journal Article
+    - Legal Rule or Regulation
+    - Magazine Article
+    - Manuscript
+    - Map
+    - Music
+    - Newspaper Article
+    - Online Database
+    - Online Multimedia
+    - Pamphlet
+    - Patent
+    - Personal Communication
+    - Report
+    - Serial Publication
+    - Standard
+    - Statute
+    - Thesis
+    - Unpublished Work
+    - Web Page
+    - Unused 1
+    - Unused 2
+    - Unused 3
+  fields:
+    - type
+    - secondary title
+    - place published
+    - year
+    - label
+    - lang
+    - publisher
+    - secondary title
+    - keywords
+    - call number
+    - accession number
+    - issue
+    - pages
+    - doi
+    - tertiary title
+    - title
+    - url
+    - volume
+    - custom1
+    - custom2
+    - custom3
+    - custom4
+    - custom5
+    - custom6
+    - custom7
+    - number of volumes
+    - edition
+    - date
+    - type_of_work
+    - subsidiary author
+    - bibcite_isbn
+    - research notes
+    - short title
+    - section
+    - original publication
+    - reprint edition
+    - reviewed item
+    - author address

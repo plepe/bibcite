@@ -12,7 +12,7 @@ class EndnoteReferenceNormalizer extends ReferenceNormalizerBase {
   /**
    * {@inheritdoc}
    */
-  protected $format = ['endnote7', 'endnote8'];
+  protected $format = ['endnote7', 'endnote8', 'tagged'];
 
   /**
    * {@inheritdoc}

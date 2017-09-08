@@ -16,7 +16,7 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
    *
    * @var array
    */
-  protected static $format = ['endnote7', 'endnote8'];
+  protected static $format = ['endnote7', 'endnote8', 'tagged'];
 
   /**
    * {@inheritdoc}
@@ -29,6 +29,9 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
    * {@inheritdoc}
    */
   public function decode($data, $format, array $context = []) {
+    if ($format === 'tagged') {
+      return $this->decodeTagged($data);
+    }
     $result = [];
     try {
       $sxml = new SimpleXMLElement($data);
@@ -134,6 +137,9 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
    * {@inheritdoc}
    */
   public function encode($data, $format, array $context = []) {
+    if ($format === 'tagged') {
+      return $this->encodeTagged($data);
+    }
     $sxml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><xml><records></records></xml>');
     $records = $sxml->records;
     foreach ($data as $id => $ref) {
@@ -212,7 +218,7 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
           unset($ref[$urls_key]);
         }
 
-        // Only in endnote 7.
+        // Only in endnote X3.
         if (isset($ref['full-title'])) {
           $this->addTag($record->addChild('periodical'), 'full-title', $ref['full-title']);
           unset($ref['full-title']);
@@ -348,6 +354,123 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
     $styled->addAttribute('face', 'normal');
     $styled->addAttribute('font', 'default');
     $styled->addAttribute('size', '100%');
+  }
+
+  /**
+   * Decode tagged format function.
+   */
+  private function decodeTagged($data) {
+    $result = [];
+
+    $config = \Drupal::config('bibcite_entity.mapping.tagged');
+    $indexes = $config->get('indexes');
+    $data = explode("\n\n", $data);
+    foreach ($data as $i => &$record) {
+      $fields = explode("\n", $record);
+      foreach ($fields as $field) {
+        $key = array_search(substr($field, 0, 2), $indexes);
+        $value = substr($field, 3);
+        if ($key) {
+          if (isset($result[$i][$key])) {
+            if (is_array($result[$i][$key])) {
+              $result[$i][$key][] = $value;
+            }
+            else {
+              $val = $result[$i][$key];
+              unset($result[$i][$key]);
+              $result[$i][$key][] = $val;
+              $result[$i][$key][] = $value;
+            }
+          }
+          else {
+            $result[$i][$key] = $value;
+          }
+        }
+      }
+    }
+    return $result;
+  }
+
+  /**
+   * Encode tagged format function.
+   */
+  private function encodeTagged($data) {
+    if (isset($data['type'])) {
+      $data = [$data];
+    }
+
+    $data = array_map(function ($raw) {
+      return $this->buildEntry($raw);
+    }, $data);
+
+    return implode("\n", $data);
+  }
+
+  /**
+   * Build tagged entry string.
+   *
+   * @param array $data
+   *   Array of tagged values.
+   *
+   * @return string
+   *   Formatted tagged string.
+   */
+  protected function buildEntry(array $data) {
+    $config = \Drupal::config('bibcite_entity.mapping.tagged');
+    $indexes = $config->get('indexes');
+    $entry = NULL;
+    // For not duplicating pages parse.
+    $pages_parsed = FALSE;
+    foreach ($data as $key => $value) {
+      if (is_array($value)) {
+        if (isset($indexes[$key])) {
+          $entry .= $this->buildMultiLine($indexes[$key], $value);
+        }
+      }
+      else {
+        if (isset($indexes[$key])) {
+          $entry .= $this->buildLine($indexes[$key], $value);
+        }
+      }
+    }
+
+    return $entry;
+  }
+
+  /**
+   * Build multi line entry.
+   *
+   * @param string $key
+   *   Line key.
+   * @param array $value
+   *   Array of multi line values.
+   *
+   * @return string
+   *   Multi line entry.
+   */
+  protected function buildMultiLine($key, array $value) {
+    $lines = '';
+
+    foreach ($value as $item) {
+      $lines .= $this->buildLine($key, $item);
+    }
+
+    return $lines;
+  }
+
+  /**
+   * Build entry line.
+   *
+   * @param string $key
+   *   Line key.
+   * @param string $value
+   *   Line value.
+   *
+   * @return string
+   *   Entry line.
+   */
+  protected function buildLine($key, $value) {
+    return $key . ' ' . $value . "\n";
   }
 
 }

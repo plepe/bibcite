@@ -2,7 +2,7 @@ services:
   bibcite_endnote.encoder.endnote:
     class: Drupal\bibcite_endnote\Encoder\EndnoteEncoder
     tags:
-      - { name: encoder, format: endnote7, endnote8 }
+      - { name: encoder, format: endnote7, endnote8, tagged }
   bibcite_endnote.normalizer.reference:
     class: Drupal\bibcite_endnote\Normalizer\EndnoteReferenceNormalizer
     tags:
