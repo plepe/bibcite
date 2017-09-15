@@ -29,20 +29,59 @@ class BibtexEncoder implements EncoderInterface, DecoderInterface {
    * {@inheritdoc}
    */
   public function decode($data, $format, array $context = []) {
-    /*
-     * Different sources uses different line endings in exports.
-     * Convert all line endings to unix which is expected by BibtexParser.
-     * \R is escape sequence of newline, equivalent to the following: (\r\n|\n|\x0b|\f|\r|\x85)
-     * @see http://www.pcre.org/original/doc/html/pcrepattern.html Newline sequences.
-     */
-    $data = preg_replace("/\R/", "\n", $data);
+    $data = $this->lineEndingsReplace($data);
 
-    $data = preg_replace('/ *type *= *{.*}.*$/m', '', $data);
+    /*
+     * Handle type as case-insensitive.
+     * Tags should be handled as case-insensitive as well, but it's done by BibtexParser library.
+     * @see https://www.drupal.org/node/2890060
+     */
+    $data = preg_replace_callback('/^@(\w+){/m', function ($word) {
+      return '@' . strtolower($word[1]) . '{';
+    }, $data);
+
+    /*
+     * Ignore "type" tag inside records.
+     * Type in BibTeX must go before content.
+     * @see https://en.wikipedia.org/wiki/BibTeX
+     * @see https://www.drupal.org/node/2882855
+     */
+    $data = preg_replace('/^ *type *= *{.*}.*$/m', '', $data);
     $parsed = BibtexParser::parse_string($data);
 
+    foreach ($parsed as $i => $entry) {
+      unset($entry['raw']);
+      unset($entry['lines']);
+      $parsed[$i] = $entry;
+    }
+
+    $keys = array_keys($parsed);
+    if (count($keys) === 0 || $keys[0] === -1) {
+      throw new \Exception(t("Incorrect @format format or empty set.", ['@format' => $format]));
+    }
     $this->processEntries($parsed);
 
     return $parsed;
+  }
+
+  /**
+   * Convert line endings function.
+   *
+   * Different sources uses different line endings in exports.
+   * Convert all line endings to unix which is expected by BibtexParser.
+   *
+   * @param string $data
+   *   Input string from file.
+   *
+   * @return string
+   *   Unix formatted string
+   */
+  public function lineEndingsReplace($data) {
+    /*
+     * \R is escape sequence of newline, equivalent to the following: (\r\n|\n|\x0b|\f|\r|\x85)
+     * @see http://www.pcre.org/original/doc/html/pcrepattern.html Newline sequences.
+     */
+    return preg_replace("/\R/", "\n", $data);
   }
 
   /**
