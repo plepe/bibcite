@@ -188,9 +188,12 @@ function bibcite_entity_form_bibcite_reference_form_alter(&$form, FormStateInter
  * Override fields attributes and regroup them to details.
  */
 function bibcite_entity_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
-  $override_provider = \Drupal::service('bibcite.ui_override_provider');
-  $override_provider->referenceFormFieldsOverride($entity_form, $entity_form['#bundle']);
-  $override_provider->referenceFormFieldsetRestructure($entity_form);
+  if ($entity_form['#entity_type'] === 'bibcite_reference') {
+    $override_provider = \Drupal::service('bibcite.ui_override_provider');
+    $override_provider->referenceFormFieldsOverride($entity_form, $entity_form['#bundle']);
+    // @todo Make normal tabs in IEF.
+    $override_provider->referenceFormDetailsRestructure($entity_form);
+  }
 }
 
 /**
