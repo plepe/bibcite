@@ -40,7 +40,7 @@ REQUIREMENTS
 This module requires the following libraries:
 
  * "academicpuma/citeproc-php": "~1.0",
- * "davidgorges/human-name-parser": "~0.2",
+ * "adci/full-name-parser": "^0.1.0",
  * "technosophos/LibRIS": "~2.0",
  * "audiolabs/bibtexparser": "dev-master",
  * "caseyamcl/php-marc21": "~1.0"

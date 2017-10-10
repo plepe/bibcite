@@ -2,7 +2,7 @@
 
 namespace Drupal\bibcite;
 
-use HumanNameParser\Parser;
+use ADCI\FullNameParser\Parser;
 
 /**
  * Human name parser service.
@@ -12,7 +12,7 @@ class HumanNameParser implements HumanNameParserInterface {
   /**
    * Parser object.
    *
-   * @var \HumanNameParser\Parser
+   * @var \ADCI\FullNameParser\Parser
    */
   protected $parser;
 
