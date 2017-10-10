@@ -181,6 +181,8 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
    *
    * @param string $type
    *   Bibcite entity publication type.
+   * @param string $format
+   *   Serializer format.
    *
    * @return string
    *   Format publication type.
@@ -204,8 +206,10 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
    *
    * @param string $type
    *   Format publication type.
+   * @param string $format
+   *   Serializer format.
    *
-   * @return string|null
+   * @return null|string
    *   Bibcite entity publication type.
    */
   protected function convertFormatType($type, $format) {
@@ -217,6 +221,8 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
    *
    * @param \Drupal\bibcite_entity\Entity\ReferenceInterface $reference
    *   Reference entity object.
+   * @param string $format
+   *   Serializer format.
    *
    * @return array
    *   Array of entity values.
@@ -279,32 +285,40 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
    * @param bool $deduplicate
    *   Process deduplication.
    *
-   * @return \Drupal\Core\Entity\EntityInterface
-   *   New contributor entity.
+   * @return array|\Drupal\Core\Entity\EntityInterface
+   *   New contributor entity|uuid.
    */
   protected function prepareAuthor($author_name, $deduplicate = TRUE) {
     $storage = $this->entityManager->getStorage('bibcite_contributor');
 
     if (!$deduplicate) {
-      return $storage->create(['name' => $author_name]);
+      $entity = $storage->create(['name' => $author_name]);
+    }
+    else {
+      $author_name_parsed = \Drupal::service('bibcite.human_name_parser')
+        ->parse($author_name);
+      $query = $storage->getQuery()->range(0, 1);
+      foreach ($author_name_parsed as $name_part => $value) {
+        if (empty($value)) {
+          $query->notExists($name_part);
+        }
+        else {
+          $query->condition($name_part, $value);
+        }
+      }
+
+      $entity = $storage->loadMultiple($query->execute());
+      $entity = $entity ? reset($entity) : $storage->create(['name' => $author_name]);
     }
 
-    $author_name_parsed = \Drupal::service('bibcite.human_name_parser')
-      ->parse($author_name);
-    $query = $storage->getQuery()->range(0, 1);
-    foreach ($author_name_parsed as $name_part => $value) {
-      if (empty($value)) {
-        $query->notExists($name_part);
-      }
-      else {
-        $query->condition($name_part, $value);
-      }
+    if (version_compare(\Drupal::VERSION, '8.4') < 0) {
+      return $entity;
     }
 
-    $entity = $storage->loadMultiple($query->execute());
-    $entity = $entity ? reset($entity) : $storage->create(['name' => $author_name]);
-
-    return $entity;
+    $entity->save();
+    $result['target_type'] = 'bibcite_contributor';
+    $result['target_uuid'] = $entity->uuid();
+    return $result;
   }
 
   /**
@@ -315,27 +329,35 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
    * @param bool $deduplicate
    *   Process deduplication.
    *
-   * @return \Drupal\Core\Entity\EntityInterface
-   *   New keyword entity.
+   * @return array|\Drupal\Core\Entity\EntityInterface
+   *   New keyword entity|uuid.
    */
   protected function prepareKeyword($keyword, $deduplicate = TRUE) {
     $storage = $this->entityManager->getStorage('bibcite_keyword');
     $label_key = $storage->getEntityType()->getKey('label');
 
     if (!$deduplicate) {
-      return $storage->create([$label_key => trim($keyword)]);
+      $entity = $storage->create([$label_key => trim($keyword)]);
+    }
+    else {
+      $label_key = $storage->getEntityType()->getKey('label');
+      $query = $storage->getQuery()
+        ->condition($label_key, trim($keyword))
+        ->range(0, 1)
+        ->execute();
+
+      $entity = $storage->loadMultiple($query);
+      $entity = $entity ? reset($entity) : $storage->create([$label_key => trim($keyword)]);
     }
 
-    $label_key = $storage->getEntityType()->getKey('label');
-    $query = $storage->getQuery()
-      ->condition($label_key, trim($keyword))
-      ->range(0, 1)
-      ->execute();
+    if (version_compare(\Drupal::VERSION, '8.4') < 0) {
+      return $entity;
+    }
 
-    $entity = $storage->loadMultiple($query);
-    $entity = $entity ? reset($entity) : $storage->create([$label_key => trim($keyword)]);
-
-    return $entity;
+    $entity->save();
+    $result['target_type'] = 'bibcite_keyword';
+    $result['target_uuid'] = $entity->uuid();
+    return $result;
   }
 
   /**
@@ -372,6 +394,8 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
    *
    * @param array $data
    *   Array of decoded values.
+   * @param string $format
+   *   Serializer format.
    *
    * @return array
    *   Array of decoded values with converted keys.
