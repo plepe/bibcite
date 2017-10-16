@@ -43,7 +43,7 @@ class BibtexReferenceNormalizer extends ReferenceNormalizerBase {
     $attributes = [];
 
     $attributes['title'] = $this->extractScalar($reference->get('title'));
-    $attributes['type'] = $this->convertEntityType($reference->bundle());
+    $attributes['type'] = $this->convertEntityType($reference->bundle(), $format);
     $attributes['reference'] = $reference->id();
 
     if ($keywords = $this->extractKeywords($reference->get('keywords'))) {
@@ -54,7 +54,7 @@ class BibtexReferenceNormalizer extends ReferenceNormalizerBase {
       $attributes['author'] = $authors;
     }
 
-    $attributes += $this->extractFields($reference);
+    $attributes += $this->extractFields($reference, $format);
 
     return $attributes;
   }

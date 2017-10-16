@@ -41,7 +41,7 @@ class RISReferenceNormalizer extends ReferenceNormalizerBase {
     /** @var \Drupal\bibcite_entity\Entity\ReferenceInterface $reference */
     $attributes = [];
 
-    $attributes['TY'] = $this->convertEntityType($reference->bundle());
+    $attributes['TY'] = $this->convertEntityType($reference->bundle(), $format);
 
     if ($authors = $this->extractAuthors($reference->get('author'))) {
       $attributes['AU'] = $authors;
@@ -57,7 +57,7 @@ class RISReferenceNormalizer extends ReferenceNormalizerBase {
       $attributes['SN'] = trim($isbn . '/' . $issn, '/');
     }
 
-    $attributes += $this->extractFields($reference);
+    $attributes += $this->extractFields($reference, $format);
 
     return $attributes;
   }
