@@ -15,6 +15,13 @@ use Drupal\serialization\Normalizer\EntityNormalizer;
 abstract class ReferenceNormalizerBase extends EntityNormalizer {
 
   /**
+   * Default reference type. Will be assigned for types without mapping.
+   *
+   * @var string
+   */
+  const DEFAULT_REF_TYPE = 'miscellaneous';
+
+  /**
    * The format that this Normalizer supports.
    *
    * @var string
@@ -213,7 +220,13 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
    *   Bibcite entity publication type.
    */
   protected function convertFormatType($type, $format) {
-    return isset($this->typesMapping[$format][$type]) ? $this->typesMapping[$format][$type] : NULL;
+    if (isset($this->typesMapping[$format][$type])) {
+      return $this->typesMapping[$format][$type];
+    }
+    elseif (isset($this->typesMapping[$format][$this->defaultType])) {
+      $this->typesMapping[$format][$this->defaultType];
+    }
+    return self::DEFAULT_REF_TYPE;
   }
 
   /**

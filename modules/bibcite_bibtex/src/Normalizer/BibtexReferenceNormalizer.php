@@ -17,7 +17,7 @@ class BibtexReferenceNormalizer extends ReferenceNormalizerBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultType = 'unassigned';
+  protected $defaultType = 'misc';
 
   /**
    * {@inheritdoc}
