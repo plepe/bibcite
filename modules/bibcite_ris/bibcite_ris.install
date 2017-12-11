@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Module installation hooks implementation.
+ */
+
+use Symfony\Component\Yaml\Yaml;
+
+/**
+ * Implements hook_uninstall().
+ */
+function bibcite_ris_uninstall() {
+  Drupal::configFactory()->getEditable('bibcite_entity.mapping.ris')->delete();
+}
+
+/**
+ * Add new fields to RIS format.
+ */
+function bibcite_ris_update_8001() {
+  $config_factory = \Drupal::configFactory();
+  $config_name = 'bibcite_entity.mapping.ris';
+  $install_path = __DIR__ . '/config/install/';
+  $file_path = $install_path . $config_name . '.yml';
+  if (file_exists($file_path)) {
+    $config = $config_factory->getEditable($config_name);
+    $content = file_get_contents($file_path);
+    $yaml = Yaml::parse($content);
+    $fields = $yaml['fields'];
+
+    $config->set('fields', $fields);
+    $config->save(TRUE);
+  }
+}

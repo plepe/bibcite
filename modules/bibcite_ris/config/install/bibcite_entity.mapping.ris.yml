@@ -62,23 +62,23 @@ fields:
   A3: ''
   A4: ''
   AB: bibcite_abst_e
-  AD: ''
+  AD: bibcite_auth_address
   AN: ''
   AU: author
   AV: ''
-  BT: title
-  C1: ''
-  C2: ''
-  C3: ''
-  C4: ''
-  C5: ''
-  C6: ''
-  C7: ''
+  BT: ''
+  C1: bibcite_custom1
+  C2: bibcite_custom2
+  C3: bibcite_custom3
+  C4: bibcite_custom4
+  C5: bibcite_custom5
+  C6: bibcite_custom6
+  C7: bibcite_custom7
   C8: ''
   CA: ''
   CN: ''
-  CP: bibcite_issue
-  CT: title
+  CP: ''
+  CT: ''
   CY: bibcite_place_published
   DA: ''
   DB: ''
@@ -89,51 +89,51 @@ fields:
   ET: ''
   ID: ''
   IS: bibcite_issue
-  J1: bibcite_short_title
-  J2: bibcite_short_title
-  JA: bibcite_secondary_title
-  JF: bibcite_secondary_title
-  JO: bibcite_short_title
+  J1: ''
+  J2: ''
+  JA: ''
+  JF: ''
+  JO: ''
   KW: keywords
   L1: ''
   L2: ''
   L3: ''
   L4: ''
-  LA: ''
+  LA: bibcite_lang
   LB: ''
   LK: ''
-  M1: ''
+  M1: bibcite_number
   M2: ''
-  M3: ''
+  M3: bibcite_type_of_work
   N1: bibcite_notes
   N2: bibcite_abst_e
-  NV: ''
+  NV: bibcite_number_of_volumes
   OP: ''
   PB: bibcite_publisher
   PP: ''
-  PY: ''
+  PY: bibcite_year
   RI: ''
-  RN: ''
+  RN: bibcite_research_notes
   RP: ''
-  SE: ''
+  SE: bibcite_section
   SN: bibcite_isbn
-  SP: ''
-  ST: title
-  T1: title
+  SP: bibcite_pages
+  ST: bibcite_short_title
+  T1: ''
   T2: bibcite_secondary_title
   T3: bibcite_tertiary_title
   TA: ''
   TI: title
-  TT: ''
-  U1: bibcite_custom1
-  U2: bibcite_custom2
-  U3: bibcite_custom3
-  U4: bibcite_custom4
-  U5: bibcite_custom5
+  TT: bibcite_translated_title
+  U1: ''
+  U2: ''
+  U3: ''
+  U4: ''
+  U5: ''
   UR: bibcite_url
   VL: bibcite_volume
   VO: ''
-  Y1: bibcite_year
+  Y1: ''
   Y2: ''
 
 dependencies:
