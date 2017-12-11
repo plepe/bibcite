@@ -116,7 +116,8 @@ class PopulateForm extends FormBase {
       $form_state->setValue('entity', $entity);
     }
     catch (\Exception $exception) {
-      $form_state->setErrorByName('data', $this->t('Your @format entry is not valid. Please check pasted text.', ['@format' => $format]));
+      $err_string = $this->t('Your @format entry is not valid. Please check pasted text.<br>%ex', ['@format' => 'crossref', '%ex' => $exception->getMessage()]);
+      $form_state->setErrorByName('data', $err_string);
     }
   }
 
