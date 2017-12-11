@@ -1,5 +1,98 @@
 # Changelog
 
+## [Unreleased]
+
+### Important
+- [#2865648] Add description to reference types, prefill it with sensible defaults. On reference type edit form do not fill label textfields if default values are not overridden.
+- [#2903950] Add language field handling to BibTeX, map it appropriately.   
+- [#2879865] Update mapping for RIS.
+  **Note: update forces resetting mapping to new version, even if there were changes from
+  defaults.** In most cases new mapping should work well. If you have custom mapping for RIS
+  and want to preserve it on update, please export/save bibcite_entity.mapping.ris config
+  before performing update and then import it after performing update.
+  Mapping changes:
+  - AD (Author Address field): None --> Author Address
+  - TI (Title): No changes
+  - T1 (Primary Title): Title --> None
+  - ST (Short Title): Title --> Short Title
+  - CT (Title of unpublished reference): Title --> None
+  - BT (This field can contain alphanumeric characters. There is no practical limit to the length of this field): Title --> None
+  - User definable
+    - U1: Custom 1 --> None 
+    - U2: Custom 2 --> None 
+    - U3: Custom 3 --> None 
+    - U4: Custom 4 --> None 
+    - U5: Custom 5 --> None 
+  - Custom fields
+    - C1: None --> Custom 1
+    - C2: None --> Custom 2
+    - C3: None --> Custom 3
+    - C4: None --> Custom 4
+    - C5: None --> Custom 5
+    - C6: None --> Custom 6
+    - C7: None --> Custom 7
+  - IS (Issue number): No changes
+  - CP (This field can contain alphanumeric characters. There is no practical limit to the length of this field): Issue --> None
+  - JO (Journal/Periodical name: full format. This is an alphanumeric field of up to 255 characters): Short Title --> None
+  - J1 (Periodical name: user abbreviation 1. This is an alphanumeric field of up to 255 characters): Short Title --> None
+  - J2 (Alternate Title (this field is used for the abbreviated title of a book or journal name, the latter mapped to T2): Short Title --> None
+  - T2 (Secondary Title (journal title, if applicable)): No changes
+  - JA (Periodical name: standard abbreviation. This is the periodical in which the article was (or is to be, in the case of in-press references) published. This is an alphanumeric field of up to 255 characters): Secondary Title --> None
+  - JF (Journal/Periodical name: full format. This is an alphanumeric field of up to 255 characters): Secondary Title --> None
+  - LA (Language): None --> Publication Language
+  - M1 (Number): None --> Number
+  - M3 (Type of Work): None --> Type of Work
+  - NV (Number of Volumes): None --> Number of Volumes
+  - Y1 (Primary Date): Year of Publication --> None
+  - PY (Publication year): None --> Year of Publication
+  - RN (Research Notes): None --> Research Notes
+  - SE (Section): None --> Section
+  - SP (Start Page): None --> Number of Pages
+  - TT (Translated Title): None --> Translated Title
+
+### Added
+- [#2909824] by antongp: Add CHANGELOG
+- [#2794159] by kruhak, antongp, adci_contributor: Implement format: MARC
+- [#2794161] by kruhak: Implement format: EndNote Tagged
+- [#2794165] by kruhak: Implement format: EndNote X3 XML
+- [#2794163] by khandeli, kruhak: Implement format: EndNote 7 XML
+- [#2794159] by kruhak: Implement format: MARC
+- [#2903950] by camilocodes: Add publication language to BibTex mapping
+- [#2865665]: Implement lookup and export links as plugins and make it available as extra field and views handler
+- [#2865644]: Add action for multiple export references from admin view
+
+### Changed
+- [#2865620] by kruhak: Better error messages for Populate form
+- [#2865648] by kruhak: Update default reference types
+- [#2879865] by camilocodes: Missing bibcite fields for RefWorks-exported RIS
+- [#2794001] by kruhak: Improve quality of human names parsing
+- [#2794159] by kruhak: Implement format: MARC - update requirements in the README.md
+- [#2865648] by kruhak: Update default reference types
+- [#2879865] by camilocodes: Missing bibcite fields for RefWorks-exported RIS
+- [#2890060] by jazztini: Bibtex entry types are case sensitive
+- [#2904701] by camilocodes: RefWorks exported BibTex gets keywords imported into BibCite as single string
+- [#2865622]: Update default configuration of admin views
+- [#2870650] by Pavan B S, antongp: Make the module's code satisfy Drupal coding standards
+
+### Fixed
+- [#2916433] by antongp: BibTeX and RIS exports fail
+- [#2916115] by Shawn DeArmond: Mapping error when importing BibTex in Drupal 8.3
+- [#2915126] by antongp: Import fails on Drupal 8.4
+- [#2910276] by rfmarcelino: PHP error when Inline entity form is used
+- [#2882855] by camilocodes: EndNote-exported BibTex: Issues with "type"
+- [#2875764] by camilocodes: Carriage returns prevent RefWorks-exported BibTeX from being imported
+- [#2878836] by camilocodes: Reference type field not displayed for users with all bibcite permissions
+- [#2875387]: Keywords not being imported, Contributors are
+- [#2875764] by camilocodes: Carriage returns prevent RefWorks-exported BibTeX from being imported
+- [#2877810] by camilocodes: Adding the "Edit all Reference entities" permission to a role does not grant the ability to do so
+- Fix merge actions schema definition
+- [#2865631]: After first use of "Export all references" form files list does not appear
+- [#2870641] by Pavan B S, antongp, dhruveshdtripathi: No configure link in module listing
+
+### Removed
+- [#2865633]: Remove "Enable export formats" setting
+- [#2865625]: Delete inline classes from Author field widget
+
 
 ## [8.x-1.0-alpha4] - 2017-04-25
 
@@ -255,6 +348,15 @@
 
 
 [//]: # "Issues links dev"
+[#2916433]: https://www.drupal.org/node/2916433
+[#2916115]: https://www.drupal.org/node/2916115
+[#2915126]: https://www.drupal.org/node/2915126
+[#2794001]: https://www.drupal.org/node/2794001
+[#2910276]: https://www.drupal.org/node/2910276
+[#2909824]: https://www.drupal.org/node/2909824
+[#2879865]: https://www.drupal.org/node/2879865
+[#2865648]: https://www.drupal.org/node/2865648
+[#2865620]: https://www.drupal.org/node/2865620
 [#2794159]: https://www.drupal.org/node/2794159
 [#2794161]: https://www.drupal.org/node/2794161
 [#2794165]: https://www.drupal.org/node/2794165
