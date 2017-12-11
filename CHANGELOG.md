@@ -3,8 +3,6 @@
 ## [Unreleased]
 
 ### Important
-- [#2865648] Add description to reference types, prefill it with sensible defaults. On reference type edit form do not fill label textfields if default values are not overridden.
-- [#2903950] Add language field handling to BibTeX, map it appropriately.   
 - [#2879865] Update mapping for RIS.
   **Note: update forces resetting mapping to new version, even if there were changes from
   defaults.** In most cases new mapping should work well. If you have custom mapping for RIS
@@ -57,13 +55,15 @@
 - [#2794165] by kruhak: Implement format: EndNote X3 XML
 - [#2794163] by khandeli, kruhak: Implement format: EndNote 7 XML
 - [#2794159] by kruhak: Implement format: MARC
-- [#2903950] by camilocodes: Add publication language to BibTex mapping
+- [#2903950] by camilocodes: Add publication language to BibTex mapping  
+Add language field handling to BibTeX, map it appropriately.
 - [#2865665]: Implement lookup and export links as plugins and make it available as extra field and views handler
 - [#2865644]: Add action for multiple export references from admin view
 
 ### Changed
 - [#2865620] by kruhak: Better error messages for Populate form
-- [#2865648] by kruhak: Update default reference types
+- [#2865648] by kruhak: Update default reference types  
+Add description to reference types, prefill it with sensible defaults. On reference type edit form do not fill label textfields if default values are not overridden.
 - [#2879865] by camilocodes: Missing bibcite fields for RefWorks-exported RIS
 - [#2794001] by kruhak: Improve quality of human names parsing
 - [#2794159] by kruhak: Implement format: MARC - update requirements in the README.md
@@ -348,16 +348,17 @@
 
 
 [//]: # "Issues links dev"
+[#2909824]: https://www.drupal.org/node/2909824
+[#2865620]: https://www.drupal.org/node/2865620
+[#2865648]: https://www.drupal.org/node/2865648
+[#2879865]: https://www.drupal.org/node/2879865
 [#2916433]: https://www.drupal.org/node/2916433
 [#2916115]: https://www.drupal.org/node/2916115
 [#2915126]: https://www.drupal.org/node/2915126
 [#2794001]: https://www.drupal.org/node/2794001
-[#2910276]: https://www.drupal.org/node/2910276
-[#2909824]: https://www.drupal.org/node/2909824
-[#2879865]: https://www.drupal.org/node/2879865
-[#2865648]: https://www.drupal.org/node/2865648
-[#2865620]: https://www.drupal.org/node/2865620
 [#2794159]: https://www.drupal.org/node/2794159
+[#2910276]: https://www.drupal.org/node/2910276
+[#2890060]: https://www.drupal.org/node/2890060
 [#2794161]: https://www.drupal.org/node/2794161
 [#2794165]: https://www.drupal.org/node/2794165
 [#2794163]: https://www.drupal.org/node/2794163
@@ -366,7 +367,6 @@
 [#2865644]: https://www.drupal.org/node/2865644
 [#2865648]: https://www.drupal.org/node/2865648
 [#2879865]: https://www.drupal.org/node/2879865
-[#2890060]: https://www.drupal.org/node/2890060
 [#2904701]: https://www.drupal.org/node/2904701
 [#2865622]: https://www.drupal.org/node/2865622
 [#2870650]: https://www.drupal.org/node/2870650
