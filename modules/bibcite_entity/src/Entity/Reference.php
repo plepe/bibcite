@@ -213,10 +213,11 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
 
     $weight = 5;
 
-    $default_string = function ($label) use (&$weight) {
+    $default_string = function ($label, $hint = '') use (&$weight) {
       $weight++;
       return BaseFieldDefinition::create('string')
         ->setLabel($label)
+        ->setDescription($hint)
         ->setDisplayOptions('view', [
           'label' => 'above',
           'type' => 'string',
@@ -231,10 +232,11 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
         ->setDefaultValue('');
     };
 
-    $default_integer = function ($label) use (&$weight) {
+    $default_integer = function ($label, $hint = '') use (&$weight) {
       $weight++;
       return BaseFieldDefinition::create('integer')
         ->setLabel($label)
+        ->setDescription($hint)
         ->setDisplayOptions('view', [
           'type' => 'number_integer',
           'weight' => $weight,
@@ -248,10 +250,11 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
         ->setDefaultValue(NULL);
     };
 
-    $default_string_long = function ($label, $rows = 1) use (&$weight) {
+    $default_string_long = function ($label, $rows = 1, $hint = '') use (&$weight) {
       $weight++;
       return BaseFieldDefinition::create('string_long')
         ->setLabel($label)
+        ->setDescription($hint)
         ->setDisplayOptions('view', [
           'type' => 'text_default',
           'weight' => $weight,
@@ -285,7 +288,7 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
     /*
      * Number fields.
      */
-    $fields['bibcite_year'] = $default_integer(t('Year of Publication'));
+    $fields['bibcite_year'] = $default_integer(t('Year of Publication'), t('Enter YYYY, Submitted or In Press'));
 
     /*
      * String fields.
@@ -297,9 +300,9 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
     $fields['bibcite_issue'] = $default_string(t('Issue'));
     $fields['bibcite_number_of_volumes'] = $default_string(t('Number of Volumes'));
     $fields['bibcite_number'] = $default_string(t('Number'));
-    $fields['bibcite_pages'] = $default_string(t('Pagination'));
-    $fields['bibcite_date'] = $default_string(t('Date Published'));
-    $fields['bibcite_type_of_work'] = $default_string(t('Type of Work'));
+    $fields['bibcite_pages'] = $default_string(t('Number of Pages'));
+    $fields['bibcite_date'] = $default_string(t('Date Published'), t('(mm/yyyy)'));
+    $fields['bibcite_type_of_work'] = $default_string(t('Type of Work'), t('Masters Thesis'));
     $fields['bibcite_lang'] = $default_string(t('Publication Language'));
     $fields['bibcite_reprint_edition'] = $default_string(t('Reprint Edition'));
     $fields['bibcite_publisher'] = $default_string(t('Publisher'));
@@ -312,7 +315,7 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
     $fields['bibcite_citekey'] = $default_string(t('Citation Key'));
     $fields['bibcite_url'] = $default_string(t('URL'));
     $fields['bibcite_doi'] = $default_string(t('DOI'));
-    $fields['bibcite_research_notes'] = $default_string(t('Reseach Notes'));
+    $fields['bibcite_research_notes'] = $default_string(t('Research Notes'));
     $fields['bibcite_tertiary_title'] = $default_string(t('Tertiary Title'));
     $fields['bibcite_short_title'] = $default_string(t('Short Title'));
     $fields['bibcite_alternate_title'] = $default_string(t('Alternate Title'));

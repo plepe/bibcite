@@ -4,7 +4,6 @@ namespace Drupal\bibcite_entity;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
-use Drupal\Core\Link;
 
 /**
  * Defines a class to build a listing of Reference entities.
@@ -28,9 +27,7 @@ class ReferenceListBuilder extends EntityListBuilder {
    */
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\bibcite_entity\Entity\ReferenceInterface */
-    $row['name'] = Link::createFromRoute($entity->label(), 'entity.bibcite_reference.canonical', [
-      'bibcite_reference' => $entity->id(),
-    ]);
+    $row['name'] = $entity->toLink();
     $row['type'] = $entity->get('type')->target_id;
 
     $account = $entity->getOwner();

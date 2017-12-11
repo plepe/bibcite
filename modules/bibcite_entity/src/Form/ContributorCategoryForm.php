@@ -59,7 +59,7 @@ class ContributorCategoryForm extends EntityForm {
           '%label' => $bibcite_contributor_category->label(),
         ]));
     }
-    $form_state->setRedirectUrl($bibcite_contributor_category->urlInfo('collection'));
+    $form_state->setRedirectUrl($bibcite_contributor_category->toUrl('collection'));
   }
 
 }

@@ -8,6 +8,9 @@ bibcite_entity.bibcite_reference_type.*:
     label:
       type: label
       label: 'Label'
+    description:
+      type: string
+      label: 'Description'
     override:
       type: boolean
       label: 'Override default properties'

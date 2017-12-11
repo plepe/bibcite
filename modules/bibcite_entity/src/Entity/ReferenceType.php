@@ -55,6 +55,28 @@ class ReferenceType extends ConfigEntityBase implements ReferenceTypeInterface {
   protected $label;
 
   /**
+   * The Reference type description.
+   *
+   * @var string
+   */
+  protected $description;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDescription() {
+    return $this->description;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setDescription(string $desc) {
+    $this->description = $desc;
+    return $this;
+  }
+
+  /**
    * The Reference type override flag.
    *
    * @var bool

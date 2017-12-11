@@ -224,7 +224,7 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
       return $this->typesMapping[$format][$type];
     }
     elseif (isset($this->typesMapping[$format][$this->defaultType])) {
-      $this->typesMapping[$format][$this->defaultType];
+      return $this->typesMapping[$format][$this->defaultType];
     }
     return self::DEFAULT_REF_TYPE;
   }

@@ -8,6 +8,7 @@
 use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Config\InstallStorage;
 use Drupal\Core\Database\Database;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Rename database tables and configuration objects.
@@ -95,4 +96,24 @@ function bibcite_entity_update_8004() {
   $config->set('ui_override.enable_form_override', TRUE);
   $config->set('display_override.enable_display_override', TRUE);
   $config->save();
+}
+
+/**
+ * Set default "description" property to "bibcite_reference_type".
+ */
+function bibcite_entity_update_8005() {
+  $config_factory = \Drupal::configFactory();
+  foreach ($config_factory->listAll('bibcite_entity.bibcite_reference_type') as $config_name) {
+    $install_path = __DIR__ . '/config/install/';
+    $file_path = $install_path . $config_name . '.yml';
+    if (file_exists($file_path)) {
+      $config = $config_factory->getEditable($config_name);
+      $content = file_get_contents($file_path);
+      $yaml = Yaml::parse($content);
+      $value = $yaml['description'];
+
+      $config->set('description', $value);
+      $config->save(TRUE);
+    }
+  }
 }

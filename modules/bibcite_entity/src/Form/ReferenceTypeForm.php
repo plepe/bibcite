@@ -28,6 +28,15 @@ class ReferenceTypeForm extends EntityForm {
       '#required' => TRUE,
     ];
 
+    $form['description'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Description'),
+      '#maxlength' => 255,
+      '#default_value' => $reference_type->getDescription(),
+      '#description' => $this->t('Short description of Reference type.'),
+      '#required' => TRUE,
+    ];
+
     $form['id'] = [
       '#type' => 'machine_name',
       '#default_value' => $reference_type->id(),
@@ -72,7 +81,6 @@ class ReferenceTypeForm extends EntityForm {
       'changed',
       'type',
       'author',
-      'title',
     ];
 
     $fields_configuration = $reference_type->getFields();
@@ -103,7 +111,7 @@ class ReferenceTypeForm extends EntityForm {
         'hint' => [
           '#type' => 'textfield',
           '#size' => 30,
-          '#default_value' => isset($field_configuration['hint']) ? $field_configuration['hint'] : '',
+          '#default_value' => isset($field_configuration['hint']) ? $field_configuration['hint'] : $field->getDescription(),
         ],
         'visible' => [
           '#type' => 'checkbox',
@@ -139,7 +147,7 @@ class ReferenceTypeForm extends EntityForm {
           '%label' => $reference_type->label(),
         ]));
     }
-    $form_state->setRedirectUrl($reference_type->urlInfo('collection'));
+    $form_state->setRedirectUrl($reference_type->toUrl('collection'));
   }
 
 }

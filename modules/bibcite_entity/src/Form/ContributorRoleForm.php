@@ -59,7 +59,7 @@ class ContributorRoleForm extends EntityForm {
           '%label' => $bibcite_contributor_role->label(),
         ]));
     }
-    $form_state->setRedirectUrl($bibcite_contributor_role->urlInfo('collection'));
+    $form_state->setRedirectUrl($bibcite_contributor_role->toUrl('collection'));
   }
 
 }

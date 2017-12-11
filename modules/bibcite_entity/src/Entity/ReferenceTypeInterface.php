@@ -10,6 +10,25 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
 interface ReferenceTypeInterface extends ConfigEntityInterface {
 
   /**
+   * Get description.
+   *
+   * @return string
+   *   Short description.
+   */
+  public function getDescription();
+
+  /**
+   * Set description.
+   *
+   * @param string $desc
+   *   String of description.
+   *
+   * @return \Drupal\bibcite_entity\Entity\ReferenceTypeInterface
+   *   Callable entity object.
+   */
+  public function setDescription(string $desc);
+
+  /**
    * Get fields configuration array.
    *
    * @return array
