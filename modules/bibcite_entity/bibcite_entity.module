@@ -9,6 +9,8 @@ use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_entity_operation().
@@ -177,6 +179,7 @@ function bibcite_entity_form_bibcite_reference_form_alter(&$form, FormStateInter
   $form_object = $form_state->getFormObject();
   $entity = $form_object->getEntity();
 
+  /* @var \Drupal\bibcite_entity\UIOverrideProvider $override_provider */
   $override_provider = \Drupal::service('bibcite.ui_override_provider');
   $override_provider->referenceFormFieldsOverride($form, $entity->bundle());
   $override_provider->referenceFormTabsRestructure($form);
@@ -203,6 +206,7 @@ function bibcite_entity_inline_entity_form_entity_form_alter(&$entity_form, &$fo
  */
 function bibcite_entity_entity_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
   if ($entity->getEntityTypeId() == 'bibcite_reference') {
+    /* @var \Drupal\bibcite_entity\UIOverrideProvider $override_provider */
     $override_provider = \Drupal::service('bibcite.ui_override_provider');
     $override_provider->referenceViewFieldsOverride($build, $entity->bundle());
   }
@@ -247,5 +251,34 @@ function bibcite_entity_form_entity_form_display_edit_form_alter(&$form, FormSta
 function bibcite_entity_modules_installed($modules) {
   if (in_array('bibcite_entity', $modules)) {
     \Drupal::service('entity_type.bundle.info')->clearCachedBundles();
+  }
+}
+
+/**
+ * Implements hook_help().
+ */
+function bibcite_entity_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.bibcite_entity':
+      $links = [
+        ':ref' => Url::fromRoute('bibcite_entity.reference.settings')
+          ->toString(),
+        ':ref_links' => Url::fromRoute('bibcite_entity.reference.settings.links')
+          ->toString(),
+        ':ref_types' => Url::fromRoute('entity.bibcite_reference_type.collection')
+          ->toString(),
+        ':contrib' => Url::fromRoute('bibcite_entity.contributor.settings')
+          ->toString(),
+        ':contrib_cat' => Url::fromRoute('entity.bibcite_contributor_category.collection')
+          ->toString(),
+        ':contrib_role' => Url::fromRoute('entity.bibcite_contributor_role.collection')
+          ->toString(),
+        ':csl_map' => Url::fromRoute('bibcite_entity.mapping',
+          ['bibcite_format' => 'csl'])
+          ->toString(),
+      ];
+      $module = 'bibcite_entity';
+      return \Drupal::service('bibcite.help_service')
+        ->getHelpMarkup($links, $route_name, $module);
   }
 }

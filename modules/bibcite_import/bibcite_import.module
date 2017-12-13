@@ -7,6 +7,7 @@
 
 use Drupal\bibcite_entity\Entity\ReferenceInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
  * Implements hook_bibcite_reference_prepare_form().
@@ -24,5 +25,17 @@ function bibcite_import_bibcite_reference_prepare_form(ReferenceInterface $entit
     }
 
     $temp_storage->delete($current_user_id);
+  }
+}
+
+/**
+ * Implements hook_help().
+ */
+function bibcite_import_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.bibcite_import':
+      $module = 'bibcite_import';
+      return \Drupal::service('bibcite.help_service')
+        ->getHelpMarkup([], $route_name, $module);
   }
 }

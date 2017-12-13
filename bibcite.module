@@ -5,6 +5,9 @@
  * Main module hooks.
  */
 
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+
 /**
  * Implements hook_theme().
  */
@@ -34,4 +37,21 @@ function bibcite_preprocess_bibcite_citation(&$variables) {
   $variables['content'] = [
     '#markup' => $styler->render($data),
   ];
+}
+
+/**
+ * Implements hook_help().
+ */
+function bibcite_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.bibcite':
+      $links = [
+        ':proc' => Url::fromRoute('bibcite.settings')->toString(),
+        ':csl' => Url::fromRoute('entity.bibcite_csl_style.collection')
+          ->toString(),
+      ];
+      $module = 'bibcite';
+      return \Drupal::service('bibcite.help_service')
+        ->getHelpMarkup($links, $route_name, $module);
+  }
 }
