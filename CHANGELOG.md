@@ -49,6 +49,7 @@
   - TT (Translated Title): None --> Translated Title
 
 ### Added
+- [#2872598] by kruhak: Implement hook_help with basic information about modules
 - [#2909824] by antongp: Add CHANGELOG
 - [#2794159] by kruhak, antongp, adci_contributor: Implement format: MARC
 - [#2794161] by kruhak: Implement format: EndNote Tagged
@@ -61,6 +62,7 @@ Add language field handling to BibTeX, map it appropriately.
 - [#2865644]: Add action for multiple export references from admin view
 
 ### Changed
+- [#2930424] by antongp: Use "BibTeX" spelling in texts, not "Bibtex", "bibtex", etc
 - [#2865620] by kruhak: Better error messages for Populate form
 - [#2865648] by kruhak: Update default reference types  
 Add description to reference types, prefill it with sensible defaults. On reference type edit form do not fill label textfields if default values are not overridden.
@@ -348,6 +350,8 @@ Add description to reference types, prefill it with sensible defaults. On refere
 
 
 [//]: # "Issues links dev"
+[#2872598]: https://www.drupal.org/node/2872598
+[#2930424]: https://www.drupal.org/node/2930424
 [#2909824]: https://www.drupal.org/node/2909824
 [#2865620]: https://www.drupal.org/node/2865620
 [#2865648]: https://www.drupal.org/node/2865648

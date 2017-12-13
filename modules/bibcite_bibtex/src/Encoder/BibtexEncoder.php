@@ -7,7 +7,7 @@ use Symfony\Component\Serializer\Encoder\DecoderInterface;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 
 /**
- * Bibtex format encoder.
+ * BibTeX format encoder.
  */
 class BibtexEncoder implements EncoderInterface, DecoderInterface {
 
@@ -127,13 +127,13 @@ class BibtexEncoder implements EncoderInterface, DecoderInterface {
   }
 
   /**
-   * Build BibTex entry string.
+   * Build BibTeX entry string.
    *
    * @param array $data
-   *   Array of BibTex values.
+   *   Array of BibTeX values.
    *
    * @return string
-   *   Formatted BibTex string.
+   *   Formatted BibTeX string.
    */
   protected function buildEntry(array $data) {
     if (empty($data['reference'])) {
@@ -155,10 +155,10 @@ class BibtexEncoder implements EncoderInterface, DecoderInterface {
   }
 
   /**
-   * Build first string for bibtex entry.
+   * Build first string for BibTeX entry.
    *
    * @param string $type
-   *   Publication type in Bibtex format.
+   *   Publication type in BibTeX format.
    * @param string $reference
    *   Reference key.
    *
@@ -195,10 +195,10 @@ class BibtexEncoder implements EncoderInterface, DecoderInterface {
   }
 
   /**
-   * Build the end of Bibtex entry.
+   * Build the end of BibTeX entry.
    *
    * @return string
-   *   End line for the Bibtex entry.
+   *   End line for the BibTeX entry.
    */
   protected function buildEnd() {
     return "}\n";

@@ -278,7 +278,7 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
    *   List of field items.
    *
    * @return array
-   *   Authors in BibTex format.
+   *   Authors in BibTeX format.
    */
   protected function extractAuthors(FieldItemListInterface $field_item_list) {
     $authors = [];

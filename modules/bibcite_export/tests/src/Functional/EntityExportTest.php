@@ -60,7 +60,7 @@ class EntityExportTest extends BrowserTestBase {
 
     $page = $this->getSession()->getPage();
 
-    $link = $page->findLink('BibTex');
+    $link = $page->findLink('BibTeX');
     $link->click();
 
     $content = $page->getContent();

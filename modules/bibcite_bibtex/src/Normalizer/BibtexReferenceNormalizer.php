@@ -5,7 +5,7 @@ namespace Drupal\bibcite_bibtex\Normalizer;
 use Drupal\bibcite_entity\Normalizer\ReferenceNormalizerBase;
 
 /**
- * Normalizes/denormalizes reference entity to BibTex format.
+ * Normalizes/denormalizes reference entity to BibTeX format.
  */
 class BibtexReferenceNormalizer extends ReferenceNormalizerBase {
 

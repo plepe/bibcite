@@ -1,6 +1,6 @@
 bibtex:
   id: bibtex
-  label: BibTex
+  label: BibTeX
   extension: bib
   encoder: \Drupal\bibcite_bibtex\Encoder\BibtexEncoder
   types:
