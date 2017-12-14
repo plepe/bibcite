@@ -16,7 +16,7 @@ INTRODUCTION
  **Bibliography & Citation - Import** 
  Provides import feature and UI for import from files.
 
- **Bibliography & Citation - Bibtex**
+ **Bibliography & Citation - BibTeX**
  Provides possibility to use BibTeX format for import and export.
 
  **Bibliography & Citation - Endnote**
