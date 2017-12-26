@@ -10,3 +10,8 @@ services:
   plugin.manager.bibcite_link:
     class: Drupal\bibcite_entity\Plugin\BibciteLinkPluginManager
     parent: default_plugin_manager
+  bibcite_entity.route_subscriber:
+    class: Drupal\bibcite_entity\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
+    arguments: ['@config.factory']

@@ -3,6 +3,12 @@
 ## [Unreleased]
 
 ### Important
+- [#2865678] Improve view modes handling.
+  **Note: update creates new "Table" view mode which enforces Reference entity be outputted as table.**
+          If you had "Display override" option from the settings page enabled before update
+          and outputted Reference entities in "Default" view mode (as tables) somewhere else, 
+          not only on Reference entity own page, then use new "Table" view mode instead of "Default"
+          in those places after update.
 - [#2879865] Update mapping for RIS.
   **Note: update forces resetting mapping to new version, even if there were changes from
   defaults.** In most cases new mapping should work well. If you have custom mapping for RIS
@@ -49,6 +55,10 @@
   - TT (Translated Title): None --> Translated Title
 
 ### Added
+- [#2865678] by kruhak: Add "Page" view mode to Reference entity type and configure it to display table by default  
+Update Citation view mode to show extra field for citation output only, make all other fields hidden. 
+Citation view mode doesn't force fields now to be hidden independently on view mode configuration.
+Only table view mode is show as a table.
 - [#2872598] by kruhak: Implement hook_help with basic information about modules
 - [#2909824] by antongp: Add CHANGELOG
 - [#2794159] by kruhak, antongp, adci_contributor: Implement format: MARC
@@ -350,6 +360,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 
 
 [//]: # "Issues links dev"
+[#2865678]: https://www.drupal.org/node/2865678
 [#2872598]: https://www.drupal.org/node/2872598
 [#2930424]: https://www.drupal.org/node/2930424
 [#2909824]: https://www.drupal.org/node/2909824

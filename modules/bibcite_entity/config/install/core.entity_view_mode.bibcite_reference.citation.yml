@@ -4,5 +4,6 @@ status: true
 cache: true
 targetEntityType: bibcite_reference
 dependencies:
-  module:
-    - bibcite_entity
+  enforced:
+    module:
+      - bibcite_entity

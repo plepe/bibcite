@@ -117,3 +117,133 @@ function bibcite_entity_update_8005() {
     }
   }
 }
+
+/**
+ * Set view modes to "bibcite_reference_type".
+ */
+function bibcite_entity_update_8006() {
+  $config_factory = \Drupal::configFactory();
+  $install_path = __DIR__ . '/config/install/';
+
+  // Add entity view modes.
+  $file_path = $install_path . 'core.entity_view_mode.bibcite_reference.table.yml';
+  if (file_exists($file_path)) {
+    $content = file_get_contents($file_path);
+    $yaml = Yaml::parse($content);
+    $config = $config_factory->getEditable('core.entity_view_mode.bibcite_reference.table');
+    if ($config->isNew()) {
+      foreach ($yaml as $key => $value) {
+        $config->set($key, $value);
+      }
+      $config->save(TRUE);
+    }
+  }
+
+  $file_path = $install_path . 'core.entity_view_mode.bibcite_reference.citation.yml';
+  if (file_exists($file_path)) {
+    $content = file_get_contents($file_path);
+    $yaml = Yaml::parse($content);
+    $config = $config_factory->getEditable('core.entity_view_mode.bibcite_reference.citation');
+    if ($config->isNew()) {
+      foreach ($yaml as $key => $value) {
+        $config->set($key, $value);
+      }
+      $config->save(TRUE);
+    }
+  }
+
+  // Force our entity citation view display config.
+  $install_path = __DIR__ . '/config/optional/';
+  $citation_file_list = glob($install_path . 'core.entity_view_display.bibcite_reference*citation*');
+  $config_list = array_map(function ($file) {
+    return basename($file, '.yml');
+  }, $citation_file_list);
+  foreach ($config_list as $id => $config_name) {
+    $file_path = $citation_file_list[$id];
+    if (file_exists($file_path)) {
+      $config = $config_factory->getEditable($config_name);
+      $content = file_get_contents($file_path);
+      $yaml = Yaml::parse($content);
+      foreach ($yaml as $key => $value) {
+        $config->set($key, $value);
+      }
+      $config->save(TRUE);
+    }
+  }
+
+  // Configure our entity view displays.
+  $config = $config_factory->getEditable('bibcite_entity.reference.settings');
+  $override = $config->get('display_override.enable_display_override');
+  if (!$override) {
+    // If user doesn't use table view mode just write config if doesn't exist.
+    $file_list = glob($install_path . 'core.entity_view_display.bibcite_reference*');
+    $file_list = array_diff($file_list, $citation_file_list);
+    $config_list = array_map(function ($file) {
+      return basename($file, '.yml');
+    }, $file_list);
+    foreach ($config_list as $id => $config_name) {
+      $file_path = $file_list[$id];
+      if (file_exists($file_path)) {
+        $config = $config_factory->getEditable($config_name);
+        if ($config->isNew()) {
+          $content = file_get_contents($file_path);
+          $yaml = Yaml::parse($content);
+          foreach ($yaml as $key => $value) {
+            $config->set($key, $value);
+          }
+          $config->save(TRUE);
+        }
+      }
+    }
+  }
+  else {
+    // If table view mode.
+    $config_list = $config_factory->listAll('core.entity_view_display.bibcite_reference');
+    $default_config_list = preg_grep('^.*default$', $config_list);
+    foreach ($default_config_list as $default_config_name) {
+      $table_config_name = str_replace('default', 'table', $default_config_list);
+      $default_config = $config_factory->getEditable($default_config_name);
+      $file_path = $install_path . $default_config_name . '.yml';
+      $content = file_get_contents($file_path);
+      $yaml = Yaml::parse($content);
+      if ($default_config->isNew()) {
+        // If user doesn't change default view mode set our config.
+        foreach ($yaml as $key => $value) {
+          $default_config->set($key, $value);
+        }
+        $default_config->save(TRUE);
+      }
+      else {
+        // If user change default view mode set it to table view mode.
+        $table_config = $config_factory->getEditable($table_config_name);
+        foreach ($yaml as $key => $value) {
+          $table_config->set($key, $default_config[$key]);
+        }
+        $table_config->save(TRUE);
+      }
+    }
+
+    // Write config for all not exist table view modes.
+    $table_config_list = preg_grep('^.*table$', $config_list);
+    foreach ($table_config_list as $table_config_name) {
+      $table_config = $config_factory->getEditable($table_config_name);
+      if ($table_config->isNew()) {
+        $file_path = $install_path . $table_config_name . '.yml';
+        $content = file_get_contents($file_path);
+        $yaml = Yaml::parse($content);
+        foreach ($yaml as $key => $value) {
+          $table_config->set($key, $value);
+        }
+        $table_config->save();
+      }
+    }
+  }
+
+  // Convert 'Display override' option to 'Reference view mode'.
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('bibcite_entity.reference.settings');
+  $override = $config->get('display_override.enable_display_override');
+  $config->clear('display_override.enable_display_override');
+  $config->set('display_override.reference_page_view_mode', $override ? 'table' : 'default');
+  $config->save(TRUE);
+}

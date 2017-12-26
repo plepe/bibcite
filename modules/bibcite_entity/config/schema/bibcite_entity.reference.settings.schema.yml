@@ -11,9 +11,9 @@ bibcite_entity.reference.settings:
     display_override:
       type: mapping
       mapping:
-        enable_display_override:
-          type: boolean
-          label: 'Enable display override'
+        reference_page_view_mode:
+          type: string
+          label: 'Reference view mode'
     links:
       type: sequence
       sequence:

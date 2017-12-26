@@ -85,7 +85,7 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
   protected $typeKey = NULL;
 
   /**
-   * Construct new BiblioraphyNormalizer object.
+   * Construct new BibliographyNormalizer object.
    *
    * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
    *   The entity manager.

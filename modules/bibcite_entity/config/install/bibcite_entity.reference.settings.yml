@@ -1,4 +1,4 @@
 ui_override:
   enable_form_override: true
 display_override:
-  enable_display_override: true
+  reference_page_view_mode: table

@@ -82,18 +82,8 @@ class ReferenceViewBuilder extends EntityViewBuilder {
     $build = parent::getBuildDefaults($entity, $view_mode);
 
     switch ($view_mode) {
-      case 'default':
-      case 'full':
-        $config = $this->configFactory->get('bibcite_entity.reference.settings');
-        if ($config->get('display_override.enable_display_override')) {
-          $build['#theme'] = 'bibcite_reference_table';
-        }
-        break;
-
-      case 'citation':
-        $build['#theme'] = 'bibcite_citation';
-        $build['#data'] = $this->serializer->normalize($entity, 'csl');
-        $build['#data']['#entity'] = $entity;
+      case 'table':
+        $build['#theme'] = 'bibcite_reference_table';
         break;
     }
 

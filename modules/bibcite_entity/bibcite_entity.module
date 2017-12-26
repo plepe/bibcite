@@ -70,7 +70,10 @@ function bibcite_entity_preprocess_bibcite_reference_table(&$variables) {
 
   foreach (Element::children($variables['elements']) as $key) {
     if (Element::children($variables['elements'][$key])) {
-      $title = $variables['elements'][$key]['#title'];
+      $title = '';
+      if (isset($variables['elements'][$key]['#title']) && $variables['elements'][$key]['#label_display'] != 'hidden') {
+        $title = $variables['elements'][$key]['#title'];
+      }
       $variables['elements'][$key]['#title'] = '';
       $variables['content']['table'][] = [
         'title' => [
@@ -215,7 +218,7 @@ function bibcite_entity_entity_view_alter(array &$build, EntityInterface $entity
 /**
  * Implements hook_form_entity_view_display_edit_form_alter().
  *
- * Override fields titles.
+ * Override fields titles. And label options.
  */
 function bibcite_entity_form_entity_view_display_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form['#entity_type'] == 'bibcite_reference') {
@@ -223,6 +226,17 @@ function bibcite_entity_form_entity_view_display_edit_form_alter(&$form, FormSta
 
     $override_provider = \Drupal::service('bibcite.ui_override_provider');
     $override_provider->referenceDisplayFormFieldsOverride($form, $bundle_id);
+
+    /** @var \Drupal\field_ui\Form\EntityViewDisplayEditForm $object */
+    $object = $form_state->getBuildInfo()['callback_object'];
+    $mode = $object->getEntity()->getMode();
+    if ($mode == 'table') {
+      foreach ($form['fields'] as $key => $value) {
+        if (is_array($value) && array_key_exists('label', $value)) {
+          $form['fields'][$key]['label']['#options'] = ['above' => 'Visible', 'hidden' => '- Hidden -'];
+        }
+      }
+    }
   }
 }
 
