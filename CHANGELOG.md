@@ -5,10 +5,10 @@
 ### Important
 - [#2865678] Improve view modes handling.
   **Note: update creates new "Table" view mode which enforces Reference entity be outputted as table.**
-          If you had "Display override" option from the settings page enabled before update
-          and outputted Reference entities in "Default" view mode (as tables) somewhere else, 
-          not only on Reference entity own page, then use new "Table" view mode instead of "Default"
-          in those places after update.
+  If you had "Display override" option from the settings page enabled before update
+  and outputted Reference entities in "Default" view mode (as tables) somewhere else, 
+  not only on Reference entity own page, then use new "Table" view mode instead of "Default"
+  in those places after update.
 - [#2879865] Update mapping for RIS.
   **Note: update forces resetting mapping to new version, even if there were changes from
   defaults.** In most cases new mapping should work well. If you have custom mapping for RIS
