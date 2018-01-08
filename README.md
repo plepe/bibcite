@@ -28,11 +28,12 @@ INTRODUCTION
  **Bibliography & Citation - RIS**
  Provides possibility to use RIS format for import and export.
 
- * For a full description of the module, visit the project page:
+ * For a full description of the module, visit the project page:  
    https://drupal.org/project/bibcite
 
- * To submit bug reports and feature suggestions, or to track changes:
+ * To submit bug reports and feature suggestions, or to track changes:  
    https://drupal.org/project/issues/bibcite
+
 
 REQUIREMENTS
 ------------
@@ -46,6 +47,21 @@ This module requires the following libraries:
  * "caseyamcl/php-marc21": "~1.0"
 
  Some of these libraries are required by submodules which provide additional formats for import and export.
+
+
+RECOMMENDED MODULES
+-------------------
+
+ * [Bibliography & Citation - Migrate](https://www.drupal.org/project/bibcite_migrate)  
+   Allows to migrate your bibliographic data from the Bibliography (biblio) module.
+
+ * [Bibliography & Citation - Altmetric](https://www.drupal.org/project/bibcite_altmetric)  
+   Adds [Altmetric](https://www.altmetric.com) badges to reference entities.
+
+ * [Metatag Google Scholar](https://www.drupal.org/project/metatag_google_scholar)  
+   Provides number of meta tags to help with indexing of scholarly
+   content/articles in [Google Scholar](https://scholar.google.com).
+
 
 INSTALLATION
 ------------
@@ -66,10 +82,12 @@ INSTALLATION
    https://www.drupal.org/docs/8/extending-drupal/installing-contributed-modules
    for further information.
 
+
 MAINTAINERS
 -----------
 
 Current maintainers:
- * Sergey Sergin (kruhak) - https://www.drupal.org/u/kruhak
+ * Anton Shubkin (antongp) - https://www.drupal.org/u/antongp
+ * adci_contributor - https://www.drupal.org/u/adci_contributor
 
 This project has been sponsored by [ADCI Solutions](http://www.adcisolutions.com/)
