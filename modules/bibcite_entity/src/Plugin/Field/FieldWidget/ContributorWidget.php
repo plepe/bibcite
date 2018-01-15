@@ -2,13 +2,13 @@
 
 namespace Drupal\bibcite_entity\Plugin\Field\FieldWidget;
 
-use Drupal\Core\Config\Entity\ConfigEntityInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\bibcite_entity\ContributorPropertiesServiceInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\EntityReferenceAutocompleteWidget;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Url;
 use Drupal\user\EntityOwnerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -26,19 +26,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ContributorWidget extends EntityReferenceAutocompleteWidget implements ContainerFactoryPluginInterface {
 
   /**
-   * The entity type manager service.
+   * The contributor category manager service.
    *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   * @var \Drupal\bibcite_entity\ContributorPropertiesServiceInterface
    */
-  protected $entityTypeManager;
+  protected $contributorPropertiesService;
 
   /**
    * {@inheritdoc}
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, ContributorPropertiesServiceInterface $contributorPropertiesService) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
 
-    $this->entityTypeManager = $entity_type_manager;
+    $this->contributorPropertiesService = $contributorPropertiesService;
   }
 
   /**
@@ -51,7 +51,7 @@ class ContributorWidget extends EntityReferenceAutocompleteWidget implements Con
       $configuration['field_definition'],
       $configuration['settings'],
       $configuration['third_party_settings'],
-      $container->get('entity_type.manager')
+      $container->get('bibcite_entity.contributor_properties_service')
     );
   }
 
@@ -61,12 +61,18 @@ class ContributorWidget extends EntityReferenceAutocompleteWidget implements Con
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $element += parent::formElement($items, $delta, $element, $form, $form_state);
 
+    $links = [
+      ':category' => Url::fromRoute('entity.bibcite_contributor_category.collection')->toString(),
+      ':role' => Url::fromRoute('entity.bibcite_contributor_role.collection')->toString(),
+    ];
     $element['category'] = [
       '#type' => 'select',
       '#title' => $this->t('Category'),
-      '#default_value' => isset($items[$delta]->category) ? $items[$delta]->category : NULL,
+      '#default_value' => isset($items[$delta]->category) ? $items[$delta]->category : $this->contributorPropertiesService->getDefaultCategory(),
+      '#description' => $this->t('Default category value can be set on <a href=":category">settings page</a>.', $links),
       '#maxlength' => $this->getFieldSetting('max_length'),
-      '#options' => $this->getContributorCategories(),
+      '#options' => $this->contributorPropertiesService->getCategories(),
+      '#empty_option' => $this->t('- Default -'),
       '#weight' => $delta,
       '#prefix' => '<div class="bibcite-contributor__selects">',
     ];
@@ -74,9 +80,11 @@ class ContributorWidget extends EntityReferenceAutocompleteWidget implements Con
     $element['role'] = [
       '#type' => 'select',
       '#title' => $this->t('Role'),
-      '#default_value' => isset($items[$delta]->role) ? $items[$delta]->role : NULL,
+      '#default_value' => isset($items[$delta]->role) ? $items[$delta]->role : $this->contributorPropertiesService->getDefaultRole(),
+      '#description' => $this->t('Default role value can be set on <a href=":role">settings page</a>.', $links),
       '#maxlength' => $this->getFieldSetting('max_length'),
-      '#options' => $this->getContributorRoles(),
+      '#options' => $this->contributorPropertiesService->getRoles(),
+      '#empty_option' => $this->t('- Default -'),
       '#weight' => $delta,
       '#suffix' => '</div>',
     ];
@@ -90,59 +98,6 @@ class ContributorWidget extends EntityReferenceAutocompleteWidget implements Con
     $element['#attached']['library'][] = 'bibcite_entity/widget';
 
     return $element;
-  }
-
-  /**
-   * Get list of contributor categories.
-   *
-   * @return array
-   *   Contributor categories.
-   */
-  protected function getContributorCategories() {
-    $entities = $this->entityTypeManager->getStorage('bibcite_contributor_category')->loadMultiple();
-    uasort($entities, [$this, 'sortWeightOptions']);
-
-    return array_map(function ($entity) {
-      /** @var \Drupal\Core\Entity\EntityInterface $entity */
-      return $entity->label();
-    }, $entities);
-  }
-
-  /**
-   * Get list of contributor roles.
-   *
-   * @return array
-   *   Contributor roles.
-   */
-  protected function getContributorRoles() {
-    $entities = $this->entityTypeManager->getStorage('bibcite_contributor_role')->loadMultiple();
-    uasort($entities, [$this, 'sortWeightOptions']);
-
-    return array_map(function ($entity) {
-      /** @var \Drupal\Core\Entity\EntityInterface $entity */
-      return $entity->label();
-    }, $entities);
-  }
-
-  /**
-   * Sort callback for config entities with weight parameter.
-   *
-   * @param \Drupal\Core\Config\Entity\ConfigEntityInterface $entity_first
-   *   First entity to compare.
-   * @param \Drupal\Core\Config\Entity\ConfigEntityInterface $entity_second
-   *   Second entity to compare.
-   *
-   * @return int
-   *   Sort result.
-   */
-  protected function sortWeightOptions(ConfigEntityInterface $entity_first, ConfigEntityInterface $entity_second) {
-    $weight_first = $entity_first->get('weight');
-    $weight_second = $entity_second->get('weight');
-
-    if ($weight_first == $weight_second) {
-      return 0;
-    }
-    return ($weight_first < $weight_second) ? -1 : 1;
   }
 
 }

@@ -29,3 +29,14 @@ bibcite_entity.link:
       type: boolean
     weight:
       type: integer
+
+field.formatter.settings.bibcite_contributor_label:
+  type: mapping
+  label: 'Label'
+  mapping:
+    role:
+      type: bool
+      label: 'Show role'
+    category:
+      type: bool
+      label: 'Show category'

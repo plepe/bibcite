@@ -12,10 +12,41 @@ use Drupal\Core\Url;
 class ContributorRoleDeleteForm extends EntityConfirmFormBase {
 
   /**
+   * If author of this role is in reference entity.
+   *
+   * @var bool
+   */
+  private $inUse = FALSE;
+
+  /**
+   * Find if author of this role is in reference entity.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   */
+  private function checkInReference() {
+    $storage = $this->entityTypeManager->getStorage('bibcite_reference');
+    $query = $storage->getQuery();
+    return !empty($query->condition('author.role', $this->entity->id())->range(0, 1)->execute());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function init(FormStateInterface $form_state) {
+    parent::init($form_state);
+    $this->inUse = $this->checkInReference();
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getQuestion() {
-    return $this->t('Are you sure you want to delete %name?', ['%name' => $this->entity->label()]);
+    if (!$this->inUse) {
+      return $this->t('Are you sure you want to delete %name?', ['%name' => $this->entity->label()]);
+    }
+    else {
+      return $this->t('Role %name used in reference(s) and cannot be deleted.', ['%name' => $this->entity->label()]);
+    }
   }
 
   /**
@@ -48,6 +79,25 @@ class ContributorRoleDeleteForm extends EntityConfirmFormBase {
     );
 
     $form_state->setRedirectUrl($this->getCancelUrl());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    if ($this->inUse) {
+      $form_state->setError($form, $this->t('Role %name used in reference(s) and cannot be deleted.', ['%name' => $this->entity->label()]));
+    }
+    parent::validateForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function actions(array $form, FormStateInterface $form_state) {
+    $actions = parent::actions($form, $form_state);
+    $actions['submit']['#disabled'] = $this->inUse;
+    return $actions;
   }
 
 }

@@ -4,6 +4,7 @@ namespace Drupal\bibcite_entity;
 
 use Drupal\Core\Config\Entity\DraggableListBuilder;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Provides a listing of Contributor category entities.
@@ -35,6 +36,20 @@ class ContributorCategoryListBuilder extends DraggableListBuilder {
       '#markup' => $entity->id(),
     ];
     return $row + parent::buildRow($entity);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state) {
+    $form = parent::buildForm($form, $form_state);
+
+    $form['category_list_description'] = [
+      '#type' => 'label',
+      '#title' => $this->t('First value in the list is used as default contributor category.'),
+    ];
+
+    return $form;
   }
 
 }

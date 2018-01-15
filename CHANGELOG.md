@@ -55,6 +55,7 @@
   - TT (Translated Title): None --> Translated Title
 
 ### Added
+- [#2936662] by antongp: Add options to show role and/or category in contributor field formatter
 - [#2865678] by kruhak: Add "Page" view mode to Reference entity type and configure it to display table by default  
 Update Citation view mode to show extra field for citation output only, make all other fields hidden. 
 Citation view mode doesn't force fields now to be hidden independently on view mode configuration.
@@ -360,6 +361,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 
 
 [//]: # "Issues links dev"
+[#2936662]: https://www.drupal.org/node/2936662
 [#2865678]: https://www.drupal.org/node/2865678
 [#2872598]: https://www.drupal.org/node/2872598
 [#2930424]: https://www.drupal.org/node/2930424
