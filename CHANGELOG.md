@@ -88,6 +88,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 - [#2870650] by Pavan B S, antongp: Make the module's code satisfy Drupal coding standards
 
 ### Fixed
+- [#2930990] by Toki, antongp: New Reference entities, when populated via "Populate reference values", save only first author in the list
 - [#2916433] by antongp: BibTeX and RIS exports fail
 - [#2916115] by Shawn DeArmond: Mapping error when importing BibTex in Drupal 8.3
 - [#2915126] by antongp: Import fails on Drupal 8.4
@@ -361,6 +362,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 
 
 [//]: # "Issues links dev"
+[#2930990]: https://www.drupal.org/node/2930990
 [#2936662]: https://www.drupal.org/node/2936662
 [#2865678]: https://www.drupal.org/node/2865678
 [#2872598]: https://www.drupal.org/node/2872598

@@ -52,7 +52,6 @@ use Drupal\user\UserInterface;
  *     "edit-form" = "/bibcite/reference/{bibcite_reference}/edit",
  *     "delete-form" = "/bibcite/reference/{bibcite_reference}/delete",
  *     "add-page" = "/admin/content/bibcite/reference/add",
- *     "add-form" = "/admin/content/bibcite/reference/add/{bibcite_reference_type}",
  *     "delete-multiple-form" = "/admin/content/bibcite/reference/delete",
  *     "collection" = "/admin/content/bibcite/reference",
  *   },
