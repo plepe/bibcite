@@ -247,3 +247,30 @@ function bibcite_entity_update_8006() {
   $config->set('display_override.reference_page_view_mode', $override ? 'table' : 'default');
   $config->save(TRUE);
 }
+
+/**
+ * Fix missed bibcite reference view modes configurations.
+ */
+function bibcite_entity_update_8007() {
+  $config_factory = \Drupal::configFactory();
+  $install_path = __DIR__ . '/config/optional/';
+  $citation_file_list = glob($install_path . 'core.entity_view_display.bibcite_reference*');
+  $config_list = array_map(function ($file) {
+    return basename($file, '.yml');
+  }, $citation_file_list);
+  foreach ($config_list as $id => $config_name) {
+    $file_path = $citation_file_list[$id];
+    if (file_exists($file_path)) {
+      $config = $config_factory->getEditable($config_name);
+      // Save config if not exist.
+      if ($config->isNew()) {
+        $content = file_get_contents($file_path);
+        $yaml = Yaml::parse($content);
+        foreach ($yaml as $key => $value) {
+          $config->set($key, $value);
+        }
+        $config->save(TRUE);
+      }
+    }
+  }
+}
