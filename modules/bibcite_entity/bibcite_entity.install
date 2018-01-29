@@ -274,3 +274,21 @@ function bibcite_entity_update_8007() {
     }
   }
 }
+
+/**
+ * Disable reference type field for all view modes.
+ */
+function bibcite_entity_update_8008() {
+  $config_factory = \Drupal::configFactory();
+
+  foreach ($config_factory->listAll('core.entity_view_display.bibcite_reference') as $config_name) {
+    $config = $config_factory->getEditable($config_name);
+    $content = $config->get('content');
+    unset($content['bibcite_type']);
+    $config->set('content', $content);
+    $hidden = $config->get('hidden');
+    $hidden['bibcite_type'] = TRUE;
+    $config->set('hidden', $hidden);
+    $config->save(TRUE);
+  }
+}

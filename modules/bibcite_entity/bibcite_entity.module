@@ -5,6 +5,8 @@
  * Module hooks.
  */
 
+use Drupal\bibcite_entity\Entity\ReferenceType;
+use Drupal\Component\Utility\Xss;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -122,6 +124,12 @@ function bibcite_entity_entity_extra_field_info() {
       'description' => t('Render all available reference links'),
       'weight' => 100,
     ];
+
+    $extra['bibcite_reference'][$bundle->id()]['display']['bibcite_type'] = [
+      'label' => t('Reference type'),
+      'description' => t('Reference type, for example Journal Article'),
+      'weight' => 100,
+    ];
   }
 
   return $extra;
@@ -169,6 +177,20 @@ function bibcite_entity_bibcite_reference_view_alter(array &$build, EntityInterf
     }
 
     uasort($build['bibcite_links']['links']['#items'], 'Drupal\Component\Utility\SortArray::sortByWeightProperty');
+  }
+
+  if ($component = $display->getComponent('bibcite_type')) {
+    $bundle = ReferenceType::load($entity->bundle());
+    $build['bibcite_type'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => ['bibcite-type'],
+      ],
+      '#weight' => $component['weight'],
+      'type' => [
+        '#markup' => Xss::filterAdmin($bundle ? $bundle->label() : $entity->bundle()),
+      ],
+    ];
   }
 }
 
@@ -222,11 +244,6 @@ function bibcite_entity_entity_view_alter(array &$build, EntityInterface $entity
  */
 function bibcite_entity_form_entity_view_display_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form['#entity_type'] == 'bibcite_reference') {
-    $bundle_id = $form['#bundle'];
-
-    $override_provider = \Drupal::service('bibcite.ui_override_provider');
-    $override_provider->referenceDisplayFormFieldsOverride($form, $bundle_id);
-
     /** @var \Drupal\field_ui\Form\EntityViewDisplayEditForm $object */
     $object = $form_state->getBuildInfo()['callback_object'];
     $mode = $object->getEntity()->getMode();

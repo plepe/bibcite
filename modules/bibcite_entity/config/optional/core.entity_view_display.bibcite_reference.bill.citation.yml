@@ -59,4 +59,5 @@ hidden:
     bibcite_refereed: true
     bibcite_links: true
     bibcite_pmid: true
+    bibcite_type: true
     uid: true
