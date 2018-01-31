@@ -9,8 +9,8 @@ use Symfony\Component\Routing\Route;
 /**
  * Provides routes for Keyword entities.
  *
- * @see Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
- * @see Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
+ * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
+ * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
 class KeywordHtmlRouteProvider extends AdminHtmlRouteProvider {
 
@@ -47,7 +47,7 @@ class KeywordHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_entity_list' => $entity_type_id,
           '_title' => "{$entity_type->getLabel()} list",
         ])
-        ->setRequirement('_permission', 'view keyword entities')
+        ->setRequirement('_permission', 'view bibcite_keyword')
         ->setOption('_admin_route', TRUE);
 
       return $route;

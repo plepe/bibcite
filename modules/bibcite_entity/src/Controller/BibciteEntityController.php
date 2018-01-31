@@ -2,6 +2,7 @@
 
 namespace Drupal\bibcite_entity\Controller;
 
+use Drupal\bibcite_entity\Entity\ReferenceTypeInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 
@@ -13,15 +14,15 @@ class BibciteEntityController extends ControllerBase implements ContainerInjecti
   /**
    * Provides the reference submission form.
    *
-   * @param string $bibcite_reference_type
+   * @param ReferenceTypeInterface $bibcite_reference_type
    *   The reference type entity for the reference.
    *
    * @return array
    *   A reference submission form.
    */
-  public function add(string $bibcite_reference_type) {
+  public function add(ReferenceTypeInterface $bibcite_reference_type) {
     $entity = $this->entityTypeManager()->getStorage('bibcite_reference')->create([
-      'type' => $bibcite_reference_type,
+      'type' => $bibcite_reference_type->id(),
     ]);
 
     return $this->entityFormBuilder()->getForm($entity);

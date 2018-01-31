@@ -36,7 +36,7 @@ use Drupal\user\UserInterface;
  *     },
  *   },
  *   base_table = "bibcite_reference",
- *   admin_permission = "administer bibcite_reference entities",
+ *   admin_permission = "administer bibcite_reference",
  *   entity_keys = {
  *     "id" = "id",
  *     "bundle" = "type",

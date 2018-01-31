@@ -21,13 +21,13 @@ class KeywordAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\bibcite_entity\Entity\KeywordInterface $entity */
     switch ($operation) {
       case 'view':
-        return AccessResult::allowedIfHasPermission($account, 'view keyword entities');
+        return AccessResult::allowedIfHasPermission($account, 'view bibcite_keyword');
 
       case 'update':
-        return AccessResult::allowedIfHasPermission($account, 'edit keyword entities');
+        return AccessResult::allowedIfHasPermission($account, 'edit bibcite_keyword');
 
       case 'delete':
-        return AccessResult::allowedIfHasPermission($account, 'delete keyword entities');
+        return AccessResult::allowedIfHasPermission($account, 'delete bibcite_keyword');
     }
 
     // Unknown operation, no opinion.
@@ -38,7 +38,7 @@ class KeywordAccessControlHandler extends EntityAccessControlHandler {
    * {@inheritdoc}
    */
   protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
-    return AccessResult::allowedIfHasPermission($account, 'add keyword entities');
+    return AccessResult::allowedIfHasPermission($account, 'create bibcite_keyword');
   }
 
 }

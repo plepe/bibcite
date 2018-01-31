@@ -21,13 +21,13 @@ class ContributorAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\bibcite_entity\Entity\ContributorInterface $entity */
     switch ($operation) {
       case 'view':
-        return AccessResult::allowedIfHasPermission($account, 'view contributor entities');
+        return AccessResult::allowedIfHasPermission($account, 'view bibcite_contributor');
 
       case 'update':
-        return AccessResult::allowedIfHasPermission($account, 'edit contributor entities');
+        return AccessResult::allowedIfHasPermission($account, 'edit bibcite_contributor');
 
       case 'delete':
-        return AccessResult::allowedIfHasPermission($account, 'delete contributor entities');
+        return AccessResult::allowedIfHasPermission($account, 'delete bibcite_contributor');
     }
 
     // Unknown operation, no opinion.
@@ -38,7 +38,7 @@ class ContributorAccessControlHandler extends EntityAccessControlHandler {
    * {@inheritdoc}
    */
   protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
-    return AccessResult::allowedIfHasPermission($account, 'add contributor entities');
+    return AccessResult::allowedIfHasPermission($account, 'create bibcite_contributor');
   }
 
 }

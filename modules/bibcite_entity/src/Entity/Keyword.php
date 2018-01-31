@@ -34,7 +34,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     },
  *   },
  *   base_table = "bibcite_keyword",
- *   admin_permission = "administer keyword entities",
+ *   admin_permission = "administer bibcite_keyword",
  *   fieldable = FALSE,
  *   entity_keys = {
  *     "id" = "id",

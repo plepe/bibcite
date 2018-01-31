@@ -292,3 +292,67 @@ function bibcite_entity_update_8008() {
     $config->save(TRUE);
   }
 }
+
+/**
+ * Update user roles permissions.
+ */
+function bibcite_entity_update_8009() {
+  $permission_map = [
+    'administer bibcite_reference entities' => 'administer bibcite_reference',
+    'add bibcite_reference entities' => 'create bibcite_reference',
+    'delete own bibcite_reference entities' => 'delete own bibcite_reference',
+    'delete all bibcite_reference entities' => 'delete any bibcite_reference',
+    'edit own bibcite_reference entities' => 'edit own bibcite_reference',
+    'edit all bibcite_reference entities' => 'edit any bibcite_reference',
+    'view bibcite_reference entities' => 'view bibcite_reference',
+    'administer contributor entities' => 'administer bibcite_contributor',
+    'add contributor entities' => 'create bibcite_contributor',
+    'delete contributor entities' => 'delete bibcite_contributor',
+    'edit contributor entities' => 'edit bibcite_contributor',
+    'view contributor entities' => 'view bibcite_contributor',
+    'administer keyword entities' => 'administer bibcite_keyword',
+    'add keyword entities' => 'create bibcite_keyword',
+    'delete keyword entities' => 'delete bibcite_keyword',
+    'edit keyword entities' => 'edit bibcite_keyword',
+    'view keyword entities' => 'view bibcite_keyword',
+  ];
+  $config_factory = \Drupal::configFactory();
+  foreach ($config_factory->listAll('user.role') as $config_name) {
+    $config = $config_factory->getEditable($config_name);
+    $permissions = $config->get('permissions');
+    $role_id = $config->get('id');
+    $revoke = [];
+    $grant = [];
+    foreach ($permission_map as $old => $new) {
+      if (in_array($old, $permissions)) {
+        $revoke[] = $old;
+        $grant[] = $new;
+      }
+    }
+    user_role_revoke_permissions($role_id, $revoke);
+    user_role_grant_permissions($role_id, $grant);
+  }
+
+  $manager = \Drupal::entityDefinitionUpdateManager();
+  $entity_type = $manager->getEntityType('bibcite_contributor');
+  $entity_type->set('admin_permission', 'administer bibcite_contributor');
+  $manager->updateEntityType($entity_type);
+  $entity_type = $manager->getEntityType('bibcite_contributor_category');
+  $entity_type->set('admin_permission', 'administer bibcite_reference');
+  $manager->updateEntityType($entity_type);
+  $entity_type = $manager->getEntityType('bibcite_contributor_role');
+  $entity_type->set('admin_permission', 'administer bibcite_reference');
+  $manager->updateEntityType($entity_type);
+  $entity_type = $manager->getEntityType('bibcite_keyword');
+  $entity_type->set('admin_permission', 'administer bibcite_keyword');
+  $manager->updateEntityType($entity_type);
+  $entity_type = $manager->getEntityType('bibcite_reference_type');
+  $entity_type->set('admin_permission', 'administer bibcite_reference');
+  $manager->updateEntityType($entity_type);
+  $entity_type = $manager->getEntityType('bibcite_reference');
+  $entity_type->set('admin_permission', 'administer bibcite_reference');
+  $links = $entity_type->getLinkTemplates();
+  unset($links['add-form']);
+  $entity_type->set('links', $links);
+  $manager->updateEntityType($entity_type);
+}

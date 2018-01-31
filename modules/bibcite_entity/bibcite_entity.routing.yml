@@ -4,7 +4,7 @@ entity.bibcite_reference.add_form:
     _title: 'Add content'
     _controller: '\Drupal\bibcite_entity\Controller\BibciteEntityController::add'
   requirements:
-    _permission: 'add bibcite_reference entities'
+    _reference_add_access: 'bibcite_reference:{bibcite_reference_type}'
 
 bibcite_entity.contributor.settings:
   path: '/admin/config/bibcite/settings/contributor/settings'

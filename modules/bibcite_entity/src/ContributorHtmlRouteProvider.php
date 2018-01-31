@@ -47,7 +47,7 @@ class ContributorHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_entity_list' => $entity_type_id,
           '_title' => "{$entity_type->getLabel()} list",
         ])
-        ->setRequirement('_permission', 'view contributor entities')
+        ->setRequirement('_permission', 'view bibcite_contributor')
         ->setOption('_admin_route', TRUE);
 
       return $route;

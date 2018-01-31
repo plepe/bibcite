@@ -1,4 +1,9 @@
 services:
+  access_check.bibcite_reference.add:
+    class: Drupal\bibcite_entity\Access\ReferenceAddAccessCheck
+    arguments: ['@entity.manager']
+    tags:
+      - { name: access_check, applies_to: _reference_add_access }
   bibcite_entity.normalizer.reference:
     class: Drupal\bibcite_entity\Normalizer\CslReferenceNormalizer
     tags:

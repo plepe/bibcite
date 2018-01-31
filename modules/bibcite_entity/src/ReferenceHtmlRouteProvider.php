@@ -47,7 +47,7 @@ class ReferenceHtmlRouteProvider extends AdminHtmlRouteProvider {
           '_entity_list' => $entity_type_id,
           '_title' => "{$entity_type->getLabel()}",
         ])
-        ->setRequirement('_permission', 'view bibcite_reference entities')
+        ->setRequirement('_permission', 'view bibcite_reference')
         ->setOption('_admin_route', TRUE);
 
       return $route;

@@ -3,6 +3,32 @@
 ## [Unreleased]
 
 ### Important
+- [#2878975] Improve module permissions.
+  **Note: Bibliography & Citation - Entity module's permissions were renamed.**
+
+  **Both machine-names and labels:**
+  - Create new Reference entities --> Create new Reference entity of any type
+  - Edit all Reference entities  --> Edit any Reference entity of any type
+  - Edit own Reference entities --> Edit own Reference entity of any type
+  - Delete all Reference entities --> Delete any Reference entity of any type
+  - Delete own Reference entities --> Delete own Reference entity of any type
+
+  **Only machine-names:**
+  - Administer Reference entities
+  - View Reference entities
+  - Administer Contributor entities
+  - Create new Contributor entities
+  - Delete Contributor entities
+  - Edit Contributor entities
+  - View Contributor entities
+  - Administer Keyword entities
+  - Create new Keyword entities
+  - Delete Keyword entities
+  - Edit Keyword entities
+  - View Keyword entities
+
+  **The module will update these permissions in roles automatically on update.php run. If you used checking for these permissions in some other places, for example in Views or custom code, please update these usages manually.**
+  Also new create/edit/delete permissions per reference entity bundle were added. Please note that "any type" permissions take a precedence over particular type permissions.
 - [#2865678] Improve view modes handling.
   **Note: update creates new "Table" view mode which enforces Reference entity be outputted as table.**
   If you had "Display override" option from the settings page enabled before update
@@ -55,6 +81,7 @@
   - TT (Translated Title): None --> Translated Title
 
 ### Added
+- [#2940219]: Add extra field with reference type to reference entities
 - [#2936662] by antongp: Add options to show role and/or category in contributor field formatter
 - [#2865678] by kruhak: Add "Page" view mode to Reference entity type and configure it to display table by default  
 Update Citation view mode to show extra field for citation output only, make all other fields hidden. 
@@ -73,6 +100,7 @@ Add language field handling to BibTeX, map it appropriately.
 - [#2865644]: Add action for multiple export references from admin view
 
 ### Changed
+- [#2878975] by kruhak: Improve module permissions
 - [#2930424] by antongp: Use "BibTeX" spelling in texts, not "Bibtex", "bibtex", etc
 - [#2865620] by kruhak: Better error messages for Populate form
 - [#2865648] by kruhak: Update default reference types  
@@ -88,6 +116,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 - [#2870650] by Pavan B S, antongp: Make the module's code satisfy Drupal coding standards
 
 ### Fixed
+- [#2940220]: Update bibcite_entity_update_8006() not always properly configures Default and Table display modes
 - [#2930990] by Toki, antongp: New Reference entities, when populated via "Populate reference values", save only first author in the list
 - [#2916433] by antongp: BibTeX and RIS exports fail
 - [#2916115] by Shawn DeArmond: Mapping error when importing BibTex in Drupal 8.3
@@ -362,6 +391,9 @@ Add description to reference types, prefill it with sensible defaults. On refere
 
 
 [//]: # "Issues links dev"
+[#2878975]: https://www.drupal.org/node/2878975
+[#2940219]: https://www.drupal.org/node/2940219
+[#2940220]: https://www.drupal.org/node/2940220
 [#2930990]: https://www.drupal.org/node/2930990
 [#2936662]: https://www.drupal.org/node/2936662
 [#2865678]: https://www.drupal.org/node/2865678
