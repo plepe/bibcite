@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [8.x-1.0-alpha5] - 2018-02-01
 
 ### Important
 - [#2878975] Improve module permissions.
@@ -337,6 +337,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [8.x-1.0-alpha2]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha2
 [8.x-1.0-alpha3]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha3
 [8.x-1.0-alpha4]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha4
+[8.x-1.0-alpha5]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha5
 
 
 [//]: # "Issues links alpha1"
@@ -390,7 +391,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2865621]: https://www.drupal.org/node/2865621
 
 
-[//]: # "Issues links dev"
+[//]: # "Issues links alpha5"
 [#2878975]: https://www.drupal.org/node/2878975
 [#2940219]: https://www.drupal.org/node/2940219
 [#2940220]: https://www.drupal.org/node/2940220
