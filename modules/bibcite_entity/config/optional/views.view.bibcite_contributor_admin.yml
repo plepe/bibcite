@@ -23,7 +23,7 @@ display:
       access:
         type: perm
         options:
-          perm: 'administer contributor entities'
+          perm: 'administer bibcite_contributor'
       cache:
         type: tag
         options: {  }

@@ -23,7 +23,7 @@ display:
       access:
         type: perm
         options:
-          perm: 'administer bibcite_reference entities'
+          perm: 'administer bibcite_reference'
       cache:
         type: tag
         options: {  }

@@ -23,7 +23,7 @@ display:
       access:
         type: perm
         options:
-          perm: 'administer keyword entities'
+          perm: 'administer bibcite_keyword'
       cache:
         type: tag
         options: {  }
