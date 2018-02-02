@@ -362,25 +362,43 @@ function bibcite_entity_update_8009() {
  */
 function bibcite_entity_update_8010() {
   $config_factory = \Drupal::configFactory();
+
+  // Update contributor admin view.
   $config = $config_factory->getEditable('views.view.bibcite_contributor_admin');
-  $display = $config->get('display');
-  if (isset($display, $display['default']['display_options']['access']['options']['perm'])) {
-    $display['default']['display_options']['access']['options']['perm'] = 'administer bibcite_contributor';
-    $config->set('display', $display);
+  if ($displays = $config->get('display')) {
+    foreach ($displays as $name => $display) {
+      if (isset($display['display_options']['access'])) {
+        $displays[$name]['display_options']['access']['type'] = 'perm';
+        $displays[$name]['display_options']['access']['options']['perm'] = 'administer bibcite_contributor';
+      }
+    }
+    $config->set('display', $displays);
     $config->save(TRUE);
   }
+
+  // Update keyword admin view.
   $config = $config_factory->getEditable('views.view.bibcite_keyword_admin');
-  $display = $config->get('display');
-  if (isset($display, $display['default']['display_options']['access']['options']['perm'])) {
-    $display['default']['display_options']['access']['options']['perm'] = 'administer bibcite_keyword';
-    $config->set('display', $display);
+  if ($displays = $config->get('display')) {
+    foreach ($displays as $name => $display) {
+      if (isset($display['display_options']['access'])) {
+        $displays[$name]['display_options']['access']['type'] = 'perm';
+        $displays[$name]['display_options']['access']['options']['perm'] = 'administer bibcite_keyword';
+      }
+    }
+    $config->set('display', $displays);
     $config->save(TRUE);
   }
+
+  // Update reference admin view.
   $config = $config_factory->getEditable('views.view.bibcite_reference_admin');
-  $display = $config->get('display');
-  if (isset($display, $display['default']['display_options']['access']['options']['perm'])) {
-    $display['default']['display_options']['access']['options']['perm'] = 'administer bibcite_reference';
-    $config->set('display', $display);
+  if ($displays = $config->get('display')) {
+    foreach ($displays as $name => $display) {
+      if (isset($display['display_options']['access'])) {
+        $displays[$name]['display_options']['access']['type'] = 'perm';
+        $displays[$name]['display_options']['access']['options']['perm'] = 'administer bibcite_reference';
+      }
+    }
+    $config->set('display', $displays);
     $config->save(TRUE);
   }
 }

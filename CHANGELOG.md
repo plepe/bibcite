@@ -1,6 +1,6 @@
 # Changelog
 
-## [8.x-1.0-alpha5] - 2018-02-01
+## [8.x-1.0-alpha5] - 2018-02-02
 
 ### Important
 - [#2878975] Improve module permissions.
@@ -27,7 +27,12 @@
   - Edit Keyword entities
   - View Keyword entities
 
-  **The module will update these permissions in roles automatically on update.php run. If you used checking for these permissions in some other places, for example in Views or custom code, please update these usages manually.**
+  **The module will update these permissions in roles automatically on update.php run. 
+  If you used checking for these permissions in some other places, for example in Views or custom code, please update these usages manually.**
+  **In all admin views provided by the module access setting will be forced to new administrative permissions on update.
+  If you have these views overridden and changed access setting in them and want to preserve these changes on update,
+  please export/save configs before performing update and then import it after performing update,
+  or just re-set needed access settings after update via UI.**
   Also new create/edit/delete permissions per reference entity bundle were added. Please note that "any type" permissions take a precedence over particular type permissions.
 - [#2865678] Improve view modes handling.
   **Note: update creates new "Table" view mode which enforces Reference entity be outputted as table.**
