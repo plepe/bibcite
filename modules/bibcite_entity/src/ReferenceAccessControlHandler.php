@@ -4,6 +4,8 @@ namespace Drupal\bibcite_entity;
 
 use Drupal\Core\Entity\EntityAccessControlHandler;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
 
@@ -49,6 +51,17 @@ class ReferenceAccessControlHandler extends EntityAccessControlHandler {
   protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
     return AccessResult::allowedIf($account->hasPermission('create bibcite_reference')
       || $account->hasPermission('create ' . $entity_bundle . ' bibcite_reference'));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function checkFieldAccess($operation, FieldDefinitionInterface $field_definition, AccountInterface $account, FieldItemListInterface $items = NULL) {
+    $administrative_fields = ['uid', 'created'];
+    if ($operation == 'edit' && in_array($field_definition->getName(), $administrative_fields, TRUE)) {
+      return AccessResult::allowedIfHasPermission($account, 'administer bibcite_reference');
+    }
+    return parent::checkFieldAccess($operation, $field_definition, $account, $items);
   }
 
 }
