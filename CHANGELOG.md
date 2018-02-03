@@ -121,6 +121,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 - [#2870650] by Pavan B S, antongp: Make the module's code satisfy Drupal coding standards
 
 ### Fixed
+- [#2941835] by antongp: Authored By field is available on reference create/edit forms to users without administrative permissions
 - [#2940220]: Update bibcite_entity_update_8006() not always properly configures Default and Table display modes
 - [#2930990] by Toki, antongp: New Reference entities, when populated via "Populate reference values", save only first author in the list
 - [#2916433] by antongp: BibTeX and RIS exports fail
@@ -397,6 +398,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 
 
 [//]: # "Issues links alpha5"
+[#2941835]: https://www.drupal.org/node/2941835
 [#2878975]: https://www.drupal.org/node/2878975
 [#2940219]: https://www.drupal.org/node/2940219
 [#2940220]: https://www.drupal.org/node/2940220
