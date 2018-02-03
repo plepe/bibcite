@@ -1,6 +1,6 @@
 # Changelog
 
-## [8.x-1.0-alpha5] - 2018-02-02
+## [8.x-1.0-alpha5] - 2018-02-03
 
 ### Important
 - [#2878975] Improve module permissions.
