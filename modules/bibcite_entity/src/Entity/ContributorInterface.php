@@ -29,12 +29,28 @@ interface ContributorInterface extends ContentEntityInterface, EntityChangedInte
   public function getFirstName();
 
   /**
+   * Get the Contributor middle name.
+   *
+   * @return string
+   *   Middle name of Contributor.
+   */
+  public function getMiddleName();
+
+  /**
    * Get the Contributor last name.
    *
    * @return string
    *   Last name of Contributor.
    */
   public function getLastName();
+
+  /**
+   * Get the Contributor nickname.
+   *
+   * @return string
+   *   Nickname of Contributor.
+   */
+  public function getNickName();
 
   /**
    * Get the Contributor suffix.
@@ -51,6 +67,14 @@ interface ContributorInterface extends ContentEntityInterface, EntityChangedInte
    *   Prefix of Contributor.
    */
   public function getPrefix();
+
+  /**
+   * Get the Contributor leading initial.
+   *
+   * @return string
+   *   Leading initial of Contributor.
+   */
+  public function getLeadingInitial();
 
   /**
    * Sets the Contributor full name.
@@ -77,6 +101,17 @@ interface ContributorInterface extends ContentEntityInterface, EntityChangedInte
   public function setFirstName($first_name);
 
   /**
+   * Sets the Contributor middle name.
+   *
+   * @param string $middle_name
+   *   The Contributor middle name.
+   *
+   * @return \Drupal\bibcite_entity\Entity\ContributorInterface
+   *   The called Contributor entity.
+   */
+  public function setMiddleName($middle_name);
+
+  /**
    * Sets the Contributor last name.
    *
    * @param string $last_name
@@ -86,6 +121,17 @@ interface ContributorInterface extends ContentEntityInterface, EntityChangedInte
    *   The called Contributor entity.
    */
   public function setLastName($last_name);
+
+  /**
+   * Sets the Contributor nickname.
+   *
+   * @param string $nick
+   *   The Contributor nickname.
+   *
+   * @return \Drupal\bibcite_entity\Entity\ContributorInterface
+   *   The called Contributor entity.
+   */
+  public function setNickName($nick);
 
   /**
    * Sets the Contributor suffix.
@@ -108,6 +154,17 @@ interface ContributorInterface extends ContentEntityInterface, EntityChangedInte
    *   The called Contributor entity.
    */
   public function setPrefix($prefix);
+
+  /**
+   * Sets the Contributor leading initial.
+   *
+   * @param string $leading
+   *   The Contributor leading initial.
+   *
+   * @return \Drupal\bibcite_entity\Entity\ContributorInterface
+   *   The called Contributor entity.
+   */
+  public function setLeadingInitial($leading);
 
   /**
    * Gets the Contributor creation timestamp.

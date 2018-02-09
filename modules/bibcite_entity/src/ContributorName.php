@@ -19,8 +19,11 @@ class ContributorName extends FieldItemBase {
     $contributor = $this->parent->getValue();
 
     $arguments = [
+      '@leading_title' => $contributor->getLeadingInitial(),
       '@last_name' => $contributor->getLastName(),
+      '@middle_name' => $contributor->getMiddleName(),
       '@first_name' => $contributor->getFirstName(),
+      '@nick' => $contributor->getNickName(),
       '@suffix' => $contributor->getSuffix(),
       '@prefix' => $contributor->getPrefix(),
     ];

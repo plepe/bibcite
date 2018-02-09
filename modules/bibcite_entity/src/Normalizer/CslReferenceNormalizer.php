@@ -101,7 +101,7 @@ class CslReferenceNormalizer extends ReferenceNormalizerBase {
           'category' => $field->category,
           'role' => $field->role,
           'family' => $contributor->getLastName(),
-          'given' => $contributor->getFirstName(),
+          'given' => $contributor->getFirstName() . ' ' . $contributor->getMiddleName(),
           'suffix' => $contributor->getSuffix(),
           'literal' => $contributor->getName(),
           // @todo Implement another fields.

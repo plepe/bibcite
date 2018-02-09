@@ -30,7 +30,7 @@ class EntityExportTest extends BrowserTestBase {
     parent::setUp();
 
     $this->user = $this->drupalCreateUser([
-      'view bibcite_reference entities',
+      'view bibcite_reference',
       'access bibcite export',
     ]);
   }

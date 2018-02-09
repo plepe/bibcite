@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+- [#2939860] by mgwisni: Add Author/Contributor Initials
+
 ## [8.x-1.0-alpha5] - 2018-02-03
 
 ### Important
@@ -438,3 +443,6 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2870641]: https://www.drupal.org/node/2870641
 [#2865633]: https://www.drupal.org/node/2865633
 [#2865625]: https://www.drupal.org/node/2865625
+
+[//]: # "Issues links dev"
+[#2939860]: https://www.drupal.org/node/2939860

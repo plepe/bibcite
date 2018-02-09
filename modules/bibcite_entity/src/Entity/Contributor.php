@@ -68,6 +68,13 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
   /**
    * {@inheritdoc}
    */
+  public function getLeadingInitial() {
+    return $this->get('leading_title')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getName() {
     return $this->get('name')->getValue();
   }
@@ -82,8 +89,22 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
   /**
    * {@inheritdoc}
    */
+  public function getMiddleName() {
+    return $this->get('middle_name')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getLastName() {
     return $this->get('last_name')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getNickName() {
+    return $this->get('nick')->value;
   }
 
   /**
@@ -118,6 +139,14 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
   /**
    * {@inheritdoc}
    */
+  public function setLeadingInitial($leading) {
+    $this->set('leading_title', $leading);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function setFirstName($first_name) {
     $this->set('first_name', $first_name);
     return $this;
@@ -126,8 +155,24 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
   /**
    * {@inheritdoc}
    */
+  public function setMiddleName($middle_name) {
+    $this->set('middle_name', $middle_name);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function setLastName($last_name) {
     $this->set('last_name', $last_name);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setNickName($nick) {
+    $this->set('nick', $nick);
     return $this;
   }
 
@@ -168,8 +213,8 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
       ->setQueryable(FALSE)
       ->setClass('\Drupal\bibcite_entity\ContributorName');
 
-    $fields['prefix'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Prefix'))
+    $fields['leading_title'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Leading initial'))
       ->setDefaultValue('')
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
@@ -181,8 +226,8 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
         'weight' => 2,
       ]);
 
-    $fields['first_name'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('First name'))
+    $fields['prefix'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Prefix'))
       ->setDefaultValue('')
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
@@ -194,10 +239,9 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
         'weight' => 3,
       ]);
 
-    $fields['last_name'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Last name'))
+    $fields['first_name'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('First name'))
       ->setDefaultValue('')
-      ->setRequired(TRUE)
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => 3,
@@ -208,8 +252,8 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
         'weight' => 4,
       ]);
 
-    $fields['suffix'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Suffix'))
+    $fields['middle_name'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Middle name'))
       ->setDefaultValue('')
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
@@ -219,6 +263,46 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
         'label' => 'inline',
         'type' => 'string',
         'weight' => 5,
+      ]);
+
+    $fields['last_name'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Last name'))
+      ->setDefaultValue('')
+      ->setRequired(TRUE)
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'weight' => 5,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'string',
+        'weight' => 6,
+      ]);
+
+    $fields['nick'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Nickname'))
+      ->setDefaultValue('')
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'weight' => 6,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'string',
+        'weight' => 7,
+      ]);
+
+    $fields['suffix'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Suffix'))
+      ->setDefaultValue('')
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'weight' => 7,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'inline',
+        'type' => 'string',
+        'weight' => 8,
       ]);
 
     $fields['created'] = BaseFieldDefinition::create('created')

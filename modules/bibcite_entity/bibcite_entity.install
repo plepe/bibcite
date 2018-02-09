@@ -8,6 +8,7 @@
 use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Config\InstallStorage;
 use Drupal\Core\Database\Database;
+use Drupal\Core\Field\BaseFieldDefinition;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -401,4 +402,31 @@ function bibcite_entity_update_8010() {
     $config->set('display', $displays);
     $config->save(TRUE);
   }
+}
+
+/**
+ * Update contributor entity.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function bibcite_entity_update_8011() {
+  $definition_update_manager = \Drupal::entityDefinitionUpdateManager();
+  $leading_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('Leading initial'))
+    ->setDefaultValue('');
+
+  $middle_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('Middle name'))
+    ->setDefaultValue('');
+
+  $nickname_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('Nickname'))
+    ->setDefaultValue('');
+
+  $definition_update_manager
+    ->installFieldStorageDefinition('leading_title', 'bibcite_contributor', 'bibcite_entity', $leading_definition);
+  $definition_update_manager
+    ->installFieldStorageDefinition('middle_name', 'bibcite_contributor', 'bibcite_entity', $middle_definition);
+  $definition_update_manager
+    ->installFieldStorageDefinition('nick', 'bibcite_contributor', 'bibcite_entity', $nickname_definition);
 }
