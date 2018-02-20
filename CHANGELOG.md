@@ -5,6 +5,9 @@
 ### Added
 - [#2939860] by mgwisni: Add Author/Contributor Initials
 
+### Changed
+- [#2945406] by robcast: Import breaks on author with multiple initials. Update name parser package.
+
 ## [8.x-1.0-alpha5] - 2018-02-03
 
 ### Important

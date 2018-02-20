@@ -41,7 +41,7 @@ REQUIREMENTS
 This module requires the following libraries:
 
  * "academicpuma/citeproc-php": "~1.0",
- * "adci/full-name-parser": "^0.1",
+ * "adci/full-name-parser": "^0.2",
  * "technosophos/LibRIS": "~2.0",
  * "audiolabs/bibtexparser": "dev-master",
  * "caseyamcl/php-marc21": "~1.0"
