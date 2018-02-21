@@ -74,7 +74,7 @@ INSTALLATION
    install required libraries via [Composer](https://www.drupal.org/docs/8/extending-drupal/installing-modules-composer-dependencies)
    using following command:
 
-   `composer require academicpuma/citeproc-php:~1.0 adci/full-name-parser:^0.1 technosophos/LibRIS:~2.0 audiolabs/bibtexparser:dev-master caseyamcl/php-marc21:~1.0`
+   `composer require academicpuma/citeproc-php:~1.0 adci/full-name-parser:^0.2 technosophos/LibRIS:~2.0 audiolabs/bibtexparser:dev-master caseyamcl/php-marc21:~1.0`
 
    You can find a bit more info about Composer [here](https://www.drupal.org/node/2804889#comment-11651131)
 
