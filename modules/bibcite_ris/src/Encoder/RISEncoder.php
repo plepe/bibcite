@@ -138,7 +138,8 @@ class RISEncoder implements EncoderInterface, DecoderInterface {
     }
 
     if (count($records) === 0) {
-      throw new \Exception(t("Incorrect @format format or empty set.", ['@format' => $format]));
+      $format_definition = \Drupal::service('plugin.manager.bibcite_format')->getDefinition($format);
+      throw new \Exception(t("Incorrect @format format or empty set.", ['@format' => $format_definition['label']]));
     }
 
     return $records;

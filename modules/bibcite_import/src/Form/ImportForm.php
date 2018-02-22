@@ -93,6 +93,18 @@ class ImportForm extends FormBase {
       $file_upload = $all_files['file'];
       if ($file_upload->isValid()) {
         $form_state->setValue('file', $file_upload->getRealPath());
+        $format_id = $form_state->getValue('format');
+        $format = $this->formatManager->getDefinition($format_id);
+        try {
+          $data = file_get_contents($form_state->getValue('file'));
+
+          $decoded = $this->serializer->decode($data, $format_id);
+          $form_state->setValue('decoded', $decoded);
+        }
+        catch (\Exception $exception) {
+          $err_string = $this->t('@format file content is not valid.<br>%ex', ['@format' => $format['label'], '%ex' => $exception->getMessage()]);
+          $form_state->setErrorByName('file', $err_string);
+        }
         return;
       }
     }
@@ -107,12 +119,11 @@ class ImportForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $data = file_get_contents($form_state->getValue('file'));
     $format_id = $form_state->getValue('format');
     /** @var \Drupal\bibcite\Plugin\BibciteFormatInterface $format */
     $format = $this->formatManager->createInstance($format_id);
 
-    $decoded = $this->serializer->decode($data, $format->getPluginId());
+    $decoded = $form_state->getValue('decoded');
     $chunks = array_chunk($decoded, 50);
 
     $batch = [

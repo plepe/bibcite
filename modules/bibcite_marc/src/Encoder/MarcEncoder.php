@@ -47,7 +47,8 @@ class MarcEncoder implements EncoderInterface, DecoderInterface {
 
     $keys = array_keys($parsed);
     if (count($keys) === 0 || $keys[0] === -1) {
-      throw new \Exception(t("Incorrect @format format or empty set.", ['@format' => $format]));
+      $format_definition = \Drupal::service('plugin.manager.bibcite_format')->getDefinition($format);
+      throw new \Exception(t("Incorrect @format format or empty set.", ['@format' => $format_definition['label']]));
     }
     $this->processEntries($parsed);
 

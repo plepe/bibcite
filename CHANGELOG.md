@@ -8,6 +8,9 @@
 ### Changed
 - [#2945406] by robcast: Import breaks on author with multiple initials. Update name parser package.
 
+### Fixed
+- [#2946773] by antongp: Fatal error on import (from file) form when content cannot be parsed for some reason
+
 ## [8.x-1.0-alpha5] - 2018-02-03
 
 ### Important
@@ -448,4 +451,5 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2865625]: https://www.drupal.org/node/2865625
 
 [//]: # "Issues links dev"
+[#2946773]: https://www.drupal.org/node/2946773
 [#2939860]: https://www.drupal.org/node/2939860

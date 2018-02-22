@@ -37,7 +37,8 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
       $sxml = new SimpleXMLElement($data);
     }
     catch (\Exception $ex) {
-      throw new \Exception(t('Incorrect @format format.', ['@format' => $format]));
+      $format_definition = \Drupal::service('plugin.manager.bibcite_format')->getDefinition($format);
+      throw new \Exception(t('Incorrect @format format.', ['@format' => $format_definition['label']]));
     }
     $records = $sxml->records;
     $config = \Drupal::config('bibcite_entity.mapping.' . $format);

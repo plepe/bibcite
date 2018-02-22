@@ -107,16 +107,17 @@ class PopulateForm extends FormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     parent::validateForm($form, $form_state);
 
-    $format = $form_state->getValue('format');
+    $format_id = $form_state->getValue('format');
     $data = $form_state->getValue('data');
+    $format = $this->formatManager->getDefinition($format_id);
 
     try {
-      $decoded = $this->serializer->decode($data, $format);
-      $entity = $this->serializer->denormalize(reset($decoded), Reference::class, $format);
+      $decoded = $this->serializer->decode($data, $format_id);
+      $entity = $this->serializer->denormalize(reset($decoded), Reference::class, $format_id);
       $form_state->setValue('entity', $entity);
     }
     catch (\Exception $exception) {
-      $err_string = $this->t('Your @format entry is not valid. Please check pasted text.<br>%ex', ['@format' => $format, '%ex' => $exception->getMessage()]);
+      $err_string = $this->t('@format entry is not valid. Please check pasted text.<br>%ex', ['@format' => $format['label'], '%ex' => $exception->getMessage()]);
       $form_state->setErrorByName('data', $err_string);
     }
   }
