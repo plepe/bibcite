@@ -287,7 +287,7 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
     /*
      * Number fields.
      */
-    $fields['bibcite_year'] = $default_integer(t('Year of Publication'), t('Enter YYYY, Submitted or In Press'));
+    $fields['bibcite_year'] = $default_integer(t('Year of Publication'), t('Format: yyyy'));
 
     /*
      * String fields.
@@ -300,7 +300,7 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
     $fields['bibcite_number_of_volumes'] = $default_string(t('Number of Volumes'));
     $fields['bibcite_number'] = $default_string(t('Number'));
     $fields['bibcite_pages'] = $default_string(t('Number of Pages'));
-    $fields['bibcite_date'] = $default_string(t('Date Published'), t('(mm/yyyy)'));
+    $fields['bibcite_date'] = $default_string(t('Date Published'), t('Format: mm/yyyy'));
     $fields['bibcite_type_of_work'] = $default_string(t('Type of Work'), t('Masters Thesis'));
     $fields['bibcite_lang'] = $default_string(t('Publication Language'));
     $fields['bibcite_reprint_edition'] = $default_string(t('Reprint Edition'));
