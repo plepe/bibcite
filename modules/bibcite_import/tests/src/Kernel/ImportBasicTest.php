@@ -58,7 +58,6 @@ class ImportBasicTest extends KernelTestBase {
       'user',
       'serialization',
       'bibcite',
-      'bibcite_entity',
       'bibcite_import',
       'bibcite_bibtex',
       'bibcite_ris',
@@ -86,7 +85,7 @@ class ImportBasicTest extends KernelTestBase {
     $entries = $this->serializer->decode($text, $format);
 
     foreach ($entries as $entry) {
-      /** @var \Drupal\bibcite_entity\Entity\ReferenceInterface $entity */
+      /* @var \Drupal\bibcite_entity\Entity\Reference $entity */
       $entity = $this->serializer->denormalize($entry, Reference::class, $format);
       $this->assertTrue($entity instanceof Reference);
       $this->assertEquals($expected_type, $entity->type->target_id);
@@ -104,6 +103,8 @@ class ImportBasicTest extends KernelTestBase {
    */
   protected function assertEntityValues(EntityInterface $entity, array $expected_values) {
     foreach ($expected_values as $field_name => $expected_value) {
+      /* @var Reference $entity */
+      $this->assertNotEmpty($entity->get($field_name));
       $this->assertEquals($expected_value, $entity->{$field_name}->value);
     }
   }

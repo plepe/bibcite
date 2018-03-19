@@ -12,7 +12,7 @@ use Drupal\bibcite_bibtex\Encoder\BibtexEncoder;
 class BibtexEncoderTest extends UnitTestCase {
 
   /**
-   * @covers ::lineEndingsReplace
+   * @coversDefaultClass
    */
   public function testLineEndings() {
     $example1 = "unit1 \r\n field1 \r\n field2 \r\n\r\n unit2 \r\n field1 \r\n field2 \r\n\r\n";

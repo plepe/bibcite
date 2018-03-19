@@ -44,7 +44,7 @@ abstract class FormatEncoderTestBase extends KernelTestBase {
   /**
    * Tests a files encode.
    *
-   * @covers ::encode
+   * @coversDefaultClass
    */
   public function testEncode() {
     $input = scandir($this->inputDir);

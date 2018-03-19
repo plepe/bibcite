@@ -39,7 +39,7 @@ abstract class FormatDecoderTestBase extends KernelTestBase {
   /**
    * Tests a files decode.
    *
-   * @covers ::decode
+   * @coversDefaultClass
    */
   public function testDecode() {
     $input = scandir($this->inputDir);

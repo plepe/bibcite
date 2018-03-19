@@ -32,6 +32,7 @@ class EntityExportTest extends BrowserTestBase {
     $this->user = $this->drupalCreateUser([
       'view bibcite_reference',
       'access bibcite export',
+      'administer bibcite',
     ]);
   }
 
@@ -65,6 +66,21 @@ class EntityExportTest extends BrowserTestBase {
 
     $content = $page->getContent();
     $this->assertEquals(trim($expected_result), trim($content));
+  }
+
+  /**
+   * Test export all form.
+   *
+   * @dataProvider exportDataProvider
+   */
+  public function testExportAll($id, $format) {
+    $this->drupalLogin($this->user);
+
+    $this->drupalGet('admin/config/bibcite/export');
+    $page = $this->getSession()->getPage();
+    $page->selectFieldOption('edit-format', $format);
+    $page->pressButton('edit-submit');
+    $this->assertSession()->statusCodeEquals(200);
   }
 
   /**
