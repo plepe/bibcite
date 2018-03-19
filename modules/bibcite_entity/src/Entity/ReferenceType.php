@@ -17,9 +17,6 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *       "edit" = "Drupal\bibcite_entity\Form\ReferenceTypeForm",
  *       "delete" = "Drupal\bibcite_entity\Form\ReferenceTypeDeleteForm"
  *     },
- *     "route_provider" = {
- *       "html" = "Drupal\bibcite_entity\ReferenceTypeHtmlRouteProvider",
- *     },
  *   },
  *   config_prefix = "bibcite_reference_type",
  *   bundle_of = "bibcite_reference",
@@ -30,9 +27,8 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "canonical" = "/admin/config/bibcite/settings/reference/types/{bibcite_reference_type}",
  *     "add-form" = "/admin/config/bibcite/settings/reference/types/add",
- *     "edit-form" = "/admin/config/bibcite/settings/reference/types/{bibcite_reference_type}/edit",
+ *     "edit-form" = "/admin/config/bibcite/settings/reference/types/{bibcite_reference_type}",
  *     "delete-form" = "/admin/config/bibcite/settings/reference/types/{bibcite_reference_type}/delete",
  *     "collection" = "/admin/config/bibcite/settings/reference/types"
  *   }

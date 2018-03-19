@@ -17,9 +17,6 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *       "edit" = "Drupal\bibcite_entity\Form\ContributorRoleForm",
  *       "delete" = "Drupal\bibcite_entity\Form\ContributorRoleDeleteForm"
  *     },
- *     "route_provider" = {
- *       "html" = "Drupal\bibcite_entity\ContributorRoleHtmlRouteProvider",
- *     },
  *   },
  *   config_prefix = "bibcite_contributor_role",
  *   admin_permission = "administer bibcite_reference",
@@ -30,9 +27,8 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "weight" = "weight"
  *   },
  *   links = {
- *     "canonical" = "/admin/config/bibcite/settings/contributor/role/{bibcite_contributor_role}",
  *     "add-form" = "/admin/config/bibcite/settings/contributor/role/add",
- *     "edit-form" = "/admin/config/bibcite/settings/contributor/role/{bibcite_contributor_role}/edit",
+ *     "edit-form" = "/admin/config/bibcite/settings/contributor/role/{bibcite_contributor_role}",
  *     "delete-form" = "/admin/config/bibcite/settings/contributor/role/{bibcite_contributor_role}/delete",
  *     "collection" = "/admin/config/bibcite/settings/contributor/role"
  *   }

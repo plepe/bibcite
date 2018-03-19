@@ -430,3 +430,10 @@ function bibcite_entity_update_8011() {
   $definition_update_manager
     ->installFieldStorageDefinition('nick', 'bibcite_contributor', 'bibcite_entity', $nickname_definition);
 }
+
+/**
+ * Update entity routes.
+ */
+function bibcite_entity_update_8012() {
+  \Drupal::service('router.builder')->rebuild();
+}

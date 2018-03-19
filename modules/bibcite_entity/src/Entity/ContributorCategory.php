@@ -17,9 +17,6 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *       "edit" = "Drupal\bibcite_entity\Form\ContributorCategoryForm",
  *       "delete" = "Drupal\bibcite_entity\Form\ContributorCategoryDeleteForm"
  *     },
- *     "route_provider" = {
- *       "html" = "Drupal\bibcite_entity\ContributorCategoryHtmlRouteProvider",
- *     },
  *   },
  *   config_prefix = "bibcite_contributor_category",
  *   admin_permission = "administer bibcite_reference",
@@ -30,9 +27,8 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "weight" = "weight"
  *   },
  *   links = {
- *     "canonical" = "/admin/config/bibcite/settings/contributor/category/{bibcite_contributor_category}",
  *     "add-form" = "/admin/config/bibcite/settings/contributor/category/add",
- *     "edit-form" = "/admin/config/bibcite/settings/contributor/category/{bibcite_contributor_category}/edit",
+ *     "edit-form" = "/admin/config/bibcite/settings/contributor/category/{bibcite_contributor_category}",
  *     "delete-form" = "/admin/config/bibcite/settings/contributor/category/{bibcite_contributor_category}/delete",
  *     "collection" = "/admin/config/bibcite/settings/contributor/category"
  *   }

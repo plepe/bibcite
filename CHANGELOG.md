@@ -2,13 +2,22 @@
 
 ## [Unreleased]
 
+### Important
+- [#2954101] by antongp: Routing cleanup
+  **Note: menu items paths were changed.**
+  Changed entities paths for Contributor, Keyword and Reference from "/admin/content/bibcite/\*" pattern to "/bibcite/\*".
+  Changed path for managing references types.
+
 ### Added
 - [#2939860] by mgwisni: Add Author/Contributor Initials
 
 ### Changed
+- [#2954101] by antongp: Routing cleanup  
 - [#2945406] by robcast: Import breaks on author with multiple initials. Update name parser package.
 
 ### Fixed
+- [#2945229] by littledynamo: Malformed inline YAML string when enabling bibcite_endnote module
+- [#2939817] by littledynamo: Year of Publication field does not allow 'Submitted' or 'In Press', contrary to field description
 - [#2946773] by antongp: Fatal error on import (from file) form when content cannot be parsed for some reason
 
 ## [8.x-1.0-alpha5] - 2018-02-03
@@ -451,5 +460,9 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2865625]: https://www.drupal.org/node/2865625
 
 [//]: # "Issues links dev"
+[#2954101]: https://www.drupal.org/node/2954101
+[#2945229]: https://www.drupal.org/node/2945229
+[#2939817]: https://www.drupal.org/node/2939817
+[#2945406]: https://www.drupal.org/node/2945406
 [#2946773]: https://www.drupal.org/node/2946773
 [#2939860]: https://www.drupal.org/node/2939860
