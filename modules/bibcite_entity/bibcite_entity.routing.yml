@@ -35,6 +35,8 @@ entity.bibcite_reference.canonical:
   requirements:
     bibcite_reference: \d+
     _entity_access: 'bibcite_reference.view'
+  defaults:
+    _title_callback: '\Drupal\Core\Entity\Controller\EntityController::title'
   options:
     parameters:
       bibcite_reference:
