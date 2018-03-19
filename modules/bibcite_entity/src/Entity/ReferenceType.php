@@ -2,7 +2,7 @@
 
 namespace Drupal\bibcite_entity\Entity;
 
-use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
 
 /**
  * Defines the Reference type entity.
@@ -34,7 +34,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   }
  * )
  */
-class ReferenceType extends ConfigEntityBase implements ReferenceTypeInterface {
+class ReferenceType extends ConfigEntityBundleBase implements ReferenceTypeInterface {
 
   /**
    * The Reference type ID.

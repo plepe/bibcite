@@ -1,4 +1,12 @@
 # Reference routing definition
+entity.bibcite_reference_type.edit_form:
+  title: 'Edit'
+  route_name: entity.bibcite_reference_type.edit_form
+  base_route: entity.bibcite_reference_type.edit_form
+entity.bibcite_reference_type.collection:
+  title: List
+  route_name: entity.bibcite_reference_type.collection
+  base_route: entity.bibcite_reference_type.collection
 entity.bibcite_reference.admin:
   title: Bibliographic data
   route_name: entity.bibcite_reference.collection

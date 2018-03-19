@@ -3,13 +3,13 @@
 namespace Drupal\bibcite_entity\Form;
 
 use Drupal\Component\Render\FormattableMarkup;
-use Drupal\Core\Entity\EntityForm;
+use Drupal\Core\Entity\BundleEntityFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Reference type form.
  */
-class ReferenceTypeForm extends EntityForm {
+class ReferenceTypeForm extends BundleEntityFormBase {
 
   /**
    * {@inheritdoc}
@@ -124,7 +124,7 @@ class ReferenceTypeForm extends EntityForm {
       ];
     }
 
-    return $form;
+    return $this->protectBundleIdElement($form);
   }
 
   /**

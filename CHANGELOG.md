@@ -12,6 +12,7 @@
 - [#2939860] by mgwisni: Add Author/Contributor Initials
 
 ### Changed
+- [#2872606] by kruhak: Improve structure and look of configuration pages
 - [#2954101] by antongp: Routing cleanup  
 - [#2945406] by robcast: Import breaks on author with multiple initials. Update name parser package.
 
@@ -460,6 +461,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2865625]: https://www.drupal.org/node/2865625
 
 [//]: # "Issues links dev"
+[#2872606]: https://www.drupal.org/node/2872606
 [#2954101]: https://www.drupal.org/node/2954101
 [#2945229]: https://www.drupal.org/node/2945229
 [#2939817]: https://www.drupal.org/node/2939817
