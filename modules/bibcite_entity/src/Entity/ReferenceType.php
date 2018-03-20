@@ -11,6 +11,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *   id = "bibcite_reference_type",
  *   label = @Translation("Reference type"),
  *   handlers = {
+ *     "access" = "Drupal\bibcite_entity\ReferenceTypeAccessControlHandler",
  *     "list_builder" = "Drupal\bibcite_entity\ReferenceTypeListBuilder",
  *     "form" = {
  *       "add" = "Drupal\bibcite_entity\Form\ReferenceTypeForm",

@@ -46,9 +46,6 @@ class ReferenceAddAccessCheck implements AccessInterface {
   public function access(AccountInterface $account, ReferenceTypeInterface $bibcite_reference_type = NULL) {
     $access_control_handler = $this->entityManager->getAccessControlHandler('bibcite_reference');
     // If checking whether a reference of a particular type may be created.
-    if ($account->hasPermission('administer bibcite')) {
-      return AccessResult::allowed()->cachePerPermissions();
-    }
     if ($bibcite_reference_type) {
       return $access_control_handler->createAccess($bibcite_reference_type->id(), $account, [], TRUE);
     }

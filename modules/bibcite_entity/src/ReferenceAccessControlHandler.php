@@ -27,18 +27,20 @@ class ReferenceAccessControlHandler extends EntityAccessControlHandler {
         return AccessResult::allowedIfHasPermission($account, 'view bibcite_reference');
 
       case 'update':
-        return AccessResult::allowedIf($account->hasPermission('edit any bibcite_reference')
-          || $account->hasPermission("edit any $type bibcite_reference")
-          || ($entity->getOwnerId() == $account->id() &&
-            ($account->hasPermission('edit own bibcite_reference')
-            || $account->hasPermission("edit own $type bibcite_reference"))));
+        return AccessResult::allowedIfHasPermission($account, 'edit any bibcite_reference')
+          ->orIf(AccessResult::allowedIfHasPermission($account, "edit any $type bibcite_reference"))
+          ->orIf(AccessResult::allowedIf($entity->getOwnerId() == $account->id()
+            && ($account->hasPermission('edit own bibcite_reference')
+              || $account->hasPermission("edit own $type bibcite_reference")))
+            ->cachePerPermissions()->cachePerUser());
 
       case 'delete':
-        return AccessResult::allowedIf($account->hasPermission('delete any bibcite_reference')
-          || $account->hasPermission("delete any $type bibcite_reference")
-          || ($entity->getOwnerId() == $account->id() &&
-            ($account->hasPermission('delete own bibcite_reference')
-            || $account->hasPermission("delete own $type bibcite_reference"))));
+        return AccessResult::allowedIfHasPermission($account, 'delete any bibcite_reference')
+          ->orIf(AccessResult::allowedIfHasPermission($account, "delete any $type bibcite_reference"))
+          ->orIf(AccessResult::allowedIf($entity->getOwnerId() == $account->id()
+            && ($account->hasPermission('delete own bibcite_reference')
+              || $account->hasPermission("delete own $type bibcite_reference")))
+            ->cachePerPermissions()->cachePerUser());
     }
 
     // Unknown operation, no opinion.
@@ -49,8 +51,8 @@ class ReferenceAccessControlHandler extends EntityAccessControlHandler {
    * {@inheritdoc}
    */
   protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
-    return AccessResult::allowedIf($account->hasPermission('create bibcite_reference')
-      || $account->hasPermission('create ' . $entity_bundle . ' bibcite_reference'));
+    return AccessResult::allowedIfHasPermission($account, 'create bibcite_reference')
+      ->orIf(AccessResult::allowedIfHasPermission($account, 'create ' . $entity_bundle . ' bibcite_reference'));
   }
 
   /**
