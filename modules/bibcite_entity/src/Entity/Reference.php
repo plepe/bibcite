@@ -30,6 +30,9 @@ use Drupal\user\UserInterface;
  *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm",
  *     },
  *     "access" = "Drupal\bibcite_entity\ReferenceAccessControlHandler",
+ *     "route_provider" = {
+ *       "html" = "Drupal\Core\Entity\Routing\AdminHtmlRouteProvider",
+ *     },
  *   },
  *   base_table = "bibcite_reference",
  *   admin_permission = "administer bibcite_reference",
@@ -48,7 +51,7 @@ use Drupal\user\UserInterface;
  *     "edit-form" = "/bibcite/reference/{bibcite_reference}/edit",
  *     "delete-form" = "/bibcite/reference/{bibcite_reference}/delete",
  *     "add-page" = "/bibcite/reference/add",
- *     "delete-multiple-form" = "/bibcite/reference/delete",
+ *     "delete-multiple-form" = "/admin/content/bibcite/reference/delete",
  *     "collection" = "/admin/content/bibcite/reference",
  *   },
  *   field_ui_base_route = "entity.bibcite_reference_type.edit_form",

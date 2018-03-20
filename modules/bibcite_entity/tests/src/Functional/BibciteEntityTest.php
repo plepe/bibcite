@@ -39,13 +39,16 @@ class BibciteEntityTest extends BrowserTestBase {
     $this->user = $this->drupalCreateUser([
       'administer bibcite',
       'administer bibcite_reference',
+      'create bibcite_reference',
       'view bibcite_reference',
       'edit any bibcite_reference',
       'delete any bibcite_reference',
+      'create bibcite_keyword',
       'view bibcite_keyword',
       'edit bibcite_keyword',
       'delete bibcite_keyword',
       'administer bibcite_keyword',
+      'create bibcite_contributor',
       'view bibcite_contributor',
       'edit bibcite_contributor',
       'delete bibcite_contributor',
@@ -107,7 +110,7 @@ class BibciteEntityTest extends BrowserTestBase {
     $this->assertSession()->statusCodeEquals(403);
     $this->drupalGet('admin/content/bibcite/reference');
     $this->assertSession()->statusCodeEquals(403);
-    $this->drupalGet('bibcite/reference/delete');
+    $this->drupalGet('admin/content/bibcite/reference/delete');
     $this->assertSession()->statusCodeEquals(403);
 
     $this->drupalLogin($this->user);
@@ -124,7 +127,7 @@ class BibciteEntityTest extends BrowserTestBase {
     $this->assertSession()->statusCodeEquals(200);
     $this->drupalGet('admin/content/bibcite/reference');
     $this->assertSession()->statusCodeEquals(200);
-    $this->drupalGet('bibcite/reference/delete');
+    $this->drupalGet('admin/content/bibcite/reference/delete');
     $this->assertSession()->statusCodeEquals(200);
 
     $this->drupalLogin($this->simpleUser);
@@ -141,7 +144,7 @@ class BibciteEntityTest extends BrowserTestBase {
     $this->assertSession()->statusCodeEquals(403);
     $this->drupalGet('admin/content/bibcite/reference');
     $this->assertSession()->statusCodeEquals(403);
-    $this->drupalGet('bibcite/reference/delete');
+    $this->drupalGet('admin/content/bibcite/reference/delete');
     $this->assertSession()->statusCodeEquals(403);
   }
 
@@ -159,11 +162,11 @@ class BibciteEntityTest extends BrowserTestBase {
     $this->assertSession()->statusCodeEquals(403);
     $this->drupalGet('admin/content/bibcite/keyword');
     $this->assertSession()->statusCodeEquals(403);
-    $this->drupalGet('bibcite/keyword/delete');
+    $this->drupalGet('admin/content/bibcite/keyword/delete');
     $this->assertSession()->statusCodeEquals(403);
-    $this->drupalGet('bibcite/keyword/1/merge');
+    $this->drupalGet('admin/content/bibcite/keyword/1/merge');
     $this->assertSession()->statusCodeEquals(403);
-    $this->drupalGet('bibcite/keyword/1/merge/2');
+    $this->drupalGet('admin/content/bibcite/keyword/1/merge/2');
     $this->assertSession()->statusCodeEquals(403);
 
     $this->drupalLogin($this->user);
@@ -178,11 +181,11 @@ class BibciteEntityTest extends BrowserTestBase {
     $this->assertSession()->statusCodeEquals(200);
     $this->drupalGet('admin/content/bibcite/keyword');
     $this->assertSession()->statusCodeEquals(200);
-    $this->drupalGet('bibcite/keyword/delete');
+    $this->drupalGet('admin/content/bibcite/keyword/delete');
     $this->assertSession()->statusCodeEquals(200);
-    $this->drupalGet('bibcite/keyword/1/merge');
+    $this->drupalGet('admin/content/bibcite/keyword/1/merge');
     $this->assertSession()->statusCodeEquals(200);
-    $this->drupalGet('bibcite/keyword/1/merge/2');
+    $this->drupalGet('admin/content/bibcite/keyword/1/merge/2');
     $this->assertSession()->statusCodeEquals(200);
 
     $this->drupalLogin($this->simpleUser);
@@ -197,11 +200,11 @@ class BibciteEntityTest extends BrowserTestBase {
     $this->assertSession()->statusCodeEquals(403);
     $this->drupalGet('admin/content/bibcite/keyword');
     $this->assertSession()->statusCodeEquals(403);
-    $this->drupalGet('bibcite/keyword/delete');
+    $this->drupalGet('admin/content/bibcite/keyword/delete');
     $this->assertSession()->statusCodeEquals(403);
-    $this->drupalGet('bibcite/keyword/1/merge');
+    $this->drupalGet('admin/content/bibcite/keyword/1/merge');
     $this->assertSession()->statusCodeEquals(403);
-    $this->drupalGet('bibcite/keyword/1/merge/2');
+    $this->drupalGet('admin/content/bibcite/keyword/1/merge/2');
     $this->assertSession()->statusCodeEquals(403);
   }
 
@@ -219,11 +222,11 @@ class BibciteEntityTest extends BrowserTestBase {
     $this->assertSession()->statusCodeEquals(403);
     $this->drupalGet('admin/content/bibcite/contributor');
     $this->assertSession()->statusCodeEquals(403);
-    $this->drupalGet('bibcite/contributor/delete');
+    $this->drupalGet('admin/content/bibcite/contributor/delete');
     $this->assertSession()->statusCodeEquals(403);
-    $this->drupalGet('bibcite/contributor/1/merge');
+    $this->drupalGet('admin/content/bibcite/contributor/1/merge');
     $this->assertSession()->statusCodeEquals(403);
-    $this->drupalGet('bibcite/contributor/1/merge/2');
+    $this->drupalGet('admin/content/bibcite/contributor/1/merge/2');
     $this->assertSession()->statusCodeEquals(403);
 
     $this->drupalLogin($this->user);
@@ -238,11 +241,11 @@ class BibciteEntityTest extends BrowserTestBase {
     $this->assertSession()->statusCodeEquals(200);
     $this->drupalGet('admin/content/bibcite/contributor');
     $this->assertSession()->statusCodeEquals(200);
-    $this->drupalGet('bibcite/contributor/delete');
+    $this->drupalGet('admin/content/bibcite/contributor/delete');
     $this->assertSession()->statusCodeEquals(200);
-    $this->drupalGet('bibcite/contributor/1/merge');
+    $this->drupalGet('admin/content/bibcite/contributor/1/merge');
     $this->assertSession()->statusCodeEquals(200);
-    $this->drupalGet('bibcite/contributor/1/merge/2');
+    $this->drupalGet('admin/content/bibcite/contributor/1/merge/2');
     $this->assertSession()->statusCodeEquals(200);
 
     $this->drupalLogin($this->simpleUser);
@@ -257,11 +260,11 @@ class BibciteEntityTest extends BrowserTestBase {
     $this->assertSession()->statusCodeEquals(403);
     $this->drupalGet('admin/content/bibcite/contributor');
     $this->assertSession()->statusCodeEquals(403);
-    $this->drupalGet('bibcite/contributor/delete');
+    $this->drupalGet('admin/content/bibcite/contributor/delete');
     $this->assertSession()->statusCodeEquals(403);
-    $this->drupalGet('bibcite/contributor/1/merge');
+    $this->drupalGet('admin/content/bibcite/contributor/1/merge');
     $this->assertSession()->statusCodeEquals(403);
-    $this->drupalGet('bibcite/contributor/1/merge/2');
+    $this->drupalGet('admin/content/bibcite/contributor/1/merge/2');
     $this->assertSession()->statusCodeEquals(403);
   }
 

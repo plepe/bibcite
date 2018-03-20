@@ -27,6 +27,9 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm",
  *     },
  *     "access" = "Drupal\bibcite_entity\KeywordAccessControlHandler",
+ *     "route_provider" = {
+ *       "html" = "Drupal\Core\Entity\Routing\AdminHtmlRouteProvider",
+ *     },
  *   },
  *   base_table = "bibcite_keyword",
  *   admin_permission = "administer bibcite_keyword",
@@ -43,8 +46,8 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "delete-form" = "/bibcite/keyword/{bibcite_keyword}/delete",
  *     "bibcite-merge-form" = "/bibcite/keyword/{bibcite_keyword}/merge",
  *     "add-form" = "/bibcite/keyword/add",
- *     "bibcite-merge-multiple-form" = "/bibcite/keyword/merge",
- *     "delete-multiple-form" = "/bibcite/keyword/delete",
+ *     "bibcite-merge-multiple-form" = "/admin/content/bibcite/keyword/merge",
+ *     "delete-multiple-form" = "/admin/content/bibcite/keyword/delete",
  *     "collection" = "/admin/content/bibcite/keyword",
  *   },
  * )

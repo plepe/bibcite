@@ -28,6 +28,9 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm",
  *     },
  *     "access" = "Drupal\bibcite_entity\ContributorAccessControlHandler",
+ *     "route_provider" = {
+ *       "html" = "Drupal\Core\Entity\Routing\AdminHtmlRouteProvider",
+ *     },
  *   },
  *   base_table = "bibcite_contributor",
  *   admin_permission = "administer bibcite_contributor",
@@ -43,8 +46,8 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "delete-form" = "/bibcite/contributor/{bibcite_contributor}/delete",
  *     "bibcite-merge-form" = "/bibcite/contributor/{bibcite_contributor}/merge",
  *     "add-form" = "/bibcite/contributor/add",
- *     "bibcite-merge-multiple-form" = "/bibcite/contributor/merge",
- *     "delete-multiple-form" = "/bibcite/contributor/delete",
+ *     "bibcite-merge-multiple-form" = "/admin/content/bibcite/contributor/merge",
+ *     "delete-multiple-form" = "/admin/content/bibcite/contributor/delete",
  *     "collection" = "/admin/content/bibcite/contributor",
  *   },
  * )
