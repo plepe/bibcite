@@ -5,7 +5,7 @@ entity.bibcite_csl_style.add:
     - entity.bibcite_csl_style.collection
 
 entity.bibcite_csl_style.add_file:
-  route_name: 'entity.bibcite_csl_style.add_file_form'
+  route_name: 'entity.bibcite_csl_style.add_from_file'
   title: 'Install style from file'
   appears_on:
     - entity.bibcite_csl_style.collection

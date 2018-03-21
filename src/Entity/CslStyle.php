@@ -20,9 +20,6 @@ use Drupal\Core\Entity\EntityStorageInterface;
  *       "edit" = "Drupal\bibcite\Form\CslStyleForm",
  *       "delete" = "Drupal\bibcite\Form\CslStyleDeleteForm"
  *     },
- *     "route_provider" = {
- *       "html" = "Drupal\bibcite\CslStyleHtmlRouteProvider",
- *     },
  *   },
  *   config_prefix = "bibcite_csl_style",
  *   admin_permission = "administer bibcite",
@@ -32,10 +29,9 @@ use Drupal\Core\Entity\EntityStorageInterface;
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "canonical" = "/admin/config/bibcite/settings/csl_style/{bibcite_csl_style}",
  *     "add-form" = "/admin/config/bibcite/settings/csl_style/add",
  *     "add-form-file" = "/admin/config/bibcite/settings/csl_style/add-file",
- *     "edit-form" = "/admin/config/bibcite/settings/csl_style/{bibcite_csl_style}/edit",
+ *     "edit-form" = "/admin/config/bibcite/settings/csl_style/{bibcite_csl_style}",
  *     "delete-form" = "/admin/config/bibcite/settings/csl_style/{bibcite_csl_style}/delete",
  *     "collection" = "/admin/config/bibcite/settings/csl_style"
  *   }

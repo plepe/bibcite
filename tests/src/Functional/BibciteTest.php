@@ -24,6 +24,13 @@ class BibciteTest extends BrowserTestBase {
   protected $user;
 
   /**
+   * Test user without special permissions.
+   *
+   * @var \Drupal\user\UserInterface
+   */
+  protected $simpleUser;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp() {
@@ -32,6 +39,49 @@ class BibciteTest extends BrowserTestBase {
     $this->user = $this->drupalCreateUser([
       'administer bibcite',
     ]);
+    $this->simpleUser = $this->drupalCreateUser();
+  }
+
+  /**
+   * Test CSL style routes.
+   */
+  public function testCslStyleRoutes() {
+    $this->drupalGet('/admin/config/bibcite/settings/csl_style/add');
+    $this->assertSession()->statusCodeEquals(403);
+    $this->drupalGet('/admin/config/bibcite/settings/csl_style/apa/delete');
+    $this->assertSession()->statusCodeEquals(403);
+    $this->drupalGet('/admin/config/bibcite/settings/csl_style/apa');
+    $this->assertSession()->statusCodeEquals(403);
+    $this->drupalGet('/admin/config/bibcite/settings/csl_style');
+    $this->assertSession()->statusCodeEquals(403);
+    $this->drupalGet('/admin/config/bibcite/settings/csl_style/add-file');
+    $this->assertSession()->statusCodeEquals(403);
+
+    $this->drupalLogin($this->user);
+
+    $this->drupalGet('/admin/config/bibcite/settings/csl_style/add');
+    $this->assertSession()->statusCodeEquals(200);
+    $this->drupalGet('/admin/config/bibcite/settings/csl_style/apa/delete');
+    $this->assertSession()->statusCodeEquals(200);
+    $this->drupalGet('/admin/config/bibcite/settings/csl_style/apa');
+    $this->assertSession()->statusCodeEquals(200);
+    $this->drupalGet('/admin/config/bibcite/settings/csl_style');
+    $this->assertSession()->statusCodeEquals(200);
+    $this->drupalGet('/admin/config/bibcite/settings/csl_style/add-file');
+    $this->assertSession()->statusCodeEquals(200);
+
+    $this->drupalLogin($this->simpleUser);
+
+    $this->drupalGet('/admin/config/bibcite/settings/csl_style/add');
+    $this->assertSession()->statusCodeEquals(403);
+    $this->drupalGet('/admin/config/bibcite/settings/csl_style/apa/delete');
+    $this->assertSession()->statusCodeEquals(403);
+    $this->drupalGet('/admin/config/bibcite/settings/csl_style/apa');
+    $this->assertSession()->statusCodeEquals(403);
+    $this->drupalGet('/admin/config/bibcite/settings/csl_style');
+    $this->assertSession()->statusCodeEquals(403);
+    $this->drupalGet('/admin/config/bibcite/settings/csl_style/add-file');
+    $this->assertSession()->statusCodeEquals(403);
   }
 
   /**
