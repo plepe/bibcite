@@ -11,18 +11,6 @@ use Drupal\Core\Field\FieldItemListInterface;
 class CslReferenceNormalizer extends ReferenceNormalizerBase {
 
   /**
-   * The format that this Normalizer supports.
-   *
-   * @var string
-   */
-  protected $format = 'csl';
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $defaultType = '';
-
-  /**
    * List of date fields.
    *
    * @var array
@@ -35,39 +23,24 @@ class CslReferenceNormalizer extends ReferenceNormalizerBase {
   /**
    * {@inheritdoc}
    */
-  public function normalize($reference, $format = NULL, array $context = []) {
-    /** @var \Drupal\bibcite_entity\Entity\ReferenceInterface $reference */
-
-    $attributes = [];
-
-    $attributes['title'] = $this->extractScalar($reference->get('title'));
-    $attributes['type'] = $this->convertEntityType($reference->bundle(), $this->format);
-
-    if ($authors = $this->extractAuthors($reference->get('author'))) {
-      $attributes['author'] = $authors;
-    }
-
-    if ($keywords = $this->extractKeywords($reference->get('keywords'))) {
-      $attributes['keywords'] = $keywords;
-    }
-
-    $attributes += $this->extractFields($reference);
-
-    return $attributes;
+  public function supportsDenormalization($data, $type, $format = NULL) {
+    return FALSE;
   }
 
   /**
-   * Extract fields values from reference entity.
-   *
-   * @param \Drupal\bibcite_entity\Entity\ReferenceInterface $reference
-   *   Reference entity object.
-   *
-   * @return array
-   *   Array of entity values.
+   * {@inheritdoc}
+   */
+  public function denormalize($data, $class, $format = NULL, array $context = []) {
+    throw new \Exception("Can't denormalize from csl format.");
+  }
+
+  /**
+   * {@inheritdoc}
    */
   protected function extractFields(ReferenceInterface $reference, $format = NULL) {
     $attributes = [];
 
+    $attributes['title'] = $this->extractScalar($reference->get('title'));
     foreach ($this->fieldsMapping[$this->format] as $csl_field => $entity_field) {
       if ($entity_field && $reference->hasField($entity_field) && ($field = $reference->get($entity_field)) && !$field->isEmpty()) {
         if (in_array($entity_field, $this->dateFields)) {

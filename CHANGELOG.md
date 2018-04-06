@@ -9,14 +9,18 @@
   Changed path for managing references types.
 
 ### Added
+- [#2788407] by kruhak: Implement tests
 - [#2939860] by mgwisni: Add Author/Contributor Initials
 
 ### Changed
+- [#2954571] by antongp: Contributors and Keywords entities are created before saving Reference entity when Populate Reference form is used
+- [#2878975] Improve module permissions. Modify access handlers to cache permissions.
 - [#2872606] by kruhak: Improve structure and look of configuration pages
 - [#2954101] by antongp: Routing cleanup  
 - [#2945406] by robcast: Import breaks on author with multiple initials. Update name parser package.
 
 ### Fixed
+- [#2954624] by hunterbuchanan: Drupal lists module as Uninstalled with Invalid Info after installing dev version via Composer
 - [#2945229] by littledynamo: Malformed inline YAML string when enabling bibcite_endnote module
 - [#2939817] by littledynamo: Year of Publication field does not allow 'Submitted' or 'In Press', contrary to field description
 - [#2946773] by antongp: Fatal error on import (from file) form when content cannot be parsed for some reason
@@ -461,6 +465,9 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2865625]: https://www.drupal.org/node/2865625
 
 [//]: # "Issues links dev"
+[#2954571]: https://www.drupal.org/node/2954571
+[#2954624]: https://www.drupal.org/node/2954624
+[#2788407]: https://www.drupal.org/node/2788407
 [#2872606]: https://www.drupal.org/node/2872606
 [#2954101]: https://www.drupal.org/node/2954101
 [#2945229]: https://www.drupal.org/node/2945229

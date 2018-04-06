@@ -8,6 +8,12 @@ services:
     tags:
       - { name: normalizer, priority: 30 }
     arguments: ['@entity.manager', '@config.factory']
+    calls:
+      - [setFormat, ['marc']]
+    properties:
+      defaultType: 'misc'
+      contributorKey: 'authors'
+      keywordKey: 'keywords'
   bibcite_marc.marc_subscriber:
     class: Drupal\bibcite_marc\EventSubscriber\MarcSubscriber
     tags:

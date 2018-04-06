@@ -2,6 +2,7 @@
 
 namespace Drupal\bibcite_ris\Normalizer;
 
+use Drupal\bibcite_entity\Entity\ReferenceInterface;
 use Drupal\bibcite_entity\Normalizer\ReferenceNormalizerBase;
 
 /**
@@ -12,53 +13,13 @@ class RISReferenceNormalizer extends ReferenceNormalizerBase {
   /**
    * {@inheritdoc}
    */
-  protected $format = 'ris';
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $defaultType = 'GEN';
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $contributorKey = 'AU';
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $keywordKey = 'KW';
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $typeKey = 'TY';
-
-  /**
-   * {@inheritdoc}
-   */
-  public function normalize($reference, $format = NULL, array $context = []) {
-    /** @var \Drupal\bibcite_entity\Entity\ReferenceInterface $reference */
-    $attributes = [];
-
-    $attributes['TY'] = $this->convertEntityType($reference->bundle(), $format);
-
-    if ($authors = $this->extractAuthors($reference->get('author'))) {
-      $attributes['AU'] = $authors;
-    }
-
-    if ($keywords = $this->extractKeywords($reference->get('keywords'))) {
-      $attributes['KW'] = $keywords;
-    }
-
+  protected function extractFields(ReferenceInterface $reference, $format) {
+    $attributes = parent::extractFields($reference, $format);
     $isbn = $this->extractScalar($reference->get('bibcite_isbn'));
     $issn = $this->extractScalar($reference->get('bibcite_issn'));
     if ($isbn || $issn) {
       $attributes['SN'] = trim($isbn . '/' . $issn, '/');
     }
-
-    $attributes += $this->extractFields($reference, $format);
-
     return $attributes;
   }
 

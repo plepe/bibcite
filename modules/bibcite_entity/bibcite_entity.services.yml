@@ -4,11 +4,25 @@ services:
     arguments: ['@entity.manager']
     tags:
       - { name: access_check, applies_to: _reference_add_access }
+  bibcite_entity.normalizer.contributor:
+    class: Drupal\bibcite_entity\Normalizer\ContributorNormalizer
+    tags:
+      - { name: normalizer, priority: 30 }
+    arguments: ['@entity.manager']
+  bibcite_entity.normalizer.keyword:
+    class: Drupal\bibcite_entity\Normalizer\KeywordNormalizer
+    tags:
+      - { name: normalizer, priority: 30 }
+    arguments: ['@entity.manager']
   bibcite_entity.normalizer.reference:
     class: Drupal\bibcite_entity\Normalizer\CslReferenceNormalizer
     tags:
       - { name: normalizer, priority: 30 }
     arguments: ['@entity.manager', '@config.factory']
+    calls:
+      - [setFormat, ['csl']]
+    properties:
+      defaultType: ''
   bibcite.ui_override_provider:
     class: Drupal\bibcite_entity\UIOverrideProvider
     arguments: ['@entity.manager', '@config.factory']
