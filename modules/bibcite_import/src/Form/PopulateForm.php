@@ -113,7 +113,14 @@ class PopulateForm extends FormBase {
 
     try {
       $decoded = $this->serializer->decode($data, $format_id);
-      $entity = $this->serializer->denormalize(reset($decoded), Reference::class, $format_id);
+
+      $config = \Drupal::config('bibcite_import.settings');
+      $denormalize_context = [
+        'contributor_deduplication' => $config->get('settings.contributor_deduplication'),
+        'keyword_deduplication' => $config->get('settings.keyword_deduplication'),
+      ];
+
+      $entity = $this->serializer->denormalize(reset($decoded), Reference::class, $format_id, $denormalize_context);
       $form_state->setValue('entity', $entity);
     }
     catch (\Exception $exception) {
