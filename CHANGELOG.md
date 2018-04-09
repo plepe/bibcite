@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [8.x-1.0-alpha6] - 2018-04-09
 
 ### Important
 - [#2954101] by antongp: Routing cleanup
@@ -369,6 +369,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [8.x-1.0-alpha3]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha3
 [8.x-1.0-alpha4]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha4
 [8.x-1.0-alpha5]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha5
+[8.x-1.0-alpha6]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha6
 
 
 [//]: # "Issues links alpha1"
@@ -464,7 +465,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2865633]: https://www.drupal.org/node/2865633
 [#2865625]: https://www.drupal.org/node/2865625
 
-[//]: # "Issues links dev"
+[//]: # "Issues links alpha6"
 [#2954571]: https://www.drupal.org/node/2954571
 [#2954624]: https://www.drupal.org/node/2954624
 [#2788407]: https://www.drupal.org/node/2788407
@@ -475,3 +476,5 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2945406]: https://www.drupal.org/node/2945406
 [#2946773]: https://www.drupal.org/node/2946773
 [#2939860]: https://www.drupal.org/node/2939860
+
+[//]: # "Issues links dev"
