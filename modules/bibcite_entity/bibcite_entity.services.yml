@@ -23,6 +23,8 @@ services:
       - [setFormat, ['csl']]
     properties:
       defaultType: ''
+      contributorKey: 'author'
+      keywordKey: 'keywords'
   bibcite.ui_override_provider:
     class: Drupal\bibcite_entity\UIOverrideProvider
     arguments: ['@entity.manager', '@config.factory']
