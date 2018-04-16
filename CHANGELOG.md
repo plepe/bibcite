@@ -1,9 +1,9 @@
 # Changelog
 
-## [Unreleased]
+## [8.x-1.0-alpha7] - 2018-04-16
 
 ### Fixed
-- [#2960552] by xenahort: Initials with CLS styles
+- [#2960637] by xenahort, littledynamo: Citation no longer displays author names after upgrade to alpha-6
 
 
 ## [8.x-1.0-alpha6] - 2018-04-09
@@ -377,6 +377,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [8.x-1.0-alpha4]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha4
 [8.x-1.0-alpha5]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha5
 [8.x-1.0-alpha6]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha6
+[8.x-1.0-alpha7]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha7
 
 
 [//]: # "Issues links alpha1"
@@ -485,6 +486,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2946773]: https://www.drupal.org/node/2946773
 [#2939860]: https://www.drupal.org/node/2939860
 
+[//]: # "Issues links alpha7"
+[#2960637]: https://www.drupal.org/node/2960637
 
 [//]: # "Issues links dev"
-[#2960552]: https://www.drupal.org/node/2960552
