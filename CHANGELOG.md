@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+- [#2965604] by gkaas: Unexpected error Endnote X3 XML export
+
+
 ## [8.x-1.0-alpha7] - 2018-04-16
 
 ### Fixed
@@ -490,3 +496,4 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2960637]: https://www.drupal.org/node/2960637
 
 [//]: # "Issues links dev"
+[#2965604]: https://www.drupal.org/node/2965604

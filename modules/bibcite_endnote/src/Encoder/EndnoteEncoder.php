@@ -157,6 +157,10 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
             $pub_key = 'PUB-DATES';
             $keyword_key = 'KEYWORD';
             $authors_key = 'AUTHORS';
+            $ref[$authors_key] = $ref['authors'];
+            $ref[$keywords_key] = $ref['keywords'];
+            unset($ref['authors']);
+            unset($ref['keywords']);
             break;
 
           case'endnote8':
@@ -169,7 +173,6 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
             $dates_key = 'dates';
             $web_key = 'web-urls';
             $pub_key = 'pub-dates';
-            // @todo remove hardcode names in ReferenceNormalizerBase!!!
             $keyword_key = 'keyword';
             $authors_key = 'authors';
             break;
