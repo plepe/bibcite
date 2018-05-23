@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Fixed
+- [#2974615] by trustypelletgun: Endnote import fails on serializer->decode
 - [#2970961] by antongp: Show correct version constraint for adci/full-name-parser package in help
 - [#2965604] by gkaas: Unexpected error Endnote X3 XML export
 
@@ -497,5 +498,6 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2960637]: https://www.drupal.org/node/2960637
 
 [//]: # "Issues links dev"
+[#2974615]: https://www.drupal.org/node/2974615
 [#2970961]: https://www.drupal.org/node/2970961
 [#2965604]: https://www.drupal.org/node/2965604

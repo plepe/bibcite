@@ -8,6 +8,8 @@ use Symfony\Component\Serializer\Encoder\EncoderInterface;
 
 /**
  * Endnote format encoder.
+ *
+ * @todo Refactor this class.
  */
 class EndnoteEncoder implements EncoderInterface, DecoderInterface {
 
@@ -27,6 +29,8 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Exception
    */
   public function decode($data, $format, array $context = []) {
     if ($format === 'tagged') {
@@ -70,12 +74,12 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
                       switch ($dates->getName()) {
                         case'YEAR':
                         case'year':
-                          $rec[$dates->getName()] = $dates->style->__toString();
+                          $rec[$dates->getName()] = $this->getString($dates);
                           break;
 
                         case'DATE':
                         case'date':
-                          $rec[$dates->{'pub-dates'}->getName()] = $dates->{'pub-dates'}->style->__toString();
+                          $rec[$dates->{'pub-dates'}->getName()] = $this->getString($dates->{'pub-dates'});
                           break;
                       }
                     }
@@ -87,7 +91,7 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
                   foreach ($child->children() as $authors) {
                     if ($authors instanceof SimpleXMLElement) {
                       foreach ($authors->children() as $author) {
-                        $rec[$authors->getName()][] = $author->style->__toString();
+                        $rec[$authors->getName()][] = $this->getString($author);
                       }
                     }
                   }
@@ -97,7 +101,7 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
                 case'titles':
                   foreach ($child->children() as $title) {
                     if ($title instanceof SimpleXMLElement) {
-                      $rec[$title->getName()] = $title->style->__toString();
+                      $rec[$title->getName()] = $this->getString($title);
                     }
                   }
                   break;
@@ -106,7 +110,7 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
                 case'keywords':
                   foreach ($child->children() as $keyword) {
                     if ($keyword instanceof SimpleXMLElement) {
-                      $rec['keywords'][] = $keyword->style->__toString();
+                      $rec['keywords'][] = $this->getString($keyword);
                     }
                   }
                   break;
@@ -115,7 +119,7 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
                   break;
 
                 default:
-                  $rec[$child->getName()] = $child->style->__toString();
+                  $rec[$child->getName()] = $this->getString($child);
                   break;
               }
             }
@@ -125,6 +129,19 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
       }
     }
     return $result;
+  }
+
+  /**
+   * Get string from element.
+   *
+   * @param \SimpleXMLElement $element
+   *   Element value.
+   *
+   * @return string
+   *   Result string.
+   */
+  private function getString($element) {
+    return $element->style->__toString() ?: $element->__toString();
   }
 
   /**
@@ -237,7 +254,7 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
   /**
    * Add titles to xml.
    *
-   * @param SimpleXMLElement $xml
+   * @param \SimpleXMLElement $xml
    *   Parent XmlElement.
    * @param mixed $ref
    *   Our reference.
@@ -266,7 +283,7 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
   /**
    * Add keywords to xml.
    *
-   * @param SimpleXMLElement $xml
+   * @param \SimpleXMLElement $xml
    *   Parent XmlElement.
    * @param mixed $ref
    *   Our reference.
@@ -289,7 +306,7 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
   /**
    * Add dates to xml.
    *
-   * @param SimpleXMLElement $xml
+   * @param \SimpleXMLElement $xml
    *   Parent XmlElement.
    * @param mixed $ref
    *   Our reference.
@@ -318,7 +335,7 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
   /**
    * Add fields to xml.
    *
-   * @param SimpleXMLElement $xml
+   * @param \SimpleXMLElement $xml
    *   Parent XmlElement.
    * @param mixed $ref
    *   Our reference.
@@ -333,7 +350,7 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
   /**
    * Add value to xml tag.
    *
-   * @param SimpleXMLElement $xml
+   * @param \SimpleXMLElement $xml
    *   Parent XmlElement.
    * @param string $tag
    *   Xml tag to add.
@@ -348,7 +365,7 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
   /**
    * Add xml child style.
    *
-   * @param SimpleXMLElement $xml
+   * @param \SimpleXMLElement $xml
    *   Parent XmlElement.
    * @param string $text
    *   Text to set.
