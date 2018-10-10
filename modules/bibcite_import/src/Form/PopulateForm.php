@@ -7,7 +7,7 @@ use Drupal\bibcite_entity\Entity\Reference;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-use Drupal\user\PrivateTempStore;
+use Drupal\Core\TempStore\PrivateTempStore;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Serializer\Serializer;
 
@@ -33,7 +33,7 @@ class PopulateForm extends FormBase {
   /**
    * Module temp store.
    *
-   * @var \Drupal\user\PrivateTempStore
+   * @var \Drupal\Core\TempStore\PrivateTempStore
    */
   protected $tempStore;
 
@@ -44,7 +44,7 @@ class PopulateForm extends FormBase {
    *   Serializer service.
    * @param \Drupal\bibcite\Plugin\BibciteFormatManagerInterface $format_manager
    *   Format manager service.
-   * @param \Drupal\user\PrivateTempStore $temp_store
+   * @param \Drupal\Core\TempStore\PrivateTempStore $temp_store
    *   Module temp store.
    */
   public function __construct(Serializer $serializer, BibciteFormatManagerInterface $format_manager, PrivateTempStore $temp_store) {
@@ -60,7 +60,7 @@ class PopulateForm extends FormBase {
     return new static(
       $container->get('serializer'),
       $container->get('plugin.manager.bibcite_format'),
-      $container->get('user.private_tempstore')->get('bibcite_entity_populate')
+      $container->get('tempstore.private')->get('bibcite_entity_populate')
     );
   }
 

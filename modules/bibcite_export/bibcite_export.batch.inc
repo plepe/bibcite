@@ -123,8 +123,8 @@ function bibcite_export_batch_finished($success, array $results, $operations) {
     /** @var \Drupal\bibcite\Plugin\BibciteFormatInterface $format */
     $format = $results['format'];
 
-    /** @var \Drupal\user\PrivateTempStore $tempstorage */
-    $tempstorage = \Drupal::service('user.private_tempstore')->get('bibcite_export');
+    /** @var \Drupal\Core\TempStore\PrivateTempStore $tempstorage */
+    $tempstorage = \Drupal::service('tempstore.private')->get('bibcite_export');
 
     $current_user = \Drupal::currentUser();
 

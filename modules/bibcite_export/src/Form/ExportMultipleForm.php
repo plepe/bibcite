@@ -7,7 +7,7 @@ use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
-use Drupal\user\PrivateTempStoreFactory;
+use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -25,7 +25,7 @@ class ExportMultipleForm extends ConfirmFormBase {
   /**
    * The tempstore object.
    *
-   * @var \Drupal\user\PrivateTempStore
+   * @var \Drupal\Core\TempStore\PrivateTempStore
    */
   protected $tempStore;
 
@@ -46,7 +46,7 @@ class ExportMultipleForm extends ConfirmFormBase {
   /**
    * Construct new ExportMultipleForm object.
    *
-   * @param \Drupal\user\PrivateTempStoreFactory $temp_store_factory
+   * @param \Drupal\Core\TempStore\PrivateTempStoreFactory $temp_store_factory
    *   The tempstore factory.
    * @param \Drupal\bibcite\Plugin\BibciteFormatManagerInterface $format_manager
    *   The bibcite format manager.
@@ -64,7 +64,7 @@ class ExportMultipleForm extends ConfirmFormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('user.private_tempstore'),
+      $container->get('tempstore.private'),
       $container->get('plugin.manager.bibcite_format'),
       $container->get('current_user')
     );
