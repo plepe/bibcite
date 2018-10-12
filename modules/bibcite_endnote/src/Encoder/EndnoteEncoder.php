@@ -174,10 +174,6 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
             $pub_key = 'PUB-DATES';
             $keyword_key = 'KEYWORD';
             $authors_key = 'AUTHORS';
-            $ref[$authors_key] = $ref['authors'];
-            $ref[$keywords_key] = $ref['keywords'];
-            unset($ref['authors']);
-            unset($ref['keywords']);
             break;
 
           case'endnote8':
