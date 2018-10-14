@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Fixed
+- [#3006184] by deepanker_bhalla: Export all reference data error
 - [#3005002] by fmr: User module's user.private_tempstore and user.shared_tempstore services moved to core
 - [#3002901] by kairos: Warnings when installing the Bibliography & Citation - Entity module
 - [#2974615] by trustypelletgun: Endnote import fails on serializer->decode
@@ -500,6 +501,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2960637]: https://www.drupal.org/node/2960637
 
 [//]: # "Issues links dev"
+[#3006184]: https://www.drupal.org/node/3006184
 [#3005002]: https://www.drupal.org/node/3005002
 [#3002901]: https://www.drupal.org/node/3002901
 [#2974615]: https://www.drupal.org/node/2974615

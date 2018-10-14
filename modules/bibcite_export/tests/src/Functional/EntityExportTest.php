@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\bibcite_export\FunctionalJavascript;
+namespace Drupal\Tests\bibcite_export\Functional;
 
 use Drupal\Tests\BrowserTestBase;
 use Symfony\Component\Yaml\Yaml;

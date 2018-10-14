@@ -162,6 +162,12 @@ class ExportAllForm extends FormBase {
     if (!isset($format)) {
       $form_state->setErrorByName('format', $this->t('Trying export to non-existing format.'));
     }
+
+    $storage = \Drupal::entityTypeManager()->getStorage('bibcite_reference');
+    $total = $storage->getQuery()->count()->execute();
+    if (!$total) {
+      $form_state->setError($form, $this->t('There is no data to export.'));
+    }
   }
 
   /**

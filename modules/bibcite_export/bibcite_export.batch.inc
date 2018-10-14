@@ -85,7 +85,11 @@ function bibcite_export_batch_all($entity_type, BibciteFormatInterface $format, 
     ->sort('id')
     ->execute();
 
-  $entities = $storage->loadMultiple(array_keys($result));
+  $ids = array_keys($result);
+  if (!$ids || !($entities = $storage->loadMultiple($ids))) {
+    $context['finished'] = 1;
+    return;
+  }
 
   $export_string = $serializer->serialize($entities, $format->getPluginId());
   file_put_contents($context['results']['file'], $export_string, FILE_APPEND);
@@ -97,9 +101,8 @@ function bibcite_export_batch_all($entity_type, BibciteFormatInterface $format, 
   $context['results']['count'] = $context['sandbox']['progress'];
   $context['message'] = $latest_entity->label();
 
-  if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
-    $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
-  }
+  $progress = $context['sandbox']['progress'] / $context['sandbox']['max'];
+  $context['finished'] = ($progress < 1) ? $progress : 0.99;
 }
 
 /**
