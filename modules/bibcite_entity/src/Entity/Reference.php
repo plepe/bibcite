@@ -178,6 +178,34 @@ class Reference extends ContentEntityBase implements ReferenceInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    $fields['editor'] = BaseFieldDefinition::create('bibcite_contributor')
+      ->setLabel(t('Editor'))
+      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
+      ->setDisplayOptions('form', [
+        'type' => 'bibcite_contributor_widget',
+        'weight' => 3,
+      ])
+      ->setDisplayOptions('view', [
+        'type' => 'bibcite_contributor_label',
+        'weight' => 3,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['advisor'] = BaseFieldDefinition::create('bibcite_contributor')
+      ->setLabel(t('Advisor'))
+      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
+      ->setDisplayOptions('form', [
+        'type' => 'bibcite_contributor_widget',
+        'weight' => 3,
+      ])
+      ->setDisplayOptions('view', [
+        'type' => 'bibcite_contributor_label',
+        'weight' => 3,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
     $fields['keywords'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Keywords'))
       ->setSetting('target_type', 'bibcite_keyword')
