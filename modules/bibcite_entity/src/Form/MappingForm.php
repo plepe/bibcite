@@ -184,7 +184,7 @@ class MappingForm extends FormBase {
 
     $this->config->save();
 
-    drupal_set_message($this->t('Your mapping has been saved.'));
+    $this->messenger()->addStatus($this->t('Your mapping has been saved.'));
   }
 
   /**

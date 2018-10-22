@@ -208,7 +208,7 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
       ->setLabel(t('Name'))
       ->setComputed(TRUE)
       ->setReadOnly(FALSE)
-      ->setQueryable(FALSE)
+      ->setCustomStorage(TRUE)
       ->setClass('\Drupal\bibcite_entity\ContributorName');
 
     $fields['leading_title'] = BaseFieldDefinition::create('string')

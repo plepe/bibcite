@@ -122,6 +122,7 @@ function bibcite_export_batch_all($entity_type, BibciteFormatInterface $format, 
  *   If $success is FALSE, contains the operations that remained unprocessed.
  */
 function bibcite_export_batch_finished($success, array $results, $operations) {
+  $messenger = \Drupal::messenger();
   if ($success && isset($results['file'], $results['format'], $results['count'])) {
     /** @var \Drupal\bibcite\Plugin\BibciteFormatInterface $format */
     $format = $results['format'];
@@ -161,13 +162,13 @@ function bibcite_export_batch_finished($success, array $results, $operations) {
           'file' => $file->id(),
         ])->toString(),
       ]);
-      drupal_set_message($message);
+      $messenger->addStatus($message);
     }
     else {
-      drupal_set_message(t('Temporary file can not be saved'), 'error');
+      $messenger->addError(t('Temporary file can not be saved'));
     }
   }
   else {
-    drupal_set_message(t('An error occurred while processing export'), 'error');
+    $messenger->addError(t('An error occurred while processing export'));
   }
 }

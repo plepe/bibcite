@@ -128,7 +128,7 @@ class DeleteMultiple extends ConfirmFormBase {
       $storage->delete($entities);
 
       $this->logger('bibcite')->notice('Deleted @count references.', ['@count' => count($entities)]);
-      drupal_set_message($this->formatPlural(count($entities), 'Deleted 1 reference.', 'Deleted @count references.'));
+      $this->messenger()->addStatus($this->formatPlural(count($entities), 'Deleted 1 reference.', 'Deleted @count references.'));
 
       $this->tempStore->delete($this->currentUser->id());
     }

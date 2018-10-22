@@ -7,7 +7,7 @@ use Drupal\bibcite_entity\Entity\ReferenceInterface;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\simpletest\UserCreationTrait;
+use Drupal\Tests\user\Traits\UserCreationTrait;
 use Drupal\user\RoleInterface;
 
 /**
@@ -17,10 +17,6 @@ use Drupal\user\RoleInterface;
  */
 class ReferenceAccessTest extends KernelTestBase {
 
-  /*use NodeCreationTrait {
-    getNodeByTitle as drupalGetNodeByTitle;
-    createNode as drupalCreateNode;
-  }*/
   use UserCreationTrait {
     createUser as drupalCreateUser;
     createRole as drupalCreateRole;

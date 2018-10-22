@@ -32,13 +32,13 @@ class KeywordForm extends ContentEntityForm {
 
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label Keyword.', [
+        $this->messenger()->addStatus($this->t('Created the %label Keyword.', [
           '%label' => $entity->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('Saved the %label Keyword.', [
+        $this->messenger()->addStatus($this->t('Saved the %label Keyword.', [
           '%label' => $entity->label(),
         ]));
     }

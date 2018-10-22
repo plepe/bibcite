@@ -137,13 +137,13 @@ class ReferenceTypeForm extends BundleEntityFormBase {
 
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label Reference type.', [
+        $this->messenger()->addStatus($this->t('Created the %label Reference type.', [
           '%label' => $reference_type->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('Saved the %label Reference type.', [
+        $this->messenger()->addStatus($this->t('Saved the %label Reference type.', [
           '%label' => $reference_type->label(),
         ]));
     }

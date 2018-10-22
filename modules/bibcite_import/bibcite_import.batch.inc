@@ -71,17 +71,19 @@ function bibcite_import_batch_callback(array $entries, BibciteFormatInterface $f
  *   If $success is FALSE, contains the operations that remained unprocessed.
  */
 function bibcite_import_batch_finished($success, $results, $operations) {
+  $messenger = \Drupal::messenger();
   if ($success) {
     $message = \Drupal::translation()->formatPlural(count($results['success']), 'One entity processed.', '@count entities processed.');
 
     if (!empty($results['errors'])) {
       $error_message = \Drupal::translation()->formatPlural(count($results['errors']), 'One entry has not been processed.', '@count entries has not been processed.');
-      drupal_set_message($error_message, 'error');
+      $messenger->addError($error_message);
     }
   }
   else {
     $message = t('Finished with an error.');
   }
 
-  drupal_set_message($message);
+  // @todo Shouldn't it be of error type?
+  $messenger->addStatus($message);
 }

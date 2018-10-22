@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Fixed
+- [#3008366] by antongp: Avoid using deprecations where possible
 - [#3006209] by antongp, adci_contributor: Endnote encode test fails
 - [#3006184] by deepanker_bhalla: Export all reference data error
 - [#3005002] by fmr: User module's user.private_tempstore and user.shared_tempstore services moved to core
@@ -502,6 +503,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2960637]: https://www.drupal.org/node/2960637
 
 [//]: # "Issues links dev"
+[#3008366]: https://www.drupal.org/node/3008366
 [#3006209]: https://www.drupal.org/node/3006209
 [#3006184]: https://www.drupal.org/node/3006184
 [#3005002]: https://www.drupal.org/node/3005002

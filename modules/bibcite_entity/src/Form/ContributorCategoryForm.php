@@ -49,13 +49,13 @@ class ContributorCategoryForm extends EntityForm {
 
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label Contributor category.', [
+        $this->messenger()->addStatus($this->t('Created the %label Contributor category.', [
           '%label' => $bibcite_contributor_category->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('Saved the %label Contributor category.', [
+        $this->messenger()->addStatus($this->t('Saved the %label Contributor category.', [
           '%label' => $bibcite_contributor_category->label(),
         ]));
     }
