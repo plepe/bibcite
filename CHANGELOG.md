@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Fixed
+- [#3003787] by lbundt: When used with the Stacks module, there are errors when Contributors are viewed, edited, etc.
 - [#3008366] by antongp: Avoid using deprecations where possible
 - [#3006209] by antongp, adci_contributor: Endnote encode test fails
 - [#3006184] by deepanker_bhalla: Export all reference data error
@@ -503,6 +504,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2960637]: https://www.drupal.org/node/2960637
 
 [//]: # "Issues links dev"
+[#3003787]: https://www.drupal.org/node/3003787
 [#3008366]: https://www.drupal.org/node/3008366
 [#3006209]: https://www.drupal.org/node/3006209
 [#3006184]: https://www.drupal.org/node/3006184

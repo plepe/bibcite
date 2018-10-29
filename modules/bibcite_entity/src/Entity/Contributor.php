@@ -74,7 +74,7 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
    * {@inheritdoc}
    */
   public function getName() {
-    return $this->get('name')->getValue();
+    return $this->get('name')->value;
   }
 
   /**

@@ -3,18 +3,20 @@
 namespace Drupal\bibcite_entity;
 
 use Drupal\Component\Render\FormattableMarkup;
-use Drupal\Core\Field\FieldItemBase;
-use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\Field\FieldItemList;
+use Drupal\Core\TypedData\ComputedItemListTrait;
 
 /**
  * Contributor name computed field.
  */
-class ContributorName extends FieldItemBase {
+class ContributorName extends FieldItemList {
+
+  use ComputedItemListTrait;
 
   /**
    * {@inheritdoc}
    */
-  public function getValue($langcode = NULL) {
+  protected function computeValue() {
     /** @var \Drupal\bibcite_entity\Entity\ContributorInterface $contributor */
     $contributor = $this->parent->getValue();
 
@@ -30,48 +32,42 @@ class ContributorName extends FieldItemBase {
 
     // @todo Dependency injection.
     $format = \Drupal::config('bibcite_entity.contributor.settings')->get('full_name_pattern') ?: '@prefix @first_name @last_name @suffix';
-
     $full_name = (string) new FormattableMarkup($format, $arguments);
-    return trim(str_replace('  ', ' ', $full_name));
+    $value = trim(str_replace('  ', ' ', $full_name));
+
+    $this->list[0] = $this->createItem(0, $value);
+  }
+
+  /**
+   * Compute values every time.
+   */
+  protected function ensureComputedValue() {
+    $this->computeValue();
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setValue($value, $notify = TRUE) {
-    if ($value) {
-      /** @var \Drupal\bibcite_entity\Entity\ContributorInterface $contributor */
-      $contributor = $this->parent->getValue();
-      $name_parts = \Drupal::service('bibcite.human_name_parser')->parse($value);
+  public function setValue($values, $notify = TRUE) {
+    parent::setValue($values, $notify);
+
+    /** @var \Drupal\bibcite_entity\Entity\ContributorInterface $contributor */
+    $contributor = $this->parent->getValue();
+    // Gather new string value, so we do not worry how it was set: as string
+    // or as array.
+    // We cannot use $this->value because it'll be newly calculated value but
+    // from old name parts i.e. old value in result.
+    $item = isset($this->list[0]) ? $this->list[0] : NULL;
+    if ($item && ($value = $item->value)) {
+      $name_parts = \Drupal::service('bibcite.human_name_parser')->parse(
+        $value
+      );
 
       foreach ($name_parts as $key => $name_part) {
         $contributor->$key = $name_part;
       }
     }
-
-    // Notify the parent of any changes.
-    if ($notify && isset($this->parent)) {
-      $this->parent->onChange($this->name);
-    }
+    // @todo Handle setting empty string and NULL.
   }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function schema(FieldStorageDefinitionInterface $field_definition) {
-    return [];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {}
-
-  /**
-   * Set field langcode.
-   *
-   * @todo This method is required but not in the interface?
-   */
-  public function setLangcode() {}
 
 }
