@@ -19,6 +19,11 @@ use Drupal\bibcite\Plugin\BibciteFormatInterface;
  *   The batch context array, passed by reference.
  */
 function bibcite_import_batch_callback(array $entries, BibciteFormatInterface $format, array &$context) {
+  if (!isset($context['results'])) {
+    $context['results']['success'] = [];
+    $context['results']['errors'] = [];
+  }
+
   /** @var \Symfony\Component\Serializer\Serializer $serializer */
   $serializer = \Drupal::service('serializer');
 

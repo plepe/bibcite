@@ -20,14 +20,24 @@ class ContributorNormalizer extends EntityNormalizer {
    * {@inheritdoc}
    */
   public function denormalize($data, $class, $format = NULL, array $context = []) {
-    $storage = $this->entityManager->getStorage('bibcite_contributor');
+    $entity = parent::denormalize($data, $class, $format, $context);
 
     if (!empty($context['contributor_deduplication'])) {
-      $author_name_parsed = \Drupal::service('bibcite.human_name_parser')
-        ->parse($data);
+      $storage = $this->entityManager->getStorage('bibcite_contributor');
       $query = $storage->getQuery()->range(0, 1);
-      foreach ($author_name_parsed as $name_part => $value) {
-        if (empty($value)) {
+      // @todo Define this list somewhere publicly accessible for easy use.
+      $name_parts = [
+        'leading_title',
+        'prefix',
+        'first_name',
+        'middle_name',
+        'last_name',
+        'nick',
+        'suffix',
+      ];
+      foreach ($name_parts as $name_part) {
+        $value = $entity->{$name_part}->value;
+        if (!$value) {
           $query->notExists($name_part);
         }
         else {
@@ -35,12 +45,12 @@ class ContributorNormalizer extends EntityNormalizer {
         }
       }
 
-      if (!empty($entity = $storage->loadMultiple($query->execute()))) {
-        $entity = reset($entity);
-        return $entity;
+      $ids = $query->execute();
+      if ($ids && ($result = $storage->loadMultiple($ids))) {
+        return reset($result);
       }
     }
-    $entity = $storage->create(['name' => $data]);
+
     return $entity;
   }
 

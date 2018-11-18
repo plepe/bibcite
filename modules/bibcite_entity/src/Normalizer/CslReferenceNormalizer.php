@@ -31,6 +31,7 @@ class CslReferenceNormalizer extends ReferenceNormalizerBase {
    * {@inheritdoc}
    */
   public function denormalize($data, $class, $format = NULL, array $context = []) {
+    // @todo Should throw \Symfony\Component\Serializer\Exception\LogicException
     throw new \Exception("Can't denormalize from csl format.");
   }
 
@@ -77,7 +78,7 @@ class CslReferenceNormalizer extends ReferenceNormalizerBase {
           'given' => $contributor->getFirstName() . ' ' . $contributor->getMiddleName(),
           'suffix' => $contributor->getSuffix(),
           'literal' => $contributor->getName(),
-          // @todo Implement another fields.
+          // @todo Implement other fields.
         ];
       }
     }

@@ -187,14 +187,14 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
 
     if (!empty($contributors)) {
       $author_field = $entity->get('author');
-      foreach ($contributors as $contributor) {
-        $author_field->appendItem($this->serializer->denormalize($contributor, Contributor::class, $format, $context));
+      foreach ($contributors as $name) {
+        $author_field->appendItem($this->serializer->denormalize(['name' => [['value' => $name]]], Contributor::class, $format, $context));
       }
     }
     if (!empty($keywords)) {
       $keyword_field = $entity->get('keywords');
       foreach ($keywords as $keyword) {
-        $keyword_field->appendItem($this->serializer->denormalize($keyword, Keyword::class, $format, $context));
+        $keyword_field->appendItem($this->serializer->denormalize(['name' => [['value' => $keyword]]], Keyword::class, $format, $context));
       }
     }
     return $entity;

@@ -6,6 +6,7 @@
 - [#3013783] by flocondetoile: Provide a template for Reference entity to facilitate theming
 
 ### Fixed
+- [#2983288] by Web-Beest: REST not working
 - [#3003787] by lbundt: When used with the Stacks module, there are errors when Contributors are viewed, edited, etc.
 - [#3008366] by antongp: Avoid using deprecations where possible
 - [#3006209] by antongp, adci_contributor: Endnote encode test fails
@@ -507,6 +508,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2960637]: https://www.drupal.org/node/2960637
 
 [//]: # "Issues links dev"
+[#2983288]: https://www.drupal.org/node/2983288
 [#3013783]: https://www.drupal.org/node/3013783
 [#3003787]: https://www.drupal.org/node/3003787
 [#3008366]: https://www.drupal.org/node/3008366
