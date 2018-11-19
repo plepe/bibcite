@@ -7,17 +7,17 @@ services:
   bibcite_entity.normalizer.contributor:
     class: Drupal\bibcite_entity\Normalizer\ContributorNormalizer
     tags:
-      - { name: normalizer, priority: 30 }
+      - { name: normalizer, priority: 5 }
     arguments: ['@entity.manager']
   bibcite_entity.normalizer.keyword:
     class: Drupal\bibcite_entity\Normalizer\KeywordNormalizer
     tags:
-      - { name: normalizer, priority: 30 }
+      - { name: normalizer, priority: 5 }
     arguments: ['@entity.manager']
   bibcite_entity.normalizer.reference:
     class: Drupal\bibcite_entity\Normalizer\CslReferenceNormalizer
     tags:
-      - { name: normalizer, priority: 30 }
+      - { name: normalizer, priority: 5 }
     arguments: ['@entity.manager', '@config.factory']
     calls:
       - [setFormat, ['csl']]

@@ -6,6 +6,7 @@
 - [#3013783] by flocondetoile: Provide a template for Reference entity to facilitate theming
 
 ### Fixed
+- [#3005950] by fmr: Serialization of references doesn't work properly with hal_json format
 - [#2983288] by Web-Beest: REST not working
 - [#3003787] by lbundt: When used with the Stacks module, there are errors when Contributors are viewed, edited, etc.
 - [#3008366] by antongp: Avoid using deprecations where possible
@@ -508,6 +509,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2960637]: https://www.drupal.org/node/2960637
 
 [//]: # "Issues links dev"
+[#3005950]: https://www.drupal.org/node/3005950
 [#2983288]: https://www.drupal.org/node/2983288
 [#3013783]: https://www.drupal.org/node/3013783
 [#3003787]: https://www.drupal.org/node/3003787

@@ -6,7 +6,7 @@ services:
   bibcite_marc.normalizer.reference:
     class: Drupal\bibcite_marc\Normalizer\MarcReferenceNormalizer
     tags:
-      - { name: normalizer, priority: 30 }
+      - { name: normalizer, priority: 5 }
     arguments: ['@entity.manager', '@config.factory']
     calls:
       - [setFormat, ['marc']]

@@ -6,7 +6,7 @@ services:
   bibcite_ris.normalizer.reference:
     class: Drupal\bibcite_ris\Normalizer\RISReferenceNormalizer
     tags:
-      - { name: normalizer, priority: 30 }
+      - { name: normalizer, priority: 5 }
     arguments: ['@entity.manager', '@config.factory']
     calls:
       - [setFormat, ['ris']]
