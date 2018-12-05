@@ -2,10 +2,19 @@
 
 ## [Unreleased]
 
+### Important
+- [#2974615] by trustypelletgun: Endnote 7 XML secondary-title field is not imported
+  **Note: incorrect Endnote 7 XML title-secondary and title-short fields were renamed to correct secondary-title and
+  short-title accordingly.**
+  This means that data, exported to Endnote 7 XML format before this change, will lose these
+  fields if imported back from that export after this change. In this case make sure database contains latest data
+  before updating the module, i.e. import back from export file before updating if needed.
+
 ### Added
 - [#3013783] by flocondetoile: Provide a template for Reference entity to facilitate theming
 
 ### Fixed
+- [#2974615] by trustypelletgun: Endnote 7 XML secondary-title field is not imported
 - [#3005950] by fmr: Serialization of references doesn't work properly with hal_json format
 - [#2983288] by Web-Beest: REST not working
 - [#3003787] by lbundt: When used with the Stacks module, there are errors when Contributors are viewed, edited, etc.
@@ -509,6 +518,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2960637]: https://www.drupal.org/node/2960637
 
 [//]: # "Issues links dev"
+[#2974615]: https://www.drupal.org/node/2974615
 [#3005950]: https://www.drupal.org/node/3005950
 [#2983288]: https://www.drupal.org/node/2983288
 [#3013783]: https://www.drupal.org/node/3013783

@@ -55,8 +55,8 @@ endnote8:
   fields:
     - title
     - authors
-    - title-secondary
-    - title-short
+    - secondary-title
+    - short-title
     - alt-journal
     - periodical-title
     - rec-number

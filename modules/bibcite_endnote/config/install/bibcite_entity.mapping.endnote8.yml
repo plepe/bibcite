@@ -50,11 +50,11 @@ types:
 fields:
   title: title
   authors: author
-  title-secondary: bibcite_secondary_title
+  secondary-title: bibcite_secondary_title
   tertiary-title: bibcite_tertiary_title
   alt-title: bibcite_alternate_title
   short-title: bibcite_short_title
-  translated-title: bibcite_translated-title
+  translated-title: bibcite_translated_title
   full-title: ''
   rec-number: ''
   urls: bibcite_url

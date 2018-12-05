@@ -263,7 +263,7 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
         $title_key = $indexes[$key];
         switch ($title_key) {
           case 'title':
-          case 'title-secondary':
+          case 'secondary-title':
           case 'tertiary-title':
           case 'alt-title':
           case 'short-title':
