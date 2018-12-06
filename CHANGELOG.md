@@ -1,14 +1,17 @@
 # Changelog
 
-## [Unreleased]
+## [8.x-1.0-alpha8] - 2018-12-06
 
 ### Important
-- [#2974615] by trustypelletgun: Endnote 7 XML secondary-title field is not imported
+- [#2974615] by trustypelletgun: Endnote 7 XML secondary-title field is not imported.
   **Note: incorrect Endnote 7 XML title-secondary and title-short fields were renamed to correct secondary-title and
   short-title accordingly.**
   This means that data, exported to Endnote 7 XML format before this change, will lose these
   fields if imported back from that export after this change. In this case make sure database contains latest data
   before updating the module, i.e. import back from export file before updating if needed.
+- [#3013783] by flocondetoile: Provide a template for Reference entity to facilitate theming.
+  As a result, new wrapper element is added to rendered reference entity markup. In rare cases this may affect
+  appearance depending on applied CSS styles.
 
 ### Added
 - [#3013783] by flocondetoile: Provide a template for Reference entity to facilitate theming
@@ -406,6 +409,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [8.x-1.0-alpha5]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha5
 [8.x-1.0-alpha6]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha6
 [8.x-1.0-alpha7]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha7
+[8.x-1.0-alpha8]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha8
 
 
 [//]: # "Issues links alpha1"
@@ -517,7 +521,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [//]: # "Issues links alpha7"
 [#2960637]: https://www.drupal.org/node/2960637
 
-[//]: # "Issues links dev"
+[//]: # "Issues links alpha8"
 [#2974615]: https://www.drupal.org/node/2974615
 [#3005950]: https://www.drupal.org/node/3005950
 [#2983288]: https://www.drupal.org/node/2983288
