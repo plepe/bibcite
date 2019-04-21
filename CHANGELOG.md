@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+- [#3020717] by antongp: Implement hook_requirements() in the module and submodules so errors are shown if required libraries are missing
+
+
 ## [8.x-1.0-alpha8] - 2018-12-06
 
 ### Important
@@ -535,3 +541,6 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2974615]: https://www.drupal.org/node/2974615
 [#2970961]: https://www.drupal.org/node/2970961
 [#2965604]: https://www.drupal.org/node/2965604
+
+[//]: # "Issues links dev"
+[#3020717]: https://www.drupal.org/node/3020717
