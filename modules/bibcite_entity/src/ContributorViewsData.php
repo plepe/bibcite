@@ -2,6 +2,7 @@
 
 namespace Drupal\bibcite_entity;
 
+use Drupal\Core\Link;
 use Drupal\views\EntityViewsData;
 
 /**
@@ -17,7 +18,18 @@ class ContributorViewsData extends EntityViewsData {
 
     $entity_type = $this->entityManager->getDefinition('bibcite_reference');
 
+    $name_pattern_settings_link = Link::createFromRoute($this->t('settings page'), 'bibcite_entity.contributor.settings');
     $data[$this->entityType->getBaseTable()] += [
+      'name' => [
+        'title' => $this->t('Full name'),
+        'label' => 'Name',
+        'field' => [
+          'id' => 'field',
+          'default_formatter' => 'string',
+          'field_name' => 'name',
+        ],
+        'help' => $this->t('Formatted contributor name using pattern configured at %settings.', ['%settings' => $name_pattern_settings_link->toString()]),
+      ],
       'reverse__' . $entity_type->id() . '__' . $this->entityType->id() => [
         'relationship' => [
           'title' => $this->t('Reference using contributors'),
