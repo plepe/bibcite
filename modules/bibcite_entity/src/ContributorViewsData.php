@@ -18,7 +18,6 @@ class ContributorViewsData extends EntityViewsData {
 
     $entity_type = $this->entityManager->getDefinition('bibcite_reference');
 
-    $name_pattern_settings_link = Link::createFromRoute($this->t('settings page'), 'bibcite_entity.contributor.settings');
     $data[$this->entityType->getBaseTable()] += [
       'name' => [
         'title' => $this->t('Full name'),
@@ -28,7 +27,7 @@ class ContributorViewsData extends EntityViewsData {
           'default_formatter' => 'string',
           'field_name' => 'name',
         ],
-        'help' => $this->t('Formatted contributor name using pattern configured at %settings.', ['%settings' => $name_pattern_settings_link->toString()]),
+        'help' => $this->t('Formatted contributor name using pattern configured at contributor settings page.'),
       ],
       'reverse__' . $entity_type->id() . '__' . $this->entityType->id() => [
         'relationship' => [
