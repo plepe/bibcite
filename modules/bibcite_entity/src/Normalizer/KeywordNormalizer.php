@@ -21,9 +21,10 @@ class KeywordNormalizer extends EntityNormalizer {
    */
   public function denormalize($data, $class, $format = NULL, array $context = []) {
     $entity = parent::denormalize($data, $class, $format, $context);
+    $entity_manager = isset($this->entityTypeManager) ? $this->entityTypeManager : $this->entityManager;
 
     if (!empty($context['keyword_deduplication'])) {
-      $storage = $this->entityManager->getStorage('bibcite_keyword');
+      $storage = $entity_manager->getStorage('bibcite_keyword');
       $label_key = $storage->getEntityType()->getKey('label');
       $query = $storage->getQuery()
         ->condition($label_key, trim($entity->label()))

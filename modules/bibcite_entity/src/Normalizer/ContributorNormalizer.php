@@ -21,9 +21,10 @@ class ContributorNormalizer extends EntityNormalizer {
    */
   public function denormalize($data, $class, $format = NULL, array $context = []) {
     $entity = parent::denormalize($data, $class, $format, $context);
+    $entity_manager = isset($this->entityTypeManager) ? $this->entityTypeManager : $this->entityManager;
 
     if (!empty($context['contributor_deduplication'])) {
-      $storage = $this->entityManager->getStorage('bibcite_contributor');
+      $storage = $entity_manager->getStorage('bibcite_contributor');
       $query = $storage->getQuery()->range(0, 1);
       // @todo Define this list somewhere publicly accessible for easy use.
       $name_parts = [
