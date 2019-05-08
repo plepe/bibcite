@@ -1,11 +1,14 @@
 # Changelog
 
 
-## [Unreleased]
+## [8.x-1.0-alpha9] - 2019-05-08
 
 ### Added
 - [#3050347] by antongp: Integrate contributor full name (computed) field with Views
 - [#3020717] by antongp: Implement hook_requirements() in the module and submodules so errors are shown if required libraries are missing
+
+### Fixed
+- [#3053035] by antongp: Import and Populate Reference fail with error on Drupal 8.7
 
 
 ## [8.x-1.0-alpha8] - 2018-12-06
@@ -418,6 +421,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [8.x-1.0-alpha6]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha6
 [8.x-1.0-alpha7]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha7
 [8.x-1.0-alpha8]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha8
+[8.x-1.0-alpha9]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha9
 
 
 [//]: # "Issues links alpha1"
@@ -547,6 +551,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2965604]: https://www.drupal.org/node/2965604
 
 
-[//]: # "Issues links dev"
+[//]: # "Issues links alpha9"
 [#3050347]: https://www.drupal.org/node/3050347
 [#3020717]: https://www.drupal.org/node/3020717
+[#3053035]: https://www.drupal.org/node/3053035

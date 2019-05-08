@@ -21,6 +21,7 @@ class ContributorNormalizer extends EntityNormalizer {
    */
   public function denormalize($data, $class, $format = NULL, array $context = []) {
     $entity = parent::denormalize($data, $class, $format, $context);
+    // @todo Use $this->entityTypeManager only, once Drupal 8.8.0 is released.
     $entity_manager = isset($this->entityTypeManager) ? $this->entityTypeManager : $this->entityManager;
 
     if (!empty($context['contributor_deduplication'])) {
