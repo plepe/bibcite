@@ -37,7 +37,6 @@ fields:
   label: bibcite_label
   lang: bibcite_lang
   publisher: bibcite_publisher
-  secondary title: bibcite_secondary_title
   keywords: keywords
   call number: bibcite_call_number
   accession number: bibcite_accession_number
@@ -76,7 +75,6 @@ indexes:
   label: '%F'
   lang: '%G'
   publisher: '%I'
-  secondary title: '%J'
   keywords: '%K'
   call number: '%L'
   accession number: '%M'

@@ -1,8 +1,39 @@
 # Changelog
 
-## [Unreleased]
+
+## [8.x-1.0-alpha9] - 2019-05-08
+
+### Added
+- [#3050347] by antongp: Integrate contributor full name (computed) field with Views
+- [#3020717] by antongp: Implement hook_requirements() in the module and submodules so errors are shown if required libraries are missing
 
 ### Fixed
+- [#3053035] by antongp: Import and Populate Reference fail with error on Drupal 8.7
+
+
+## [8.x-1.0-alpha8] - 2018-12-06
+
+### Important
+- [#2974615] by trustypelletgun: Endnote 7 XML secondary-title field is not imported.
+  **Note: incorrect Endnote 7 XML title-secondary and title-short fields were renamed to correct secondary-title and
+  short-title accordingly.**
+  This means that data, exported to Endnote 7 XML format before this change, will lose these
+  fields if imported back from that export after this change. In this case make sure database contains latest data
+  before updating the module, i.e. import back from export file before updating if needed.
+- [#3013783] by flocondetoile: Provide a template for Reference entity to facilitate theming.
+  As a result, new wrapper element is added to rendered reference entity markup. In rare cases this may affect
+  appearance depending on applied CSS styles.
+
+### Added
+- [#3013783] by flocondetoile: Provide a template for Reference entity to facilitate theming
+
+### Fixed
+- [#2974615] by trustypelletgun: Endnote 7 XML secondary-title field is not imported
+- [#3005950] by fmr: Serialization of references doesn't work properly with hal_json format
+- [#2983288] by Web-Beest: REST not working
+- [#3003787] by lbundt: When used with the Stacks module, there are errors when Contributors are viewed, edited, etc.
+- [#3008366] by antongp: Avoid using deprecations where possible
+- [#3006209] by antongp, adci_contributor: Endnote encode test fails
 - [#3006184] by deepanker_bhalla: Export all reference data error
 - [#3005002] by fmr: User module's user.private_tempstore and user.shared_tempstore services moved to core
 - [#3002901] by kairos: Warnings when installing the Bibliography & Citation - Entity module
@@ -389,6 +420,8 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [8.x-1.0-alpha5]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha5
 [8.x-1.0-alpha6]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha6
 [8.x-1.0-alpha7]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha7
+[8.x-1.0-alpha8]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha8
+[8.x-1.0-alpha9]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha9
 
 
 [//]: # "Issues links alpha1"
@@ -497,13 +530,28 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#2946773]: https://www.drupal.org/node/2946773
 [#2939860]: https://www.drupal.org/node/2939860
 
+
 [//]: # "Issues links alpha7"
 [#2960637]: https://www.drupal.org/node/2960637
 
-[//]: # "Issues links dev"
+
+[//]: # "Issues links alpha8"
+[#2974615]: https://www.drupal.org/node/2974615
+[#3005950]: https://www.drupal.org/node/3005950
+[#2983288]: https://www.drupal.org/node/2983288
+[#3013783]: https://www.drupal.org/node/3013783
+[#3003787]: https://www.drupal.org/node/3003787
+[#3008366]: https://www.drupal.org/node/3008366
+[#3006209]: https://www.drupal.org/node/3006209
 [#3006184]: https://www.drupal.org/node/3006184
 [#3005002]: https://www.drupal.org/node/3005002
 [#3002901]: https://www.drupal.org/node/3002901
 [#2974615]: https://www.drupal.org/node/2974615
 [#2970961]: https://www.drupal.org/node/2970961
 [#2965604]: https://www.drupal.org/node/2965604
+
+
+[//]: # "Issues links alpha9"
+[#3050347]: https://www.drupal.org/node/3050347
+[#3020717]: https://www.drupal.org/node/3020717
+[#3053035]: https://www.drupal.org/node/3053035

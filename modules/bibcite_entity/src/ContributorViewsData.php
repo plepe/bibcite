@@ -2,6 +2,7 @@
 
 namespace Drupal\bibcite_entity;
 
+use Drupal\Core\Link;
 use Drupal\views\EntityViewsData;
 
 /**
@@ -18,6 +19,16 @@ class ContributorViewsData extends EntityViewsData {
     $entity_type = $this->entityManager->getDefinition('bibcite_reference');
 
     $data[$this->entityType->getBaseTable()] += [
+      'name' => [
+        'title' => $this->t('Full name'),
+        'label' => 'Name',
+        'field' => [
+          'id' => 'field',
+          'default_formatter' => 'string',
+          'field_name' => 'name',
+        ],
+        'help' => $this->t('Formatted contributor name using pattern configured at contributor settings page.'),
+      ],
       'reverse__' . $entity_type->id() . '__' . $this->entityType->id() => [
         'relationship' => [
           'title' => $this->t('Reference using contributors'),

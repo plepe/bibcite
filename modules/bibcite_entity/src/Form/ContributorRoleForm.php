@@ -49,13 +49,13 @@ class ContributorRoleForm extends EntityForm {
 
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label Contributor role.', [
+        $this->messenger()->addStatus($this->t('Created the %label Contributor role.', [
           '%label' => $bibcite_contributor_role->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('Saved the %label Contributor role.', [
+        $this->messenger()->addStatus($this->t('Saved the %label Contributor role.', [
           '%label' => $bibcite_contributor_role->label(),
         ]));
     }

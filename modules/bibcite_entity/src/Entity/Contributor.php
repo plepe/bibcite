@@ -74,7 +74,7 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
    * {@inheritdoc}
    */
   public function getName() {
-    return $this->get('name')->getValue();
+    return $this->get('name')->value;
   }
 
   /**
@@ -208,7 +208,7 @@ class Contributor extends ContentEntityBase implements ContributorInterface {
       ->setLabel(t('Name'))
       ->setComputed(TRUE)
       ->setReadOnly(FALSE)
-      ->setQueryable(FALSE)
+      ->setCustomStorage(TRUE)
       ->setClass('\Drupal\bibcite_entity\ContributorName');
 
     $fields['leading_title'] = BaseFieldDefinition::create('string')

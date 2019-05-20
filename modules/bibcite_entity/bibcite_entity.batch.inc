@@ -171,12 +171,13 @@ function bibcite_entity_merge_entity_delete($source_id, $entity_type_id, $field_
 function bibcite_entity_merge_entity_finished($success, array $results, array $operations) {
   $string_translation = \Drupal::translation();
   $entity_type_manager = \Drupal::entityTypeManager();
+  $messenger = \Drupal::messenger();
 
   $reference_message = t('@count of @max references successfully processed', [
     '@count' => count($results['references']),
     '@max' => $results['references_count'],
   ]);
-  drupal_set_message($reference_message);
+  $messenger->addStatus($reference_message);
 
   $entity_type = $entity_type_manager->getDefinition($results['entity_type_id']);
   $message = $string_translation->formatPlural(count($results['entities']),
@@ -186,14 +187,14 @@ function bibcite_entity_merge_entity_finished($success, array $results, array $o
       '%label' => $results['label'],
       '%plural_label' => $entity_type->getPluralLabel(),
     ]);
-  drupal_set_message($message);
+  $messenger->addStatus($message);
 
   if (!empty($results['failed'])) {
-    drupal_set_message(t("These @entity_type processed with errors and have not been deleted:\n", [
+    $messenger->addError(t("These @entity_type processed with errors and have not been deleted:\n", [
       '@entity_type' => $entity_type->getPluralLabel(),
-    ]), 'error');
+    ]));
     foreach ($results['failed'] as $id => $label) {
-      drupal_set_message("$label ($id)\n", 'error');
+      $messenger->addError("$label ($id)\n");
     }
   }
 
