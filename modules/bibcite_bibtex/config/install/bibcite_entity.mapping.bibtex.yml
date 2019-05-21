@@ -1,18 +1,18 @@
 format: bibtex
 types:
+  article: journal_article
   book: book
+  booklet:
+  conference: conference_paper
   inbook: book_chapter
   incollection:
-  conference: conference_paper
   inproceedings:
-  proceedings: conference_proceedings
-  article: journal_article
-  booklet:
   manual:
-  misc: miscellaneous
-  techreport:
   mastersthesis:
+  misc: miscellaneous
   phdthesis: thesis
+  proceedings: conference_proceedings
+  techreport:
   unpublished: unpublished
 fields:
   author: author
@@ -41,6 +41,11 @@ fields:
   doi: bibcite_doi
   note: bibcite_notes
   language: bibcite_lang
+  annote:
+  crossref:
+  editor:
+  howpublished:
+  key:
 
 dependencies:
   enforced:
