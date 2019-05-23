@@ -1,6 +1,12 @@
 # Changelog
 
 
+## [Unreleased]
+
+### Fixed
+- [#3056724] by antongp, dpico: Citation field is not rendered in Views when used with relationship
+
+
 ## [8.x-1.0-alpha9] - 2019-05-08
 
 ### Added
@@ -555,3 +561,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#3050347]: https://www.drupal.org/node/3050347
 [#3020717]: https://www.drupal.org/node/3020717
 [#3053035]: https://www.drupal.org/node/3053035
+
+
+[//]: # "Issues links dev"
+[#3056724]: https://www.drupal.org/node/3056724
