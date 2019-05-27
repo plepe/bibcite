@@ -15,6 +15,12 @@ class KeywordViewsData extends EntityViewsData {
   public function getViewsData() {
     $data = parent::getViewsData();
 
+    $data['bibcite_keyword']['id']['argument'] = [
+      'id' => 'bibcite_keyword',
+      'name field' => 'name',
+      'numeric' => TRUE,
+    ];
+
     $entity_type = $this->entityManager->getDefinition('bibcite_reference');
 
     $data[$this->entityType->getBaseTable()] += [
