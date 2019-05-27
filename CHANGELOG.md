@@ -7,6 +7,7 @@
 - [#3057302] by antongp: Make it possible to override titles in views arguments by Reference, Contributor and Keyword names
 
 ### Fixed
+- [#3057429] by antongp: When trying to theme a citation in default style after theming in another one, it's actually themed in previously used style
 - [#3056729] by antongp, dpico: Views fail with error when reference Links field is added and uses relationship
 - [#3056724] by antongp, dpico: Citation field is not rendered in Views when used with relationship
 
@@ -571,3 +572,4 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#3056724]: https://www.drupal.org/node/3056724
 [#3056729]: https://www.drupal.org/node/3056729
 [#3057302]: https://www.drupal.org/node/3057302
+[#3057429]: https://www.drupal.org/node/3057429

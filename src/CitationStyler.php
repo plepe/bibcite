@@ -147,7 +147,7 @@ class CitationStyler implements CitationStylerInterface {
   /**
    * {@inheritdoc}
    */
-  public function setStyle(CslStyleInterface $csl_style) {
+  public function setStyle($csl_style) {
     $this->style = $csl_style;
     return $this;
   }
