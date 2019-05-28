@@ -91,7 +91,11 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
                   foreach ($child->children() as $authors) {
                     if ($authors instanceof SimpleXMLElement) {
                       foreach ($authors->children() as $author) {
-                        $rec[$authors->getName()][] = $this->getString($author);
+                        // Hotfix: contributorKey property is hardcoded in the
+                        // bibcite_endnote.services.xml. Access authors by this key
+                        // explicitly for the moment, mapping is not working anyway.
+                        // @todo Rework this place when mapping of authors is fixed and flexible.
+                        $rec['authors'][] = $this->getString($author);
                       }
                     }
                   }

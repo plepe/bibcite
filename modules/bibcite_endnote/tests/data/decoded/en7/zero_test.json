@@ -13,7 +13,7 @@
             "Choral music.",
             "Chamber music."
         ],
-        "AUTHORS": [
+        "authors": [
             "Academy Martin-in-the-Fields.",
             "Stuttgarter Kammerorchester.",
             "Academy",
@@ -33,7 +33,7 @@
             "Practice of law.",
             "Lawyers in literature."
         ],
-        "AUTHORS": ["Pennsylvania Bar Institute."],
+        "authors": ["Pennsylvania Bar Institute."],
         "PAGES": "v, 128 p."
     }
 ]
