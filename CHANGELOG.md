@@ -3,10 +3,17 @@
 
 ## [Unreleased]
 
+### Important
+- [#3047429] by gkaas: Endnote import not working
+  EndNote XML-based formats were wrongly named before. The one which was called Endnote 7 XML now is called
+  EndNote X3 XML. Another one which was called Endnote X3 XML now is called EndNote 7 XML.
+  No changes have been done to machine-names.
+
 ### Added
 - [#3057302] by antongp: Make it possible to override titles in views arguments by Reference, Contributor and Keyword names
 
 ### Fixed
+- [#3047429] by gkaas: Endnote import not working
 - [#3057569] by antongp: EndNote formats cannot be used with RESTful Web Services
 - [#3057563] by antongp: Endnote X3 XML does not populate authors on reference populate
 - [#3057548] by antongp: Endnote X3 XML link on references to download single reference export does not work
@@ -581,3 +588,4 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#3057548]: https://www.drupal.org/node/3057548
 [#3057563]: https://www.drupal.org/node/3057563
 [#3057569]: https://www.drupal.org/node/3057569
+[#3047429]: https://www.drupal.org/node/3047429

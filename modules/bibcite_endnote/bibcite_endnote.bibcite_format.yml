@@ -1,6 +1,6 @@
 endnote8:
   id: endnote8
-  label: Endnote 7 XML
+  label: EndNote X3 XML
   extension: xml
   encoder: \Drupal\bibcite_endnote\Encoder\EndnoteEncoder
   normalizer: \Drupal\bibcite_endnote\Normalizer\EndnoteReferenceNormalizer
@@ -93,7 +93,7 @@ endnote8:
 
 endnote7:
   id: endnote7
-  label: Endnote X3 XML
+  label: EndNote 7 XML
   extension: xml
   encoder: \Drupal\bibcite_endnote\Encoder\EndnoteEncoder
   normalizer: \Drupal\bibcite_endnote\Normalizer\EndnoteReferenceNormalizer
