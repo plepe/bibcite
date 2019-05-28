@@ -34,8 +34,8 @@ class ContributorName extends FieldItemList {
 
     // @todo Dependency injection.
     $format = \Drupal::config('bibcite_entity.contributor.settings')->get('full_name_pattern') ?: '@prefix @first_name @last_name @suffix';
-    $full_name = (string) new FormattableMarkup($format, $arguments);
-    $value = trim(str_replace('  ', ' ', $full_name));
+    $full_name = strtr($format, $arguments);
+    $value = trim(preg_replace('/\s+/', ' ', $full_name));
 
     $this->list[0] = $this->createItem(0, $value);
   }
