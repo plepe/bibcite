@@ -27,6 +27,8 @@ abstract class ReferenceNormalizerBase extends EntityNormalizer {
    * The format that this Normalizer supports.
    *
    * @var string
+   *
+   * @todo Remove as it's defined in the base class.
    */
   protected $format;
 

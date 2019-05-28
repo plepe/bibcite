@@ -159,6 +159,9 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
    * {@inheritdoc}
    */
   public function encode($data, $format, array $context = []) {
+    if (isset($data['type'])) {
+      $data = [$data];
+    }
     if ($format === 'tagged') {
       return $this->encodeTagged($data);
     }
@@ -420,10 +423,6 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
    * Encode tagged format function.
    */
   private function encodeTagged($data) {
-    if (isset($data['type'])) {
-      $data = [$data];
-    }
-
     $data = array_map(function ($raw) {
       return $this->buildEntry($raw);
     }, $data);

@@ -7,6 +7,7 @@
 - [#3057302] by antongp: Make it possible to override titles in views arguments by Reference, Contributor and Keyword names
 
 ### Fixed
+- [#3057569] by antongp: EndNote formats cannot be used with RESTful Web Services
 - [#3057563] by antongp: Endnote X3 XML does not populate authors on reference populate
 - [#3057548] by antongp: Endnote X3 XML link on references to download single reference export does not work
 - [#3055757] by antongp, dpico: Authors/contributors full names escaped twice on output
@@ -579,3 +580,4 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#3055757]: https://www.drupal.org/node/3055757
 [#3057548]: https://www.drupal.org/node/3057548
 [#3057563]: https://www.drupal.org/node/3057563
+[#3057569]: https://www.drupal.org/node/3057569
