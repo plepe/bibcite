@@ -1,7 +1,7 @@
 # Changelog
 
 
-## [Unreleased]
+## [8.x-1.0-alpha10] - 2019-05-30
 
 ### Important
 - [#3047429] by gkaas: Endnote import not working
@@ -10,6 +10,7 @@
   No changes have been done to machine-names.
 
 ### Added
+- [#3055944] by SomniumLucidus: Add missing BibTeX field types
 - [#3057302] by antongp: Make it possible to override titles in views arguments by Reference, Contributor and Keyword names
 
 ### Fixed
@@ -445,6 +446,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [8.x-1.0-alpha7]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha7
 [8.x-1.0-alpha8]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha8
 [8.x-1.0-alpha9]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha9
+[8.x-1.0-alpha10]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha10
 
 
 [//]: # "Issues links alpha1"
@@ -580,7 +582,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#3053035]: https://www.drupal.org/node/3053035
 
 
-[//]: # "Issues links dev"
+[//]: # "Issues links alpha10"
 [#3056724]: https://www.drupal.org/node/3056724
 [#3056729]: https://www.drupal.org/node/3056729
 [#3057302]: https://www.drupal.org/node/3057302
@@ -591,3 +593,4 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#3057569]: https://www.drupal.org/node/3057569
 [#3047429]: https://www.drupal.org/node/3047429
 [#3058106]: https://www.drupal.org/node/3058106
+[#3055944]: https://www.drupal.org/node/3055944
