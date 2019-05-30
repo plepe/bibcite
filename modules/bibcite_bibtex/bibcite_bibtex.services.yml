@@ -14,7 +14,3 @@ services:
       defaultType: 'misc'
       contributorKey: 'author'
       keywordKey: 'keywords'
-  bibcite_bibtex.bibtex_subscriber:
-    class: Drupal\bibcite_bibtex\EventSubscriber\BibtexSubscriber
-    tags:
-      - { name: event_subscriber }

@@ -15,7 +15,3 @@ services:
       contributorKey: 'AU'
       keywordKey: 'KW'
       typeKey: 'TY'
-  bibcite_ris.ris_subscriber:
-    class: Drupal\bibcite_ris\EventSubscriber\RisSubscriber
-    tags:
-      - { name: event_subscriber }
