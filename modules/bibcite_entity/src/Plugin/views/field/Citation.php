@@ -89,7 +89,7 @@ class Citation extends FieldPluginBase {
   public function render(ResultRow $values) {
     return [
       '#theme' => 'bibcite_citation',
-      '#data' => $this->serializer->normalize($values->_entity, 'csl'),
+      '#data' => $this->serializer->normalize($this->getEntity($values), 'csl'),
       '#style' => $this->options['csl_style'] ?: NULL,
     ];
   }

@@ -16,6 +16,12 @@ class ContributorViewsData extends EntityViewsData {
   public function getViewsData() {
     $data = parent::getViewsData();
 
+    $data['bibcite_contributor']['id']['argument'] = [
+      'id' => 'bibcite_contributor',
+      'name field' => 'name',
+      'numeric' => TRUE,
+    ];
+
     $entity_type = $this->entityManager->getDefinition('bibcite_reference');
 
     $data[$this->entityType->getBaseTable()] += [

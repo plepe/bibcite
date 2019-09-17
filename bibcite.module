@@ -33,6 +33,9 @@ function bibcite_preprocess_bibcite_citation(&$variables) {
   if ($variables['style']) {
     $styler->setStyleById($variables['style']);
   }
+  else {
+    $styler->setStyle(NULL);
+  }
 
   $variables['content'] = [
     '#markup' => $styler->render($data),

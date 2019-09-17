@@ -192,7 +192,7 @@ class Links extends FieldPluginBase {
 
       if ($plugin_config['enabled']) {
         $instance = $this->linkPluginManager->createInstance($plugin_id);
-        if ($link = $instance->build($values->_entity)) {
+        if ($link = $instance->build($this->getEntity($values))) {
           $build['bibcite_links']['links']['#items'][] = $link + ['#weight' => $plugin_config['weight']];
         }
       }

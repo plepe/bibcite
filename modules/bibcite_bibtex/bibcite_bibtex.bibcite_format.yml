@@ -4,19 +4,19 @@ bibtex:
   extension: bib
   encoder: \Drupal\bibcite_bibtex\Encoder\BibtexEncoder
   types:
+    - article
     - book
+    - booklet
+    - conference
     - inbook
     - incollection
-    - conference
     - inproceedings
-    - proceedings
-    - article
-    - booklet
     - manual
-    - misc
-    - techreport
     - mastersthesis
+    - misc
     - phdthesis
+    - proceedings
+    - techreport
     - unpublished
   fields:
     - author
@@ -45,3 +45,8 @@ bibtex:
     - doi
     - note
     - language
+    - annote
+    - crossref
+    - editor
+    - howpublished
+    - key

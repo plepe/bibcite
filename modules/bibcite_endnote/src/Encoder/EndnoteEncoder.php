@@ -91,7 +91,11 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
                   foreach ($child->children() as $authors) {
                     if ($authors instanceof SimpleXMLElement) {
                       foreach ($authors->children() as $author) {
-                        $rec[$authors->getName()][] = $this->getString($author);
+                        // Hotfix: contributorKey property is hardcoded in the
+                        // bibcite_endnote.services.xml. Access authors by this key
+                        // explicitly for the moment, mapping is not working anyway.
+                        // @todo Rework this place when mapping of authors is fixed and flexible.
+                        $rec['authors'][] = $this->getString($author);
                       }
                     }
                   }
@@ -155,6 +159,9 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
    * {@inheritdoc}
    */
   public function encode($data, $format, array $context = []) {
+    if (isset($data['type'])) {
+      $data = [$data];
+    }
     if ($format === 'tagged') {
       return $this->encodeTagged($data);
     }
@@ -210,12 +217,16 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
 
         if ($authors_key) {
           $authors = $record->addChild($contrib_key)->addChild($authors_key);
-          if (isset($ref[$authors_key])) {
-            foreach ($ref[$authors_key] as $author) {
+          // Hotfix: contributorKey property is hardcoded in the
+          // bibcite_endnote.services.xml. Access authors by this key
+          // explicitly for the moment, mapping is not working anyway.
+          // @todo Rework this place when mapping of authors is fixed and flexible.
+          if (isset($ref['authors'])) {
+            foreach ($ref['authors'] as $author) {
               $author_xml = $authors->addChild($author_key);
               $this->setStyledText($author_xml, $author);
             }
-            unset($ref[$authors_key]);
+            unset($ref['authors']);
           }
         }
 
@@ -412,10 +423,6 @@ class EndnoteEncoder implements EncoderInterface, DecoderInterface {
    * Encode tagged format function.
    */
   private function encodeTagged($data) {
-    if (isset($data['type'])) {
-      $data = [$data];
-    }
-
     $data = array_map(function ($raw) {
       return $this->buildEntry($raw);
     }, $data);

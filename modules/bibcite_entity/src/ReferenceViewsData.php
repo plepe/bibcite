@@ -15,6 +15,12 @@ class ReferenceViewsData extends EntityViewsData {
   public function getViewsData() {
     $data = parent::getViewsData();
 
+    $data['bibcite_reference']['id']['argument'] = [
+      'id' => 'bibcite_reference',
+      'name field' => 'title',
+      'numeric' => TRUE,
+    ];
+
     $data['bibcite_reference']['citation'] = [
       'title' => $this->t('Citation'),
       'help' => $this->t('Render reference as citation'),

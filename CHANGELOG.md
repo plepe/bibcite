@@ -1,6 +1,30 @@
 # Changelog
 
 
+## [8.x-1.0-alpha10] - 2019-05-30
+
+### Important
+- [#3047429] by gkaas: Endnote import not working
+  EndNote XML-based formats were wrongly named before. The one which was called Endnote 7 XML now is called
+  EndNote X3 XML. Another one which was called Endnote X3 XML now is called EndNote 7 XML.
+  No changes have been done to machine-names.
+
+### Added
+- [#3055944] by SomniumLucidus: Add missing BibTeX field types
+- [#3057302] by antongp: Make it possible to override titles in views arguments by Reference, Contributor and Keyword names
+
+### Fixed
+- [#3058106] by antongp: EndNote overwrites MIME types, registered for xml format, and breaks RESTful Web Services with xml format in result
+- [#3047429] by gkaas: Endnote import not working
+- [#3057569] by antongp: EndNote formats cannot be used with RESTful Web Services
+- [#3057563] by antongp: Endnote X3 XML does not populate authors on reference populate
+- [#3057548] by antongp: Endnote X3 XML link on references to download single reference export does not work
+- [#3055757] by antongp, dpico: Authors/contributors full names escaped twice on output
+- [#3057429] by antongp: When trying to theme a citation in default style after theming in another one, it's actually themed in previously used style
+- [#3056729] by antongp, dpico: Views fail with error when reference Links field is added and uses relationship
+- [#3056724] by antongp, dpico: Citation field is not rendered in Views when used with relationship
+
+
 ## [8.x-1.0-alpha9] - 2019-05-08
 
 ### Added
@@ -422,6 +446,7 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [8.x-1.0-alpha7]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha7
 [8.x-1.0-alpha8]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha8
 [8.x-1.0-alpha9]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha9
+[8.x-1.0-alpha10]: https://www.drupal.org/project/bibcite/releases/8.x-1.0-alpha10
 
 
 [//]: # "Issues links alpha1"
@@ -555,3 +580,17 @@ Add description to reference types, prefill it with sensible defaults. On refere
 [#3050347]: https://www.drupal.org/node/3050347
 [#3020717]: https://www.drupal.org/node/3020717
 [#3053035]: https://www.drupal.org/node/3053035
+
+
+[//]: # "Issues links alpha10"
+[#3056724]: https://www.drupal.org/node/3056724
+[#3056729]: https://www.drupal.org/node/3056729
+[#3057302]: https://www.drupal.org/node/3057302
+[#3057429]: https://www.drupal.org/node/3057429
+[#3055757]: https://www.drupal.org/node/3055757
+[#3057548]: https://www.drupal.org/node/3057548
+[#3057563]: https://www.drupal.org/node/3057563
+[#3057569]: https://www.drupal.org/node/3057569
+[#3047429]: https://www.drupal.org/node/3047429
+[#3058106]: https://www.drupal.org/node/3058106
+[#3055944]: https://www.drupal.org/node/3055944

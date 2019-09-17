@@ -70,13 +70,14 @@ interface CitationStylerInterface {
   /**
    * Set CSL style.
    *
-   * @param \Drupal\bibcite\Entity\CslStyleInterface $csl_style
-   *   CSL style object.
+   * @param \Drupal\bibcite\Entity\CslStyleInterface|null $csl_style
+   *   CSL style object or NULL to reset to default style.
    *
-   * @return \Drupal\bibcite\CitationStylerInterface
-   *   The called Styler object.
+   * @return $this
+   *
+   * @todo Use nullable type hint when Drupal will drop PHP 7.0 support.
    */
-  public function setStyle(CslStyleInterface $csl_style);
+  public function setStyle($csl_style);
 
   /**
    * Load and set style by identifier.

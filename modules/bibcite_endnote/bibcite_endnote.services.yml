@@ -1,8 +1,16 @@
 services:
-  bibcite_endnote.encoder.endnote:
+  bibcite_endnote.encoder.endnote7:
     class: Drupal\bibcite_endnote\Encoder\EndnoteEncoder
     tags:
-      - { name: encoder, format: 'endnote7, endnote8, tagged' }
+      - { name: encoder, format: 'endnote7' }
+  bibcite_endnote.encoder.endnote8:
+    class: Drupal\bibcite_endnote\Encoder\EndnoteEncoder
+    tags:
+      - { name: encoder, format: 'endnote8' }
+  bibcite_endnote.encoder.endnote_tagged:
+    class: Drupal\bibcite_endnote\Encoder\EndnoteEncoder
+    tags:
+      - { name: encoder, format: 'tagged' }
   bibcite_endnote.normalizer.reference:
     class: Drupal\bibcite_endnote\Normalizer\EndnoteReferenceNormalizer
     tags:
@@ -14,7 +22,3 @@ services:
       defaultType: 'Generic'
       contributorKey: 'authors'
       keywordKey: 'keywords'
-  bibcite_endnote.endnote_subscriber:
-    class: Drupal\bibcite_endnote\EventSubscriber\EndnoteSubscriber
-    tags:
-      - { name: event_subscriber }
